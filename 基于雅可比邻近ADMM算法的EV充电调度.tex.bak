@@ -37,7 +37,7 @@
 \title{基于JPADMM~EV 充电调度}
 \maketitle
 \section{问题描述}
-第一次修改
+
 在这种模式下,~电动汽车用户将电动汽车连接到充电桩,~充电需求信息上传到聚合器.~每个电动汽车的充电计划将被发送回给电动汽车用户，充电信息包括到达时间~$t_i^a$,
 
 在所提的模型中的一些假设,~首先，电动汽车用户对充电成本很敏感,~我们引入有序充电的策略,~对于一些不着急充电的用户来说可以选择在电价低时期进行充电,~电价高时不来充电,~从而达到削峰填谷的效果,~第二,~我们假设电动汽车用户的到达时间和离开时间服从以下的泊松分布:
@@ -102,7 +102,7 @@ X_{i,j}=\left\{
 \mathcal{P}^{(1)}=\{p_n|p_n~satisfies(3.3)-(3.7)\}
 \end{align}
 %设~$\mathbf{P}\triangleq (\mathbf{P}_n;n\in \mathcal{N})$~表示电动汽车的充电策略,~第~$n$~辆电动汽车的容许充电策略集用~$\mathcal{P}_n$~表示,~所有电动汽车的容许充电策略集用~$\mathcal{P}$~表示
-设
+设 
  \begin{align}
  \mathcal{P}^{(1)}\triangleq \mathcal{P}_1^{(1)} \times \mathcal{P}_2^{(1)}\cdot\cdot\cdot \times \mathcal{P}_N^{(1)}
  \end{align}
