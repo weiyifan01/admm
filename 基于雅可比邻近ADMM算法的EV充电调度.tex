@@ -1,0 +1,462 @@
+\documentclass[a4paper,8pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{tabularx}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{esint,graphicx}
+\usepackage{diagbox}
+\usepackage{graphics}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{CJK}%中文
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}{Example}[section]
+\newtheorem{xca}[theorem]{Exercise}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{condition}{Condition}[section]
+\newtheorem{proposition}{Proposition}[section]
+\numberwithin{equation}{section}
+
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Caputo}{{\mathcal{D}^\alpha_t}}
+\newcommand{\DCaputo}{{\mathcal{D}^\alpha_\tau}}
+\newcommand{\Ank}{{A_{n-k}^{(n)}}}
+\newcommand{\rd}[1]{{\color{red}#1}}
+\newcommand{\bl}[1]{{\color{blue}#1}}
+
+
+\usepackage{subfig,graphicx}
+\begin{document}
+\begin{CJK*}{GBK}{song}
+
+\title{基于JPADMM~EV 充电调度}
+\maketitle
+\section{问题描述}
+
+在这种模式下,~电动汽车用户将电动汽车连接到充电桩,~充电需求信息上传到聚合器.~每个电动汽车的充电计划将被发送回给电动汽车用户，充电信息包括到达时间~$t_i^a$,
+
+在所提的模型中的一些假设,~首先，电动汽车用户对充电成本很敏感,~我们引入有序充电的策略,~对于一些不着急充电的用户来说可以选择在电价低时期进行充电,~电价高时不来充电,~从而达到削峰填谷的效果,~第二,~我们假设电动汽车用户的到达时间和离开时间服从以下的泊松分布:
+\subsection{研究现状}
+文献[1]提出了一个促进稀疏性的充电控制模型。在该模型中，通过优化充电时段的数量，提高用户的满意度。模型中引入了动态馈线过载约束，以避免出现不可接受的负荷峰值，从而保证网络的稳定性。然后，针对大多数电网典型的分布式管理方式，提出了一种基于~$ADMM$~的分布式解决策略。在求解过程中，利用拉格朗日对偶将原问题转化为等价对偶问题，该对偶问题可分解为一组齐次的小尺度子问题。具体地说，每个子问题要么有一个闭解，要么可以用加速对偶梯度法局部求解。并证明了算法的全局收敛性。文献[2]创新性地将电动汽车快速充电问题建模为配电网中受耦合馈线容量约束的优化协调问题。快速充电的需求用总充电时间和在期望时间内充满电的相对趋势来表示。我们引入一个非凸的充电策略的0-范数来表示总充电时间，并应用1-范数最小化来近似0-范数最小化的稀疏解。充电周期越短，用户的快速充电意愿越强。优化问题的目标是权衡电动汽车电池退化成本、配电网负荷调节、充电满意度和总充电时间，而充电时间在单个充电行为中是不可分的。尽管~$ADMM$~在目标可分、约束耦合的分布式优化中得到了广泛的应用，但其分散方案不能直接应用于潜在的不可分电动汽车充电协调问题。为此，提出了一种基于~$ADMM$~的分层算法，保证在一定步长参数下收敛到最优策略。基于以上两篇文献，本文创新地将从用户角度出发，将充电成本、用户满意度以及充电时间建模为协调优化方法，
+\section{本文主要贡献}
+
+在电力系统中,~电网功率是由多个电源和负载之间的相互作用决定的.~这些电源和负载在运行过程中会受到各种因素的影响,~如天气变化、市场需求变化、设备故障等,~ 这些因素都会导致电网功率的波动.~通过对电网功率波动的统计分析,~可以计算出电网功率的方差,~方差越大说明电网功率波动越大.~如果电网功率波动过大,~就可能导致电网运行不稳定,~出现电压跌落、频率波动等问题,~甚至可能引发电网崩溃,~造成严重的电力事故.
+
+1)本文创新地将电动汽车充电优化建模与经济优化调度相关的问题，将充电总成本、峰谷负荷、用户满意度、
+
+2）设计了一种新的基于~$ADMM-Jacobi$~的算法来解决具有时间空间耦合不等式约束的不可分优化问题，并从理论上证明了该算法的最优性和收敛性，从理论和数值实验上证明了与经典的~$ADMM$~相比收敛速度快
+
+\section{电动汽车充电模型}
+
+考虑电动汽车的个数用~$\mathcal{N}\equiv \{1,...,N\},$~时间划分为~$\mathcal{T}\equiv\{1,...,T\}$~在这里假设电动汽车到达时间~$t_i^a$,~预期离开时间~$t_i^{d}$,~$SOC$~连接充电桩~$SOC_i^s.$~$SOC_i^d$预期的~$SOC$,本文将规划范围设为~$24$~小时,~通过设置时间步长为15分钟,~将整个时间范围划分为~$96$~个周期.~以第~$i$~个EV的到达时间和出发时间用方程计算出来:
+ \begin{align*}
+ &I_i^s=\lceil\frac{t_i^s}{\Delta t}\rceil \quad i=1,2,3,...,N\\
+ &I_i^d=\lceil\frac{t_i^d}{\Delta t}\rceil \quad i=1,2,3,...,N\\
+ \end{align*}
+ 其中,~$I_i^s$~为第~$i$~个~$EV$~连接到充电桩时的时隙,~$I_i^d$~为第~$i$~个~$EV$~离开充电桩时的时隙,~$\lceil\frac{t_i^s}{\Delta t}\rceil$~is~the~smallest~integer~great~than~$\frac{t_i^s}{\Delta t}$~and~$\lceil\frac{t_i^d}{\Delta t}\rceil$~is~the~smallest~integer~greater~than~$\frac{t_i^d}{\Delta t}$
+
+
+\subsection{约束}
+\subsubsection{EV充电约束}
+
+基于分段线性模型[1],~电池动态描述如下：
+\begin{align}
+SOC_{n,t+1}=SOC_{n,t}+\frac{p_{n,t}\times\bigtriangleup t\times \eta_n^+}{C_n}-\frac{q_{n,t}\times\bigtriangleup t}{\eta_n^-C_n}
+\end{align}
+\begin{align}
+SOC_n^{min}\leq SOC_{n,t}\leq SOC_n^{max},
+\end{align}
+
+其中~$\eta_n^+,\eta_n^-\in(0,1]$~各自代表充放电能量转换效率.~为了延长电池寿命,~建议~$SOC_{min}$~和~$SOC_{max}$~分别为~$15\%$~和~$90\%$[2].
+\begin{align}
+\frac{C_n}{\eta_n^+ \Delta t}&(SOC_n^{min}-SOC_n^{init})+\frac{\eta_n^-}{\eta_n^+}\sum_{\tau=1}^t q_{n,\tau}\leq \sum_{\tau=1}^t p_{n,\tau}\\\nonumber
+& \leq \frac{C_n}{\eta_n^+\Delta t}(SOC_n^{max}-S_n^{init})+\frac{\eta_n^-}{\eta_n}\sum_{\tau=1}^t q_{n,t}
+\end{align}
+~设~$p_n^{min}$~和~$p_n^{max}$~分别为~$EV n$~的最小和最大功率,~我们有以下不等式约束:
+\begin{align}
+p_n^{min}\leq p_{n,t}\leq p_{n}^{max},~n\in \mathcal{N},~t\in \mathcal{T}
+\end{align}
+通过决定电动汽车在每个时隙中是否充电,~实现了电动汽车的协调充电调度,~第~$i$~ 个~$EV$~充电状态如下:
+\begin{align}
+X_{i,j}=\left\{
+\begin{array}{cl}
+0 & if~EV~is~being~charged,\\
+1 & otherwise.\\
+\end{array}\right.
+\end{align}
+且
+\begin{align}
+(1-X_{n,t})p_{n,t}=0
+\end{align}
+则满足以下约束:
+\begin{align}
+\sum_{t=1}^Tp_{n,t}\geq \frac{C_n}{q_n^+\Delta t}(SOC_n^{final}-SOC_n^{init})+\frac{\eta_n^-}{\eta_n^+}\sum_{t=1^T}q_{n,t}
+\end{align}
+为了简单表示,~定于如下:
+\begin{align}
+\mathcal{P}^{(1)}=\{p_n|p_n~satisfies(3.3)-(3.7)\}
+\end{align}
+%设~$\mathbf{P}\triangleq (\mathbf{P}_n;n\in \mathcal{N})$~表示电动汽车的充电策略,~第~$n$~辆电动汽车的容许充电策略集用~$\mathcal{P}_n$~表示,~所有电动汽车的容许充电策略集用~$\mathcal{P}$~表示
+设 
+ \begin{align}
+ \mathcal{P}^{(1)}\triangleq \mathcal{P}_1^{(1)} \times \mathcal{P}_2^{(1)}\cdot\cdot\cdot \times \mathcal{P}_N^{(1)}
+ \end{align}
+
+\subsection{馈线容量约束}
+ 对于分布式电网:~我们分别用~$\mathcal{L}\equiv\{1,...,L\}$~和~$\mathcal{M}\equiv\{1,...,M\}$~分别表示馈线和节点集合,~用$\mathcal{N}_l,l\in \mathcal{L}$~表示通过馈线~$l$~供电的电动汽车的集合,~$\mathcal{N}_m,m\in \mathcal{M}$~表示通过根节点~$m$~处供电的电动汽车的集合.~定义连接在节点~$m$~ 的基本需求表示为~$d_m=(d_{mt},t\in\mathcal{L})$,~通过馈线~$l$~的总的基本需求~$D_{lt}\equiv \sum_{m\in\mathcal{M}_l}d_{mt}$,~其中~$\mathcal{M}_l$~表示通过馈线~$l$~的节点集合,~其功率通过馈线~$l$~进行分配~$\mathbf{d}=(d_t,t\in\mathcal{T})$~表示配电网的总基本需求~$\mathcal{M}_l$,~则配电网中所有馈线在充电期间的功率容量可表示为 电动汽车的充电策略应满足馈线容量的约束:
+\begin{align*}
+c_{l,t}=C_l-D_{lt},\\
+\end{align*}
+且
+\begin{align*}
+\sum_{n\in\Pi_n}p_{n,t}\leq c_{lt}.
+\end{align*}
+\subsection{目标函数}
+\begin{align}
+G_0(P)\triangleq \sum_{n \in \mathcal{N}}\left\{f_n(p_{nt})-\omega_ng_n(\sum_{t\in \mathcal{T}}p_{nt})+\gamma\|p_n\|_0\right\}+\delta_n\|\mathbf{p}-\overline{\mathbf{p}}\|_2^2\\\nonumber
+\end{align}
+每一项的具体解释如下:
+
+1) 第一项~$f_n(p_{nt})$:~它代表第~$n$~辆电动汽车的充电总成本,如【】所示,~$f_{p_{nt}}$~的具体表达式:
+{\color{red}\begin{align*}
+f_n(p_{nt})=\sum_{t\in \mathcal{T}}\lambda_tp_{nt}\Delta t
+\end{align*}
+其中,~$\lambda_t$~为~$t$~时间段的电价,~$p_t$~为电动汽车~$t$~时间段的充电功率,~$\Delta t$~为时间间隔.}
+
+2) 第二项:它是关于在充电期间交付的总能量的满意函数,~电动汽车用户更愿意充电时，直到他们在所需的时间内达到所需的容量~$\Gamma_n$,~然后,~我们提出以下形式表示用户的满意度:
+\begin{align*}
+g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
+\end{align*}
+
+3)第三项~$\|p_n\|$~:基数最小化~$\|p_n\|_0$~在稀疏解的建模中起着重要作用,~然而~$\|p_n\|_0$~的计算仍然是一个挑战,~因为~$\|p_n\|_0$~是一个非凸函数,~直接优化这个函数甚至在线性约束上被证明是一个~$NP$~困难问题.~无法通过常规方法求解最小~$\|p_n\|_0$~ 问题和最小~$\|p_n\|_1$~范数问题在一定条件下是等价的,~ 即可以通过求解最小~$\|p_n\|_1$~问题来得到最小~$\|p_n\|_0$~问题的解.~求解最小~$\|p_n\|_1$~问题因为是凸优化问题相对来说简单得多.
+
+4) 第四项~$\|\mathbf{p}_-\overline{\mathbf{p}}\|_2^2$:表示负荷调节,~其中~$\overline{\mathbf{p}}$~表示平均功率,\\{\color{blue}这里具体怎么描述}~$\|p-\overline{p}\|_2^2=\sum\limits_{t\in\mathcal{T}}(\sqrt{(\sum\limits_{n\in \mathcal{N}}p_{n1}-\overline{p})^2+(\sum\limits_{n\in \mathcal{N}}p_{n2}-\overline{p})^2+\cdot\cdot\cdot+(\sum\limits_{n\in \mathcal{N}}p_{nt}-\overline{p})^2})$.\\
+
+插入~$l_1$~凸逼近,~我们将(2.1)重新建模为以下稀疏促进充电控制模型
+\begin{align}
+G_0(P)\triangleq \sum_{n \in \mathcal{N}}\left\{f_n(p_{nt})-\omega_ng_n(\sum_{t\in \mathcal{T}}p_{nt})+\gamma\|p_n\|_1\right\}+\delta_n\|\mathbf{p}-\overline{\mathbf{p}}\|_2^2\\\nonumber
+\end{align}
+\section{雅可比邻近ADMM求解模型}
+ADMM方法已经成为大规模结构化的有力工具,~值得注意的是,~ADMM可以解耦空间耦合约束，并将解耦问题分解为许多个小问题,~其中每个子问题分解都很容易解决.~在[1] 中提出了并行分布式计算~$Jacobi-PADMM$.~近端项的灵活使用以不同的方法解决子问题，提高了标准ADMM的收敛率.
+
+值得注意的是,~在模型(2.1)中的第二项耦合了所有的变量~$p_{n,t},n\in \mathcal{N}$,~为了解耦此项,根据文献引入辅助变量
+\begin{align*}
+p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
+\end{align*}
+其中~$p_{N+1,t}=\sum\limits_{t\in \mathcal{T}}p_{nt}-\Gamma_n,t\in \mathcal{T}$,~因此模型(2.1)等价表示如下:
+\begin{align}
+&\min_{\{u\}}~~G(P)\\
+&s.t.~~\sum_{n\in\Pi_n}p_{n,t}\leq c_{lt}\\
+&~~~~~~ p_{N+1,t}=\sum\limits_{t\in \mathcal{T}}p_{nt}-\Gamma_n,t\in \mathcal{T}
+\end{align}
+
+
+%
+%\begin{align*}
+%&\pi_1=\{\mathbf{p}, s.t. U_{lt}(\mathbf{p})+D_{lt}\leq \beta_l,\forall(l,t)\in \mathcal{L}\times\mathcal{T}\}\\
+%&\pi_2=\{p^{min}\leq p\leq p^{max},p\in \mathcal{R}^{\mathcal{N}\times\mathcal{T}}\}\\
+%\end{align*}
+
+%通过指示函数将集合~$\pi_1$~和~$\pi_2$~纳入到指示函数中如下:
+% \begin{align*}
+% &\mathcal{I}_1(p)=\left\{
+% \begin{array}{cl}
+% 0 & p \in \pi_1\\
+% \infty & p \notin \pi_1\\
+% \end{array}\right.
+% &\mathcal{I}_2(x)=\left\{
+% \begin{array}{cl}
+% 0 & x \in \pi_2\\
+% \infty & x \notin \pi_2\\
+% \end{array}\right.
+% \end{align*}
+优化问题重写为如下形式:
+\begin{align*}
+&\min_p  G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(Y)\\
+& s.t.\quad P-Y=0
+\end{align*}
+定义
+\begin{align*}
+\mathcal{P}_t^{(2)}=\{P_t|P_t~satisfies~(3.2)~and~(3.3)\}
+\end{align*}
+且
+\begin{align*}
+\mathcal{P}_t^{(2)}=\mathcal{P}_1^{(2)}\times \cdot\cdot\cdot \times \mathcal{P}_t^{(2)}\times\cdot\cdot\cdot\times \mathcal{P}_T^{(2)}
+\end{align*}
+其中约束~$P_t^{(2)}$~是一个全局约束,~在空间上耦合所有EV的充电时间表.~$P_t^{(2)}$~是闭的、非空凸集的指示函数是恰当的、闭的和凸的,~所以为了使用~$Jacobi-PADMM$~我们更一步介绍以下凸集~$P^{(i)},i=1,2$,~如下，
+\begin{equation}
+\mathcal{I}_i(P)=\left\{
+\begin{array}{cl}
+0 & if\quad P \in \mathcal{P}^{(i)},\\
++\infty & otherwise.\\
+\end{array}\right.
+\end{equation}
+很清楚地,~$\mathcal{I}_i(P),i=1,2$~是凸函数.
+
+现在我们可以很容易地将~$(3.1)-(3.3)$~所描述的问题写成标准的ADMM形式，如下所示
+\begin{align}
+&\min_{\{u\}}G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(Y)\\
+&s.t~~P-Y=0.\nonumber
+\end{align}
+
+定义增广拉格朗日函数如下:
+\begin{align*}
+\mathcal{L}_{\rho}=G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(X)+\mu^T(P-X)+\frac{\rho}{2}\|P-X\|_2^2
+\end{align*}
+其中~$\rho>0$~是惩罚参数,~$\mu$~称为对偶变量或者拉格朗日乘子,~变量~$p,x,u$~ 的更新
+\begin{align*}
+&P^{k+1} \triangleq \mathop{argmin}\limits_{Y}\mathcal{L}_{\rho}(P^k,Y,\mu^k)+\frac{1}{2}\|P-P^k\|_{\Phi}^2\\
+&Y^{k+1}\triangleq \mathop{argmin}\limits_{Y}\mathcal{L}_{\rho}(P,Y^k,\mu^k)+\frac{1}{2}\|Y-Y^k\|_\Psi^2\\
+&\mu^{k+1}\triangleq \mu^k-\zeta\rho(P^{k+1}-P^{k+1})
+\end{align*}
+\begin{definition}\label{Def_DOC}
+{如果选择~$\delta_i>0$~使得参数~$\rho,~\zeta,~\Phi,~\Psi$~满足以下的情况:}
+\begin{align*}
+\left\{
+\begin{array}{cl}
+\Phi\succ\rho(\frac{1}{\delta_1}-1)I,\\
+\Psi\succ\rho(\frac{1}{\delta_2}-1)I,\\
+\delta_1+\delta_2<2-\zeta,
+\end{array}\right.
+\end{align*}
+\end{definition}
+选择参数~$\rho,~\zeta,~\Phi,~\Psi$~的方法多种多样,~本文采用一个简单的选择【】~$\Phi=\phi I,\Psi=\psi I$~使得
+\begin{align*}
+\left\{
+\begin{array}{cl}
+\phi\succ\rho(\frac{1}{\delta_1}-1),\\
+\psi\succ\rho(\frac{1}{\delta_2}-1),\\
+\delta_1+\delta_2<2-\zeta,
+\end{array}\right.
+\end{align*}
+
+\section{计算P}
+本节给出了在计算~$p$~的详细信息,~从指示函数的定义中可以容易地看出,~$p^{k+1}$~的实际优化策略如下:
+\begin{align*}
+P^{k+1}=\mathop{argmin}\limits_{P}G(P)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|_F^2+\frac{1}{2}\|P-P^k\|_{\Phi}^2
+\end{align*}
+当~$n=N+1$~时
+\begin{align*}
+p_{N+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y^{k+1})
+\end{align*}
+对于每一个n
+\begin{align*}
+p_n=\mathop{argmin}\limits_{P}G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{1}{2}(p_n-p_n^k)^T\phi(p_n-p_n^k)
+\end{align*}
+\section{计算Y}
+本节详细介绍()中变量~$x$~的更新,~等价于求解以下凸优化问题的解:
+\begin{align*}
+Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|+\frac{1}{2}\|Y-Y^k\|_{\Psi}^2\\
+       &=\mathop{argmin}\limits_{Y}~\frac{\rho}{2}\|Y-(P^{k}+\frac{\mu^k}{\rho})\|_F^2+\frac{1}{2}\|Y-Y^k\|_{\Psi}^2
+\end{align*}
+对于~$x-update$~的更新,~可以由以下分散方式计算变量
+\begin{align*}
+y_n^{k+1}=\mathop{argmin}\limits_{y}~\frac{\rho}{2}\{y_t^Ty_t-2(p_t^k+\frac{\mu_t^k}{\rho}^T)y^t\}+\frac{1}{2}(y_t-y_t^k)^T\psi(y_t-y_t^k)
+\end{align*}
+
+\section{算法}
+算法收敛的表证如下：
+\begin{align*}
+r^{k+1}=\|P^{k+1}-Y^{k+1}\|_F
+\end{align*}
+\begin{align*}
+s^{k+1}=\|\rho(Y^{k+1}-Y^{k+1})\|_F
+\end{align*}
+一个合理的终止标准是原始残差和对偶残差要足够小,~如下:
+\begin{align*}
+\|r^k\|_2\leq \varepsilon^{pri}~~~~\|s^k\|_2\leq \varepsilon^{dual}
+\end{align*}
+where~$\varepsilon^{pri}>0$~和~$\varepsilon^{dual}>0$~are feasibility~tolerances~for~the~primal~and~dual~feasibity~conditions~()~and~().These~tolerances~can~be~
+chosen~using~an~absolute~and~relative~criterion,such~as
+\begin{align*}
+&\varepsilon^{pri}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}max\{\|p\|_2,\|-x\|_2\},\\
+&\varepsilon^{dual}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}\|\mu^k\|_2
+\end{align*}
+where~$\varepsilon^{abs}>0$~is~an~absolute~tolerance~and~$\varepsilon^{rel}>0$~is~a~relative~tolerance.A~reasonable~value~for~the~relative~stopping
+criterion~might~be~$\varepsilon^{-3}$~or~$\varepsilon^{-4}$.~A~pseudo-code~for~the~proposed Prox-JADMM~is~then~give~in~Algorithm~1.
+
+
+
+
+%\section{加速投影梯度}
+%\subsection{准备工作}
+%稀疏约束优化:
+%\begin{align}\tag{1}
+%\min_{w\in A_s} f(w),
+%\end{align}
+%稀疏集:
+%\begin{align}\tag{2}
+%A_s:=\{w\in\Re^n:\|w\|_0\leq s\},
+%\end{align}
+%传统的线性回归是最小化最小二乘~$(LS)$~损失函数:
+%\begin{align}\tag{3}
+%f(w)=\|y=Xw\|^2/2.
+%\end{align}
+%问题结构:
+%\begin{align}\tag{4}
+%f(w)=g(Xw),\quad g(z)=\sum_{i=1}^m g_i(z_i),
+%\end{align}
+%\subsection{梯度投影}
+%求解问题~(1)~的梯度投影:
+%\begin{align}\tag{5}
+%w^{k+1}\in \mathbf{T}_{PG}^{\lambda}(w^k):=P_{A_s}(w^k-\lambda \nabla f(w^k)),
+%\end{align}
+%~$f$~具有~$L-Lipschitz$~
+%\begin{align}\tag{6}
+%\|\nabla f(w)-\nabla f(w')\|\leq L\|w-w'\|\quad w,w'\in \Re^n,
+%\end{align}
+%(2)给出的非凸集可以分解为:
+%\begin{align}\tag{7}
+%A_s=\bigcup_{J\in\mathbf{J}_s}A_J,\quad A_J:=span{e_j:j\in J},\quad \mathbf{J}_s:=\{J\subseteq\{1,2,...,n\}:|J|=s\},
+%\end{align}
+%
+%
+%\textbf{Theorem 2.1}\quad 设~$\{w^k\}$~为~(5)~生成的序列,那么：
+%
+%(a)(子序列收敛)~$\{f(w_k)\}$~要么是严格递减的,~要么存在~$N>0$,~ 使得对于所有~$k\geq N$,~使得~$w^k=w^N$.~此外,~${w^k}$~的任何聚点~$w^*$~满足~$w^*\in P_{A_s}(w^*-\lambda \nabla f(w^*))$,~因此是~(1)~的稳定点。
+%
+%(b)(子空间识别和完全收敛) 存在~$N \in \mathbb{N}$~使得
+%\begin{align}\tag{8}
+%\{w^k\}_{k=N}^{\infty}\subseteq \bigcup_{J\in \mathbf{I}_{w^*}}A_J,\quad \mathbf{I}_{w^*}:=\{J\in \mathbf{J}_s:w^*\in A_J\}.
+%\end{align}
+%每当~$w^k\rightarrow w^*$.~特别是,~如果~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~ 是单态的,~${w^k}$~的聚点是~$w^*$,~则~$w^*$~是~$(1)$~的局部极小值,$w^k\rightarrow w^*$,~且~(8)~成立.
+%
+%(c)(局部线性收敛) 如果对于聚点~$w^*$,~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~是单态的,~并且对于所有~$J\in \mathbb{I}_{w^*}$,~$w \mapsto w-\lambda \Delta f(w)$~是对~$A_J$~的收缩,~则~${w^k}$~以~$Q$~线性速率收敛到~$w^*$.~换句话说,~$N_2\in N$~和~$\gamma \in [0,1)$~使得
+%\begin{align}\tag{9}
+%\|w^{k+1}-w^*\|\leq \gamma \|w^k-w^*\|,\quad \forall k \geq N_2.
+%\end{align}
+%\textbf{Theorem 2.2}(收敛率)
+%\subsection{本文主要贡献}
+%
+%1、在Bertsimas等[11]的次线性结果的基础上,~我们证明了(1)的PG具有局部线性速率全局收敛到局部最优.~我们强调我们的框架与[11]一样,~ 适用于满足凸性和光滑性要求的一般损失函数,~因此,~它不仅涵盖了经典的稀疏回归问题,~还涵盖了经验风险最小化(ERM)框架所包含的许多其他问题.\\
+%
+%2、{\color{red}通过分解As作为线性子空间的并集,~我们进一步证明了PG能够识别包含局部最优值为(1)的子空间.}~利用这一性质,~我们为一般问题(1)提出了两种具有实际实现和收敛保证的加速策略.~我们的加速为收敛提供了计算和理论上的优势,~特别是可以获得超线性收敛.~\\
+%
+%3、与现有的非凸问题加速方法相比[27,36],~该工作提供了新的加速方案,~ 具有更快的理论速度(参见定理3.2和3.3),~除了应用于经典的PG算法之外,~ 这些方案还可以很容易地与现有的加速PG方法结合,~进一步使它们收敛得更快.\\
+%
+%4、数值实验证明了我们的加速方法在迭代和运行时间上的显著改进,~特别是优于[11] 的投影梯度算法和[27]提出的求解非凸问题的加速近端梯度方法.
+%
+%
+%\section{加速方法}
+%
+%这项工作的主要焦点是在本节中提出的具有可靠收敛保证的新技术,~以加速上一节中提出的~$PG$~算法.~我们的技术充分利用包含~(8)~所描述的子空间识别特性,~ 以及~(4)~的问题结构来设计有效的算法.\\
+%
+%我们强调,~下面描述的两种加速策略是可以结合在一起的,~而且它们也具有广泛的适用性,~只要现有算法具有类似于~(8)~的属性,~它们就可以应用于~(1)~的其他算法。
+%
+%\subsection{外推加速}
+%
+%传统的外推技术在凸优化领域中发现,~以加速算法【9,30】,~保证收敛性的提高,~但通常只被用作非凸设置的启发式,~直到最近的一些工作表明也可以实现理论收敛【27,36】,~然而,~与凸情况不同的是,~对于非凸问题,~这些外推策略不会导致更快的收敛速度,~也没有这样做的直观原因.
+%
+%外推步骤沿着由两次连续迭代确定的方向选择一个正的步长.~也就是说,~给定两次迭代~$w^{k-1}$~和~$w^k$,~当步长~$t_k\geq0$~时,~首先计算中间点~$z^k:=w^k+t^k(w^k-w^{k-1})$~，然后应用原始算法映射(在我们的例子中为~$\mathbf{T}_{PG}^{\lambda}$~)\\
+%
+%{\color{red}另一个流行的梯度算法加速方案是由【5】开创的谱方法.~}他们利用连续两次迭代的梯度和迭代的差值来估计当前点的曲率,~并利用它来决定沿梯度相反的方向更新的步长.~在【38】中已经表明,~用回溯过程来装备这个步长可以显著更快地收敛正则化优化问题的近端梯度，这包括我们对(1)的PG作为一个特例.\\
+%
+%为了描述我们提出的结合外推和谱技术的双加速过程,~我们首先观察到所有~$PG$~迭代都位于~$A_s$~上,~并且~$A_s$~可以被有限分解为(7).~对于某些~$J\in\mathbb{J}$~当两个连续迭代位于同一凸子空间~$A_J$~上时,~在这两个迭代中,~我们实际上是在进行凸优化.~在这种情况下,~$A_J$~内的外推步骤是合理的,~因为它不会违反约束,~并且可以从【9,31】中关于凸问题的加速近端梯度的改进率中预期加速.~由定理2.1(b)可知,~对应的~$J$~也是一个候选指标集属于~$\mathbb{I}_{w^*}$,~因此在~$A_J$~内进行外推更有意义,~如果~$d^k$~不是~$f$~ 在~$w^k$~处的下降方向,~我们设~$t_k=0$~以跳过外推步骤.~否则,~我们从由~$f$~ 的曲率信息决定的某个~$\hat{t}_k>0$~ 开始,~然后沿着~$d^k:=w^k-w^{k-1}$~进行回溯线搜索,~使~$t_k=\eta^i\hat{t}_k$~为能提供足够下降的最小整数~$i\geq0$\\
+%\begin{align}\tag{12}
+%f(w^{k}+t_kd^k)\leq f(w^k)-\sigma t_k^2\|d^k\|^2,
+%\end{align}
+%给定参数~$\eta,\sigma\in(0,1)$,~则应用~(5)~令~$z^k=w^k+t_kd^k$~ 得到~$w^{k+1}$.\\~
+%
+%用于谱初始化,~用于加速收敛,~而不是直接使用【5,38】方法,~将反向梯度作为更新方向,~我们需要设计一个不同的机制,~因为我们的方向~$d^k$~与梯度没有直接关系。在【5】中使用的步长
+%\begin{align}\tag{13}
+%\alpha_k:=<s^k,s^k>/<s^k,r^k>,\quad s^k:=w^k-w^{k-1},\quad r^k:=\nabla f(w^k)-f(w^{k-1})
+%\end{align}
+%最终更新~$-\alpha_k\nabla f(w^k)$~实际上是以下子问题的最小值
+%\begin{align}\tag{14}
+%\min_{d\in {\Re}^n}<\nabla f(w^k),d>+\|d\|^2/(2\alpha_k).
+%\end{align}
+%
+%通过将上述二次问题与下降引理[7，引理5.7]提供的上界对比,~我们可以将~$\alpha_k^{-1}$~视为局部~$Lipschitz$~参数的估计,~该参数可以远小于~$L$,~但仍然保证目标的下降.~因此,~我们遵循这个思想,~用这样的曲率估计和下降引理来确定~$\hat{t}_k$~
+%\begin{align}\tag{15}
+%\hat{t}_k=\mathop{argmin}_{t\geq0}<\nabla f(w^k),td^k>+\|td^k\|^2/(2\alpha_k)\Leftrightarrow \hat{t}_k=-<\alpha_k \nabla f(w^k),d^k>/\|d^k\|^2.
+%\end{align}
+%(13)的另一种解释是:~$\alpha_k^{-1}$~也可作为~$\nabla^2 f(w^k)$~ 的估计,~(14)中的目标是~$f$~的二阶泰勒展开的低成本近似.~然而,~我们注意到,~对于~(4)~ 形式的问题和~$d^k\in A_J$~精确的二阶泰勒展开
+%\begin{align}\tag{16}
+%f(w^k+td^k)\approx f(w^k)+t<\nabla f(w^k),d^k>+t^2<\nabla^2f(w^k)d^k,d^k>/2
+%\end{align}
+%可以高效计算,~尤其是对于~(4)~和任意~$d^k\in A_J$~令~$Xd^k=X:,$~
+%\begin{align}\tag{17}
+%\nabla f \left(w^{k}\right)^{\top} d^{k} &=\nabla g\left((X w^{k})\right)^{\top}\left(X_{:, J} d_{J}^{k}\right) \\
+%\left\langle\nabla^{2} f\left(w^{k}\right) d^{k}, d^{k}\right\rangle &=\left\langle\left(X_{:, J} d_{J}^{k}\right), \nabla^{2} g\left(\left(X w^{k}\right)\right)\left(X_{:, J} d_{J}^{k}\right)\right\rangle,
+%\end{align}
+%
+%%\textcolor{red}{
+%\begin{align}\tag{18}
+%  \hat{t}_k \leftarrow P_{[c_k \alpha_{\min},c_k\alpha_{\max}]}  (\hat{t}_k)\\
+%  c_k:=\|(\nabla f(w^k))_J\|/(\xi_k\|d^k\|), \xi_k=-\langle d^k,\nabla f(w^k)\rangle / (\|d^k\|\|(\nabla f(w^k))_J\|)\in (0,1].\\
+%  (f(w)-f(w^*))^\theta\leq \kappa \|(\nabla f(w))_J\|,\forall w\in A_j\bigcap U
+%\end{align}
+%%}
+%
+%
+%\textbf{Theorem 3.1}\quad 在定理2.1的假设下,~由算法1生成的序列的任何聚点都是稳定点.\\
+%
+%\textbf{Theorem 3.2}\quad 考虑~(5)~或者算法1,~$\eta,\sigma,\varepsilon \in (0,1)$~和~$\alpha_{max}\geq\alpha_{min}\geq0$,~假设有一个聚点~$w^*$,~在这个点上KL条件成立.那么~$w^k\rightarrow w^*.$~此外,~以下收敛率成立:\\
+%(a)如果~$\theta\in (1/2,1):f(w^k)-f(w^*)=O((k+n_k)^{-1/(2\theta-1)}).$~\\
+%(b)如果~$\theta\in (1/2,1]:f(w^k)-f(w^*)=O(exp(-(k+n_k))).$\\
+%(c)如果~$\theta=0,~\theta \in [0,1/2]$,~$f$~是凸的:~存在~$k_0\geq 0$~使得对~$\forall k\geq k_0$,都有~$f(w^k)=f(w^*)$~
+%
+%
+%
+%我们强调,~除了定理~3.2~最后一项的后半部分,~定理~3.1~和~3.2~不要求~$f$~的凸性.~与文献【27,36】中已有的外推策略相比,~提出的外推策略有几个优点.~ 最明显的是定理~3.2~中比~$PG$~更快的速度,~因此我们的方法中每一个成功的外推步骤都有助于提高收敛速度,~而现有的方法只能提供与~$PG$~相同的收敛速度.~ 其次,~现有策略只使用预先指定的步长,~没有给定问题的信息,~也没有当前进度的信息,~并且只将步长限制在~$[0,1]$~以内.~另一方面,~我们的方法充分利用了函数曲率,~可以允许任意大的步长来更好地减少目标.~事实上,~在我们的数值实验中经常观察到~$t_k\gg1$~.此外,~我们的加速技术利用~(7)~和~(4)~的性质,~对~$ERM$因~问题获得非常有效的实现,~例如算法~1~的每次迭代代价几乎与~$PG$~相同,~而【27】的方法需要在每次迭代的两个点计算~$f$~和~$\Delta f$,~因此每次迭代的成本是原来的两倍.
+%
+%\subsection{子空间识别}
+%
+%根据上面的讨论,~我们将~(8)~解释为一个理论属性,~保证投影梯度算法~(5)~的迭代在有限次迭代之后最终会识别出包含候选解~$w^*$~的子空间~$A_J$~因此,~在非凸集~$A_s$~上最小化~$f$~的问题可以简化为最小化为~$f$~在~$A_J$~的凸优化问题.~基于此,~我们提出了算法~2~中描述的两阶段算法,~该算法在候选块~$A_J$~被识别后切换到高阶方法进行光滑凸优化,~从而获得更快的收敛速度.~基于此,~我们提出了算法2 中描述的两阶段算法,~该算法在候选块~$A_J$~被识别后切换到高阶方法进行光滑凸优化,~从而获得更快的收敛速度.~由于假设~$f$~是~$Lipschitz$~ 连续的,~$f$~的广义~$Hessian$~在【19】的任何地方都存在,~因此我们可以采用带回溯线研究的半光滑牛顿~$(SSN)$~方法【34】,~以较低的代价获得更快的收敛速度(详情见附录a).~特别地,~我们考虑了~$f$~对子空间~$A_J$~的限制,~将不在~$J$~中的坐标视为非变量,~ 从而减少了计算成本,~使所考虑的问题确实是光滑凸的.~由于我们无法先验地知道~$I_{w^*}$~是否确实被识别了,~所以我们采用【26,28,23】中实现的方法,~认为当~$w^k$~ 连续迭代足够长时间激活同一个~$A_J$~时,~$I_{w^*}$~就被识别了.~为了进一步保证我们没有在错误的子空间上进行优化,~我们还结合了【37,4,28,23】的思想,~在切换到~SSN~阶段后定期交替到~$PG$~步骤~(5).~这个两阶段算法的详细描述见算法2.
+%
+%
+%
+%在下面的定理中,~我们证明了算法~2~即使在(5)的两个步骤之间每次只执行一个~SSN~ 步骤,~也可以获得超线性收敛,~使用的是二次可微的简化设置.~对于下一个定理,~ 我们需要引入一些额外的符号.~给定任意~$w\in A_J$,~我们用~$f_J(w_J):= f(w)$~表示只考虑~$w$~在~$J$~中的坐标为变量,~其余均为常数零的函数.~我们假设定理2.1(b)~的条件对于~$w^*\in A_s$~是成立的,~并且对于所有~$J\in \mathbf{I}w^*$,~f 在~$w^*$~邻域~U~附近是二次可微的,~且~$\nabla^2f_J$~$Lipschitz$~ 在~$U$~ 中连续且~$\nabla^2f_J(w^*)$~是正定的.
+%
+%\textbf{Theorem 3.3}\quad 假设~$k\geq N$~且~$P_{A_s}(\omega^k)\subset U,$~ 当~$t\geq 1$~时,~在~$(5)$~的每两步之间进行~$t$~牛顿步:
+%
+%
+%在实际应用中,~获得~SSN~步长的线性系统只能通过~(预条件)~共轭梯度~(PCG)~方法不精确求解,~只要~$PCG$~方法有适当的停止条件和适当的算法修改~(如[39,29]),~仍然可以很容易地获得超线性收敛.~感兴趣的读者可以参考附录A,~以获得对我们实现的更详细描述.
+%
+%我们首先讨论在第3.2节中描述的获取非精确SSN步骤的实现。对于任意~$\omega \in A_J$,~我们用符号~$f_J(\omega_J):= f(\omega)$~表示只考虑~$\omega$~在J 中的坐标为变量,~其余为常数等于零的函数,~对任意~$p\in \Re^s$,~对于~$i\notin J$，我们用~$\hat{p}_J=p$~和~$\hat{p}_i=0$~表示向量~$\hat{p}\in \Re^n$.~注意由于~$f_J$~是~$lipschitz$~连续可微的,~所以广义~$Hessian$~$\nabla^2f_J$~始终存在[19]当广义黑森集合不是单元素时,~我们可以在集合中选取任何元素.
+%
+%在现代机器学习任务中经常面临的大规模问题中,~即使~$s\ll n$,~因此显式地形成广义黑森矩阵并将其反求仍然是非常昂贵的即使我们只考虑~$s$~维子空间中的广义黑森矩阵.~我们凭借~$PCG$,~给定一个预处理条件~$M$,~对于~$u,v\in \Re^n$~迭代使用矩阵-向量内积~$\nabla^2f_J(\omega_J)v$~和~$M^{-1}u$,~这可以降低成本，特别是如果M有特定的结构来促进逆.~PCG方法提供了一个近似
+%
+%{\color{red}\begin{align*}
+%p \approx \nabla^2f_J(\omega_J)^{-1}\nabla f_J(\omega_J),
+%\end{align*}}
+%或等价于
+%\begin{align*}
+%p \approx \mathop{arg min}_{\overline{p}}\left(Q_J(\overline{p};\omega):=<\nabla f_J(\omega_J),\overline{p}>+\frac{1}{2}<\overline{p},\nabla^2f_J(\omega_J)\overline{p}>\right)
+%\end{align*}
+%
+
+
+
+%设步长~$\alpha=\beta^i$~
+%\begin{align*}
+%\omega_J \leftarrow \omega_J +\alpha p
+%\end{align*}
+%
+%
+%如果~$\alpha$~太小，或者即使~$\beta_i$~已经非常小,~也不能满足这个递减条件,我们丢弃这个SSN步骤,~并在算法~$2$~中宣布这个光滑优化部分失败.
+%
+%对于(25)中的近似准则，设PCG的第i次迭代为p(i)， Qi:= QJ(p(i);wJ)，当PCG达到s 次迭代时(理论上它应该已经找到(25)的右边的精确解)，或者当第i次迭代满足i≥1 和时，我们遵循[16]终止PCG
+
+
+
+
+%\section{结论}
+%
+%在此工作中，我们回顾了求解0范数约束优化问题的投影梯度算法。通过将约束集自然分解为子空间，以及投影梯度法已证明的识别包含解的子空间的能力，我们进一步提出了有效的加速方案，并可证明收敛速度的提高。
+%
+%实验表明，我们的加速策略在收敛速度和运行时间上都显著提高了原有的投影梯度算法，在0范数约束问题上的性能大大优于现有的算法。我们计划在不久的将来将我们的分析和算法扩展到非凸目标的设置。
+%
+%提出的外推策略有几个优点.~最明显的是定理~3.2~中比~$PG$~更快的速度,~因此我们的方法中每一个成功的外推步骤都有助于提高收敛速度,~而现有的方法只能提供与~$PG$~相同的收敛速度.~其次,~现有策略只使用预先指定的步长,~没有给定问题的信息,~也没有当前进度的信息,~并且只将步长限制在~$[0,1]$~以内.~另一方面,~我们的方法充分利用了函数曲率,~可以允许任意大的步长来更好地减少目标.
+
+
+\end{CJK*}
+\end{document}
+
+
+
