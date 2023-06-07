@@ -37,7 +37,7 @@
 \title{基于JPADMM~EV 充电调度}
 \maketitle
 \section{问题描述}
-第一次修改
+
 在这种模式下,~电动汽车用户将电动汽车连接到充电桩,~充电需求信息上传到聚合器.~每个电动汽车的充电计划将被发送回给电动汽车用户，充电信息包括到达时间~$t_i^a$,
 
 在所提的模型中的一些假设,~首先，电动汽车用户对充电成本很敏感,~我们引入有序充电的策略,~对于一些不着急充电的用户来说可以选择在电价低时期进行充电,~电价高时不来充电,~从而达到削峰填谷的效果,~第二,~我们假设电动汽车用户的到达时间和离开时间服从以下的泊松分布:
@@ -249,6 +249,7 @@ p_{N+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y^{k+1})
 p_n=\mathop{argmin}\limits_{P}G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{1}{2}(p_n-p_n^k)^T\phi(p_n-p_n^k)
 \end{align*}
 \section{计算Y}
+重新更改
 本节详细介绍()中变量~$x$~的更新,~等价于求解以下凸优化问题的解:
 \begin{align*}
 Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|+\frac{1}{2}\|Y-Y^k\|_{\Psi}^2\\
