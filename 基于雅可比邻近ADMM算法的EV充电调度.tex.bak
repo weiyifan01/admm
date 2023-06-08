@@ -102,7 +102,7 @@ X_{i,j}=\left\{
 \mathcal{P}^{(1)}=\{p_n|p_n~satisfies(3.3)-(3.7)\}
 \end{align}
 %设~$\mathbf{P}\triangleq (\mathbf{P}_n;n\in \mathcal{N})$~表示电动汽车的充电策略,~第~$n$~辆电动汽车的容许充电策略集用~$\mathcal{P}_n$~表示,~所有电动汽车的容许充电策略集用~$\mathcal{P}$~表示
-设 
+设
  \begin{align}
  \mathcal{P}^{(1)}\triangleq \mathcal{P}_1^{(1)} \times \mathcal{P}_2^{(1)}\cdot\cdot\cdot \times \mathcal{P}_N^{(1)}
  \end{align}
@@ -249,7 +249,8 @@ p_{N+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y^{k+1})
 p_n=\mathop{argmin}\limits_{P}G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{1}{2}(p_n-p_n^k)^T\phi(p_n-p_n^k)
 \end{align*}
 \section{计算Y}
-本节详细介绍()中变量~$x$~的更新,~等价于求解以下凸优化问题的解:
+
+本节详细介绍()中变量~$Y$~的更新,~等价于求解以下凸优化问题的解:
 \begin{align*}
 Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|+\frac{1}{2}\|Y-Y^k\|_{\Psi}^2\\
        &=\mathop{argmin}\limits_{Y}~\frac{\rho}{2}\|Y-(P^{k}+\frac{\mu^k}{\rho})\|_F^2+\frac{1}{2}\|Y-Y^k\|_{\Psi}^2

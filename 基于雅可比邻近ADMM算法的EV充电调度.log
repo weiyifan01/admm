@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2023.4.14)  7 JUN 2023 21:09
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2023.4.14)  8 JUN 2023 10:06
 entering extended mode
 **C:/Users/shang/Desktop/ADMM/基于雅可比邻近ADMM算法的EV充电调度.
 tex
@@ -466,10 +466,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 138--139
 (C:\Users\shang\Desktop\ADMM\基于雅可比邻近ADMM算法的EV充电调度.a
 ux) ) 
 Here is how much of TeX's memory you used:
- 6347 strings out of 495354
- 85663 string characters out of 3183859
+ 6346 strings out of 495354
+ 85643 string characters out of 3183859
  174032 words of memory out of 3000000
- 9340 multiletter control sequences out of 15000+200000
+ 9339 multiletter control sequences out of 15000+200000
  41810 words of font info for 150 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  44i,14n,42p,1267b,450s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -514,7 +514,7 @@ ype1/public/amsfonts/cm/cmsy7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/c
 m/cmti10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><D:
 /CTEX/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 Output written on 基于雅可比邻近ADMM算法的EV充电调度.pdf (6 pages
-, 509824 bytes).
+, 509717 bytes).
 PDF statistics:
  269 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

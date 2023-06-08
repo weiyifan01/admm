@@ -212,7 +212,7 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 \begin{align*}
 &P^{k+1} \triangleq \mathop{argmin}\limits_{Y}\mathcal{L}_{\rho}(P^k,Y,\mu^k)+\frac{1}{2}\|P-P^k\|_{\Phi}^2\\
 &Y^{k+1}\triangleq \mathop{argmin}\limits_{Y}\mathcal{L}_{\rho}(P,Y^k,\mu^k)+\frac{1}{2}\|Y-Y^k\|_\Psi^2\\
-&\mu^{k+1}\triangleq \mu^k-\zeta\rho(P^{k+1}-P^{k+1})
+&\mu^{k+1}\triangleq \mu^k-\zeta\rho(P^{k+1}-Y^{k+1})
 \end{align*}
 \begin{definition}\label{Def_DOC}
 {如果选择~$\delta_i>0$~使得参数~$\rho,~\zeta,~\Phi,~\Psi$~满足以下的情况:}
@@ -249,17 +249,17 @@ p_{N+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y^{k+1})
 p_n=\mathop{argmin}\limits_{P}G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{1}{2}(p_n-p_n^k)^T\phi(p_n-p_n^k)
 \end{align*}
 \section{计算Y}
-重新更改
-本节详细介绍()中变量~$x$~的更新,~等价于求解以下凸优化问题的解:
-\begin{align*}
-Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|+\frac{1}{2}\|Y-Y^k\|_{\Psi}^2\\
-       &=\mathop{argmin}\limits_{Y}~\frac{\rho}{2}\|Y-(P^{k}+\frac{\mu^k}{\rho})\|_F^2+\frac{1}{2}\|Y-Y^k\|_{\Psi}^2
-\end{align*}
-对于~$x-update$~的更新,~可以由以下分散方式计算变量
-\begin{align*}
-y_n^{k+1}=\mathop{argmin}\limits_{y}~\frac{\rho}{2}\{y_t^Ty_t-2(p_t^k+\frac{\mu_t^k}{\rho}^T)y^t\}+\frac{1}{2}(y_t-y_t^k)^T\psi(y_t-y_t^k)
-\end{align*}
 
+本节详细介绍()中变量~$Y$~的更新,~等价于求解以下凸优化问题的解:
+\begin{align*}
+Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P^k-Y+\frac{\mu^k}{\rho}\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2\\
+       &=\mathop{argmin}\limits_{Y}~\frac{\rho}{2}\|Y-(P^{k}+\frac{\mu^k}{\rho})\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2
+\end{align*}
+对于~$y-update$~的更新,~可以由以下分散方式计算变量
+\begin{align*}
+y_n^{k+1}=\mathop{min}\limits_{y}~\frac{\rho}{2}\{y_t^Ty_t-2(p_t^k+\frac{\mu_t^k}{\rho})y_t\}+\frac{\psi}{2}(y_t-y_t^k)^T(y_t-y_t^k)
+\end{align*}
+{\color{red}注:求解此子问题}
 \section{算法}
 算法收敛的表证如下：
 \begin{align*}
