@@ -9,7 +9,8 @@
 \usepackage{indentfirst}
 \usepackage{enumitem}
 \usepackage{CJK}%中文
-
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{definition}[theorem]{Definition}
@@ -45,8 +46,7 @@
 文献[1]提出了一个促进稀疏性的充电控制模型。在该模型中，通过优化充电时段的数量，提高用户的满意度。模型中引入了动态馈线过载约束，以避免出现不可接受的负荷峰值，从而保证网络的稳定性。然后，针对大多数电网典型的分布式管理方式，提出了一种基于~$ADMM$~的分布式解决策略。在求解过程中，利用拉格朗日对偶将原问题转化为等价对偶问题，该对偶问题可分解为一组齐次的小尺度子问题。具体地说，每个子问题要么有一个闭解，要么可以用加速对偶梯度法局部求解。并证明了算法的全局收敛性。文献[2]创新性地将电动汽车快速充电问题建模为配电网中受耦合馈线容量约束的优化协调问题。快速充电的需求用总充电时间和在期望时间内充满电的相对趋势来表示。我们引入一个非凸的充电策略的0-范数来表示总充电时间，并应用1-范数最小化来近似0-范数最小化的稀疏解。充电周期越短，用户的快速充电意愿越强。优化问题的目标是权衡电动汽车电池退化成本、配电网负荷调节、充电满意度和总充电时间，而充电时间在单个充电行为中是不可分的。尽管~$ADMM$~在目标可分、约束耦合的分布式优化中得到了广泛的应用，但其分散方案不能直接应用于潜在的不可分电动汽车充电协调问题。为此，提出了一种基于~$ADMM$~的分层算法，保证在一定步长参数下收敛到最优策略。基于以上两篇文献，本文创新地将从用户角度出发，将充电成本、用户满意度以及充电时间建模为协调优化方法，
 \section{本文主要贡献}
 
-在电力系统中,~电网功率是由多个电源和负载之间的相互作用决定的.~这些电源和负载在运行过程中会受到各种因素的影响,~如天气变化、市场需求变化、设备故障等,~ 这些因素都会导致电网功率的波动.~通过对电网功率波动的统计分析,~可以计算出电网功率的方差,~方差越大说明电网功率波动越大.~如果电网功率波动过大,~就可能导致电网运行不稳定,~出现电压跌落、频率波动等问题,~甚至可能引发电网崩溃,~造成严重的电力事故.
-
+首先我们提出了一种新的分布式雅可比近端~$ADMM$~算法来解决大规模电动汽车充电调度问题,~并推导出了一种XX来实现XX，该算法可以并行更新变量,~
 1)本文创新地将电动汽车充电优化建模与经济优化调度相关的问题，将充电总成本、峰谷负荷、用户满意度、
 
 2）设计了一种新的基于~$ADMM-Jacobi$~的算法来解决具有时间空间耦合不等式约束的不可分优化问题，并从理论上证明了该算法的最优性和收敛性，从理论和数值实验上证明了与经典的~$ADMM$~相比收敛速度快
@@ -85,8 +85,8 @@ p_n^{min}\leq p_{n,t}\leq p_{n}^{max},~n\in \mathcal{N},~t\in \mathcal{T}
 \begin{align}
 X_{i,j}=\left\{
 \begin{array}{cl}
-0 & if~EV~is~being~charged,\\
-1 & otherwise.\\
+1 & if~EV~is~being~charged,\\
+0 & otherwise.\\
 \end{array}\right.
 \end{align}
 且
@@ -107,7 +107,7 @@ X_{i,j}=\left\{
  \mathcal{P}^{(1)}\triangleq \mathcal{P}_1^{(1)} \times \mathcal{P}_2^{(1)}\cdot\cdot\cdot \times \mathcal{P}_N^{(1)}
  \end{align}
 
-\subsection{馈线容量约束}
+{\color{red}\subsection{馈线容量约束}}
  对于分布式电网:~我们分别用~$\mathcal{L}\equiv\{1,...,L\}$~和~$\mathcal{M}\equiv\{1,...,M\}$~分别表示馈线和节点集合,~用$\mathcal{N}_l,l\in \mathcal{L}$~表示通过馈线~$l$~供电的电动汽车的集合,~$\mathcal{N}_m,m\in \mathcal{M}$~表示通过根节点~$m$~处供电的电动汽车的集合.~定义连接在节点~$m$~ 的基本需求表示为~$d_m=(d_{mt},t\in\mathcal{L})$,~通过馈线~$l$~的总的基本需求~$D_{lt}\equiv \sum_{m\in\mathcal{M}_l}d_{mt}$,~其中~$\mathcal{M}_l$~表示通过馈线~$l$~的节点集合,~其功率通过馈线~$l$~进行分配~$\mathbf{d}=(d_t,t\in\mathcal{T})$~表示配电网的总基本需求~$\mathcal{M}_l$,~则配电网中所有馈线在充电期间的功率容量可表示为 电动汽车的充电策略应满足馈线容量的约束:
 \begin{align*}
 c_{l,t}=C_l-D_{lt},\\
@@ -175,14 +175,10 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 % \infty & x \notin \pi_2\\
 % \end{array}\right.
 % \end{align*}
-优化问题重写为如下形式:
-\begin{align*}
-&\min_p  G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(Y)\\
-& s.t.\quad P-Y=0
-\end{align*}
+
 定义
 \begin{align*}
-\mathcal{P}_t^{(2)}=\{P_t|P_t~satisfies~(3.2)~and~(3.3)\}
+\mathcal{P}_t^{(2)}=\{P_t|P_t~satisfies~(4.2)~and~(4.3)\}
 \end{align*}
 且
 \begin{align*}
@@ -198,7 +194,7 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 \end{equation}
 很清楚地,~$\mathcal{I}_i(P),i=1,2$~是凸函数.
 
-现在我们可以很容易地将~$(3.1)-(3.3)$~所描述的问题写成标准的ADMM形式，如下所示
+现在我们可以很容易地将~$(4.1)-(4.3)$~所描述的问题写成标准的ADMM形式，如下所示
 \begin{align}
 &\min_{\{u\}}G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(Y)\\
 &s.t~~P-Y=0.\nonumber
@@ -212,7 +208,7 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 \begin{align*}
 &P^{k+1} \triangleq \mathop{argmin}\limits_{Y}\mathcal{L}_{\rho}(P^k,Y,\mu^k)+\frac{1}{2}\|P-P^k\|_{\Phi}^2\\
 &Y^{k+1}\triangleq \mathop{argmin}\limits_{Y}\mathcal{L}_{\rho}(P,Y^k,\mu^k)+\frac{1}{2}\|Y-Y^k\|_\Psi^2\\
-&\mu^{k+1}\triangleq \mu^k-\zeta\rho(P^{k+1}-P^{k+1})
+&\mu^{k+1}\triangleq \mu^k-\zeta\rho(P^{k+1}-Y^{k+1})
 \end{align*}
 \begin{definition}\label{Def_DOC}
 {如果选择~$\delta_i>0$~使得参数~$\rho,~\zeta,~\Phi,~\Psi$~满足以下的情况:}
@@ -242,24 +238,24 @@ P^{k+1}=\mathop{argmin}\limits_{P}G(P)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|_F^
 \end{align*}
 当~$n=N+1$~时
 \begin{align*}
-p_{N+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y^{k+1})
+p_{N+1}^{k+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y_{N+1}^{k})
 \end{align*}
 对于每一个n
 \begin{align*}
-p_n=\mathop{argmin}\limits_{P}G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{1}{2}(p_n-p_n^k)^T\phi(p_n-p_n^k)
+p_n^{k+1}=\mathop{argmin}\limits_{P}G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)
 \end{align*}
 \section{计算Y}
 
 本节详细介绍()中变量~$Y$~的更新,~等价于求解以下凸优化问题的解:
 \begin{align*}
-Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|+\frac{1}{2}\|Y-Y^k\|_{\Psi}^2\\
-       &=\mathop{argmin}\limits_{Y}~\frac{\rho}{2}\|Y-(P^{k}+\frac{\mu^k}{\rho})\|_F^2+\frac{1}{2}\|Y-Y^k\|_{\Psi}^2
+Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P^k-Y+\frac{\mu^k}{\rho}\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2\\
+       &=\mathop{argmin}\limits_{Y}~\frac{\rho}{2}\|Y-(P^{k}+\frac{\mu^k}{\rho})\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2
 \end{align*}
-对于~$x-update$~的更新,~可以由以下分散方式计算变量
+对于~$y-update$~的更新,~可以由以下分散方式计算变量
 \begin{align*}
-y_n^{k+1}=\mathop{argmin}\limits_{y}~\frac{\rho}{2}\{y_t^Ty_t-2(p_t^k+\frac{\mu_t^k}{\rho}^T)y^t\}+\frac{1}{2}(y_t-y_t^k)^T\psi(y_t-y_t^k)
+\mathop{min}\limits_{y}~\frac{\rho}{2}\{y_t^Ty_t-2(p_t^k+\frac{\mu_t^k}{\rho})y_t\}+\frac{\psi}{2}(y_t-y_t^k)^T(y_t-y_t^k)
 \end{align*}
-
+{\color{red}注:求解此子问题}
 \section{算法}
 算法收敛的表证如下：
 \begin{align*}
@@ -281,6 +277,33 @@ chosen~using~an~absolute~and~relative~criterion,such~as
 where~$\varepsilon^{abs}>0$~is~an~absolute~tolerance~and~$\varepsilon^{rel}>0$~is~a~relative~tolerance.A~reasonable~value~for~the~relative~stopping
 criterion~might~be~$\varepsilon^{-3}$~or~$\varepsilon^{-4}$.~A~pseudo-code~for~the~proposed Prox-JADMM~is~then~give~in~Algorithm~1.
 
+\begin{algorithm}[htb]
+\caption{ Algorithm Algorithm Algorithm Algorithm}
+\label{alg:Framwork}
+\begin{algorithmic}[] %这个1 表示每一行都显示数字
+\REQUIRE ~~\\ %算法的输入参数：Input
+Initialization:\\
+Set the accuracy $\epsilon^{pri}$,~$\epsilon^{dual}$,~penalty parameter~$\rho>0$~\\
+Set initial values~$Y^0,~\Pi^0$~\\
+
+\ENSURE ~~\\ %算法的输出：Output
+判断~$r^{k+1}>\epsilon^{pri}$~或者~$s^{k+1}>\epsilon^{dual}$~
+%\IF {not the end of current sentence}
+\STATE X-update:
+\STATE for~$n=1,...,N$,\\
+\STATE 计算~$p_n^{k+1}=\mathop{argmin}\limits_{P\in\mathcal{P}^{(1)}}~G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)$;
+\STATE  for~$n=N+1$;
+\STATE 计算~$p_{N+1}^{k+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y_{N+1}^{k})$;
+%\IF {CP\_new is empty}
+\STATE Selected the word which has the highest conditional probability in the CP;
+
+\STATE Construct a Huffman tree according to the probability distribution of each word in the CP\_new and encode the word;
+
+\STATE Random pick a word from start word list start the other sentence;
+%\ENDIF
+\RETURN generated sentences; %算法的返回值
+\end{algorithmic}
+\end{algorithm}
 
 
 
