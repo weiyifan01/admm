@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2023.4.14)  12 JUN 2023 08:38
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2023.4.14)  12 JUN 2023 21:52
 entering extended mode
 **C:/Users/shang/Desktop/ADMM/基于雅可比邻近ADMM算法的EV充电调度.
 tex
@@ -495,17 +495,20 @@ Overfull \hbox (0.38953pt too wide) in paragraph at lines 278--281
  be $10[]$ or $10[]$. A pseudo-
  []
 
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 [6] [7]
 (C:\Users\shang\Desktop\ADMM\基于雅可比邻近ADMM算法的EV充电调度.a
 ux) ) 
 Here is how much of TeX's memory you used:
- 6554 strings out of 495354
- 87523 string characters out of 3183859
- 177740 words of memory out of 3000000
- 9533 multiletter control sequences out of 15000+200000
+ 6555 strings out of 495354
+ 87532 string characters out of 3183859
+ 178740 words of memory out of 3000000
+ 9534 multiletter control sequences out of 15000+200000
  40916 words of font info for 147 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 44i,14n,42p,1267b,646s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,14n,42p,1267b,732s stack positions out of 5000i,500n,10000p,200000b,50000s
 <D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truety
 pe/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/
 CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/sim
@@ -542,14 +545,15 @@ CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/CTEX/MiKTeX/fonts/type
 mr10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/CTEX/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/CTEX/MiKTeX/fonts/type1/public/
 amsfonts/cm/cmr5.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D
-:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/CTEX/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmsy7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmti10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><D:
-/CTEX/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/CTEX/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmsy10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmsy7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/CTEX/M
+iKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><D:/CTEX/MiKTeX/fonts/type
+1/public/amsfonts/symbols/msbm10.pfb>
 Output written on 基于雅可比邻近ADMM算法的EV充电调度.pdf (7 pages
-, 501434 bytes).
+, 512717 bytes).
 PDF statistics:
- 274 PDF objects out of 1000 (max. 8388607)
+ 278 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

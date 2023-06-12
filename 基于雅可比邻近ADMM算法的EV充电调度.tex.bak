@@ -37,12 +37,12 @@
 
 \title{基于JPADMM~EV 充电调度}
 \maketitle
-\section{问题描述}
-
-在这种模式下,~电动汽车用户将电动汽车连接到充电桩,~充电需求信息上传到聚合器.~每个电动汽车的充电计划将被发送回给电动汽车用户，充电信息包括到达时间~$t_i^a$,
-
-在所提的模型中的一些假设,~首先，电动汽车用户对充电成本很敏感,~我们引入有序充电的策略,~对于一些不着急充电的用户来说可以选择在电价低时期进行充电,~电价高时不来充电,~从而达到削峰填谷的效果,~第二,~我们假设电动汽车用户的到达时间和离开时间服从以下的泊松分布:
-\subsection{研究现状}
+%\section{问题描述}
+%
+%在这种模式下,~电动汽车用户将电动汽车连接到充电桩,~充电需求信息上传到聚合器.~每个电动汽车的充电计划将被发送回给电动汽车用户，充电信息包括到达时间~$t_i^a$,
+%
+%在所提的模型中的一些假设,~首先，电动汽车用户对充电成本很敏感,~我们引入有序充电的策略,~对于一些不着急充电的用户来说可以选择在电价低时期进行充电,~电价高时不来充电,~从而达到削峰填谷的效果,~第二,~我们假设电动汽车用户的到达时间和离开时间服从以下的泊松分布:
+\section{研究现状}
 文献[1]提出了一个促进稀疏性的充电控制模型。在该模型中，通过优化充电时段的数量，提高用户的满意度。模型中引入了动态馈线过载约束，以避免出现不可接受的负荷峰值，从而保证网络的稳定性。然后，针对大多数电网典型的分布式管理方式，提出了一种基于~$ADMM$~的分布式解决策略。在求解过程中，利用拉格朗日对偶将原问题转化为等价对偶问题，该对偶问题可分解为一组齐次的小尺度子问题。具体地说，每个子问题要么有一个闭解，要么可以用加速对偶梯度法局部求解。并证明了算法的全局收敛性。文献[2]创新性地将电动汽车快速充电问题建模为配电网中受耦合馈线容量约束的优化协调问题。快速充电的需求用总充电时间和在期望时间内充满电的相对趋势来表示。我们引入一个非凸的充电策略的0-范数来表示总充电时间，并应用1-范数最小化来近似0-范数最小化的稀疏解。充电周期越短，用户的快速充电意愿越强。优化问题的目标是权衡电动汽车电池退化成本、配电网负荷调节、充电满意度和总充电时间，而充电时间在单个充电行为中是不可分的。尽管~$ADMM$~在目标可分、约束耦合的分布式优化中得到了广泛的应用，但其分散方案不能直接应用于潜在的不可分电动汽车充电协调问题。为此，提出了一种基于~$ADMM$~的分层算法，保证在一定步长参数下收敛到最优策略。基于以上两篇文献，本文创新地将从用户角度出发，将充电成本、用户满意度以及充电时间建模为协调优化方法，
 \section{本文主要贡献}
 
@@ -53,16 +53,16 @@
 
 \section{电动汽车充电模型}
 
-考虑电动汽车的个数用~$\mathcal{N}\equiv \{1,...,N\},$~时间划分为~$\mathcal{T}\equiv\{1,...,T\}$~在这里假设电动汽车到达时间~$t_i^a$,~ 预期离开时间~$t_i^{d}$,~$SOC$~连接充电桩~$SOC_i^s.$~$SOC_i^d$预期的~$SOC$,本文将规划范围设为~$24$~小时,~通过设置时间步长为15分钟,~将整个时间范围划分为~$96$~个周期.~以第~$i$~个EV的到达时间和出发时间用方程计算出来:
- \begin{align*}
- &I_i^s=\lceil\frac{t_i^s}{\Delta t}\rceil \quad i=1,2,3,...,N\\
- &I_i^d=\lceil\frac{t_i^d}{\Delta t}\rceil \quad i=1,2,3,...,N\\
- \end{align*}
- 其中,~$I_i^s$~为第~$i$~个~$EV$~连接到充电桩时的时隙,~$I_i^d$~为第~$i$~个~$EV$~离开充电桩时的时隙,~$\lceil\frac{t_i^s}{\Delta t}\rceil$~is~the~smallest~integer~great~than~$\frac{t_i^s}{\Delta t}$~and~$\lceil\frac{t_i^d}{\Delta t}\rceil$~is~the~smallest~integer~greater~than~$\frac{t_i^d}{\Delta t}$
+%考虑电动汽车的个数用~$\mathcal{N}\equiv \{1,...,N\},$~时间划分为~$\mathcal{T}\equiv\{1,...,T\}$~在这里假设电动汽车到达时间~$t_i^a$,~ 预期离开时间~$t_i^{d}$,~$SOC$~连接充电桩~$SOC_i^s.$~$SOC_i^d$预期的~$SOC$,本文将规划范围设为~$24$~小时,~通过设置时间步长为15分钟,~将整个时间范围划分为~$96$~个周期.~以第~$i$~个EV的到达时间和出发时间用方程计算出来:
+% \begin{align*}
+% &I_i^s=\lceil\frac{t_i^s}{\Delta t}\rceil \quad i=1,2,3,...,N\\
+% &I_i^d=\lceil\frac{t_i^d}{\Delta t}\rceil \quad i=1,2,3,...,N\\
+% \end{align*}
+% 其中,~$I_i^s$~为第~$i$~个~$EV$~连接到充电桩时的时隙,~$I_i^d$~为第~$i$~个~$EV$~离开充电桩时的时隙,~$\lceil\frac{t_i^s}{\Delta t}\rceil$~is~the~smallest~integer~great~than~$\frac{t_i^s}{\Delta t}$~and~$\lceil\frac{t_i^d}{\Delta t}\rceil$~is~the~smallest~integer~greater~than~$\frac{t_i^d}{\Delta t}$
+%
 
 
-\subsection{约束}
-\subsubsection{EV充电约束}
+\subsection{EV充电约束}
 
 基于分段线性模型[1],~电池动态描述如下：
 \begin{align}
@@ -202,7 +202,8 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 
 定义增广拉格朗日函数如下:
 \begin{align*}
-&\mathcal{L}_{\rho}(P,X,\mu)=G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(Y)+\mu^T(P-Y)+\frac{\rho}{2}\|P-Y\|_2^2\\
+\mathcal{L}_{\rho}(P,X,\mu)&=G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(Y)+\mu^T(P-Y)+\frac{\rho}{2}\|P-Y\|_F^2\\
+&=G(P)+\mathcal{I}_1(P)+\mathcal{I}_{2}(Y)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|_F^2-\frac{\rho}{2}\|\frac{\mu}{\rho}\|_F^2
 \end{align*}
 其中~$\rho>0$~是惩罚参数,~$\mu$~称为对偶变量或者拉格朗日乘子,~变量~$p,x,u$~ 的更新
 
@@ -235,7 +236,7 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 \section{计算P}
 本节给出了在计算~$p$~的详细信息,~从指示函数的定义中可以容易地看出,~$p^{k+1}$~的实际优化策略如下:
 \begin{align*}
-P^{k+1}=\mathop{argmin}\limits_{P\in\mathcal{P}^{(1)}}\{G(P)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|_F^2+\frac{1}{2}\|P-P^k\|_{\Phi}^2\}
+P^{k+1}=\mathop{argmin}\limits_{P\in\mathcal{P}^{(1)}}\{G(P)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|_F^2+\frac{\phi}{2}(P-P^k)^T(P-P^k)\}
 \end{align*}
 当~$n=N+1$~时
 \begin{align*}
@@ -243,14 +244,14 @@ p_{N+1}^{k+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y_{N+1}^{k})
 \end{align*}
 对于每一个n=1,...,N
 \begin{align*}
-p_n^{k+1}=\mathop{argmin}\limits_{P\in\mathcal{P^{(1)}}}\{G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)\}
+p_n^{k+1}=\mathop{argmin}\limits_{Y\in\mathcal{P}^{(1)}}~\{G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)\}
 \end{align*}
 \section{计算Y}
 
 本节详细介绍()中变量~$Y$~的更新,~等价于求解以下凸优化问题的解:
 \begin{align*}
 Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P^k-Y+\frac{\mu^k}{\rho}\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2\\
-       &=\mathop{argmin}\limits_{Y}~\frac{\rho}{2}\|Y-(P^{k}+\frac{\mu^k}{\rho})\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2
+       &=\mathop{argmin}\limits_{Y\in\mathcal{P}^{(2)}}~\frac{\rho}{2}\|Y-(P^{k}+\frac{\mu^k}{\rho})\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2
 \end{align*}
 对于~$y-update$~的更新,~可以由以下分散方式计算变量
 \begin{align*}
@@ -285,7 +286,7 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
 \REQUIRE ~~\\ %算法的输入参数：Input
 Initialization:\\
 Set the accuracy $\epsilon^{pri}$,~$\epsilon^{dual}$,~penalty parameter~$\rho>0$~\\
-Set initial values~$Y^0,~\Pi^0$~\\
+Set initial values~$Y^0,~\mu^0$~\\
 
 \ENSURE ~~\\
 ~~判断~$r^{k+1}>\epsilon^{pri}$~或者~$s^{k+1}>\epsilon^{dual}$~
