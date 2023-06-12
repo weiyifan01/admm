@@ -53,7 +53,7 @@
 
 \section{电动汽车充电模型}
 
-考虑电动汽车的个数用~$\mathcal{N}\equiv \{1,...,N\},$~时间划分为~$\mathcal{T}\equiv\{1,...,T\}$~在这里假设电动汽车到达时间~$t_i^a$,~预期离开时间~$t_i^{d}$,~$SOC$~连接充电桩~$SOC_i^s.$~$SOC_i^d$预期的~$SOC$,本文将规划范围设为~$24$~小时,~通过设置时间步长为15分钟,~将整个时间范围划分为~$96$~个周期.~以第~$i$~个EV的到达时间和出发时间用方程计算出来:
+考虑电动汽车的个数用~$\mathcal{N}\equiv \{1,...,N\},$~时间划分为~$\mathcal{T}\equiv\{1,...,T\}$~在这里假设电动汽车到达时间~$t_i^a$,~ 预期离开时间~$t_i^{d}$,~$SOC$~连接充电桩~$SOC_i^s.$~$SOC_i^d$预期的~$SOC$,本文将规划范围设为~$24$~小时,~通过设置时间步长为15分钟,~将整个时间范围划分为~$96$~个周期.~以第~$i$~个EV的到达时间和出发时间用方程计算出来:
  \begin{align*}
  &I_i^s=\lceil\frac{t_i^s}{\Delta t}\rceil \quad i=1,2,3,...,N\\
  &I_i^d=\lceil\frac{t_i^d}{\Delta t}\rceil \quad i=1,2,3,...,N\\
@@ -81,7 +81,7 @@ SOC_n^{min}\leq SOC_{n,t}\leq SOC_n^{max},
 \begin{align}
 p_n^{min}\leq p_{n,t}\leq p_{n}^{max},~n\in \mathcal{N},~t\in \mathcal{T}
 \end{align}
-通过决定电动汽车在每个时隙中是否充电,~实现了电动汽车的协调充电调度,~第~$i$~ 个~$EV$~充电状态如下:
+通过决定电动汽车在每个时隙中是否充电,~实现了电动汽车的协调充电调度,~ 第~$i$~ 个~$EV$~充电状态如下:
 \begin{align}
 X_{i,j}=\left\{
 \begin{array}{cl}
@@ -133,9 +133,9 @@ f_n(p_{nt})=\sum_{t\in \mathcal{T}}\lambda_tp_{nt}\Delta t
 g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
 \end{align*}
 
-3)第三项~$\|p_n\|$~:基数最小化~$\|p_n\|_0$~在稀疏解的建模中起着重要作用,~然而~$\|p_n\|_0$~的计算仍然是一个挑战,~因为~$\|p_n\|_0$~是一个非凸函数,~直接优化这个函数甚至在线性约束上被证明是一个~$NP$~困难问题.~无法通过常规方法求解最小~$\|p_n\|_0$~ 问题和最小~$\|p_n\|_1$~范数问题在一定条件下是等价的,~ 即可以通过求解最小~$\|p_n\|_1$~问题来得到最小~$\|p_n\|_0$~问题的解.~求解最小~$\|p_n\|_1$~问题因为是凸优化问题相对来说简单得多.
+3)第三项~$\|p_n\|$~:基数最小化~$\|p_n\|_0$~在稀疏解的建模中起着重要作用,~然而~$\|p_n\|_0$~的计算仍然是一个挑战,~因为~$\|p_n\|_0$~是一个非凸函数,~直接优化这个函数甚至在线性约束上被证明是一个~$NP$~困难问题.~ 无法通过常规方法求解最小~$\|p_n\|_0$~ 问题和最小~$\|p_n\|_1$~范数问题在一定条件下是等价的,~ 即可以通过求解最小~$\|p_n\|_1$~问题来得到最小~$\|p_n\|_0$~问题的解.~求解最小~$\|p_n\|_1$~问题因为是凸优化问题相对来说简单得多.
 
-4) 第四项~$\|\mathbf{p}_-\overline{\mathbf{p}}\|_2^2$:表示负荷调节,~其中~$\overline{\mathbf{p}}$~表示平均功率,\\{\color{blue}这里具体怎么描述}~$\|p-\overline{p}\|_2^2=\sum\limits_{t\in\mathcal{T}}(\sqrt{(\sum\limits_{n\in \mathcal{N}}p_{n1}-\overline{p})^2+(\sum\limits_{n\in \mathcal{N}}p_{n2}-\overline{p})^2+\cdot\cdot\cdot+(\sum\limits_{n\in \mathcal{N}}p_{nt}-\overline{p})^2})$.\\
+4) 第四项~$\|\mathbf{p}_-\overline{\mathbf{p}}\|_2^2$:表示负荷调节,~ 其中~$\overline{\mathbf{p}}$~表示平均功率,\\{\color{blue}这里具体怎么描述}~$\|p-\overline{p}\|_2^2=\sum\limits_{t\in\mathcal{T}}(\sqrt{(\sum\limits_{n\in \mathcal{N}}p_{n1}-\overline{p})^2+(\sum\limits_{n\in \mathcal{N}}p_{n2}-\overline{p})^2+\cdot\cdot\cdot+(\sum\limits_{n\in \mathcal{N}}p_{nt}-\overline{p})^2})$.\\
 
 插入~$l_1$~凸逼近,~我们将(2.1)重新建模为以下稀疏促进充电控制模型
 \begin{align}
@@ -202,12 +202,13 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 
 定义增广拉格朗日函数如下:
 \begin{align*}
-\mathcal{L}_{\rho}=G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(X)+\mu^T(P-X)+\frac{\rho}{2}\|P-X\|_2^2
+&\mathcal{L}_{\rho}(P,X,\mu)=G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(Y)+\mu^T(P-Y)+\frac{\rho}{2}\|P-Y\|_2^2\\
 \end{align*}
 其中~$\rho>0$~是惩罚参数,~$\mu$~称为对偶变量或者拉格朗日乘子,~变量~$p,x,u$~ 的更新
+
 \begin{align*}
-&P^{k+1} \triangleq \mathop{argmin}\limits_{Y}\mathcal{L}_{\rho}(P^k,Y,\mu^k)+\frac{1}{2}\|P-P^k\|_{\Phi}^2\\
-&Y^{k+1}\triangleq \mathop{argmin}\limits_{Y}\mathcal{L}_{\rho}(P,Y^k,\mu^k)+\frac{1}{2}\|Y-Y^k\|_\Psi^2\\
+&P^{k+1} \triangleq \mathop{argmin}\limits_{P}\{\mathcal{L}_{\rho}(P,Y,\mu^k)+\frac{1}{2}\|P-P^k\|_{\Phi}^2\}\\
+&Y^{k+1}\triangleq \mathop{argmin}\limits_{Y}\{\mathcal{L}_{\rho}(P^{k},Y,\mu^k)+\frac{1}{2}\|Y-Y^k\|_\Psi^2\}\\
 &\mu^{k+1}\triangleq \mu^k-\zeta\rho(P^{k+1}-Y^{k+1})
 \end{align*}
 \begin{definition}\label{Def_DOC}
@@ -234,15 +235,15 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 \section{计算P}
 本节给出了在计算~$p$~的详细信息,~从指示函数的定义中可以容易地看出,~$p^{k+1}$~的实际优化策略如下:
 \begin{align*}
-P^{k+1}=\mathop{argmin}\limits_{P}G(P)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|_F^2+\frac{1}{2}\|P-P^k\|_{\Phi}^2
+P^{k+1}=\mathop{argmin}\limits_{P\in\mathcal{P}^{(1)}}\{G(P)+\frac{\rho}{2}\|P-Y+\frac{\mu}{\rho}\|_F^2+\frac{1}{2}\|P-P^k\|_{\Phi}^2\}
 \end{align*}
 当~$n=N+1$~时
 \begin{align*}
 p_{N+1}^{k+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y_{N+1}^{k})
 \end{align*}
-对于每一个n
+对于每一个n=1,...,N
 \begin{align*}
-p_n^{k+1}=\mathop{argmin}\limits_{P}G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)
+p_n^{k+1}=\mathop{argmin}\limits_{P\in\mathcal{P^{(1)}}}\{G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)\}
 \end{align*}
 \section{计算Y}
 
@@ -262,7 +263,7 @@ Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P^k-Y+\frac
 r^{k+1}=\|P^{k+1}-Y^{k+1}\|_F
 \end{align*}
 \begin{align*}
-s^{k+1}=\|\rho(Y^{k+1}-Y^{k+1})\|_F
+s^{k+1}=\|\rho(Y^{k+1}-Y^{k})\|_F
 \end{align*}
 一个合理的终止标准是原始残差和对偶残差要足够小,~如下:
 \begin{align*}
@@ -275,7 +276,7 @@ chosen~using~an~absolute~and~relative~criterion,such~as
 &\varepsilon^{dual}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}\|\mu^k\|_2
 \end{align*}
 where~$\varepsilon^{abs}>0$~is~an~absolute~tolerance~and~$\varepsilon^{rel}>0$~is~a~relative~tolerance.A~reasonable~value~for~the~relative~stopping
-criterion~might~be~$\varepsilon^{-3}$~or~$\varepsilon^{-4}$.~A~pseudo-code~for~the~proposed Prox-JADMM~is~then~give~in~Algorithm~1.
+criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-JADMM~is~then~give~in~Algorithm~1.
 
 \begin{algorithm}[htb]
 \caption{ Algorithm Algorithm Algorithm Algorithm}
@@ -286,22 +287,24 @@ Initialization:\\
 Set the accuracy $\epsilon^{pri}$,~$\epsilon^{dual}$,~penalty parameter~$\rho>0$~\\
 Set initial values~$Y^0,~\Pi^0$~\\
 
-\ENSURE ~~\\ %算法的输出：Output
-判断~$r^{k+1}>\epsilon^{pri}$~或者~$s^{k+1}>\epsilon^{dual}$~
+\ENSURE ~~\\
+~~判断~$r^{k+1}>\epsilon^{pri}$~或者~$s^{k+1}>\epsilon^{dual}$~
 %\IF {not the end of current sentence}
-\STATE X-update:
-\STATE for~$n=1,...,N$,\\
-\STATE 计算~$p_n^{k+1}=\mathop{argmin}\limits_{P\in\mathcal{P}^{(1)}}~G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)$;
-\STATE  for~$n=N+1$;
-\STATE 计算~$p_{N+1}^{k+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y_{N+1}^{k})$;
+\STATE PP-update:
+\STATE ~~for~$n=1,...,N$,\\
+\STATE 计算:~$p_n^{k+1}=\mathop{argmin}\limits_{P\in\mathcal{P}^{(1)}}~G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)$;
+\STATE~~for~$n=N+1$;
+\STATE 计算:~$p_{N+1}^{k+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y_{N+1}^{k})$;
 %\IF {CP\_new is empty}
-\STATE Selected the word which has the highest conditional probability in the CP;
-
-\STATE Construct a Huffman tree according to the probability distribution of each word in the CP\_new and encode the word;
-
-\STATE Random pick a word from start word list start the other sentence;
-%\ENDIF
-\RETURN generated sentences; %算法的返回值
+\STATE Y-update:\\
+\STATE~~for~$t=1,...,T$;\\
+\STATE {\color{red}Y的计算根据子算法(算法1)};\\
+\STATE $\mu$-update:\\
+\STATE ~~for n=1,...,N+1,~t=1,...,T.\\
+\STATE $\mu_{n,t}^{k+1}=\mu_{n,t}^k+\gamma\rho(P_{n,t}^{k+1}-Y_{n,t}^{k+1})$\\
+\STATE 更新~$r^{k+1}=\|P^{k+1}-Y^{k+1}\|_F$\\
+\STATE 更新~$s^{k+1}=\|\rho(Y^{k+1}-Y^{k+1})\|_F$~\\
+\STATE 更新~$k:=k+1$
 \end{algorithmic}
 \end{algorithm}
 
@@ -370,7 +373,7 @@ Set initial values~$Y^0,~\Pi^0$~\\
 %
 %这项工作的主要焦点是在本节中提出的具有可靠收敛保证的新技术,~以加速上一节中提出的~$PG$~算法.~我们的技术充分利用包含~(8)~所描述的子空间识别特性,~ 以及~(4)~的问题结构来设计有效的算法.\\
 %
-%我们强调,~下面描述的两种加速策略是可以结合在一起的,~而且它们也具有广泛的适用性,~只要现有算法具有类似于~(8)~的属性,~它们就可以应用于~(1)~的其他算法。
+%我们强调,~下面描述的两种加速策略是可以结合在一起的,~而且它们也具有广泛的适用性,~只要现有算法具有类似于~(8)~的属性,~它们就可以应用于~(1)~ 的其他算法。
 %
 %\subsection{外推加速}
 %
@@ -399,7 +402,7 @@ Set initial values~$Y^0,~\Pi^0$~\\
 %\begin{align}\tag{15}
 %\hat{t}_k=\mathop{argmin}_{t\geq0}<\nabla f(w^k),td^k>+\|td^k\|^2/(2\alpha_k)\Leftrightarrow \hat{t}_k=-<\alpha_k \nabla f(w^k),d^k>/\|d^k\|^2.
 %\end{align}
-%(13)的另一种解释是:~$\alpha_k^{-1}$~也可作为~$\nabla^2 f(w^k)$~ 的估计,~(14)中的目标是~$f$~的二阶泰勒展开的低成本近似.~然而,~我们注意到,~对于~(4)~ 形式的问题和~$d^k\in A_J$~精确的二阶泰勒展开
+%(13)的另一种解释是:~$\alpha_k^{-1}$~也可作为~$\nabla^2 f(w^k)$~ 的估计,~(14)中的目标是~$f$~的二阶泰勒展开的低成本近似.~然而,~我们注意到,~ 对于~(4)~ 形式的问题和~$d^k\in A_J$~精确的二阶泰勒展开
 %\begin{align}\tag{16}
 %f(w^k+td^k)\approx f(w^k)+t<\nabla f(w^k),d^k>+t^2<\nabla^2f(w^k)d^k,d^k>/2
 %\end{align}
@@ -427,11 +430,11 @@ Set initial values~$Y^0,~\Pi^0$~\\
 %
 %
 %
-%我们强调,~除了定理~3.2~最后一项的后半部分,~定理~3.1~和~3.2~不要求~$f$~的凸性.~与文献【27,36】中已有的外推策略相比,~提出的外推策略有几个优点.~ 最明显的是定理~3.2~中比~$PG$~更快的速度,~因此我们的方法中每一个成功的外推步骤都有助于提高收敛速度,~而现有的方法只能提供与~$PG$~相同的收敛速度.~ 其次,~现有策略只使用预先指定的步长,~没有给定问题的信息,~也没有当前进度的信息,~并且只将步长限制在~$[0,1]$~以内.~另一方面,~我们的方法充分利用了函数曲率,~可以允许任意大的步长来更好地减少目标.~事实上,~在我们的数值实验中经常观察到~$t_k\gg1$~.此外,~我们的加速技术利用~(7)~和~(4)~的性质,~对~$ERM$因~问题获得非常有效的实现,~例如算法~1~的每次迭代代价几乎与~$PG$~相同,~而【27】的方法需要在每次迭代的两个点计算~$f$~和~$\Delta f$,~因此每次迭代的成本是原来的两倍.
+%我们强调,~除了定理~3.2~最后一项的后半部分,~定理~3.1~和~3.2~不要求~$f$~的凸性.~与文献【27,36】中已有的外推策略相比,~提出的外推策略有几个优点.~ 最明显的是定理~3.2~中比~$PG$~更快的速度,~因此我们的方法中每一个成功的外推步骤都有助于提高收敛速度,~而现有的方法只能提供与~$PG$~ 相同的收敛速度.~ 其次,~现有策略只使用预先指定的步长,~没有给定问题的信息,~也没有当前进度的信息,~并且只将步长限制在~$[0,1]$~以内.~另一方面,~ 我们的方法充分利用了函数曲率,~可以允许任意大的步长来更好地减少目标.~ 事实上,~在我们的数值实验中经常观察到~$t_k\gg1$~.此外,~我们的加速技术利用~(7)~和~(4)~的性质,~对~$ERM$因~问题获得非常有效的实现,~例如算法~1~的每次迭代代价几乎与~$PG$~相同,~而【27】的方法需要在每次迭代的两个点计算~$f$~和~$\Delta f$,~因此每次迭代的成本是原来的两倍.
 %
 %\subsection{子空间识别}
 %
-%根据上面的讨论,~我们将~(8)~解释为一个理论属性,~保证投影梯度算法~(5)~的迭代在有限次迭代之后最终会识别出包含候选解~$w^*$~的子空间~$A_J$~因此,~在非凸集~$A_s$~上最小化~$f$~的问题可以简化为最小化为~$f$~在~$A_J$~的凸优化问题.~基于此,~我们提出了算法~2~中描述的两阶段算法,~该算法在候选块~$A_J$~被识别后切换到高阶方法进行光滑凸优化,~从而获得更快的收敛速度.~基于此,~我们提出了算法2 中描述的两阶段算法,~该算法在候选块~$A_J$~被识别后切换到高阶方法进行光滑凸优化,~从而获得更快的收敛速度.~由于假设~$f$~是~$Lipschitz$~ 连续的,~$f$~的广义~$Hessian$~在【19】的任何地方都存在,~因此我们可以采用带回溯线研究的半光滑牛顿~$(SSN)$~方法【34】,~以较低的代价获得更快的收敛速度(详情见附录a).~特别地,~我们考虑了~$f$~对子空间~$A_J$~的限制,~将不在~$J$~中的坐标视为非变量,~ 从而减少了计算成本,~使所考虑的问题确实是光滑凸的.~由于我们无法先验地知道~$I_{w^*}$~是否确实被识别了,~所以我们采用【26,28,23】中实现的方法,~认为当~$w^k$~ 连续迭代足够长时间激活同一个~$A_J$~时,~$I_{w^*}$~就被识别了.~为了进一步保证我们没有在错误的子空间上进行优化,~我们还结合了【37,4,28,23】的思想,~在切换到~SSN~阶段后定期交替到~$PG$~步骤~(5).~这个两阶段算法的详细描述见算法2.
+%根据上面的讨论,~我们将~(8)~解释为一个理论属性,~保证投影梯度算法~(5)~ 的迭代在有限次迭代之后最终会识别出包含候选解~$w^*$~的子空间~$A_J$~因此,~在非凸集~$A_s$~上最小化~$f$~的问题可以简化为最小化为~$f$~在~$A_J$~的凸优化问题.~基于此,~我们提出了算法~2~中描述的两阶段算法,~该算法在候选块~$A_J$~被识别后切换到高阶方法进行光滑凸优化,~从而获得更快的收敛速度.~基于此,~我们提出了算法2 中描述的两阶段算法,~该算法在候选块~$A_J$~被识别后切换到高阶方法进行光滑凸优化,~从而获得更快的收敛速度.~由于假设~$f$~是~$Lipschitz$~ 连续的,~$f$~的广义~$Hessian$~在【19】的任何地方都存在,~因此我们可以采用带回溯线研究的半光滑牛顿~$(SSN)$~方法【34】,~以较低的代价获得更快的收敛速度(详情见附录a).~特别地,~我们考虑了~$f$~对子空间~$A_J$~的限制,~将不在~$J$~中的坐标视为非变量,~ 从而减少了计算成本,~使所考虑的问题确实是光滑凸的.~由于我们无法先验地知道~$I_{w^*}$~是否确实被识别了,~所以我们采用【26,28,23】中实现的方法,~认为当~$w^k$~ 连续迭代足够长时间激活同一个~$A_J$~时,~$I_{w^*}$~就被识别了.~为了进一步保证我们没有在错误的子空间上进行优化,~我们还结合了【37,4,28,23】的思想,~在切换到~SSN~阶段后定期交替到~$PG$~步骤~(5).~这个两阶段算法的详细描述见算法2.
 %
 %
 %
@@ -465,7 +468,7 @@ Set initial values~$Y^0,~\Pi^0$~\\
 %
 %如果~$\alpha$~太小，或者即使~$\beta_i$~已经非常小,~也不能满足这个递减条件,我们丢弃这个SSN步骤,~并在算法~$2$~中宣布这个光滑优化部分失败.
 %
-%对于(25)中的近似准则，设PCG的第i次迭代为p(i)， Qi:= QJ(p(i);wJ)，当PCG达到s 次迭代时(理论上它应该已经找到(25)的右边的精确解)，或者当第i次迭代满足i≥1 和时，我们遵循[16]终止PCG
+%对于(25)中的近似准则，设PCG的第i次迭代为p(i)， Qi:= QJ(p(i);wJ)，当PCG达到s 次迭代时(理论上它应该已经找到(25)的右边的精确解)，或者当第i 次迭代满足i≥1 和时，我们遵循[16]终止PCG
 
 
 
@@ -476,7 +479,7 @@ Set initial values~$Y^0,~\Pi^0$~\\
 %
 %实验表明，我们的加速策略在收敛速度和运行时间上都显著提高了原有的投影梯度算法，在0范数约束问题上的性能大大优于现有的算法。我们计划在不久的将来将我们的分析和算法扩展到非凸目标的设置。
 %
-%提出的外推策略有几个优点.~最明显的是定理~3.2~中比~$PG$~更快的速度,~因此我们的方法中每一个成功的外推步骤都有助于提高收敛速度,~而现有的方法只能提供与~$PG$~相同的收敛速度.~其次,~现有策略只使用预先指定的步长,~没有给定问题的信息,~也没有当前进度的信息,~并且只将步长限制在~$[0,1]$~以内.~另一方面,~我们的方法充分利用了函数曲率,~可以允许任意大的步长来更好地减少目标.
+%提出的外推策略有几个优点.~最明显的是定理~3.2~中比~$PG$~更快的速度,~ 因此我们的方法中每一个成功的外推步骤都有助于提高收敛速度,~而现有的方法只能提供与~$PG$~相同的收敛速度.~其次,~现有策略只使用预先指定的步长,~没有给定问题的信息,~也没有当前进度的信息,~并且只将步长限制在~$[0,1]$~以内.~另一方面,~我们的方法充分利用了函数曲率,~可以允许任意大的步长来更好地减少目标.
 
 
 \end{CJK*}
