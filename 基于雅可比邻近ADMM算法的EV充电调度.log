@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2023.4.14)  12 JUN 2023 21:52
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2023.4.14)  3 JUL 2023 21:01
 entering extended mode
 **C:/Users/shang/Desktop/ADMM/基于雅可比邻近ADMM算法的EV充电调度.
 tex
@@ -347,7 +347,14 @@ LaTeX Warning: Unused global option(s):
 
 
 (C:\Users\shang\Desktop\ADMM\基于雅可比邻近ADMM算法的EV充电调度.a
-ux)
+ux
+
+LaTeX Warning: Label `alg:AOA' multiply defined.
+
+
+LaTeX Warning: Label `alg:AOA' multiply defined.
+
+)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
@@ -477,7 +484,7 @@ LaTeX Warning: No \author given.
 [1
 
 {D:/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.sfd}}] [2]
-Overfull \hbox (57.43712pt too wide) in paragraph at lines 138--139
+Overfull \hbox (57.43712pt too wide) in paragraph at lines 140--141
 []\C19/song/m/n/10/63 � \C19/song/m/n/10/48 p \C19/song/m/n/10/46 � \C19/song/m
 /n/10/57 N \C19/song/m/n/10/63 N \C19/song/m/n/10/50 o � \C19/song/m/n/10/55 �[
 ] $\OMS/cmsy/m/n/10 k\OML/cmm/m/it/10 p \OMS/cmsy/m/n/10   []k[] \OT1/cmr/m/n/1
@@ -485,12 +492,12 @@ Overfull \hbox (57.43712pt too wide) in paragraph at lines 138--139
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--139
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
 
  []
 
-[3] [4] [5]
-Overfull \hbox (0.38953pt too wide) in paragraph at lines 278--281
+[3] [4] [5] [6]
+Overfull \hbox (0.38953pt too wide) in paragraph at lines 295--298
 \OT1/cmr/m/n/10 son-able val-ue for the rel-a-tive stop-ping cri-te-ri-on might
  be $10[]$ or $10[]$. A pseudo-
  []
@@ -498,18 +505,28 @@ Overfull \hbox (0.38953pt too wide) in paragraph at lines 278--281
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[6] [7]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[7] [8]
 (C:\Users\shang\Desktop\ADMM\基于雅可比邻近ADMM算法的EV充电调度.a
-ux) ) 
+ux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 6555 strings out of 495354
- 87532 string characters out of 3183859
- 178740 words of memory out of 3000000
- 9534 multiletter control sequences out of 15000+200000
+ 6568 strings out of 495354
+ 87809 string characters out of 3183859
+ 177740 words of memory out of 3000000
+ 9547 multiletter control sequences out of 15000+200000
  40916 words of font info for 147 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  44i,14n,42p,1267b,732s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truety
+<D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/
+chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTe
+X/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun
+.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truety
 pe/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/
 CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/sim
 sun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/tru
@@ -534,26 +551,23 @@ uetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/C
 TEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese
 /simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts
 /truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D
-:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chin
-ese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fo
-nts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf
-><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/CTEX/MiKTeX/font
-s/type1/public/amsfonts/cm/cmbx12.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmex10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/
-CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/CTEX/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmmi7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/c
-mr10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/CTEX/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/CTEX/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmr5.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D
-:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/CTEX/MiKTeX/fonts/typ
-e1/public/amsfonts/cm/cmsy10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmsy7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/CTEX/M
-iKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><D:/CTEX/MiKTeX/fonts/type
-1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 基于雅可比邻近ADMM算法的EV充电调度.pdf (7 pages
-, 512717 bytes).
+:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/CTEX/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmbx12.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmex10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/CTE
+X/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/CTEX/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmmi7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
+0.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/CTEX/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/CTEX/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmr5.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/C
+TEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/CTEX/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmsy10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+sy7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/CTEX/MiKT
+eX/fonts/type1/public/amsfonts/symbols/msam10.pfb><D:/CTEX/MiKTeX/fonts/type1/p
+ublic/amsfonts/symbols/msbm10.pfb>
+Output written on 基于雅可比邻近ADMM算法的EV充电调度.pdf (8 pages
+, 521253 bytes).
 PDF statistics:
- 278 PDF objects out of 1000 (max. 8388607)
+ 281 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
