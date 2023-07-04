@@ -75,46 +75,47 @@ SOC_n^{min}\leq SOC_{n,t}\leq SOC_n^{max},
 
 其中~$\eta_n^+,\eta_n^-\in(0,1]$~各自代表充放电能量转换效率.~为了延长电池寿命,~建议~$SOC_{min}$~和~$SOC_{max}$~分别为~$15\%$~ 和~$90\%$[2].
 \begin{align*}
-\frac{C_n}{\eta_n^+ \Delta t}&(SOC_n^{min}-SOC_n^{init})+\eta_n^+\eta_n^- \sum_{\tau=1}^t q_{n,\tau}\leq \sum_{\tau=1}^t p_{n,\tau}\\\tag{3}
-& \leq \frac{C_n}{\eta_n^+\Delta t}(SOC_n^{max}-S_n^{init})+\eta_n^+\eta_n^-\sum_{\tau=1}^t q_{n,t}
+\frac{C_n}{\eta_n^+ \Delta t}&(SOC_n^{min}-SOC_n^{init})\leq \sum_{t=1}^T p_{n,t}\\\tag{3}
+& \leq \frac{C_n}{\eta_n^+\Delta t}(SOC_n^{max}-S_n^{init})
 \end{align*}
+其中~$SOC_{init}$~是~$EV~n$~的初始~$SOC$~值.~
 ~设~$p_n^{min}$~和~$p_n^{max}$~分别为~$EV n$~的最小和最大功率,~ 我们有以下不等式约束:
 \begin{align}\tag{4}
-p_n^{min}\leq p_{n,t}\leq p_{n}^{max},~n\in \mathcal{N},~t\in \mathcal{T}
+p_n^{min}\leq p_{n,t}\leq p_{n}^{max},~n\in \mathcal{N},~t\in \mathcal{T},
 \end{align}
 通过决定电动汽车在每个时隙中是否充电,~实现了电动汽车的协调充电调度,~ 第~$i$~ 个~$EV$~充电状态如下:
 \begin{align}\tag{5}
-X_{i,j}=\left\{
+X_{n,t}=\left\{
 \begin{array}{cl}
 1 & if~EV~is~being~charged,\\
 0 & otherwise.\\
 \end{array}\right.
 \end{align}
-且
+约束满足以下形式:
+\begin{align*}
+(1-X_{n,t})p_{n,t}=0,~n\in \mathcal{N},~t\in \mathcal{T}
+\end{align*}
+在实践中,~一般采用以下保守约束,即每个~$EV n$~在有限时间范围~$T$~结束时至少达到最终SOC值,~表示为~$SOC_n^{final}$,
 \begin{align}\tag{6}
-(1-X_{n,t})p_{n,t}=0
+\sum_{t=1}^Tp_{n,t}\geq \frac{C_n}{q_n^+\Delta t}(SOC_n^{final}-SOC_n^{init}).
 \end{align}
-则满足以下约束:
+为了简化表示,~定义~$\mathcal{P}_n^{(1)}$~如下
 \begin{align}\tag{7}
-\sum_{t=1}^Tp_{n,t}\geq \frac{C_n}{q_n^+\Delta t}(SOC_n^{final}-SOC_n^{init})+\eta_n^+\eta_n^-\sum_{t=1^T}q_{n,t}
-\end{align}
-为了简单表示,~定于如下:
-\begin{align}\tag{8}
-\mathcal{P}^{(1)}=\{p_n|p_n~satisfies(3.3)-(3.7)\}
+\mathcal{P}_n^{(1)}=\{\{p_{n,t}\}_{n=1}^N|\{p_{n,t}\}_{n=1}^N~satisfies(3)-(6)\}
 \end{align}
 %设~$\mathbf{P}\triangleq (\mathbf{P}_n;n\in \mathcal{N})$~表示电动汽车的充电策略,~第~$n$~辆电动汽车的容许充电策略集用~$\mathcal{P}_n$~表示,~所有电动汽车的容许充电策略集用~$\mathcal{P}$~表示
 设
- \begin{align}\tag{9}
+ \begin{align}\tag{8}
  \mathcal{P}^{(1)}\triangleq \mathcal{P}_1^{(1)} \times \mathcal{P}_2^{(1)}\cdot\cdot\cdot \times \mathcal{P}_N^{(1)}
  \end{align}
 
 {\color{red}\subsection{馈线容量约束}}
- 对于分布式电网:~我们分别用~$\mathcal{L}\equiv\{1,...,L\}$~和~$\mathcal{M}\equiv\{1,...,M\}$~分别表示馈线和节点集合,~用$\mathcal{N}_l,l\in \mathcal{L}$~表示通过馈线~$l$~供电的电动汽车的集合,~$\mathcal{N}_m,m\in \mathcal{M}$~表示通过根节点~$m$~ 处供电的电动汽车的集合.~定义连接在节点~$m$~ 的基本需求表示为~$d_m=(d_{mt},t\in\mathcal{L})$,~通过馈线~$l$~的总的基本需求~$D_{lt}\equiv \sum_{m\in\mathcal{M}_l}d_{mt}$,~其中~$\mathcal{M}_l$~表示通过馈线~$l$~的节点集合,~其功率通过馈线~$l$~进行分配~$\mathbf{d}=(d_t,t\in\mathcal{T})$~表示配电网的总基本需求~$\mathcal{M}_l$,~则配电网中所有馈线在充电期间的功率容量可表示为 电动汽车的充电策略应满足馈线容量的约束:
+ 对于分布式电网:~我们分别用~$\mathcal{L}\equiv\{1,...,L\}$~和~$\mathcal{M}\equiv\{1,...,M\}$~分别表示馈线和节点集合,~用$\mathcal{N}_l,l\in \mathcal{L}$~表示通过馈线~$l$~供电的电动汽车的集合,~$\mathcal{N}_m,m\in \mathcal{M}$~表示通过根节点~$m$~ 处供电的电动汽车的集合.~定义连接在节点~$m$~ 的基本需求表示为~$d_m=(d_{mt},t\in\mathcal{L})$,~通过馈线~$l$~的总的基本需求~$D_{lt}\equiv \sum_{m\in\mathcal{M}_l}d_{mt}$,~其中~$\mathcal{M}_l$~ 表示通过馈线~$l$~的节点集合,~其功率通过馈线~$l$~进行分配~$\mathbf{d}=(d_t,t\in\mathcal{T})$~表示配电网的总基本需求~$\mathcal{M}_l$,~则配电网中所有馈线在充电期间的功率容量可表示为 电动汽车的充电策略应满足馈线容量的约束:
 \begin{align*}
 c_{l,t}=C_l-D_{lt},\\
 \end{align*}
 且
-\begin{align*}
+\begin{align*}\tag{9}
 \sum_{n\in\Pi_n}p_{n,t}\leq c_{lt}.
 \end{align*}
 \subsection{目标函数}
@@ -557,6 +558,48 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
         \RETURN EEEEE
     \end{algorithmic}
 \end{algorithm}
+
+\clearpage
+
+\section{weiyifan note}
+
+\bl{
+目标函数：
+$$G(\{p_{n,t}\}_{n=1,t=1}^{N,T})=\sum_{n\in \mathcal{N}}\sum_{t\in \mathcal{T}}\lambda_tp_{nt}\Delta t
++\sum_{n\in \mathcal{N}}-(\sum_{t\in \mathcal{T}}p_{n,t}-\Gamma_n)^2
++\sum_{n\in \mathcal{N}}\|\{p_{n,t}\}_{t=1}^{T}\|_0
++\sum_{t\in \mathcal{T}}(\sum_{n\in \mathcal{N}}p_{n,t}-d_t)^2$$
+
+分解成$N+1$个小问题：
+\begin{align*}
+G(\{p_{n,t}\}_{n=1,t=1}^{N,T})
+&=\sum_{t\in \mathcal{T}}\lambda_tp_{1,t}\Delta t-(\sum_{t\in \mathcal{T}}p_{1,t}-\Gamma_1)^2+\|\{p_{1,t}\}_{t=1}^{T}\|_0\\
+&+\sum_{t\in \mathcal{T}}\lambda_tp_{2,t}\Delta t-(\sum_{t\in \mathcal{T}}p_{2,t}-\Gamma_1)^2+\|\{p_{2,t}\}_{t=1}^{T}\|_0\\
+&+\sum_{t\in \mathcal{T}}\lambda_tp_{3,t}\Delta t-(\sum_{t\in \mathcal{T}}p_{3,t}-\Gamma_1)^2+\|\{p_{3,t}\}_{t=1}^{T}\|_0\\
+&+\cdots\\
+&+\sum_{t\in \mathcal{T}}\lambda_tp_{N,t}\Delta t-(\sum_{t\in \mathcal{T}}p_{N,t}-\Gamma_1)^2+\|\{p_{N,t}\}_{t=1}^{T}\|_0\\
+&+\sum_{t\in \mathcal{T}}(\sum_{n\in \mathcal{N}}p_{n,t}-d_t)^2
+\end{align*}
+
+引入记号：
+\begin{align}
+&\mathbf{p}_n:=\{p_{n,t}\}_{t=1}^T, \forall n\in\mathcal{N}; \\
+&\mathbf{p}_{N+1}:=\{\sum\limits_{n=1}^N p_{n,t}\}_{t=1}^T;\\
+&f_n(\mathbf{x}):=\Delta t{\lambda_t}\mathbf{x}-(\sum_{t\in \mathcal{T}}\mathbf{x}-\Gamma_1)^2+\|\mathbf{x}\|_1\\
+&f_{N+1}(\mathbf{x}):=\sum_{t\in \mathcal{T}}(\mathbf{x}-d_t)^2
+\end{align}
+
+则上述问题可以等价表述为：
+
+\begin{align*}
+  \textrm{minmize } f_1(\mathbf{p}_1)+\cdots+f_N(\mathbf{p}_N)+f_{N+1}(\mathbf{p}_{N+1})\\
+  \textrm{subject to } \mathbf{I}\mathbf{p}_1+\cdots+\mathbf{I}\mathbf{p}_N-\mathbf{I}\mathbf{p}_{N+1}=\mathbf{0}\\
+  \mathbf{p}_1\in \mathcal{X}_1,\cdots,\mathbf{p}_N\in \mathcal{X}_N,\mathbf{p}_{N+1}\in \mathcal{X}_{N+1}
+\end{align*}
+这里 $\mathcal{X}_1$ 表示满足了对应限制条件的空间
+}
+
+
 
 
 \end{CJK*}

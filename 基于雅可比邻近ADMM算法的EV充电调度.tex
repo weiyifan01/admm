@@ -568,9 +568,9 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
 $$G(\{p_{n,t}\}_{n=1,t=1}^{N,T})=\sum_{n\in \mathcal{N}}\sum_{t\in \mathcal{T}}\lambda_tp_{nt}\Delta t
 +\sum_{n\in \mathcal{N}}-(\sum_{t\in \mathcal{T}}p_{n,t}-\Gamma_n)^2
 +\sum_{n\in \mathcal{N}}\|\{p_{n,t}\}_{t=1}^{T}\|_0
-+\sum_{t\in \mathcal{T}}(\sum_{n\in \mathcal{N}}p_{n,t}-d_t)^2$$
++\sum_{t\in \mathcal{T}}(\sum_{n\in \mathcal{N}}p_{n,t}-d_t)^2$${\color{red}目标函数没有新意了}
 
-分解成$N+1$个小问题：
+分解成$N+1$个小问题：{\color{red}为什么这么分解}
 \begin{align*}
 G(\{p_{n,t}\}_{n=1,t=1}^{N,T})
 &=\sum_{t\in \mathcal{T}}\lambda_tp_{1,t}\Delta t-(\sum_{t\in \mathcal{T}}p_{1,t}-\Gamma_1)^2+\|\{p_{1,t}\}_{t=1}^{T}\|_0\\
@@ -589,7 +589,7 @@ G(\{p_{n,t}\}_{n=1,t=1}^{N,T})
 &f_{N+1}(\mathbf{x}):=\sum_{t\in \mathcal{T}}(\mathbf{x}-d_t)^2
 \end{align}
 
-则上述问题可以等价表述为：
+则上述问题可以等价表述为：{\color{red}约束条件没看明白}
 
 \begin{align*}
   \textrm{minmize } f_1(\mathbf{p}_1)+\cdots+f_N(\mathbf{p}_N)+f_{N+1}(\mathbf{p}_{N+1})\\
