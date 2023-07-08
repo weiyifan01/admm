@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2022.11.22)  6 JUL 2023 17:07
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2023.4.14)  8 JUL 2023 14:45
 entering extended mode
-**C:/Users/wei_y/Desktop/admm/基于雅可比邻近ADMM算法的EV充电调度.
+**C:/Users/shang/Desktop/ADMM/基于雅可比邻近ADMM算法的EV充电调度.
 tex
 
-(C:/Users/wei_y/Desktop/admm/基于雅可比邻近ADMM算法的EV充电调度.t
+(C:/Users/shang/Desktop/ADMM/基于雅可比邻近ADMM算法的EV充电调度.t
 ex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for loaded.
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\base\article.cls
+(D:\CTEX\MiKTeX\tex\latex\base\article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\base\size10.clo
+(D:\CTEX\MiKTeX\tex\latex\base\size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -24,24 +24,24 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
+(D:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
+(D:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
+(D:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks14
 \ex@=\dimen103
 ))
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
+(D:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen104
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
+(D:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count87
@@ -82,7 +82,7 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\ams\classes\amsthm.sty
+(D:\CTEX\MiKTeX\tex\latex\ams\classes\amsthm.sty
 Package: amsthm 2004/08/06 v2.20
 \thm@style=\toks19
 \thm@bodyfont=\toks20
@@ -94,20 +94,20 @@ Package: amsthm 2004/08/06 v2.20
 \thm@headsep=\skip48
 \dth@everypar=\toks24
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty
+(D:\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
+(D:\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\tools\tabularx.sty
+(D:\CTEX\MiKTeX\tex\latex\tools\tabularx.sty
 Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\tools\array.sty
+(D:\CTEX\MiKTeX\tex\latex\tools\array.sty
 Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \col@sep=\dimen112
 \extrarowheight=\dimen113
@@ -123,7 +123,7 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \TX@cols=\count99
 \TX@ftn=\toks26
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\tools\bm.sty
+(D:\CTEX\MiKTeX\tex\latex\tools\bm.sty
 Package: bm 2004/02/26 v1.1c Bold Symbol Support (DPC/FMi)
 \symboldoperators=\mathgroup6
 \symboldletters=\mathgroup7
@@ -131,43 +131,43 @@ Package: bm 2004/02/26 v1.1c Bold Symbol Support (DPC/FMi)
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 138.
 LaTeX Info: Redefining \bm on input line 204.
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\graphics\color.sty
+(D:\CTEX\MiKTeX\tex\latex\graphics\color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\00miktex\color.cfg
+(D:\CTEX\MiKTeX\tex\latex\00miktex\color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\pdftex-def\pdftex.def
+(D:\CTEX\MiKTeX\tex\latex\pdftex-def\pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\generic\oberdiek\infwarerr.sty
+(D:\CTEX\MiKTeX\tex\generic\oberdiek\infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\generic\oberdiek\ltxcmds.sty
+(D:\CTEX\MiKTeX\tex\generic\oberdiek\ltxcmds.sty
 Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count100
 ))
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\esint\esint.sty
+(D:\CTEX\MiKTeX\tex\latex\esint\esint.sty
 Package: esint 
 \symlargesymbolsA=\mathgroup9
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
+(D:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
+(D:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks27
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
+(D:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\graphics\trig.sty
+(D:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
+(D:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
@@ -175,19 +175,19 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 \Gin@req@height=\dimen119
 \Gin@req@width=\dimen120
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\diagbox\diagbox.sty
+(D:\CTEX\MiKTeX\tex\latex\diagbox\diagbox.sty
 Package: diagbox 2011/11/23 v2.0 Making table heads with diagonal lines
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\pict2e\pict2e.sty
+(D:\CTEX\MiKTeX\tex\latex\pict2e\pict2e.sty
 Package: pict2e 2011/04/05 v0.2y Improved picture commands (HjG,RN,JT)
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\00miktex\pict2e.cfg
+(D:\CTEX\MiKTeX\tex\latex\00miktex\pict2e.cfg
 File: pict2e.cfg 2005/12/29 v1.0 MiKTeX 'pict2e' configuration
 )
 Package pict2e Info: Driver file: pdftex.def on input line 119.
 Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 121.
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\pict2e\p2e-pdftex.def
+(D:\CTEX\MiKTeX\tex\latex\pict2e\p2e-pdftex.def
 File: p2e-pdftex.def 2011/04/05 v0.1t Driver-dependant file (RN,HjG,JT)
 )
 \pIIe@GRAPH=\toks28
@@ -195,15 +195,15 @@ File: p2e-pdftex.def 2011/04/05 v0.1t Driver-dependant file (RN,HjG,JT)
 \@arcrad=\dimen122
 \@tempdimd=\dimen123
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp.sty
 Package: fp 1995/04/02
 
 `Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\defpattern.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\defpattern.sty
 Package: defpattern 1994/10/12
 \actioncount=\count101
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-basic.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-basic.sty
 Package: fp-basic 1996/05/13
 \FP@xs=\count102
 \FP@xia=\count103
@@ -215,32 +215,32 @@ Package: fp-basic 1996/05/13
 \FP@regs=\count109
 \FP@times=\count110
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-addons.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-addons.sty
 Package: fp-addons 1995/03/15
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-snap.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-snap.sty
 Package: fp-snap 1995/04/05
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-exp.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-exp.sty
 Package: fp-exp 1995/04/03
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-trigo.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-trigo.sty
 Package: fp-trigo 1995/04/14
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-pas.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-pas.sty
 Package: fp-pas 1994/08/29
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-random.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-random.sty
 Package: fp-random 1995/02/23
 \FPseed=\count111
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-eqn.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-eqn.sty
 Package: fp-eqn 1995/04/03
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-upn.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-upn.sty
 Package: fp-upn 1996/10/21
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\fp\fp-eval.sty
+(D:\CTEX\MiKTeX\tex\latex\fp\fp-eval.sty
 Package: fp-eval 1995/04/03
 ))
 \diagbox@boxa=\box28
@@ -251,10 +251,10 @@ Package: fp-eval 1995/04/03
 \diagbox@sepl=\dimen126
 \diagbox@sepr=\dimen127
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\tools\indentfirst.sty
+(D:\CTEX\MiKTeX\tex\latex\tools\indentfirst.sty
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\enumitem\enumitem.sty
+(D:\CTEX\MiKTeX\tex\latex\enumitem\enumitem.sty
 Package: enumitem 2011/09/28 v3.5.2 Customized lists
 \labelindent=\skip51
 \enit@outerparindent=\dimen128
@@ -262,23 +262,23 @@ Package: enumitem 2011/09/28 v3.5.2 Customized lists
 \enit@inbox=\box31
 \enitdp@description=\count112
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\cjk\CJK.sty
+(D:\CTEX\MiKTeX\tex\latex\cjk\CJK.sty
 Package: CJK 2008/12/29 4.8.2
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\cjk\mule\MULEenc.sty
+(D:\CTEX\MiKTeX\tex\latex\cjk\mule\MULEenc.sty
 Package: MULEenc 2008/12/29 4.8.2
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\cjk\CJK.enc
+(D:\CTEX\MiKTeX\tex\latex\cjk\CJK.enc
 File: CJK.enc 2008/12/29 4.8.2
 )
 LaTeX Info: Redefining \selectfont on input line 756.
 \CJK@indent=\box32
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\algorithms\algorithm.sty
+(D:\CTEX\MiKTeX\tex\latex\algorithms\algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\float\float.sty
+(D:\CTEX\MiKTeX\tex\latex\float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count113
 \float@exts=\toks30
@@ -286,13 +286,13 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks31
 \@floatcapt=\box34
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\base\ifthen.sty
+(D:\CTEX\MiKTeX\tex\latex\base\ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \@float@every@algorithm=\toks32
 \c@algorithm=\count114
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\algorithms\algorithmic.sty
+(D:\CTEX\MiKTeX\tex\latex\algorithms\algorithmic.sty
 Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \c@ALC@unique=\count115
 \c@ALC@line=\count116
@@ -309,13 +309,13 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \c@condition=\count124
 \c@proposition=\count125
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\subfig\subfig.sty
+(D:\CTEX\MiKTeX\tex\latex\subfig\subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\caption\caption.sty
+(D:\CTEX\MiKTeX\tex\latex\caption\caption.sty
 Package: caption 2011/11/10 v3.2e Customizing captions (AR)
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\caption\caption3.sty
+(D:\CTEX\MiKTeX\tex\latex\caption\caption3.sty
 Package: caption3 2011/11/01 v1.4a caption3 kernel (AR)
 \captionmargin=\dimen129
 \captionmargin@=\dimen130
@@ -346,15 +346,8 @@ LaTeX Warning: Unused global option(s):
     [8pt].
 
 
-(C:\Users\wei_y\Desktop\admm\基于雅可比邻近ADMM算法的EV充电调度.a
-ux
-
-LaTeX Warning: Label `alg:AOA' multiply defined.
-
-
-LaTeX Warning: Label `alg:AOA' multiply defined.
-
-)
+(C:\Users\shang\Desktop\ADMM\基于雅可比邻近ADMM算法的EV充电调度.a
+ux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
@@ -431,7 +424,7 @@ LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
 LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
- (D:\fan_software\ctex\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii
+ (D:\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count134
 \scratchdimen=\dimen136
@@ -448,57 +441,70 @@ LaTeX Font Info:    ... okay on input line 35.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
- (D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\cjk\standard.bdg
+ (D:\CTEX\MiKTeX\tex\latex\cjk\standard.bdg
 File: standard.bdg 2008/12/29 4.8.2
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\cjk\extended.enc
+(D:\CTEX\MiKTeX\tex\latex\cjk\extended.enc
 File: extended.enc 2008/12/29 4.8.2
 )
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\cjk\extended.chr
+(D:\CTEX\MiKTeX\tex\latex\cjk\extended.chr
 File: extended.chr 2008/12/29 4.8.2
 )
 LaTeX Font Info:    Try loading font information for C19+song on input line 39.
 
 
-(D:\fan_software\ctex\CTEX\CTeX\tex\latex\CJK\GB\c19song.fd
+(D:\CTEX\CTeX\tex\latex\CJK\GB\c19song.fd
 File: c19song.fd 2009/09/23 4.8.2
 )
 LaTeX Font Info:    Try loading font information for U+msa on input line 39.
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
+(D:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 39.
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
+(D:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+esint on input line 39.
 
-(D:\fan_software\ctex\CTEX\MiKTeX\tex\latex\esint\uesint.fd
+(D:\CTEX\MiKTeX\tex\latex\esint\uesint.fd
 File: uesint.fd 
 )
 
 LaTeX Warning: No \author given.
 
-[1
 
-{D:/fan_software/ctex/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.
-sfd}}] [2]
-Overfull \hbox (57.43712pt too wide) in paragraph at lines 140--141
-[]\C19/song/m/n/10/63 � \C19/song/m/n/10/48 p \C19/song/m/n/10/46 � \C19/song/m
-/n/10/57 N \C19/song/m/n/10/63 N \C19/song/m/n/10/50 o � \C19/song/m/n/10/55 �[
-] $\OMS/cmsy/m/n/10 k\OML/cmm/m/it/10 p \OMS/cmsy/m/n/10   []k[] \OT1/cmr/m/n/1
-0 = []([])$. 
+Underfull \hbox (badness 10000) in paragraph at lines 56--58
+
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 140--141
+Overfull \hbox (30.82693pt too wide) in paragraph at lines 79--80
+[]\C19/song/m/n/10/63 3 \C19/song/m/n/10/37  \C19/song/m/n/10/46 ! \C19/song/m
+/n/10/64 � \C19/song/m/n/10/45 � \C19/song/m/n/10/48 � \C19/song/m/n/10/61 � \C
+19/song/m/n/10/42 � \C19/song/m/n/10/60  \C19/song/m/n/10/40 N N � \C19/song/m
+/n/10/38 � \C19/song/m/n/10/40 > \C19/song/m/n/10/51  \C19/song/m/n/10/60 . \C
+19/song/m/n/10/48 5 \C19/song/m/n/10/47 � \C19/song/m/n/10/64 � \C19/song/m/n/1
+0/40 > � \C19/song/m/n/10/52 � \C19/song/m/n/10/38 � � \C19/song/m/n/10/40 >\OT
+1/cmr/m/n/10 ,\C19/song/m/n/10/49 -$\OML/cmm/b/it/10 p[] \OT1/cmr/m/n/10 = (\OM
+L/cmm/m/it/10 p[]; :::; p[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 2$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+ []
+
+[1
+
+{D:/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.sfd}}] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
 
  []
 
 [3] [4] [5] [6]
-Overfull \hbox (0.38953pt too wide) in paragraph at lines 295--298
+Overfull \hbox (0.38953pt too wide) in paragraph at lines 320--323
 \OT1/cmr/m/n/10 son-able val-ue for the rel-a-tive stop-ping cri-te-ri-on might
  be $10[]$ or $10[]$. A pseudo-
  []
@@ -506,90 +512,70 @@ Overfull \hbox (0.38953pt too wide) in paragraph at lines 295--298
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 [7] [8]
-Overfull \hbox (13.54198pt too wide) in paragraph at lines 626--626
+Overfull \hbox (13.54198pt too wide) in paragraph at lines 656--656
 [] 
  []
 
 [9
 
 ] [10]
-(C:\Users\wei_y\Desktop\admm\基于雅可比邻近ADMM算法的EV充电调度.a
-ux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+(C:\Users\shang\Desktop\ADMM\基于雅可比邻近ADMM算法的EV充电调度.a
+ux) ) 
 Here is how much of TeX's memory you used:
- 6631 strings out of 495354
- 91483 string characters out of 3182850
- 177740 words of memory out of 3000000
- 9610 multiletter control sequences out of 15000+200000
+ 6656 strings out of 495354
+ 89366 string characters out of 3183859
+ 180740 words of memory out of 3000000
+ 9635 multiletter control sequences out of 15000+200000
  53429 words of font info for 189 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  44i,15n,42p,1268b,799s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_sof
-tware/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CT
-EX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts
-/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chi
-nese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.t
-tf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_so
-ftware/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/C
-TEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/font
-s/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/ch
-inese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.
-ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_s
-oftware/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/
-CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fon
-ts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/c
-hinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun
-.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_
-software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex
-/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fo
-nts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/
-chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsu
-n.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan
-_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/cte
-x/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/f
-onts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype
-/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/sims
-un.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fa
-n_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ct
-ex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/
-fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetyp
-e/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/sim
-sun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/f
-an_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/c
-tex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX
-/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truety
-pe/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/si
-msun.ttf><D:/fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/
-fan_software/ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/
-ctex/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/CTe
-X/fonts/truetype/chinese/simsun.ttf><D:/fan_software/ctex/CTEX/MiKTeX/fonts/typ
-e1/public/amsfonts/cm/cmbx10.pfb><D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmbx12.pfb><D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmex10.pfb><D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmmi10.pfb><D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/public/am
-sfonts/cm/cmmi5.pfb><D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmmi7.pfb><D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmr10.pfb><D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cm
-r12.pfb><D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.
-pfb><D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><
-D:/fan_software/ctex/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/fa
-n_software/ctex/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/fan_sof
-tware/ctex/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/fan_softwa
-re/ctex/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/fan_software/c
-tex/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/fan_software/ctex
-/CTEX/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><D:/fan_software/ct
-ex/CTEX/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+<D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truety
+pe/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/
+CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/sim
+sun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/tru
+etype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CT
+EX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/
+simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/
+truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:
+/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chine
+se/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fon
+ts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf>
+<D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/ch
+inese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/
+fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.t
+tf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype
+/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CT
+eX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsu
+n.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truet
+ype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX
+/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/si
+msun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/tr
+uetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/C
+TEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese
+/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts
+/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D
+:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chin
+ese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fo
+nts/truetype/chinese/simsun.ttf><D:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf
+><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/CTEX/MiKTeX/font
+s/type1/public/amsfonts/cm/cmbx12.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmex10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/
+CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/CTEX/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmmi7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mmib10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/CTEX/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/CTEX/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb
+><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/CTEX/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr8.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/CTEX/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/CTEX/MiKTeX/fonts/type1/pu
+blic/amsfonts/symbols/msam10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/sy
+mbols/msbm10.pfb>
 Output written on 基于雅可比邻近ADMM算法的EV充电调度.pdf (10 page
-s, 536366 bytes).
+s, 548887 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
+ 291 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
