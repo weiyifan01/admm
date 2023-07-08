@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2023.4.14)  8 JUL 2023 14:45
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2023.4.14)  8 JUL 2023 16:28
 entering extended mode
 **C:/Users/shang/Desktop/ADMM/基于雅可比邻近ADMM算法的EV充电调度.
 tex
@@ -504,7 +504,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 156--157
  []
 
 [3] [4] [5] [6]
-Overfull \hbox (0.38953pt too wide) in paragraph at lines 320--323
+Overfull \hbox (0.38953pt too wide) in paragraph at lines 327--330
 \OT1/cmr/m/n/10 son-able val-ue for the rel-a-tive stop-ping cri-te-ri-on might
  be $10[]$ or $10[]$. A pseudo-
  []
@@ -513,7 +513,7 @@ Overfull \hbox (0.38953pt too wide) in paragraph at lines 320--323
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [7] [8]
-Overfull \hbox (13.54198pt too wide) in paragraph at lines 656--656
+Overfull \hbox (13.54198pt too wide) in paragraph at lines 663--663
 [] 
  []
 
@@ -523,10 +523,10 @@ Overfull \hbox (13.54198pt too wide) in paragraph at lines 656--656
 (C:\Users\shang\Desktop\ADMM\基于雅可比邻近ADMM算法的EV充电调度.a
 ux) ) 
 Here is how much of TeX's memory you used:
- 6656 strings out of 495354
- 89366 string characters out of 3183859
+ 6664 strings out of 495354
+ 89469 string characters out of 3183859
  180740 words of memory out of 3000000
- 9635 multiletter control sequences out of 15000+200000
+ 9643 multiletter control sequences out of 15000+200000
  53429 words of font info for 189 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  44i,15n,42p,1268b,799s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -573,7 +573,7 @@ MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/CTEX/MiKTeX/fonts/type1/pu
 blic/amsfonts/symbols/msam10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/sy
 mbols/msbm10.pfb>
 Output written on 基于雅可比邻近ADMM算法的EV充电调度.pdf (10 page
-s, 548887 bytes).
+s, 550673 bytes).
 PDF statistics:
  291 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

@@ -193,7 +193,7 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 
 现在我们可以很容易地将~$(\ref{objectf})-(\ref{objectfc2})$~所描述的问题写成标准的ADMM 形式，如下所示
 \begin{align}
-&\min_{\{u\}}G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(Y)\\\tag{19}
+&\min_{\{u\}}G(P)+\mathcal{I}_1(P)+\mathcal{I}_2(Y)\\
 &s.t~~P-Y=0.\nonumber
 \end{align}
 这里定义:
@@ -255,47 +255,54 @@ p_n^{k+1}=\mathop{argmin}\limits_{Y\in\mathcal{P}^{(1)}}~\{G_n(p)+\frac{\rho}{2}
 Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P^k-Y+\bm{u}\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2\\
        &=\mathop{argmin}\limits_{Y\in\mathcal{P}^{(2)}}~\frac{\rho}{2}\|Y-(P^{k}+\bm{u})\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2\nonumber
 \end{align}
-%{\color{red}第一种思路}:\\
-%由于(\ref{subob})中的函数是解耦的,\,因此计算其变量\,$y_i^k$\,i=1,...,N.\,的优化问题为
-%\begin{align}
-%\min_{y_t\in \mathcal{P}_t^{(2)}}\quad[(\rho+\psi)y_i^2-2(\rho(p_i^k+\bm{u}_i^k)+\psi y_i^k)y_i]
-%s.t.
-%\end{align}
-
 对于~$y-update$~的更新,~可以由以下分散方式计算变量
-\begin{align*}\tag{27}
+\begin{align}\label{subbb}
 \mathop{min}\limits_{y}~\frac{\rho}{2}\{y_t^Ty_t-2(p_t^k+\frac{\mu_t^k}{\rho})y_t\}+\frac{\psi}{2}(y_t-y_t^k)^T(y_t-y_t^k)
-\end{align*}
-子问题(30)是一个CQP问题。
-    为了简化符号,~我们引入一个~$(L\times N)$~矩阵~$A^t$~来表示时刻~$t$~的馈线用户关联矩阵及其在~$a_{l,n}^t$~处的分量
-    \begin{equation}\tag{28}
+\end{align}
+子问题(\ref{subbb})是一个CQP问题。
+    为了简化符号,~我们引入一个~$(L\times N)$~矩阵~$A^t$~来表示时刻\,$t$\,的馈线用户关联矩阵及其在\,$a_{l,n}^t$\,处的分量
+ \begin{equation}
 a_{l,n}^t=\left\{
 \begin{array}{cl}
 1  &  if~PEV~n~uses~feeder~l~at~time~t \\
 0  &  otherwise \\
 \end{array} \right.
 \end{equation}
-设~$A^t=(a_1^t,...,a_N^t)$~$a_n^t$~是~$A^t$~的第~$n$~列向量,~表示~$EV n$~使用的相应馈线)~$a_{N+1}^t=0\in \mathcal{R}^l,~$~$c^t=(c_{1,t},...c_{l,t})$,~$b_n -1,n\in\mathcal{N},b_{N+1}=1$,~ 那么子问题重写为
-\begin{align*}\tag{29}
-&min~~\sum_{n=1}^{N+1}y_{n,t}^2-2(x_{n,t}^k+U_{n,t}^k)y_{n,t}\\\tag{30}
-&s.t.~~~~\sum_{n=1}^{N+1}a_n^ty_{n,t}\leq c^t\\\tag{31}
-&~~~~~~~~\sum_{n=1}^{N+1}b_ny_{n,t}=d_t\\
-\end{align*}
-引入(31)的拉格朗日函数
-\begin{align*}
+设\,$A^t=(a_1^t,...,a_N^t)$\,$a_n^t$\,是\,$A^t$\,的第\,$n$\,列向量,\,表示\,$EV n$\,使用的相应馈线)\,$a_{N+1}^t=0\in \mathcal{R}^l,\,$\,$c^t=(c_{1,t},...c_{l,t})$,\,$b_n -1,n\in\mathcal{N},b_{N+1}=1$,~ 那么子问题重写为
+\begin{align}\label{subyone}
+&min \quad\sum_{n=1}^{N+1}y_{n,t}^2-2(x_{n,t}^k+U_{n,t}^k)y_{n,t}\\
+&s.t.\quad\,\,\sum_{n=1}^{N+1}a_n^ty_{n,t}\leq c^t\\
+&\quad\quad\,\,\,\,\sum_{n=1}^{N+1}b_ny_{n,t}=d_t\label{subytwo}
+\end{align}
+引入子问题\,(\ref{subyone})-(\ref{subytwo})\,的拉格朗日函数
+\begin{align}\label{dualp}
 \mathcal{L}^t(y_t;\lambda_t,\mu_t)&=\sum_{n=1}^{N+1}[y_{n,t}^2-2(x_{n,t}+U_{n,t}^k)y_{n,t}]+\lambda_t^T[a_n^ty_{n,t}-c^t/(N+1)]\\
-&+\mu_t[b_ny_{n,t}-d_t/(N+1)]\\\tag{32}
+&+\mu_t[b_ny_{n,t}-d_t/(N+1)]\\
 &:=\sum_{n=1}^{N+1}\mathcal{L}_{n=1}^t(y_t;\lambda_t,\mu_t)
-\end{align*}
-(31)的对偶问题为
-\begin{align}\tag{33}
+\end{align}
+(\ref{dualp})的对偶问题为
+\begin{align}\label{maxobj}
 \mathop{max}_{\lambda_t\succeq0,\mu_t}\left\{D^t(\lambda_t,\mu_t)=\sum_{n=1}^{N+1}\mathop{min}_{y_t}\mathcal{L}^t(y_t;\lambda_t,\mu_t)\right\}
 \end{align}
-根据(32),~目标函数被重写为
-\begin{align*}
+根据(\ref{maxobj}),\,目标函数被重写为
+\begin{align}
 D^t(\lambda_t,\mu_t)=\sum_{n=1}^{N+1}\mathop{min}_{y_{n,t}}\mathcal{L}_n^t(y_t;\lambda_t,\mu_t)
-\end{align*}
-
+\end{align}
+{\color{blue}第二种思路:\\
+由于(\ref{subob})中的函数是解耦的,\,因此计算其变量\,$y_i^k$\,i=1,...,N.\,的优化问题为
+\begin{align}
+&\min_{y_t\in \mathcal{P}_t^{(2)}}\quad[(\rho+\psi)y_t^2-2(\rho(p_i^k+\bm{u}_i^k)+\psi y_i^k)y_t]\\
+&\quad s.t.\quad \quad \hat{p}_{nt}^{min}\leq y_t\leq \hat{p}_{nt}^{max}
+\end{align}
+它的解析解很容易得:
+\begin{equation}
+y_t^{k+1}=\left\{
+\begin{array}{cl}
+\hat{p}_{nt}^{min} &  \overline{y}_t^{k+1}<\hat{p}_{nt}^{min} \\
+\overline{y}_t^{k+1}  & \hat{p}_{nt}^{min}\leq \overline{y}_t^{k+1}\leq \hat{p}_{nt}^{max} \\
+ \hat{p}_{nt}^{max}& \overline{y}_t^{k+1}<\hat{p}_{nt}^{max}\\
+\end{array} \right.
+\end{equation}}
 \section{算法}
 算法收敛的表证如下：
 \begin{align*}
