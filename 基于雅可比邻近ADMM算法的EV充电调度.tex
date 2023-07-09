@@ -1,4 +1,4 @@
-\documentclass[a4paper,8pt]{article}
+\documentclass[a4paper,10pt]{article}
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{tabularx}
 \usepackage{bm}
@@ -679,11 +679,8 @@ $\Delta t$~为时间间隔,
         \ENSURE $\mathbf{p}_n^k(n=1,...,N+1)$    %%output
         \FOR{k=0,1,...}
                 \STATE Update~$\mathbf{p}_n$~for~$n=1,...,N+1$~in parallel by:
-                \STATE \qquad $\mathbf{p}_n^{k+1}= \textrm{argmin }\quad f_n(\mathbf{p}_n)
-                +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum_{j\neq n}A_j\mathbf{p}_j^k
-                -c
-                -\frac{\Lambda^k}{\rho}\|_{L^2}^2$
-                \STATE \hspace{3cm}$+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2$
+                \STATE \qquad $\mathbf{p}_n^{k+1}= \textrm{\bl{argmin} }\big\{ f_n(\mathbf{p}_n)
+                +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum\limits_{j\neq n}A_j\mathbf{p}_j^k -c -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2\big\}$
         \STATE Update $\Lambda$ by:
                 \STATE \qquad $\Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^N A_n\mathbf{p}_n^{k+1}-c)$
         \IF {$\sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri}$}
@@ -707,14 +704,33 @@ and the initial value
 \begin{align}
 &\mathbf{p}_n^0 =\mathbf{0},\quad \lambda^0 =0,\quad \varepsilon^{pri}= 10^{-3},\quad \rho =0.01, \quad\gamma=1
 \end{align}
-
+\begin{algorithm}[!h]
+    \caption{Solve argmin}
+    \begin{algorithmic}[1]
+                \STATE  $n=1,...,N$:
+                \STATE  $\mathbf{p}_n^{k+1}= \textrm{argmin} \big\{ \mathbf{E}^T\mathbf{p}_n\Delta t +(\|\mathbf{p}_n\|_1-\Gamma_n)^2 +\|\mathbf{p}_n\|_1$
+                \STATE  \hspace{2cm}$+\frac{\rho}{2}\|\mathbf{p}_n+\sum\limits_{j\neq n, N+1}\mathbf{p}_j^k-\mathbf{p}_{N+1}^k -\frac{\Lambda^k}{\rho}\|_2^2+\frac{\psi}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_2^2$\big\}
+                \STATE  $\mathbf{p}_{N+1}=$: \textrm{argmin} \big\{$ \|\mathbf{p}_{N+1}-\|\mathbf{p}_{N+1}\|_1/N\|_2^2$
+                \STATE  \hspace{2cm}$+\frac{\rho}{2}\|\mathbf{p}_{N+1}+\sum\limits_{j\neq N+1}\mathbf{p}_j^k -\frac{\Lambda^k}{\rho}\|_2^2+\frac{\psi}{2}\|\mathbf{p}_{N+1}-\mathbf{p}_{N+1}^k\|_2^2$\big\}
+        
+    \end{algorithmic}
+\end{algorithm}
+\begin{align}
+  &H_1=0;\quad f_1=\mathbf{E}\Delta t\\
+  &H_2=2\mathbf{I};\quad f_2=-2\mathbf{e}\Gamma_n\\
+  &H_3=0;\quad f_3=\mathbf{e}\\
+  &\frac{\rho}{2},\quad  Y= \sum\limits_{j\neq n, N+1}\mathbf{p}_j^k-\mathbf{p}_{N+1}^k -\frac{\Lambda^k}{\rho}\\
+  &\frac{\psi}{2},\quad Y= \mathbf{p}_n^k\\
+  &\frac{\rho}{2},\quad  Y= \sum\limits_{j\neq N+1}\mathbf{p}_j^k -\frac{\Lambda^k}{\rho}\\
+  &\frac{\psi}{2},\quad Y= \mathbf{p}_{N+1}^k
+\end{align}
 
 \clearpage
 
 
     \begin{align}
-   \underbrace{min}_{\mathbf{p}_n\in\mathcal{X}_n}  \quad f_n(\mathbf{p}_n)              +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum_{j\neq i}A_j\mathbf{p}_j^k
-                -\frac{\lambda^k}{\rho}\|_{L^2}^2
+   \underbrace{min}_{\mathbf{p}_n\in\mathcal{X}_n}  \quad f_n(\mathbf{p}_n)              +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum_{j\neq }A_j\mathbf{p}_j^k
+                -\frac{\lambda^k}{\rho}\|_2^2
                 +\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2
     \end{align}
     where
