@@ -107,7 +107,7 @@ X_{n,t}=\left\{
 \begin{align*}
 (1-X_{n,t})p_{n,t}=0,~n\in \mathcal{N},~t\in \mathcal{T}
 \end{align*}
-在实践中,~一般采用以下保守约束,即每个~$EV n$~在有限时间范围~$T$~结束时至少达到最终SOC 值,~表示为~$SOC_n^{final}$,
+在实践中,~一般采用以下保守约束,即每个~$EV n$~在有限时间范围~$T$~ 结束时至少达到最终SOC 值,~表示为~$SOC_n^{final}$,
 \begin{align}\label{powerC}
 \sum_{t=1}^Tp_{n,t}\geq \frac{C_n}{q_n^+\Delta t}(SOC_n^{final}-SOC_n^{init}).
 \end{align}
@@ -441,7 +441,7 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
 %\end{align}
 %每当~$w^k\rightarrow w^*$.~特别是,~如果~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~ 是单态的,~${w^k}$~的聚点是~$w^*$,~则~$w^*$~是~$(1)$~的局部极小值,$w^k\rightarrow w^*$,~且~(8)~ 成立.
 %
-%(c)(局部线性收敛) 如果对于聚点~$w^*$,~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~是单态的,~并且对于所有~$J\in \mathbb{I}_{w^*}$,~$w \mapsto w-\lambda \Delta f(w)$~是对~$A_J$~的收缩,~则~${w^k}$~以~$Q$~线性速率收敛到~$w^*$.~换句话说,~$N_2\in N$~和~$\gamma \in [0,1)$~使得
+%(c)(局部线性收敛) 如果对于聚点~$w^*$,~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~是单态的,~并且对于所有~$J\in \mathbb{I}_{w^*}$,~$w \mapsto w-\lambda \Delta f(w)$~是对~$A_J$~ 的收缩,~ 则~${w^k}$~以~$Q$~线性速率收敛到~$w^*$.~换句话说,~$N_2\in N$~和~$\gamma \in [0,1)$~使得
 %\begin{align}\tag{9}
 %\|w^{k+1}-w^*\|\leq \gamma \|w^k-w^*\|,\quad \forall k \geq N_2.
 %\end{align}
@@ -589,15 +589,16 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
       %  \RETURN EEEEE
 %    \end{algorithmic}
 %\end{algorithm}
-
+两块的经典ADMM算法：
+\begin{align*}\tag{20}
+&P^{k+1} \triangleq \mathop{argmin}\limits_{P}\{\mathcal{L}_{\rho}(P,Y,\mu^k)+\frac{1}{2}\|P-P^k\|_{\Phi}^2\}\\
+&Y^{k+1}\triangleq \mathop{argmin}\limits_{Y}\{\mathcal{L}_{\rho}(P^{k},Y,\mu^k)+\frac{1}{2}\|Y-Y^k\|_\Psi^2\}\\
+&\mu^{k+1}\triangleq \mu^k-\zeta\rho(P^{k+1}-Y^{k+1})
+\end{align*}
 \clearpage
 
 \section{weiyifan note}
-\begin{align*}\tag{20}
-&P^{k+1} \triangleq \mathop{argmin}\limits_{P}\{\mathcal{L}_{\rho}(P,Y,\mu^k)+\frac{1}{2}\|P-P^k\|_{\Phi}^2\}\\\tag{21}
-&Y^{k+1}\triangleq \mathop{argmin}\limits_{Y}\{\mathcal{L}_{\rho}(P^{k},Y,\mu^k)+\frac{1}{2}\|Y-Y^k\|_\Psi^2\}\\\tag{22}
-&\mu^{k+1}\triangleq \mu^k-\zeta\rho(P^{k+1}-Y^{k+1})
-\end{align*}
+
 \subsection{优化问题}
 目标函数：
 \begin{align*}
@@ -674,20 +675,20 @@ $\Delta t$~为时间间隔,
     \renewcommand{\algorithmicrequire}{\textbf{Input:}}
     \renewcommand{\algorithmicensure}{\textbf{Output:}}
     \begin{algorithmic}[1]
-        \REQUIRE $\mathbf{p}_n^0$,~$\lambda^0,~\varepsilon^{pri},~\rho, \gamma$ %%input
-        \ENSURE $\mathbf{p}_n^k$    %%output
-       \FOR{k=0,1,...}
+        \REQUIRE $\mathbf{p}_n^0(n=1,...,N+1)$,~$\Lambda^0 $
+        \ENSURE $\mathbf{p}_n^k(n=1,...,N+1)$    %%output
+        \FOR{k=0,1,...}
                 \STATE Update~$\mathbf{p}_n$~for~$n=1,...,N+1$~in parallel by:
                 \STATE \qquad $\mathbf{p}_n^{k+1}= \textrm{argmin }\quad f_n(\mathbf{p}_n)
                 +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum_{j\neq n}A_j\mathbf{p}_j^k
                 -c
-                -\frac{\lambda^k}{\rho}\|_{L^2}^2$
+                -\frac{\Lambda^k}{\rho}\|_{L^2}^2$
                 \STATE \hspace{3cm}$+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2$
-                \STATE Update $\lambda$ by:
-                \STATE \qquad $\lambda^{k+1}=\lambda^k-\gamma\rho(\sum_{i=1}^N A_i\mathbf{p}_n^{k+1}-c)$
-            \IF {$\sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri}$}
-                \STATE Break.
-            \ENDIF
+        \STATE Update $\Lambda$ by:
+                \STATE \qquad $\Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^N A_n\mathbf{p}_n^{k+1}-c)$
+        \IF {$\sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri}$}
+            \STATE Break.
+        \ENDIF
         \ENDFOR
     \end{algorithmic}
 \end{algorithm}
@@ -698,13 +699,13 @@ Here we set
   A_{N+1}=-1 \\
   c=0;\\
   \Psi=\psi \mathbf{I}=0.1(N-1)\rho \mathbf{I}\\
-  F=\rd{?}\,\,\|{u}\|_F=(\sum_{i=1}^p\sum_{j=1}^q a_{ij}^2)^{\frac{1}{2}}\\
+  F=\mathbf{I}\\
 \end{array}
 \end{align}
 (这里N为块数,\,矩阵的F范数和向量的2范数一致)
 and the initial value
 \begin{align}
-&\mathbf{p}_n^0 =\mathbf{0},\quad \lambda^0 =?,\quad \varepsilon^{pri}= 10^{-3},\quad \rho =0.01, \quad\gamma=1
+&\mathbf{p}_n^0 =\mathbf{0},\quad \lambda^0 =0,\quad \varepsilon^{pri}= 10^{-3},\quad \rho =0.01, \quad\gamma=1
 \end{align}
 
 
