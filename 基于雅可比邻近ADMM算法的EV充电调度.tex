@@ -249,7 +249,7 @@ p_{N+1}^{k+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y_{N+1}^{k})
 p_n^{k+1}=\mathop{argmin}\limits_{Y\in\mathcal{P}^{(1)}}~\{G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)\}
 \end{align}
 \section{计算Y}
-
+yyyy
 本节详细介绍(\ref{yupdate})中变量\,$Y$\,的更新,\,等价于求解以下凸优化问题的解:
 \begin{align}\label{subob}
 Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P^k-Y+\bm{u}\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2\\
@@ -690,7 +690,7 @@ $\Delta t$~为时间间隔,
                 \STATE Break.
             \ENDIF
         \ENDFOR
-    \end{algorithmic}   
+    \end{algorithmic}
 \end{algorithm}
 Here we set
 \begin{align}
@@ -716,14 +716,14 @@ and the initial value
                 -\frac{\lambda^k}{\rho}\|_{L^2}^2
                 +\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2
     \end{align}
-    where 
+    where
     \begin{align}
 &f_n(\mathbf{p}_n):=\underbrace{\mathbf{E}^T\mathbf{p}_n\Delta t}_{\text{第n辆车的充电成本}}
 +\underbrace{(\|\mathbf{p}_n\|_1-\Gamma_n)^2}_{\text{满足充电需求}}
 +\underbrace{\|\mathbf{p}_n\|_0}_{\text{充电时间尽可能少}},\quad \forall 1\leq n\leq N\\
 &f_{N+1}(\mathbf{p}_{N+1}):=\underbrace{\|\mathbf{p}_{N+1}-\|\mathbf{p}_{N+1}\|_1/N\|_2^2}_{\text{削峰填谷}}
 \end{align}
-    
+
     使用matlab 优化工具箱，求解此带约束的二次优化函数，即可
 \begin{algorithm}[!h]
     \caption{Solve argmin}
