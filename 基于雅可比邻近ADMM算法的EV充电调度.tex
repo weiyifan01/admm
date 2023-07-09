@@ -146,7 +146,7 @@ f_n(p_{nt})=\sum_{t\in \mathcal{T}}E_tp_{nt}\Delta t
 \end{align*}
 其中,~$E_t$~为~$t$~时间段的电价,~$p_{nt}$~为电动汽车~$t$~时间段的充电功率,~$\Delta t$~为时间间隔.
 
-2) 第二项$g_n(\sum\limits_{t\in \mathcal{T}}p_{nt})$:它是关于在充电期间交付的总能量的满意函数,~电动汽车用户更愿意充电时，直到他们在所需的时间内达到所需的容量~$\Gamma_n$,~然后,~我们提出以下形式表示用户的满意度:
+2) 第二项$g_n(\sum\limits_{t\in \mathcal{T}}p_{nt})$:它是关于在充电期间交付的总能量的满意函数,~电动汽车用户更愿意充电时，直到他们在所需的时间内达到所需的容量~$\Gamma_n$,~然后,~ 我们提出以下形式表示用户的满意度:
 \begin{align*}
 g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
 \end{align*}
@@ -442,7 +442,7 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
 %\textbf{Theorem 2.2}(收敛率)
 %\subsection{本文主要贡献}
 %
-%1、在Bertsimas等[11]的次线性结果的基础上,~我们证明了(1)的PG具有局部线性速率全局收敛到局部最优.~我们强调我们的框架与[11]一样,~ 适用于满足凸性和光滑性要求的一般损失函数,~因此,~它不仅涵盖了经典的稀疏回归问题,~还涵盖了经验风险最小化(ERM)框架所包含的许多其他问题.\\
+%1、在Bertsimas等[11]的次线性结果的基础上,~我们证明了(1)的PG具有局部线性速率全局收敛到局部最优.~我们强调我们的框架与[11]一样,~ 适用于满足凸性和光滑性要求的一般损失函数,~因此,~ 它不仅涵盖了经典的稀疏回归问题,~还涵盖了经验风险最小化(ERM)框架所包含的许多其他问题.\\
 %
 %2、{\color{red}通过分解As作为线性子空间的并集,~我们进一步证明了PG能够识别包含局部最优值为(1)的子空间.}~利用这一性质,~我们为一般问题(1)提出了两种具有实际实现和收敛保证的加速策略.~我们的加速为收敛提供了计算和理论上的优势,~特别是可以获得超线性收敛.~\\
 %
@@ -668,29 +668,56 @@ $\Delta t$~为时间间隔,
     \renewcommand{\algorithmicrequire}{\textbf{Input:}}
     \renewcommand{\algorithmicensure}{\textbf{Output:}}
     \begin{algorithmic}[1]
-        \REQUIRE $\mathbf{p}_n^0, A_n(n=1,2,...,N)$,~$\lambda^0,~\varepsilon^{pri},~\rho, \gamma$ %%input
-        \ENSURE $\mathbf{p}_n^k(n=1,2,...,N)$    %%output
+        \REQUIRE $\mathbf{p}_n^0$,~$\lambda^0,~\varepsilon^{pri},~\rho, \gamma$ %%input
+        \ENSURE $\mathbf{p}_n^k$    %%output
        \FOR{k=0,1,...}
-                \STATE Update~$\mathbf{p}_n$~for~$n=1,...,N$~in parallel by:
-                \STATE $\mathbf{p}_n^{k+1}= \textrm{argmin }\quad f_n(\mathbf{p}_n)
-                +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum_{j\neq i}A_j\mathbf{p}_j^k
-                -\underbrace{c}_{c=0}
-                -\frac{\lambda^k}{\rho}\|_2^2$
-                \STATE \hspace{2.7cm}$+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{P_i}^2$
-                \STATE Update $\lambda^{k+1}=\lambda^k-\gamma\rho(\sum_{i=1}^N A_i\mathbf{p}_n^{k+1}-c)$
-
-
-                \STATE Update~$r^{k+1}=\sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F$
-            \IF {$r^{k+1} \leq \varepsilon^{pri}$}
+                \STATE Update~$\mathbf{p}_n$~for~$n=1,...,N+1$~in parallel by:
+                \STATE \qquad $\mathbf{p}_n^{k+1}= \textrm{argmin }\quad f_n(\mathbf{p}_n)
+                +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum_{j\neq n}A_j\mathbf{p}_j^k
+                -c
+                -\frac{\lambda^k}{\rho}\|_{L^2}^2$
+                \STATE \hspace{3cm}$+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2$
+                \STATE Update $\lambda$ by:
+                \STATE \qquad $\lambda^{k+1}=\lambda^k-\gamma\rho(\sum_{i=1}^N A_i\mathbf{p}_n^{k+1}-c)$
+            \IF {$\sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri}$}
                 \STATE Break.
             \ENDIF
-
         \ENDFOR
-
-    \end{algorithmic}
+    \end{algorithmic}   
 \end{algorithm}
+Here we set
+\begin{align}
+\begin{array}l
+  A_n=1, \forall 1\leq n \leq N\\
+  A_{N+1}=-1 \\
+  c=0;\\
+  \Psi=\psi \mathbf{I}=0.1(N-1)\rho \mathbf{I}\\
+  F=\rd{?}\\
+\end{array}
+\end{align}
+and the initial value
+\begin{align}
+&\mathbf{p}_n^0 =\mathbf{0},\quad \lambda^0 =?,\quad \varepsilon^{pri}= ?,\quad \rho =?, \quad\gamma=?
+\end{align}
 
 
+\clearpage
+
+
+    \begin{align}
+   \underbrace{min}_{\mathbf{p}_n\in\mathcal{X}_n}  \quad f_n(\mathbf{p}_n)              +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum_{j\neq i}A_j\mathbf{p}_j^k
+                -\frac{\lambda^k}{\rho}\|_{L^2}^2
+                +\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2
+    \end{align}
+    where 
+    \begin{align}
+&f_n(\mathbf{p}_n):=\underbrace{\mathbf{E}^T\mathbf{p}_n\Delta t}_{\text{第n辆车的充电成本}}
++\underbrace{(\|\mathbf{p}_n\|_1-\Gamma_n)^2}_{\text{满足充电需求}}
++\underbrace{\|\mathbf{p}_n\|_0}_{\text{充电时间尽可能少}},\quad \forall 1\leq n\leq N\\
+&f_{N+1}(\mathbf{p}_{N+1}):=\underbrace{\|\mathbf{p}_{N+1}-\|\mathbf{p}_{N+1}\|_1/N\|_2^2}_{\text{削峰填谷}}
+\end{align}
+    
+    使用matlab 优化工具箱，求解此带约束的二次优化函数，即可
 \begin{algorithm}[!h]
     \caption{Solve argmin}
     \renewcommand{\algorithmicrequire}{\textbf{Input:}}
@@ -698,10 +725,25 @@ $\Delta t$~为时间间隔,
     \begin{algorithmic}[1]
         \REQUIRE $\mathbf{p}_n^k(n=1,2,...,N)$,~$\lambda^k$ %%input
         \ENSURE $\mathbf{p}_n^k(n=1,2,...,N)$    %%output
-
-        \STATE  使用matlab 优化工具箱，求解此带约束的二次优化函数，即可
+        \STATE Enter the coefficient matrices:
+\STATE \quad H = [1 -1; -1 2];
+\STATE \quad f = [-2; -6];
+\STATE \quad A = [1 1; -1 2; 2 1];
+\STATE \quad b = [2; 2; 3];
+\STATE \quad lb = zeros(2,1);
+\STATE Call quadprog:
+\STATE \quad [x] =  quadprog(H,f,A,b,[],[],lb,[],[],options);
     \end{algorithmic}
 \end{algorithm}
+
+馈线约束条件可以添加到 $A$ 矩阵中。
+
+\section{约束}
+\subsection{关于n车的约束}
+功率最大最小限制
+
+\subsection{关于}
+馈线约束
 
 
 \end{CJK*}
