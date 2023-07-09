@@ -249,7 +249,6 @@ p_{N+1}^{k+1}=\frac{\rho}{\rho-2\omega_n}(\frac{\mu_{N+1}^k}{\rho}-y_{N+1}^{k})
 p_n^{k+1}=\mathop{argmin}\limits_{Y\in\mathcal{P}^{(1)}}~\{G_n(p)+\frac{\rho}{2}\|p_n-y_n+\frac{\mu_n}{\rho}\|_F^2+\frac{\psi}{2}(p_n-p_n^k)^T(p_n-p_n^k)\}
 \end{align}
 \section{计算Y}
-yyyy
 本节详细介绍(\ref{yupdate})中变量\,$Y$\,的更新,\,等价于求解以下凸优化问题的解:
 \begin{align}\label{subob}
 Y^{k+1}&=\mathop{argmin}\limits_{Y}~\mathcal{I}_2(Y)+\frac{\rho}{2}\|P^k-Y+\bm{u}\|_F^2+\frac{\psi}{2}\|Y-Y^k\|_F^2\\
@@ -699,12 +698,13 @@ Here we set
   A_{N+1}=-1 \\
   c=0;\\
   \Psi=\psi \mathbf{I}=0.1(N-1)\rho \mathbf{I}\\
-  F=\rd{?}\\
+  F=\rd{?}\,\,\|{u}\|_F=(\sum_{i=1}^p\sum_{j=1}^q a_{ij}^2)^{\frac{1}{2}}\\
 \end{array}
 \end{align}
+(这里N为块数,\,矩阵的F范数和向量的2范数一致)
 and the initial value
 \begin{align}
-&\mathbf{p}_n^0 =\mathbf{0},\quad \lambda^0 =?,\quad \varepsilon^{pri}= ?,\quad \rho =?, \quad\gamma=?
+&\mathbf{p}_n^0 =\mathbf{0},\quad \lambda^0 =?,\quad \varepsilon^{pri}= 10^{-3},\quad \rho =0.01, \quad\gamma=1
 \end{align}
 
 
