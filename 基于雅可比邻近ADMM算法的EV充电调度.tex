@@ -151,7 +151,7 @@ f_n(p_{nt})=\sum_{t\in \mathcal{T}}E_tp_{nt}\Delta t
 g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
 \end{align*}
 
-3)第三项~$\|p_n\|$~:基数最小化~$\|p_n\|_0$~在稀疏解的建模中起着重要作用,~然而~$\|p_n\|_0$~的计算仍然是一个挑战,~因为~$\|p_n\|_0$~是一个非凸函数,~直接优化这个函数甚至在线性约束上被证明是一个~$NP$~困难问题.~ 无法通过常规方法求解最小~$\|p_n\|_0$~ 问题和最小~$\|p_n\|_1$~范数问题在一定条件下是等价的,~ 即可以通过求解最小~$\|p_n\|_1$~问题来得到最小~$\|p_n\|_0$~ 问题的解.~求解最小~$\|p_n\|_1$~问题因为是凸优化问题相对来说简单得多.
+3)第三项~$\|p_n\|$~:基数最小化~$\|p_n\|_0$~在稀疏解的建模中起着重要作用,~然而~$\|p_n\|_0$~的计算仍然是一个挑战,~因为~$\|p_n\|_0$~ 是一个非凸函数,~直接优化这个函数甚至在线性约束上被证明是一个~$NP$~困难问题.~ 无法通过常规方法求解最小~$\|p_n\|_0$~ 问题和最小~$\|p_n\|_1$~范数问题在一定条件下是等价的,~ 即可以通过求解最小~$\|p_n\|_1$~问题来得到最小~$\|p_n\|_0$~ 问题的解.~求解最小~$\|p_n\|_1$~问题因为是凸优化问题相对来说简单得多.
 
 4) 第四项~$h_n(\sum_{t\in\mathcal{T}}p_{nt})$:表示负荷调节,\,也表示配电网对总电力需求的功率损耗,\,$\delta_n$\,为加权参数,\,反应了快速充电行为对电网的影响趋势,\,其中~$\overline{\mathbf{p}}$~ 表示平均功率,\,具体表示为\,$\overline{\mathbf{p}}=\frac{1}{N}\mathop{\sum}\limits_{n\in \mathcal{N}}\mathop{\sum}\limits_{t\in \mathcal{T}}p_{nt}$\\
 
@@ -160,7 +160,7 @@ g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
 G(\bm{p})\triangleq \sum_{n \in \mathcal{N}}\left\{f_n(p_{nt})-\omega_ng_n(\sum_{t\in \mathcal{T}}p_{nt})+\gamma\|p_n\|_1\right\}+\delta_n\sum_{t\in \mathcal{T}}h_n(\sum_{t\in\mathcal{T}}p_{nt})\\\nonumber
 \end{align}
 \section{雅可比邻近ADMM求解模型}
-ADMM方法已经成为大规模结构化的有力工具,~值得注意的是,~ADMM可以解耦空间耦合约束，并将解耦问题分解为许多个小问题,~其中每个子问题分解都很容易解决.~在[1] 中提出了并行分布式计算~$Jacobi-PADMM$.~近端项的灵活使用以不同的方法解决子问题，提高了标准ADMM的收敛率.
+ADMM方法已经成为大规模结构化的有力工具,~值得注意的是,~ADMM可以解耦空间耦合约束，并将解耦问题分解为许多个小问题,~其中每个子问题分解都很容易解决.~ 在[1] 中提出了并行分布式计算~$Jacobi-PADMM$.~近端项的灵活使用以不同的方法解决子问题，提高了标准ADMM的收敛率.
 
 值得注意的是,~在模型(11)中的第二项耦合了所有的变量~$p_{n,t},n\in \mathcal{N}$,~ 为了解耦此项,根据文献引入辅助变量
 \begin{align*}
@@ -181,7 +181,7 @@ p_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
 \begin{align}
 \mathcal{P}_t^{(2)}=\mathcal{P}_1^{(2)}\times \cdot\cdot\cdot \times \mathcal{P}_t^{(2)}\times\cdot\cdot\cdot\times \mathcal{P}_T^{(2)}
 \end{align}
-其中约束~$P_t^{(2)}$~是一个全局约束,~在空间上耦合所有EV的充电时间表.~$P_t^{(2)}$~是闭的、非空凸集的指示函数是恰当的、闭的和凸的,~所以为了使用~$Jacobi-PADMM$~我们更一步介绍以下凸集~$P^{(i)},i=1,2$,~如下，
+其中约束~$P_t^{(2)}$~是一个全局约束,~在空间上耦合所有EV的充电时间表.~$P_t^{(2)}$~是闭的、非空凸集的指示函数是恰当的、闭的和凸的,~ 所以为了使用~$Jacobi-PADMM$~我们更一步介绍以下凸集~$P^{(i)},i=1,2$,~如下，
 \begin{equation}
 \mathcal{I}_i(\bm{p})=\left\{
 \begin{array}{cl}
@@ -439,7 +439,7 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
 %\begin{align}\tag{8}
 %\{w^k\}_{k=N}^{\infty}\subseteq \bigcup_{J\in \mathbf{I}_{w^*}}A_J,\quad \mathbf{I}_{w^*}:=\{J\in \mathbf{J}_s:w^*\in A_J\}.
 %\end{align}
-%每当~$w^k\rightarrow w^*$.~特别是,~如果~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~ 是单态的,~${w^k}$~的聚点是~$w^*$,~则~$w^*$~是~$(1)$~的局部极小值,$w^k\rightarrow w^*$,~且~(8)~ 成立.
+%每当~$w^k\rightarrow w^*$.~特别是,~如果~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~ 是单态的,~${w^k}$~的聚点是~$w^*$,~则~$w^*$~ 是~$(1)$~的局部极小值,$w^k\rightarrow w^*$,~且~(8)~ 成立.
 %
 %(c)(局部线性收敛) 如果对于聚点~$w^*$,~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~是单态的,~并且对于所有~$J\in \mathbb{I}_{w^*}$,~$w \mapsto w-\lambda \Delta f(w)$~是对~$A_J$~ 的收缩,~ 则~${w^k}$~以~$Q$~线性速率收敛到~$w^*$.~换句话说,~$N_2\in N$~和~$\gamma \in [0,1)$~使得
 %\begin{align}\tag{9}
@@ -465,19 +465,19 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
 %
 %\subsection{外推加速}
 %
-%传统的外推技术在凸优化领域中发现,~以加速算法【9,30】,~保证收敛性的提高,~但通常只被用作非凸设置的启发式,~直到最近的一些工作表明也可以实现理论收敛【27,36】,~然而,~与凸情况不同的是,~对于非凸问题,~这些外推策略不会导致更快的收敛速度,~也没有这样做的直观原因.
+%传统的外推技术在凸优化领域中发现,~以加速算法【9,30】,~保证收敛性的提高,~但通常只被用作非凸设置的启发式,~直到最近的一些工作表明也可以实现理论收敛【27,36】,~然而,~与凸情况不同的是,~对于非凸问题,~ 这些外推策略不会导致更快的收敛速度,~也没有这样做的直观原因.
 %
-%外推步骤沿着由两次连续迭代确定的方向选择一个正的步长.~也就是说,~给定两次迭代~$w^{k-1}$~和~$w^k$,~当步长~$t_k\geq0$~时,~首先计算中间点~$z^k:=w^k+t^k(w^k-w^{k-1})$~，然后应用原始算法映射(在我们的例子中为~$\mathbf{T}_{PG}^{\lambda}$~)\\
+%外推步骤沿着由两次连续迭代确定的方向选择一个正的步长.~也就是说,~ 给定两次迭代~$w^{k-1}$~和~$w^k$,~当步长~$t_k\geq0$~时,~首先计算中间点~$z^k:=w^k+t^k(w^k-w^{k-1})$~，然后应用原始算法映射(在我们的例子中为~$\mathbf{T}_{PG}^{\lambda}$~)\\
 %
-%{\color{red}另一个流行的梯度算法加速方案是由【5】开创的谱方法.~}他们利用连续两次迭代的梯度和迭代的差值来估计当前点的曲率,~并利用它来决定沿梯度相反的方向更新的步长.~在【38】中已经表明,~用回溯过程来装备这个步长可以显著更快地收敛正则化优化问题的近端梯度，这包括我们对(1)的PG作为一个特例.\\
+%{\color{red}另一个流行的梯度算法加速方案是由【5】开创的谱方法.~} 他们利用连续两次迭代的梯度和迭代的差值来估计当前点的曲率,~并利用它来决定沿梯度相反的方向更新的步长.~在【38】中已经表明,~用回溯过程来装备这个步长可以显著更快地收敛正则化优化问题的近端梯度，这包括我们对(1)的PG作为一个特例.\\
 %
-%为了描述我们提出的结合外推和谱技术的双加速过程,~我们首先观察到所有~$PG$~迭代都位于~$A_s$~上,~并且~$A_s$~可以被有限分解为(7).~ 对于某些~$J\in\mathbb{J}$~当两个连续迭代位于同一凸子空间~$A_J$~ 上时,~在这两个迭代中,~我们实际上是在进行凸优化.~ 在这种情况下,~$A_J$~内的外推步骤是合理的,~因为它不会违反约束,~并且可以从【9,31】 中关于凸问题的加速近端梯度的改进率中预期加速.~由定理2.1(b)可知,~对应的~$J$~也是一个候选指标集属于~$\mathbb{I}_{w^*}$,~因此在~$A_J$~内进行外推更有意义,~如果~$d^k$~不是~$f$~ 在~$w^k$~处的下降方向,~我们设~$t_k=0$~以跳过外推步骤.~否则,~我们从由~$f$~ 的曲率信息决定的某个~$\hat{t}_k>0$~ 开始,~然后沿着~$d^k:=w^k-w^{k-1}$~进行回溯线搜索,~使~$t_k=\eta^i\hat{t}_k$~为能提供足够下降的最小整数~$i\geq0$\\
+%为了描述我们提出的结合外推和谱技术的双加速过程,~我们首先观察到所有~$PG$~迭代都位于~$A_s$~上,~并且~$A_s$~可以被有限分解为(7).~ 对于某些~$J\in\mathbb{J}$~当两个连续迭代位于同一凸子空间~$A_J$~ 上时,~在这两个迭代中,~我们实际上是在进行凸优化.~ 在这种情况下,~$A_J$~内的外推步骤是合理的,~因为它不会违反约束,~并且可以从【9,31】 中关于凸问题的加速近端梯度的改进率中预期加速.~由定理2.1(b)可知,~对应的~$J$~也是一个候选指标集属于~$\mathbb{I}_{w^*}$,~因此在~$A_J$~内进行外推更有意义,~如果~$d^k$~ 不是~$f$~ 在~$w^k$~处的下降方向,~我们设~$t_k=0$~以跳过外推步骤.~ 否则,~我们从由~$f$~ 的曲率信息决定的某个~$\hat{t}_k>0$~ 开始,~然后沿着~$d^k:=w^k-w^{k-1}$~ 进行回溯线搜索,~使~$t_k=\eta^i\hat{t}_k$~为能提供足够下降的最小整数~$i\geq0$\\
 %\begin{align}\tag{12}
 %f(w^{k}+t_kd^k)\leq f(w^k)-\sigma t_k^2\|d^k\|^2,
 %\end{align}
 %给定参数~$\eta,\sigma\in(0,1)$,~则应用~(5)~令~$z^k=w^k+t_kd^k$~ 得到~$w^{k+1}$.\\~
 %
-%用于谱初始化,~用于加速收敛,~而不是直接使用【5,38】方法,~将反向梯度作为更新方向,~我们需要设计一个不同的机制,~因为我们的方向~$d^k$~与梯度没有直接关系。在【5】中使用的步长
+%用于谱初始化,~用于加速收敛,~而不是直接使用【5,38】方法,~将反向梯度作为更新方向,~我们需要设计一个不同的机制,~因为我们的方向~$d^k$~ 与梯度没有直接关系。在【5】中使用的步长
 %\begin{align}\tag{13}
 %\alpha_k:=<s^k,s^k>/<s^k,r^k>,\quad s^k:=w^k-w^{k-1},\quad r^k:=\nabla f(w^k)-f(w^{k-1})
 %\end{align}
@@ -486,7 +486,7 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
 %\min_{d\in {\Re}^n}<\nabla f(w^k),d>+\|d\|^2/(2\alpha_k).
 %\end{align}
 %
-%通过将上述二次问题与下降引理[7，引理5.7]提供的上界对比,~我们可以将~$\alpha_k^{-1}$~视为局部~$Lipschitz$~参数的估计,~该参数可以远小于~$L$,~但仍然保证目标的下降.~因此,~我们遵循这个思想,~用这样的曲率估计和下降引理来确定~$\hat{t}_k$~
+%通过将上述二次问题与下降引理[7，引理5.7]提供的上界对比,~我们可以将~$\alpha_k^{-1}$~视为局部~$Lipschitz$~参数的估计,~该参数可以远小于~$L$,~但仍然保证目标的下降.~ 因此,~我们遵循这个思想,~用这样的曲率估计和下降引理来确定~$\hat{t}_k$~
 %\begin{align}\tag{15}
 %\hat{t}_k=\mathop{argmin}_{t\geq0}<\nabla f(w^k),td^k>+\|td^k\|^2/(2\alpha_k)\Leftrightarrow \hat{t}_k=-<\alpha_k \nabla f(w^k),d^k>/\|d^k\|^2.
 %\end{align}
@@ -589,12 +589,7 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
       %  \RETURN EEEEE
 %    \end{algorithmic}
 %\end{algorithm}
-两块的经典ADMM算法：
-\begin{align*}\tag{20}
-&P^{k+1} \triangleq \mathop{argmin}\limits_{P}\{\mathcal{L}_{\rho}(P,Y,\mu^k)+\frac{1}{2}\|P-P^k\|_{\Phi}^2\}\\
-&Y^{k+1}\triangleq \mathop{argmin}\limits_{Y}\{\mathcal{L}_{\rho}(P^{k},Y,\mu^k)+\frac{1}{2}\|Y-Y^k\|_\Psi^2\}\\
-&\mu^{k+1}\triangleq \mu^k-\zeta\rho(P^{k+1}-Y^{k+1})
-\end{align*}
+
 \clearpage
 
 \section{weiyifan note}
@@ -607,6 +602,28 @@ G(\{p_{n,t}\}_{n=1,t=1}^{N,T})&=\sum_{n\in \mathcal{N}}\sum_{t\in \mathcal{T}}E_
 +\sum_{n\in \mathcal{N}}\|\{p_{n,t}\}_{t=1}^{T}\|_0\\
 &+\sum_{t\in \mathcal{T}}(\sum_{n\in \mathcal{N}}p_{n,t}-(\sum_{t\in \mathcal{T}}\sum_{n\in \mathcal{N}}p_{n,t}))^2
 \end{align*}
+其中
+\begin{itemize}
+  \item $E_t$~为~$t$~时间段的电价;
+  \item $\Gamma_n$~为电第$n$辆电动汽车的充电需求;
+  \item $\Delta t$~为时间间隔.
+\end{itemize}
+
+
+
+\subsection{约束条件}
+
+\begin{enumerate}
+  \item $0 \leq p_{n,t} \leq p_{\max}, \forall \{n,t\}$ 最大功率约束
+  \item $p_{n,t}=0, \{n,t\}\in S_{0}$   电车未到充电站功率为0。
+  \item $\sum_{n\in \Pi} p_{n,t} \leq c_l, \forall t$ 馈线约束
+  \item $ SOC_{c,n}\leq \sum_{t=1}^T p_{n,t} \leq SOC_{d,n}$ 电量约束
+\end{enumerate}
+其中
+\begin{itemize}
+  \item  $\Delta t$~为时间间隔.
+\end{itemize}
+
 \subsection{转化为多块ADMM}
 \bl{注意到$n$取值往往较大，如果所有车辆的优化函数可以并行运算，将极大提高优化效率。注意到：}
 \begin{align*}
@@ -618,16 +635,8 @@ G(\{p_{n,t}\}_{n=1,t=1}^{N,T})
 \end{align*}
 
 为了简洁，引入符号：
-
-$E_t$~为~$t$~时间段的电价,
-
-$p_{N+1,t}:=\sum\limits_{n=1}^N p_{n,t}$
-
-$\Gamma_n$~为电第$n$辆电动汽车的充电需求,
-
-$\Delta t$~为时间间隔,
 \begin{align}
-  \mathbf{E}(T\times 1)=\left(
+  &\mathbf{E}(T\times 1)=\left(
 \begin{array}c
     E_1\\
     \vdots\\
@@ -653,14 +662,16 @@ $\Delta t$~为时间间隔,
     \vdots\\
     p_{N+1,T}
   \end{array}
-  \right)
-\end{align}
-\begin{align}
+  \right)\\
 &f_n(\mathbf{p}_n):=\underbrace{\mathbf{E}^T\mathbf{p}_n\Delta t}_{\text{第n辆车的充电成本}}
 +\underbrace{(\|\mathbf{p}_n\|_1-\Gamma_n)^2}_{\text{满足充电需求}}
 +\underbrace{\|\mathbf{p}_n\|_0}_{\text{充电时间尽可能少}}+\mathbf{I}_{\mathcal{X}_n}(\mathbf{p}_n),\quad \forall 1\leq n\leq N\\
 &f_{N+1}(\mathbf{p}_{N+1}):=\underbrace{\|\mathbf{p}_{N+1}-\|\mathbf{p}_{N+1}\|_1/N\|_2^2}_{\text{削峰填谷}}
 \end{align}
+其中
+\begin{itemize}
+    \item $p_{N+1,t}:=\sum\limits_{n=1}^N p_{n,t}$.
+  \end{itemize}\
 
 则上述问题可以等价表述为：
 
@@ -682,7 +693,7 @@ $\Delta t$~为时间间隔,
                 \STATE \qquad $\mathbf{p}_n^{k+1}= \textrm{\bl{argmin} }\big\{ f_n(\mathbf{p}_n)
                 +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum\limits_{j\neq n}A_j\mathbf{p}_j^k -c -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2\big\}$
         \STATE Update $\Lambda$ by:
-                \STATE \qquad $\Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^N A_n\mathbf{p}_n^{k+1}-c)$
+                \STATE \qquad $\Lambda^{k+1}=\Lambda^k\rd{+}\gamma\rho(\sum_{n=1}^N A_n\mathbf{p}_n^{k+1}-c)$
         \IF {$\sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri}$}
             \STATE Break.
         \ENDIF
@@ -712,7 +723,7 @@ and the initial value
                 \STATE  \hspace{2cm}$+\frac{\rho}{2}\|\mathbf{p}_n+\sum\limits_{j\neq n, N+1}\mathbf{p}_j^k-\mathbf{p}_{N+1}^k -\frac{\Lambda^k}{\rho}\|_2^2+\frac{\psi}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_2^2$\big\}
                 \STATE  $\mathbf{p}_{N+1}=$: \textrm{argmin} \big\{$ \|\mathbf{p}_{N+1}-\|\mathbf{p}_{N+1}\|_1/N\|_2^2$
                 \STATE  \hspace{2cm}$+\frac{\rho}{2}\|\mathbf{p}_{N+1}+\sum\limits_{j\neq N+1}\mathbf{p}_j^k -\frac{\Lambda^k}{\rho}\|_2^2+\frac{\psi}{2}\|\mathbf{p}_{N+1}-\mathbf{p}_{N+1}^k\|_2^2$\big\}
-        
+
     \end{algorithmic}
 \end{algorithm}
 \begin{align}
@@ -762,14 +773,62 @@ and the initial value
 
 馈线约束条件可以添加到 $A$ 矩阵中。
 
-\section{约束}
-\subsection{关于n车的约束}
-功率最大最小限制
+\section{ADMM}
+\subsection{传统优化问题}
+\begin{eqnarray*}
+  &\textrm{minimize} & f(x)\\
+  &\textrm{subject to} & Ax=c\\
+  && \bl{\hat{A}x \leq \hat{c}}
+\end{eqnarray*}
+$$\text{Set } L_\rho(x,z,y)=f(x)+y^T(Ax-c)+\bl{\hat{y}^T(\hat{A}x-\hat{c})}+(\rho/2)\|Ax-c\|_2^2.$$
+\subsection{ADMM（两块）}
+\begin{eqnarray*}
+  &\textrm{minimize} & f(x)+g(z)\\
+  &\textrm{subject to} & Ax+Bz=c
+\end{eqnarray*}
+则
+\begin{align*}
+ L_\rho(x,z,y)&=f(x)+g(z)+y^T(Ax+Bz-c)+(\rho/2)\|Ax+Bz-c\|_2^2\\
+ &=f(x)+g(z)+\frac{\rho}{2}\|Ax+Bz-c+\frac{y}{\rho}\|_2^2-\frac{\rho}{2}\|\frac{y}{\rho}\|_2^2
+\end{align*}
 
-\subsection{关于}
-馈线约束
+则两块的经典ADMM算法：
+\begin{align*}
+&x^{k+1} :=\underset{x}{\textrm{argmin}} L_{\rho}(x,z^k,y^k)\\
+&z^{k+1} :=\underset{z}{\textrm{argmin}} L_{\rho}(x^{k+1},z,y^k)\\
+&y^{k+1} :=y^k+\rho(Ax^{k+1}+Bz^{k+1}-c).
+\end{align*}
 
 
+通过引入符号$u=\frac{y}{\rho}$可以简化表示
+\begin{align*}
+&x^{k+1} :=\underset{x}{\textrm{argmin}} \{f(x)+\frac{\rho}{2}\|Ax+Bz^k-c+u^k\|_2^2\}\\
+&z^{k+1} :=\underset{z}{\textrm{argmin}} \{g(z)+\frac{\rho}{2}\|Ax^{k+1}+Bz-c+u^k\|_2^2\}\\
+&u^{k+1} :=u^k+(Ax^{k+1}+Bz^{k+1}-c).
+\end{align*}
+
+\subsection{ADMM（多块）}
+\subsubsection{原始问题自然多块推广}
+\begin{eqnarray*}
+  &\textrm{minimize} & \sum\limits_{n=1}^{N}f_n(x_n)\\
+  &\textrm{subject to} & \sum\limits_{n=1}^{N}A_nx_n=c
+\end{eqnarray*}
+\begin{align*}
+ L_\rho(x_1,\cdots,x_N,y)&=\sum\limits_{n=1}^{N}f_n(x_n)+y^T(\sum\limits_{n=1}^{N}A_nx_n-c)+(\rho/2)\|\sum\limits_{n=1}^{N}A_nx_n-c\|_2^2\\
+ &=\sum\limits_{n=1}^{N}f_n(x_n)+\frac{\rho}{2}\|\sum\limits_{n=1}^{N}A_nx_n-c+\frac{y}{\rho}\|_2^2-\frac{\rho}{2}\|\frac{y}{\rho}\|_2^2
+\end{align*}
+
+则多块的ADMM算法：
+\begin{align*}
+&x_n^{k+1} :=\underset{x_n}{\textrm{argmin}} L_{\rho}(x_1^k,\cdots,x_n,\cdots,x_N^k,y^k),\quad \forall n=1\cdots N\\
+&y^{k+1} :=y^k+\rho(\sum\limits_{n=1}^{N}A_n^{k+1}x_n^{k+1}-c).
+\end{align*}
+\subsubsection{添加紧邻项}
+引入符号$u=\frac{y}{\rho}$ 并添加近邻项
+\begin{align*}
+&x_n^{k+1} :=\underset{x_n}{\textrm{argmin}}\{ f_n(x_n)+\frac{\rho}{2}\|A_nx_n+\sum\limits_{j\neq n}A_j^kx_j^k-c+u^k\|_2^2+\bl{(\psi/2)\|x_n-x_n^{k}\|_2^2}\},\quad \forall n=1\cdots N\\
+&u^{k+1} :=u^k+(\sum\limits_{n=1}^{N}A_n^{k+1}x_n^{k+1}-c).
+\end{align*}
 \end{CJK*}
 \end{document}
 
