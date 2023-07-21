@@ -1,51 +1,45 @@
-function [Pk]=Jacobi_Proximal_ADMM(obj)
+function [Pk]=Jacobi_Proximal_ADMM(obj,rho,gamma)
 %输出为 Pk(T×N+1)
-T=obj.T;
-N=obj.N;
-
-obj.rho=0.001;
-epsilon_pri=7;% 容许误差
+%因为要考虑近邻项所以需要设置初值
+Pk=zeros(obj.T,obj.N+1);  u=zeros(obj.T,1);
 
 %设置参数
 kMax=40;%最大迭代次数
-gamma=0.05;
+err1=zeros(1,kMax);err2=zeros(1,kMax);
 %A_n =1,n=1..N; A_N+1=-1;
 
-%因为要考虑近邻项所以需要设置初值
-Pk=zeros(T,N+1);
-Pk_1=Pk;
-u=zeros(T,1);
-
 %开始迭代
-errmesage=zeros(1,kMax);
 for k=1:kMax
+    Pk_1=Pk;
     %并行更新P
-    for n=1:N
-        Pk(:,n)=argminP(n,u,Pk_1,obj);
+    for n=1:obj.N
+        Pk(:,n)=argminP(n,u,Pk_1,rho,obj);
     end
-    Pk(:,N+1)=argminP_N1(u,Pk_1,obj);
+    Pk(:,obj.N+1)=argminP_N1(u,Pk_1,rho,obj);
     
     %更新lambda
-    u=u+gamma*(sum(Pk(:,1:N),2)-Pk(:,end));
+    u=u+gamma*(sum(Pk(:,1:obj.N),2)-Pk(:,end));
     
     %计算误差
-    err=norm(Pk-Pk_1);
-    errmesage(k)=err;
-    if err <=epsilon_pri
+    err1(k)=uperror(Pk-Pk_1);
+    err2(k)=uperror(sum(Pk(:,1:obj.N),2)-Pk(:,end));
+    disp(err1(k))
+    if err1(k) < 0.1
         break;
     end
-    %更新Pk_1
-    Pk_1=Pk;
+    
 end
-disp(errmesage(1:k))
+figure('Name','Reduction of error')
+semilogy(1:k,err1(1:k),'b-*',1:k,err2(1:k),'g-o');
+
 end
 
 
-function Pn=argminP(n,u,PnOld,obj)
+function Pn=argminP(n,u,PnOld,rho,obj)
 W=obj.W;
 T=obj.T;
 N=obj.N;
-psi=(N-1)*obj.rho;
+psi=(N-1)*rho;
 %psi=1;
 
 %电价花费
@@ -61,8 +55,8 @@ Y=-(sum(PnOld,2)-PnOld(:,n)-2*PnOld(:,end)+u);
 %紧邻项
 [H66,f66]=getHof2norm(PnOld(:,n));
 
-H=        W(2)*H2+        obj.rho/2*H55+psi/2*H66;
-f=W(1)*f1+W(2)*f2+W(4)*f4+obj.rho/2*f55+psi/2*f66;
+H=        W(2)*H2+        rho/2*H55+psi/2*H66;
+f=W(1)*f1+W(2)*f2+W(4)*f4+rho/2*f55+psi/2*f66;
 
 
 A=obj.A([n,obj.N+n],:);
@@ -73,11 +67,11 @@ ub=obj.ub(n,:);
 
 [Pn] = quadprog(H,f,A,b,[],[],lb,ub);
 end
-function Pn=argminP_N1(u,PnOld,obj)
+function Pn=argminP_N1(u,PnOld,rho,obj)
 W=obj.W;
 T=obj.T;
 N=obj.N;
-psi=(N-1)*obj.rho;
+psi=(N-1)*rho;
 %psi=1;
 
 %功率稳定
@@ -88,8 +82,8 @@ Y=sum(PnOld(1:N),2)+u;
 %紧邻项
 [H66,f66]=getHof2norm(PnOld(:,end));
 
-H=W(3)*H3+obj.rho/2*H55+psi/2*H66;
-f=W(3)*f3+obj.rho/2*f55+psi/2*f66;
+H=W(3)*H3+rho/2*H55+psi/2*H66;
+f=W(3)*f3+rho/2*f55+psi/2*f66;
 
 
 

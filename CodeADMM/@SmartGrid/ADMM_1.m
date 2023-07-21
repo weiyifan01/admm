@@ -24,5 +24,5 @@ f4= kron(ones(obj.T,1),ones(obj.N,1));
 H_total=        W(2)*H2 +  W(3)*H3;
 f_total=W(1)*f1+W(2)*f2 +  W(3)*f3 +W(4)*f4;
 
-X = quadprog(H_total,f_total,obj.AA,obj.bb,obj.Aeq,obj.beq,obj.LLB,obj.UUB);
+X = quadprog(H_total,f_total,obj.AA,obj.bb,[],[],obj.LLB,obj.UUB);
 end
