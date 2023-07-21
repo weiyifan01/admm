@@ -4,14 +4,13 @@ classdef Prepare < handle
         N=100; %number of car
         dt=60/60;% interval time
         T; %number of interval
+        
         ElePrice; % electrovalence (行向量)
         BasLoad % Basic load(基础荷载)(行向量)
         A; %非线性约束(每行对应一辆车)
         b; %非线性约束
         lb; %lower bound
         ub; %upper bound
-        Aeq=[];
-        beq=[];
         
         Ep;%期望的功率
         
@@ -20,8 +19,6 @@ classdef Prepare < handle
         SOC;%到达和离开的电池电量
     end
     properties (Access = private )
-
-        
         Pmax=7;%最大充电功率
         Gamma;%到达和离开的时间区间编号        
         time;

@@ -3,14 +3,13 @@ classdef SmartGrid < Prepare
     
     properties
         P; %N行T列 由P_{n,t}组成的矩阵
-        W=[1,1,1,1]; %各个目标函数的权重 [总电费；不满意度；功率稳定；L0充电时长]
-        epsilon_pri=1;% 容许误差
-        rho=0.5;
+       
+        W=[1,1,1,1]; %各个目标函数的权重 [总电费；不满意度；功率稳定；L0充电时长
         
-        AA; % 线性约束
-        bb; % 线性约束
+        AA;  % 线性约束
+        bb;  % 线性约束
         UUB; % 上界
-        LLB; %下界
+        LLB; % 下界
     end
     
     methods
@@ -19,90 +18,82 @@ classdef SmartGrid < Prepare
             obj =  obj@Prepare();
         end
         
-        function Solve(obj,k) %三种求解方案
-            switch k
+
+        function Solve(obj,rho,gamma) %选择不同的求解方案 
+            switch nargin
                 case 1 %整合为一个二次优化问题，一步到位
                     Ablbub(obj,1) %整理对应的约束条件
                     Xv=ADMM_1(obj);
                     obj.P=reshape(Xv,obj.T,obj.N).'; %将结果重构为矩阵型
                 case 2 %两块的ADMM
                     Ablbub(obj,2)%整理对应的约束条件
-                    Xv=ADMM_2(obj);
+                    Xv=ADMM_2(obj,rho);
                     obj.P=reshape(Xv,obj.T,obj.N).';
                 case 3 %N+1块的ADMM，且可并行处理
                     Ablbub(obj,3)%整理对应的约束条件
-                    [Pk]=Jacobi_Proximal_ADMM(obj); %Pk(T×N+1)
+                    [Pk]=Jacobi_Proximal_ADMM(obj,rho,gamma); %Pk(T×N+1)
                     obj.P=Pk(:,1:end-1).'; %舍去最后一行的 求和行
             end
         end
         
-        %对结果进行展示
-        function Show(obj)
-            %X (100,96)
+        
+        function Show(obj) %对结果进行展示
+            %将变量P转化为合适的形状，方便运算
             %向量形式：
-            Xv=reshape(obj.P.',[],1);    %逆过程: Xm=reshape(Xv,obj.T,obj.N).';
-            
-            
+            Xv=reshape(obj.P.',[],1);    %逆过程: Xm=reshape(Xv,obj.T,obj.N).';        
             %矩阵形式：
             Xm=obj.P;
             
-            %_________________________________________________________
-            %电费
+            %展示总电费=====================================================
+            
             CC=obj.ElePrice*obj.dt;
             %每阶段花费
             Cost=sum(Xm.*CC,1);%1对列求和
             
-            % 总花费
+            %计算总花费
             str=['总花费为', num2str(sum(Cost))];
             disp(str)
-            %_________________________________________________________
             
-            %每阶段功率
+            %功率的削峰填谷=================================================
+            
+            %每个时间段的功率
             Pt=sum(Xm,1);%1对列求和
-            P_total=Pt+obj.BasLoad;
+            P_total=Pt+obj.BasLoad;% 加上居民用电的总功率
             
             str=['功率差=', num2str(max(P_total)-min(P_total))];
             disp(str)
             str=['功率方差=', num2str(var(P_total))];
             disp(str)
             
-            %满意度
-            satisfy=0;
-            Ep=-obj.Ep;
-            H=ones(obj.T,obj.T)*2;
-            for k=1:obj.N
-                SOC09=Ep(k).^2;
-                
-                % 1/2 V^T H V+ f V
-                
-                f=2*Ep(k)*ones(obj.T,1);                
-                satisfy=satisfy+1/2*Xm(k,:)*H*Xm(k,:)'+f'*Xm(k,:)'+SOC09;
-            end
-            str=['不满意度为', num2str(satisfy)];
+            %不满意度=====================================================
+            
+            %每辆车的不满意度
+            NS=(sum(Xm,2)-obj.Ep).^2;%2对行求和
+            str=['总不满意度=', num2str(sum(NS))];
             disp(str)
             
             
+            %画图+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             
-            
+            %横坐标为时间
             figure(1)
             plot((1:obj.T)*obj.dt,Cost,'r-',(1:obj.T)*obj.dt,Pt,'b-.',(1:obj.T)*obj.dt,P_total-500,'g-*');
             xlabel('time');
             
             legend('Cost','Power','Power_total-500')
             
+            %横坐标为车辆
             %每辆车电量
             figure(2);
             SOCN=sum(Xm,2)*obj.dt*obj.eta/obj.Cap+obj.SOC(:,1);
             xx=1:obj.N;
-            plot(xx,SOCN,'ro-',xx,obj.SOC(:,2),'b*-.',xx,ones(1,obj.N)*0.9,'y-');
-            xlabel('time');
-            legend('SOC_final','SOC_d')
-            
+            plot(xx,SOCN,'ro-',xx,obj.SOC(:,2),'b*-.',xx,ones(1,obj.N)*0.9,'g-');
+            xlabel('car');
+            legend('SOC_final','SOC_d','datum line')
         end
         
         
-        
-        %约束条件
+        %添加约束条件
         function Ablbub(obj,k)
             switch k
                 case {1,2}
