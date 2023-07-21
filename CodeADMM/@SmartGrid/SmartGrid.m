@@ -19,7 +19,7 @@ classdef SmartGrid < Prepare
             obj =  obj@Prepare();
         end
         
-        function Solve(obj,k) %三种求解方案 
+        function Solve(obj,k) %三种求解方案
             switch k
                 case 1 %整合为一个二次优化问题，一步到位
                     Ablbub(obj,1) %整理对应的约束条件
@@ -66,17 +66,22 @@ classdef SmartGrid < Prepare
             str=['功率方差=', num2str(var(P_total))];
             disp(str)
             
-%             %满意度
-%             Ep=(obj.SOC(:,1)-0.9)*obj.Cap/(obj.dt*obj.eta);
-%             SOC09=sum(Ep.^2);
-            %_________________________________________________________
             %满意度
-            [H,f,SOC09]=getHession_sa(obj);
-            satisfy=(1/2*Xv'*H*Xv+f'*Xv+SOC09)/obj.N;
-            % satisfy=sum((sum(Xm,2)*s.dt*s.eta/s.Cap+s.SOC(:,1)-0.9).^2);
+            satisfy=0;
+            Ep=-obj.Ep;
+            H=ones(obj.T,obj.T)*2;
+            for k=1:obj.N
+                SOC09=Ep(k).^2;
+                
+                % 1/2 V^T H V+ f V
+                
+                f=2*Ep(k)*ones(obj.T,1);                
+                satisfy=satisfy+1/2*Xm(k,:)*H*Xm(k,:)'+f'*Xm(k,:)'+SOC09;
+            end
             str=['不满意度为', num2str(satisfy)];
             disp(str)
-
+            
+            
             
             
             figure(1)
@@ -95,21 +100,7 @@ classdef SmartGrid < Prepare
             
         end
         
-        function [H,f,SOC09]=getHession_sa(obj)
-            %P, (1,M)
-            N=obj.N;
-            M=obj.T;
-            
-            Ep=-obj.Ep;
-            
-            H=kron(diag(ones(N,1)),ones(M,M))*2;
-            
-            SOC09=sum(Ep.^2);
-            
-            % 1/2 V^T H V+ f V
-            
-            f=kron(2*Ep,ones(M,1));
-        end
+        
         
         %约束条件
         function Ablbub(obj,k)
@@ -138,7 +129,7 @@ classdef SmartGrid < Prepare
             end
             
         end
-             
+        
         
     end
 end

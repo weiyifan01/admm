@@ -4,7 +4,7 @@ T=obj.T;
 N=obj.N;
 
 obj.rho=0.001;
-epsilon_pri=7;% 容许误差
+epsilon_pri=0.007;% 容许误差
 
 %设置参数
 kMax=40;%最大迭代次数
@@ -26,18 +26,26 @@ for k=1:kMax
     Pk(:,N+1)=argminP_N1(u,Pk_1,obj);
     
     %更新lambda
-    u=u+gamma*(sum(Pk(:,1:N),2)-Pk(:,end));
+    temp=sum(Pk(:,1:N),2)-Pk(:,end);
+    u=u+gamma*(temp);
     
     %计算误差
-    err=norm(Pk-Pk_1);
-    errmesage(k)=err;
-    if err <=epsilon_pri
-        break;
+    temp2=reshape(Pk-Pk_1,[],1);
+    err1 = sqrt(temp2.'*temp2*obj.rho) ;
+    err2 = temp.'*temp/obj.N/obj.N;
+    
+    errmesage(1,k)=err1;
+    errmesage(2,k)=err2;
+    if err1 <= epsilon_pri
+%         if err2 <= 1
+            break;
+%         end
     end
     %更新Pk_1
     Pk_1=Pk;
 end
-disp(errmesage(1:k))
+disp(errmesage(1,1:k))
+disp(errmesage(2,1:k))
 end
 
 

@@ -105,7 +105,11 @@ classdef Prepare < handle
                 end
             end
             figure(1);
-            histogram(R0,10)
+            histogram(R0,100)
+            xlabel('time')
+            ylabel('number of car')
+            title('Distribution of arrival times')
+            %xlim([0 24])
             
             %首先计算离开
             muhc=8;
@@ -119,7 +123,11 @@ classdef Prepare < handle
                 end
             end
             figure(2);
-            histogram(R1,10)
+            histogram(R1,100)
+            xlabel('time')
+            ylabel('number of car')
+            title('Distribution of departure time')
+            %xlim([0 24])
         end
         
         function PricandLoad(obj) %画出分时电价和居民荷载
