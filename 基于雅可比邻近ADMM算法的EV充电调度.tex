@@ -862,8 +862,8 @@ $$\text{Set } L_\rho(x,z,y)=f(x)+y^T(Ax-c)+\bl{\hat{y}^T(\hat{A}x-\hat{c})}+(\rh
 \subsubsection{添加紧邻项}
 引入符号$u=\frac{y}{\rho}$ 并添加近邻项
 \begin{align*}
-&x_n^{k+1} :=\underset{x_n}{\textrm{argmin}}\{ f_n(x_n)+\frac{\rho}{2}\|A_nx_n+\sum\limits_{j\neq n}A_j^kx_j^k-c+u^k\|_2^2+\bl{(\psi/2)\|x_n-x_n^{k}\|_2^2}\},\quad \forall n=1\cdots N\\
-&u^{k+1} :=u^k+(\sum\limits_{n=1}^{N}A_n^{k+1}x_n^{k+1}-c).
+&x_n^{k+1} :=\underset{x_n}{\textrm{argmin}}\{ f_n(x_n)+\frac{\rho}{2}\|A_nx_n+\sum\limits_{j\neq n}A_jx_j^k-c+u^k\|_2^2+\bl{(\psi/2)\|x_n-x_n^{k}\|_2^2}\},\quad \forall n=1\cdots N\\
+&u^{k+1} :=u^k+(\sum\limits_{n=1}^{N}A_nx_n^{k+1}-c).
 \end{align*}
 \end{CJK*}
 \end{document}

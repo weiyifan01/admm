@@ -7,5 +7,5 @@ if L~=1
 else
     err=X.'*X;
 end
-
+err=sqrt(err);
 end

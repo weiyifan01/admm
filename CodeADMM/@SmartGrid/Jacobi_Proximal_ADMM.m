@@ -1,5 +1,7 @@
 function [Pk]=Jacobi_Proximal_ADMM(obj,rho,gamma)
 %输出为 Pk(T×N+1)
+gamma=0.4;
+
 
 %因为要考虑近邻项所以需要设置初值
 Pk=zeros(obj.T,obj.N+1);  u=zeros(obj.T,1);
@@ -24,10 +26,18 @@ for k=1:kMax
     
     %计算误差
     err1(k)=uperror(Pk-Pk_1);
-    err2(k)=uperror(sum(Pk(:,1:obj.N),2)-Pk(:,end));
-    disp(err1(k))
-    if err1(k) < 0.1
+    c=uperror(sum(Pk(:,1:obj.N),2)-Pk(:,end));
+    err2(k)=sqrt(c);
+    disp(max(abs(sum(Pk(:,1:obj.N),2)-Pk(:,end))))
+
+    if  err1(k)<1
         break;
+    end
+    if k>=10
+    if  err2(k)>err2(k-1)
+        Pk=Pk_1;
+        break;
+    end
     end
     
 end
@@ -51,14 +61,14 @@ H2=2*ones(T,T); f2=-2*obj.Ep(n)*ones(T,1);
 %0范数
  f4=ones(T,1); %等价于电价约束
 
-Y=-(sum(PnOld,2)-PnOld(:,n)-2*PnOld(:,end)+u);
+Y=-(sum(PnOld(:,1:N),2)-PnOld(:,n))+PnOld(:,end)-u;
 [H55,f55]=getHof2norm(Y);
 
 %紧邻项
 [H66,f66]=getHof2norm(PnOld(:,n));
 
-H=        W(2)*H2+        rho/2*H55+psi/2*H66;
-f=W(1)*f1+W(2)*f2+W(4)*f4+rho/2*f55+psi/2*f66;
+H=        10*W(2)*H2+        rho/2*H55+psi/2*H66;
+f=W(1)*f1+10*W(2)*f2+10*W(4)*f4+rho/2*f55+psi/2*f66;
 
 
 A=obj.A([n,obj.N+n],:);
@@ -74,7 +84,6 @@ W=obj.W;
 T=obj.T;
 N=obj.N;
 psi=(N-1)*rho;
-%psi=1;
 
 %功率稳定
 [H3,f3]=getHofVariance(T,obj.BasLoad.');
@@ -84,8 +93,8 @@ Y=sum(PnOld(1:N),2)+u;
 %紧邻项
 [H66,f66]=getHof2norm(PnOld(:,end));
 
-H=W(3)*H3+rho/2*H55+psi/2*H66;
-f=W(3)*f3+rho/2*f55+psi/2*f66;
+H=100*W(3)*H3+rho/2*H55+psi/2*H66;
+f=100*W(3)*f3+rho/2*f55+psi/2*f66;
 
 
 
