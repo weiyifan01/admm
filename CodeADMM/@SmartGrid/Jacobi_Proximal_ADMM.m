@@ -43,13 +43,13 @@ for k=1:kMax
 end
 figure('Name','Reduction of error')
 semilogy(1:k,err1(1:k),'b-*',1:k,err2(1:k),'g-o');
-TT=strcat('rho=',num2str(rho),'psi=',num2str((obj.N-1)*rho),'gamma=',num2str(gamma));title(TT);
+TT=strcat(' rho=',num2str(rho),' psi=(N-1)*rho');title(TT);
 
 end
 
 
 function Pn=argminP(n,u,PnOld,rho,psi,obj)
-W=obj.W;
+W=obj.W.*[15/9,1,1,1];
 T=obj.T;
 N=obj.N;
 psi=(N-1)*rho;
@@ -67,8 +67,8 @@ Y=-(sum(PnOld(:,1:N),2)-PnOld(:,n))+PnOld(:,end)-u;
 %╫ТазоН
 [H66,f66]=getHof2norm(PnOld(:,n));
 
-H=        10*W(2)*H2+        rho/2*H55+psi/2*H66;
-f=W(1)*f1+10*W(2)*f2+10*W(4)*f4+rho/2*f55+psi/2*f66;
+H=        W(2)*H2+        rho/2*H55+psi/2*H66;
+f=W(1)*f1+W(2)*f2+W(4)*f4+rho/2*f55+psi/2*f66;
 
 
 A=obj.A([n,obj.N+n],:);
@@ -80,7 +80,7 @@ ub=obj.ub(n,:);
 [Pn] = quadprog(H,f,A,b,[],[],lb,ub);
 end
 function Pn=argminP_N1(u,PnOld,rho,psi,obj)
-W=obj.W;
+W=obj.W.*[15/9,1,1,1];
 T=obj.T;
 N=obj.N;
 psi=(N-1)*rho*0.01;
@@ -92,13 +92,13 @@ Y=sum(PnOld(1:N),2)+u;
 [H55,f55]=getHof2norm(Y);
 %╫ТазоН
 
-PnOld(:,end)=sum(PnOld(:,1:obj.N),2);
+%PnOld(:,end)=sum(PnOld(:,1:obj.N),2);
 
 
 [H66,f66]=getHof2norm(PnOld(:,end));
 
-H=100*W(3)*H3+rho/2*H55+psi/2*H66;
-f=100*W(3)*f3+rho/2*f55+psi/2*f66;
+H=W(3)*H3+rho/2*H55+psi/2*H66;
+f=W(3)*f3+rho/2*f55+psi/2*f66;
 
 
 
