@@ -1,6 +1,6 @@
-function [Pk]=Jacobi_Proximal_ADMM(obj,rho,psi)
+function [Pk]=Jacobi_Proximal_ADMM(obj,rho,C)
 %输出为 Pk(T×N+1)
-gamma=1;
+gamma=C(1);
 
 
 %因为要考虑近邻项所以需要设置初值
@@ -16,10 +16,10 @@ for k=1:kMax
     Pk_1=Pk;
     %并行更新P
     for n=1:obj.N
-        Pk(:,n)=argminP(n,u,Pk_1,rho,psi,obj);
+        Pk(:,n)=argminP(n,u,Pk_1,rho,C(2),obj);
     end
     %Pk_1()
-    Pk(:,obj.N+1)=argminP_N1(u,Pk_1,rho,psi,obj);
+    Pk(:,obj.N+1)=argminP_N1(u,Pk_1,rho,C(3),obj);
     
     %更新lambda
 
@@ -43,16 +43,18 @@ for k=1:kMax
 end
 figure('Name','Reduction of error')
 semilogy(1:k,err1(1:k),'b-*',1:k,err2(1:k),'g-o');
+legend('原始误差','残量误差')
 TT=strcat(' rho=',num2str(rho),' psi=(N-1)*rho');title(TT);
+
 
 end
 
 
-function Pn=argminP(n,u,PnOld,rho,psi,obj)
+function Pn=argminP(n,u,PnOld,rho,c,obj)
 W=obj.W.*[15/9,1,1,1];
 T=obj.T;
 N=obj.N;
-psi=(N-1)*rho;
+psi=c*(N-1)*rho;
 
 %电价花费
  f1=obj.ElePrice.'*obj.dt;
@@ -79,11 +81,11 @@ ub=obj.ub(n,:);
 
 [Pn] = quadprog(H,f,A,b,[],[],lb,ub);
 end
-function Pn=argminP_N1(u,PnOld,rho,psi,obj)
+function Pn=argminP_N1(u,PnOld,rho,c,obj)
 W=obj.W.*[15/9,1,1,1];
 T=obj.T;
 N=obj.N;
-psi=(N-1)*rho*0.01;
+psi=(N-1)*rho*0.01*c;
 
 %功率稳定
 [H3,f3]=getHofVariance(T,obj.BasLoad.');

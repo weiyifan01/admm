@@ -101,12 +101,12 @@ classdef Prepare < handle
                     R0(k)=R0(k)-24;%？
                 end
             end
-            figure(1);
-            histogram(R0,100)
+            figure('name','D1');
+            histogram(R0,20)
             xlabel('time')
-            ylabel('number of car')
-            title('Distribution of arrival times')
-            %xlim([0 24])
+            ylabel('number of car')            
+            title('Distribution of arrival times with mu=18 and sigma=3.3')
+            axis([0,24,0,inf])
             
             %首先计算离开
             muhc=8;
@@ -119,12 +119,13 @@ classdef Prepare < handle
                     R1(k)=R1(k)+24;
                 end
             end
-            figure(2);
-            histogram(R1,100)
+            figure('name','D2');
+            histogram(R1,20)
             xlabel('time')
             ylabel('number of car')
-            title('Distribution of departure time')
-            %xlim([0 24])
+            title('Distribution of departure time  with mu=8 and sigma=3.24')
+            %xlim( )
+            axis([0,24,0,inf])
         end
         
         function PricandLoad(obj) %画出分时电价和居民荷载
@@ -137,10 +138,18 @@ classdef Prepare < handle
                 [Load2]=Residential_electricity_consumption(obj);
                 y(:,k)=[Load1;Load2];
             end
-            figure(1)
-            plot(x,y(1,:),'-')
-            figure(2)
-            plot(x,y(2,:),'.-')
+            figure('name','price')
+            bar(x,y(1,:))
+            xlabel('time')
+            ylabel('price')
+            title('Price of electricity at different times')
+            %plot(x,y(1,:),'-')
+            figure('name','base')
+            bar(x,y(2,:))
+            xlabel('time')
+            ylabel('power')
+            title('Residential power distribution with time')
+            %plot(x,y(2,:),'.-')
         end
     end
 end

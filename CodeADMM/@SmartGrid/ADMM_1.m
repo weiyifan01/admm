@@ -2,8 +2,6 @@ function [X]=ADMM_1(obj)
 W=obj.W./[900,1500,1500,1];
 %%
 %%
-% Sigma=[2800-800,20-0,500-0];
-% W=W([1,2,3])./Sigma;
 %追求花费最低
 %H1=spares(obj.N*obj.T,obj.N*obj.T);
 f1=repmat((obj.ElePrice*obj.dt).',obj.N,1);
