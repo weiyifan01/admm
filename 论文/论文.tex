@@ -1,10 +1,9 @@
 \documentclass[10pt]{article}
-\usepackage{graphicx}
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{tabularx}
 \usepackage{bm}
-\usepackage{color}
-\usepackage{esint,graphicx}
+\usepackage{graphicx, color, epstopdf}
+\usepackage{esint}
 \usepackage{diagbox}
 \usepackage{graphics}
 \usepackage{indentfirst}
@@ -14,7 +13,6 @@
 \usepackage{algorithmic}
 \usepackage{multicol}
 \usepackage{geometry}
-\usepackage{graphicx}
 \geometry{a4paper,left=2.5cm,right=2.5cm,top=2cm,bottom=2cm}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
@@ -337,12 +335,14 @@ criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-J
 为了验证协调调度模型的有效性，进行*****的仿真实验。参考文献[*]对电网基本负荷进行了模拟。分时电价如图1所示，假设所有电动汽车的$Cap_{battery}$值为30kwh[*],电网的基本负荷如图2所示。
 
 首先采用不同数量的电动汽车(100辆、200辆、\\300辆)进行对比实验。同时，实验假设
-%\begin{figure}[!ht]\underbrace{}
-%%    \centering
-%    \includegraphics[width=5cm]{price.png}
-%%    \caption{Elliptic Paraboloid}
-%\end{figure}
+
+
 \end{multicols}
+\begin{figure}[!ht]
+   \centering
+    \includegraphics[width=5cm]{img/fig-price.eps}
+%%    \caption{Elliptic Paraboloid}
+\end{figure}
 \end{CJK*}
 \end{document}
 
