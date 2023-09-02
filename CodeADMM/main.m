@@ -1,7 +1,7 @@
 %主函数
 close all
 
-%A=SmartGrid();
+A=SmartGrid();
 
 %画出车辆到达和离开时间的分布
 generate_random_plot(A);
