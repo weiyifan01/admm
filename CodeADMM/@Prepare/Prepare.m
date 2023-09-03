@@ -94,14 +94,17 @@ classdef Prepare < handle
             sighc=3.3;
             
             R0=normrnd(muhc,sighc,obj.N,1);%？
-            
-            
+            X=0:0.1:24-0.1;
+            Y=normpdf([X,X+24],muhc,sighc)*obj.N;
+            Y=Y(1:length(X))+Y(length(X)+1:end);
             for k=1:obj.N
                 if R0(k) >24
                     R0(k)=R0(k)-24;%？
                 end
             end
             figure('name','D1');
+            
+            plot(X,Y,'r-');hold on
             histogram(R0,20)
             xlabel('time')
             ylabel('number of car')            
@@ -109,10 +112,13 @@ classdef Prepare < handle
             axis([0,24,0,inf])
             
             %首先计算离开
-            muhc=8;
-            sighc=3.24;
+            muhd=8;
+            sighd=3.24;
             
-            R1=normrnd(muhc,sighc,obj.N,1);
+            R1=normrnd(muhd,sighd,obj.N,1);
+            X=0:0.1:24-0.1;
+            Y=normpdf([X,X+24],muhd,sighd)*obj.N;
+            Y=Y(1:length(X))+Y(length(X)+1:end);
             
             for k=1:obj.N
                 if R1(k) <0
@@ -120,6 +126,8 @@ classdef Prepare < handle
                 end
             end
             figure('name','D2');
+            
+            plot(X,Y,'r-');hold on
             histogram(R1,20)
             xlabel('time')
             ylabel('number of car')

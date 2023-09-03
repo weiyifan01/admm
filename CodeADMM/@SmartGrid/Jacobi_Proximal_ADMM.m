@@ -42,11 +42,12 @@ for k=1:kMax
     
 end
 figure('Name','Reduction of error')
-semilogy(1:k,err1(1:k),'b-*',1:k,err2(1:k),'g-o');
+plot(1:k,err1(1:k),'b-*',1:k,err2(1:k),'g-o');
 legend('Ô­Ê¼Îó²î','²ÐÁ¿Îó²î')
 TT=strcat(' rho=',num2str(rho),' psi=(N-1)*rho');title(TT);
-
-
+axis([10,100,0 100])
+ylabel('L2-error')
+xlabel('iterations')
 end
 
 
