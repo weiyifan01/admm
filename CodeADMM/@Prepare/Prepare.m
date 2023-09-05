@@ -1,7 +1,7 @@
 classdef Prepare < handle
     % 根据设定参数生成满足要求的随机值，为后面计算做准备
     properties
-        N=100; %number of car
+        N=200; %number of car
         dt=60/60;% interval time
         T; %number of interval
         
@@ -95,7 +95,7 @@ classdef Prepare < handle
             
             R0=normrnd(muhc,sighc,obj.N,1);%？
             X=0:0.1:24-0.1;
-            Y=normpdf([X,X+24],muhc,sighc)*obj.N;
+            Y=normpdf([X,X+24],muhc,sighc);
             Y=Y(1:length(X))+Y(length(X)+1:end);
             for k=1:obj.N
                 if R0(k) >24
@@ -105,9 +105,12 @@ classdef Prepare < handle
             figure('name','D1');
             
             plot(X,Y,'r-');hold on
-            histogram(R0,20)
+            histogram(R0,20,'Normalization','pdf')
+            
+%             yticks(0:obj.N/40:obj.N/10)
+%             yticklabels({'0','0.025','0.05','0.075','0.1'})
             xlabel('time')
-            ylabel('number of car')            
+            ylabel('probability')            
             title('Distribution of arrival times with mu=18 and sigma=3.3')
             axis([0,24,0,inf])
             
@@ -117,7 +120,7 @@ classdef Prepare < handle
             
             R1=normrnd(muhd,sighd,obj.N,1);
             X=0:0.1:24-0.1;
-            Y=normpdf([X,X+24],muhd,sighd)*obj.N;
+            Y=normpdf([X,X+24],muhd,sighd);
             Y=Y(1:length(X))+Y(length(X)+1:end);
             
             for k=1:obj.N
@@ -128,9 +131,9 @@ classdef Prepare < handle
             figure('name','D2');
             
             plot(X,Y,'r-');hold on
-            histogram(R1,20)
+            histogram(R1,20,'Normalization','pdf')
             xlabel('time')
-            ylabel('number of car')
+            ylabel('probability')
             title('Distribution of departure time  with mu=8 and sigma=3.24')
             %xlim( )
             axis([0,24,0,inf])
@@ -138,26 +141,29 @@ classdef Prepare < handle
         
         function PricandLoad(obj) %画出分时电价和居民荷载
             x=1:obj.T;
-            y=zeros(2,obj.T);
             for k=1:obj.T
                 obj.time=k*obj.dt;
-                [Load1]=Ele_price(obj);
-                
-                [Load2]=Residential_electricity_consumption(obj);
-                y(:,k)=[Load1;Load2];
+                [Load1(k)]=Ele_price(obj);
             end
             figure('name','price')
-            bar(x,y(1,:))
-            xlabel('time')
-            ylabel('price')
+            bar(x,Load1,'BarWidth',1,'LineStyle','none','facecolor','cyan')
+            xlabel('time(h)')
+            ylabel('price(￥)')
             title('Price of electricity at different times')
             %plot(x,y(1,:),'-')
+            ylim([0,1.5])
+            
             figure('name','base')
-            bar(x,y(2,:))
-            xlabel('time')
-            ylabel('power')
+            x=0:0.1:obj.T;Load2=x;
+            for k=1:length(x)
+                obj.time=x(k);
+                Load2(k)=Residential_electricity_consumption(obj);
+            end
+            bar(x,Load2,'BarWidth',1,'LineStyle','none')
+            xlabel('time(h)')
+            ylabel('power(kw)')
             title('Residential power distribution with time')
-            %plot(x,y(2,:),'.-')
+            ylim([0,800])
         end
     end
 end
