@@ -27,7 +27,7 @@ for k=1:kMax
     
     %计算误差
     err1(k)=uperror(Pk-Pk_1);
-    err2(k)=uperror(sum(Pk(:,1:obj.N),2)-Pk(:,end));
+    err2(k)=mean(abs(sum(Pk(:,1:obj.N),2)-Pk(:,end)));
     disp(max(abs(sum(Pk(:,1:obj.N),2)-Pk(:,end))))
 
 %     if  err1(k)<1
@@ -42,10 +42,10 @@ for k=1:kMax
     
 end
 figure('Name','Reduction of error')
-plot(1:k,err1(1:k),'b-*',1:k,err2(1:k),'g-o');
-legend('原始误差','残量误差')
-TT=strcat(' rho=',num2str(rho),' psi=(N-1)*rho');title(TT);
-axis([10,100,0 100])
+plot(1:k,err1(1:k),'b-.',1:k,err2(1:k),'g-.',1:k,err1(1:k)+err2(1:k),'r-.');
+legend('原始误差','残量误差','总误差')
+TT=strcat(' rho=',num2str(rho),' psi=',num2str((obj.N-1)*rho));title(TT);
+xlim([20,100])
 ylabel('L2-error')
 xlabel('iterations')
 end
@@ -86,7 +86,7 @@ function Pn=argminP_N1(u,PnOld,rho,c,obj)
 W=obj.W.*[15/9,1,1,1];
 T=obj.T;
 N=obj.N;
-psi=(N-1)*rho*0.01*c;
+psi=(N-1)*rho*c;
 
 %功率稳定
 [H3,f3]=getHofVariance(T,obj.BasLoad.');
