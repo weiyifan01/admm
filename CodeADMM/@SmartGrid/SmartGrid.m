@@ -79,11 +79,26 @@ classdef SmartGrid < Prepare
 %             P_total_normal=(P_total-500)./(700-500);
             
             %横坐标为时间
-            figure('name','综合')
-            plot((1:obj.T)*obj.dt,Cost,'r-',(1:obj.T)*obj.dt,Pt,'b-.',(1:obj.T)*obj.dt,P_total-400,'g-*');
-            xlabel('time');
+            x = (1:obj.T)*obj.dt;            
             
-            legend('Cost','Power','Power_total-300')
+            f=figure('name','功率');
+            a=axes;            
+            yyaxis left            
+            plot(x,Pt)            
+            yyaxis right            
+            plot(x,obj.BasLoad)            
+            legend('电车功率','居民功率')
+            xlabel('time(h)');
+            ylabel('power(kw)');
+            
+            figure('name','总功率')
+            plot(x,P_total)
+            legend('总功率')
+            xlabel('time(h)');
+            ylabel('power(kw)');
+            ylim([0,1000])
+
+
             
             %横坐标为车辆
             %每辆车电量
