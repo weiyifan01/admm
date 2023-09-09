@@ -7,7 +7,7 @@ gamma=C(1);
 Pk=zeros(obj.T,obj.N+1);  u=zeros(obj.T,1);
 
 %设置参数
-kMax=100;%最大迭代次数
+kMax=200;%最大迭代次数
 err1=zeros(1,kMax);err2=zeros(1,kMax);
 %A_n =1,n=1..N; A_N+1=-1;
 

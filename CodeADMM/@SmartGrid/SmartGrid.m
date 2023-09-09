@@ -90,13 +90,15 @@ classdef SmartGrid < Prepare
             figure('name','满意');
             SOCN=sum(Xm,2)*obj.dt*obj.eta/obj.Cap+obj.SOC(:,1);
             xx=1:obj.N;
-            plot(xx,SOCN,'ro-',xx,obj.SOC(:,2),'b*-.',xx,ones(1,obj.N)*0.9,'g-');
-            xlabel('car');
+            plot(xx,SOCN,'ro-',xx,obj.SOC(:,2),'b*-.',xx,ones(1,obj.N)*0.9,'g-',xx,ones(1,obj.N)*0.7,'g-');
+            xlabel('car')
+            ylim([0.65,0.96]);
             legend('SOC_final','SOC_d','datum line')
             figure('name','不满意度分布')
             histogram(0.9-SOCN,5)
             xticks([0 0.1 0.2])
             xticklabels({'满意','一般','不满意'})
+            ;
             ylabel('Number of electric car owners')
             axis([0 0.2 0 100])
         end

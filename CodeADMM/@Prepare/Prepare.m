@@ -1,7 +1,7 @@
 classdef Prepare < handle
     % 根据设定参数生成满足要求的随机值，为后面计算做准备
     properties
-        N=200; %number of car
+        N=300; %number of car
         dt=60/60;% interval time
         T; %number of interval
         
