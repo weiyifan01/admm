@@ -112,8 +112,7 @@ classdef SmartGrid < Prepare
             figure('name','不满意度分布')
             histogram(0.9-SOCN,5)
             xticks([0 0.1 0.2])
-            xticklabels({'满意','一般','不满意'})
-            ;
+            xticklabels({'满意','一般','不满意'});
             ylabel('Number of electric car owners')
             axis([0 0.2 0 100])
         end
