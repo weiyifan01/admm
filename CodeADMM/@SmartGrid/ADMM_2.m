@@ -11,7 +11,7 @@ function [X]=ADMM_2(obj,rho)
 
 P2=zeros(obj.T*obj.N,1);P1=zeros(obj.T*obj.N,1);lambda=zeros(obj.T*obj.N,1);
 
-kMax=40; err1=zeros(1,kMax);err2=zeros(1,kMax);
+kMax=10; err1=zeros(1,kMax);err2=zeros(1,kMax);
 for k=1:kMax
 
     Pold=P1;
@@ -20,10 +20,10 @@ for k=1:kMax
     
     lambda=lambda+(P1-P2);
     
-    err1(k)=uperror(P1-Pold);
-    err2(k)=uperror(P1-P2);
-    disp(err1(k))
-    if err1(k)+err2(k) < 1e-3
+    err1(k)=norm(P1-Pold);
+    err2(k)=norm(P1-P2);
+    disp([err1(k),err2(k),k])
+    if err1(k)+err2(k) < 1
         break;
     end
 end

@@ -1,4 +1,4 @@
-function [Pk]=Jacobi_Proximal_ADMM(obj,rho,C)
+function [Pk,result]=Jacobi_Proximal_ADMM(obj,rho,C)
 %输出为 Pk(T×N+1)
 gamma=C(1);
 
@@ -8,7 +8,7 @@ Pk=zeros(obj.T,obj.N+1);  u=zeros(obj.T,1);
 
 %设置参数
 kMax=100;%最大迭代次数
-err1=zeros(1,kMax);err2=zeros(1,kMax);
+result=zeros(3,kMax);
 %A_n =1,n=1..N; A_N+1=-1;
 
 %开始迭代
@@ -26,28 +26,12 @@ for k=1:kMax
     u=u+gamma*(sum(Pk(:,1:obj.N),2)-Pk(:,end));
     
     %计算误差
-    err1(k)=uperror(Pk-Pk_1);
-    err2(k)=mean(abs(sum(Pk(:,1:obj.N),2)-Pk(:,end)));
-    disp(max(abs(sum(Pk(:,1:obj.N),2)-Pk(:,end))))
-
-%     if  err1(k)<1
-%         break;
-%     end
-%     if k>=10
-%     if  err2(k)>err2(k-1)
-%         Pk=Pk_1;
-%         break;
-%     end
-%     end
-    
+    result(1,k)=norm(Pk-Pk_1);  
+    result(2,k)=uperror(sum(Pk(:,1:obj.N),2)-Pk(:,end));
+    result(3,k)=toc;
+    disp(result(:,k))   
 end
-figure('Name','Reduction of error')
-plot(1:k,err1(1:k),'b-.',1:k,err2(1:k),'g-.',1:k,err1(1:k)+err2(1:k),'r-.');
-legend('原始误差','残量误差','总误差')
-TT=strcat(' rho=',num2str(rho),' psi=',num2str((obj.N-1)*rho));title(TT);
-xlim([20,100])
-ylabel('L2-error')
-xlabel('iterations')
+result=result(:,1:k);%删去非零元素
 end
 
 

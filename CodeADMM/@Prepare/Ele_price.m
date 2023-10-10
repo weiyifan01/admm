@@ -1,6 +1,6 @@
 function [Price]=Ele_price(obj)
 time=obj.time;
-%Fig 3
+%电价的分段函数
 if time <=6
     Price=0.4;
 elseif  time <= 8

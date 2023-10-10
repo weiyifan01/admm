@@ -1,5 +1,5 @@
 function [Load]=Residential_electricity_consumption(obj)
-%Fig 4
+% 基础荷载的分段函数
 time=obj.time;
 if time<4
     Load=450;
