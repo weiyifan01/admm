@@ -6,29 +6,32 @@
 %带惩罚项  拉格朗日函数
 %L(P1,P2,lambda)=Satisfy(P1)+PV(P1)+lambda^T(P1-P2)+rho/2*(P1-P2)^2
 
-function [X]=ADMM_2(obj,rho)
+function [X,result]=ADMM_2(obj,rho)
 % rho =1;
 
 P2=zeros(obj.T*obj.N,1);P1=zeros(obj.T*obj.N,1);lambda=zeros(obj.T*obj.N,1);
 
-kMax=10; err1=zeros(1,kMax);err2=zeros(1,kMax);
+kMax=10; 
+result=zeros(2,kMax);tdt=zeros(1,kMax);
 for k=1:kMax
 
     Pold=P1;
+tstart=cputime;
     P1=argminP1_Lrho(P2,lambda,rho,obj);
     P2=argminP2_Lrho(P1,lambda,rho,obj);
     
     lambda=lambda+(P1-P2);
-    
-    err1(k)=norm(P1-Pold);
-    err2(k)=norm(P1-P2);
-    disp([err1(k),err2(k),k])
-    if err1(k)+err2(k) < 1
-        break;
-    end
+tend=cputime-tstart;    
+    result(1,k)=norm(P1-Pold);
+    result(2,k)=norm(P1-P2);
+    result(3,k)=tend+tdt(k);
+    tdt(k+1)=result(3,k);
+    disp(result(:,k))
+%     if err1(k)+err2(k) < 1
+%         break;
+%     end
 end
 
-semilogy(1:k,err1(1:k),'b-*',1:k,err2(1:k),'g-o');
 X=P1;
 end
 

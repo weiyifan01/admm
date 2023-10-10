@@ -28,8 +28,9 @@ classdef SmartGrid < Prepare
                     obj.P=reshape(Xv,obj.T,obj.N).'; %将结果重构为矩阵型
                 case 2 %两块的ADMM
                     Ablbub(obj,2)%整理对应的约束条件
-                    Xv=ADMM_2(obj,rho);
+                    [Xv,result0]=ADMM_2(obj,rho);
                     obj.P=reshape(Xv,obj.T,obj.N).';
+                    obj.result=result0;
                 case 3 %N+1块的ADMM，且可并行处理
                     Ablbub(obj,3)%整理对应的约束条件
                     [Pk,result0]=Jacobi_Proximal_ADMM(obj,rho,gamma); %Pk(T×N+1)
