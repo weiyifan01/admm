@@ -1,5 +1,5 @@
 function [X]=ADMM_1(obj)
-W=obj.W./[900,1500,1500,1];
+W=obj.W;
 %%
 %%
 %追求花费最低

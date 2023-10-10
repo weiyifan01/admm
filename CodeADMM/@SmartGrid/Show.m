@@ -42,37 +42,41 @@
             %横坐标为时间
             x = (1:obj.T)*obj.dt;            
             
-            f=figure('name','功率');
-            a=axes;            
+            figure('name','功率');
             yyaxis left            
-            plot(x,Pt)            
+            stem(x,Pt,'-')            
             yyaxis right            
-            plot(x,obj.BasLoad)            
+            plot(x,obj.BasLoad,'-rd')            
             legend('电车功率','居民功率')
             xlabel('time(h)');
             ylabel('power(kw)');
             
             figure('name','总功率')
-            plot(x,P_total)
-            legend('总功率')
+            fill([x(1),x,x(end)],[0,P_total,0],'c'); hold on;
+
+            stem(x,Pt,'b');
+            plot(x,obj.BasLoad,'rd')
+            legend('总功率','电车功率','居民功率')
             xlabel('time(h)');
             ylabel('power(kw)');
-            ylim([0,1000])
+%             ylim([0,1000])
 
 
             
             %横坐标为车辆
             %每辆车电量
-            figure('name','满意');
+            figure('name','充电结果');
             SOCN=sum(Xm,2)*obj.dt*obj.eta/obj.Cap+obj.SOC(:,1);
             xx=1:obj.N;
             plot(xx,SOCN,'ro-',xx,obj.SOC(:,2),'b*-.',xx,ones(1,obj.N)*0.9,'g-');
             xlabel('car');
             legend('SOC_final','SOC_d','datum line')
-            figure('name','不满意度分布')
-            histogram(0.9-SOCN,5)
-            xticks([0 0.1 0.2])
-            xticklabels({'满意','一般','不满意'})
+            
+            figure('name','电量分布')
+            histogram(SOCN,5)
+%             xticks([0 0.1 0.2])
+%             xticklabels({'满意','一般','不满意'})
             ylabel('Number of electric car owners')
-            axis([0 0.2 0 100])
+            xlabel('Battery percentage')
+           % axis([0 0.2 0 100])
         end

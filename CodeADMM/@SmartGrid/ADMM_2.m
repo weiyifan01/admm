@@ -37,7 +37,7 @@ end
 
 
 function [X]=argminP1_Lrho(P2,lambda,rho,obj)
-W=obj.W.*[15/9,1,1,1];
+W=obj.W;
 
 %罚项 和 拉格朗日
 [H0,f0]=getHof2norm(P2-lambda);
@@ -57,7 +57,7 @@ X = quadprog(H,f,obj.AA,obj.bb,[],[],obj.LLB,obj.UUB);
 end
 
 function [X]=argminP2_Lrho(P1,lambda,rho,obj)
-W=obj.W.*[15/9,1,1,1];
+W=obj.W;
 
 %罚项 和 拉格朗日
 [H0,f0]=getHof2norm(P1+lambda);

@@ -42,7 +42,7 @@ end
 
 
 function Pn=argminP(n,u,PnOld,rho,c,obj)
-W=obj.W.*[15/9,1,1,1];
+W=obj.W;
 T=obj.T;
 N=obj.N;
 psi=c*(N-1)*rho;
@@ -73,7 +73,7 @@ ub=obj.ub(n,:);
 [Pn] = quadprog(H,f,A,b,[],[],lb,ub);
 end
 function Pn=argminP_N1(u,PnOld,rho,c,obj)
-W=obj.W.*[15/9,1,1,1];
+W=obj.W;
 T=obj.T;
 N=obj.N;
 psi=(N-1)*rho*c;
