@@ -41,7 +41,6 @@ classdef SmartGrid < Prepare
             end
         end
         
-        
        
         
         

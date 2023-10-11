@@ -53,13 +53,14 @@
 
 \title{论文}
 \maketitle
+\begin{multicols}{2}
 %\section{问题描述}
 %
 %在这种模式下,~电动汽车用户将电动汽车连接到充电桩,~ 充电需求信息上传到聚合器.~ 每个电动汽车的充电计划将被发送回给电动汽车用户，充电信息包括到达时间~$t_i^a$,
 %
 %在所提的模型中的一些假设,~首先，电动汽车用户对充电成本很敏感,~ 我们引入有序充电的策略,~ 对于一些不着急充电的用户来说可以选择在电价低时期进行充电,~ 电价高时不来充电,~ 从而达到削峰填谷的效果,~ 第二,~ 我们假设电动汽车用户的到达时间和离开时间服从以下的泊松分布:
-%\section{摘要}
-\begin{multicols}{2}
+\section{摘要}
+
 \section{介绍}
 
 为应对能源和环境方面的双重压力，发展新能源汽车已成为未来交通端的重要趋势，我国《新能源汽车产业发展规划（2021-2025年）》提出，到2035 年，纯电动汽车成为新销售车辆的主流，公共领域用车全面电动化。在“新基建”浪潮下，大规模电动汽车接入对电网产生的影响不可忽视。电动汽车充电负荷具有很强的时空不确定性，大量电动汽车无序接入给配电网的运行控制增加了难度。而采取合理的调控策略及引导措施对电动汽车充电负荷进行管理，不仅可以提高配电网运行的经济性与稳定性，还可以提高配电网对可再生能源的接纳能力。在本文中，所提及的电动汽车均指纯电动汽车，其使用电能而几乎不产生污染物排放，因此是一种生态友好型的车辆。因此，电动汽车提供了一种清洁交通系统的选择，并具有巨大的可持续交通发展潜力。此外，电动汽车更容易与智能交通系统融合，从而增强了智能交通服务的效能。电动汽车可以通过智能充电设施进行充电，并与智能手机等设备连接，实现远程监控和管理，为充电提供智能化解决方案。同时，电动汽车还可以与其他交通工具和基础设施进行信息共享和协同，以实现交通系统的整体优化和智能化调度。通过与智能交通系统的结合，电动汽车可以参与智能导航、实时路况监测和拥堵缓解等功能，提高交通系统的效率和可持续性。
@@ -137,7 +138,6 @@ I_i^{d}=[\frac{t_i^d}{\Delta T}],i=1,2,...,N.
 
 \begin{multicols}{2}
 \section{充电调度模型}
-
 \subsection{EV充电协调问题}
 考虑在多时间段$\mathcal{T}\equiv\{1,...,T\}$上，用$\mathcal{N}\equiv\{1,...,N\}$表示的电动汽车种群的协调。设$\mathcal{T}_n\in T$表示 $EV$\,$n\in\mathcal{N}$所需的充电周期，在用户有紧急情况时，充电周期较短。
 基于分段线性模型\cite{1},电池动力学描述如下:
@@ -407,10 +407,6 @@ hello world.
 
 
 
-
-
-
-
 \section{结果与讨论}
 \subsection{仿真数据与设置}
 
@@ -418,11 +414,10 @@ hello world.
 
 首先，采用不同数量的电动汽车(100辆、200 辆、300 辆)进行对比实验
 
-其次，$SOC_i^{con}$表示电动汽车的连续均匀分布，取值范围为$0.1$到$0.3$。$SOC_i^{min}$ 表示电动汽车的最小充电状态，服从0.4 到0.6 之间的均匀分布，而$SOC_i^max$表示电动汽车的最大充电状态，服从0.8 到1.0 之间的均匀分布[8,33]。此外，所有电动汽车电池的容量$Cap_{EV}^{bat}$ 设定为30kWh\cite{1}。
+其次，$SOC_i^{con}$表示电动汽车的连续均匀分布，取值范围为$0.1$到$0.3$。$SOC_i^{min}$ 表示电动汽车的最小充电状态，服从0.4 到0.6 之间的均匀分布，而$SOC_i^max$表示电动汽车的最大充电状态，服从0.8 到1.0 之间的均匀分布。此外，所有电动汽车电池的容量$Cap_{EV}^{bat}$ 设定为30kWh。
 
-最后，根据用电规律对基本负荷数据进行了模拟\cite{10}.仿真结果如图2所示。分时电价如图1 所示，假设所有电动汽车的$Cap_{battery}$ 值为30kwh[*], 电网的基本负荷如图2所示。
-考虑到用户下班前充电一定电量的意愿,本仿真中电动汽车充电协调的时间范围T{\color{red}
-正态分布考虑}.
+最后，根据用电规律对基本负荷数据进行了模拟.仿真结果如图2所示。分时电价如图1 所示，假设所有电动汽车的$Cap_{battery}$ 值为30kwh[*], 电网的基本负荷如图2所示。
+考虑到用户下班前充电一定电量的意愿,本仿真中电动汽车充电协调的时间范围T{\color{red}正态分布考虑}.
 
 
 
@@ -437,33 +432,65 @@ hello world.
     \includegraphics[width=6cm]{img/fig-base.eps}
    \caption{一天的典型基本负荷曲线{\color{red} 待修改}}
 \end{figurehere}
-%首先，我们将$(u^0,z^0,v^0)$都初始化为0. 在初始迭代步骤中，假设$k=1$, 我们对所有$n\in\mathcal{N}$ 使用算法1实现$u_n^1$, 根据{\color{red}图4} 的说明,它会在几次迭代中收敛。然后，基于收集到的充电策略*********通过(*)这个
-%
-%
-%首先，我们将$(u^0,z^0,v^0)$都初始化为0。 在初始迭代步骤中，假设k=1, 我们对所有$n\in \mathcal{N}$ 使用算法1 实现$u_n^1$，根据图4 的说明，它会在几次迭代中收敛。然后，基于收集到的充电策略$u1 ≡ (u1n; n ∈ N)$和v0, 类似地，通过(25) 更新v1。这个过程会一直重复执行，直到满足终止准则，即$\varepsilon^{pri}\leq 10^{-3}$ 和$\varepsilon^{dual}\leq 10^{-3}$
+首先，我们将$(u^0,z^0,v^0)$都初始化为0. 在初始迭代步骤中，假设$k=1$, 我们对所有$n\in\mathcal{N}$ 使用算法1实现$u_n^1$, 根据{\color{red}图4} 的说明,它会在几次迭代中收敛。然后，基于收集到的充电策略*********通过(*)这个
+
+
+首先，我们将$(u^0,z^0,v^0)$都初始化为0。 在初始迭代步骤中，假设k=1, 我们对所有$n\in \mathcal{N}$ 使用算法1 实现$u_n^1$，根据图4 的说明，它会在几次迭代中收敛。然后，基于收集到的充电策略$u1 ≡ (u1n; n ∈ N)$和v0, 类似地，通过(25) 更新v1。这个过程会一直重复执行，直到满足终止准则，即$\varepsilon^{pri}\leq 10^{-3}$ 和$\varepsilon^{dual}\leq 10^{-3}$
+   \begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-SOC.eps}
+   \caption{100辆EV离开时的SOC}
+\end{figurehere}
+\begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-SOC200.eps}
+   \caption{200辆EV离开时的SOC}
+\end{figurehere}
+\begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-SOC300.eps}
+   \caption{300辆EV离开时的SOC}
+\end{figurehere}
+
+   \begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-peak-shaving100.eps}
+   \caption{100辆EV的削峰填谷}
+\end{figurehere}
+\begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-peak-shaving200.eps}
+   \caption{200辆EV的削峰填谷}
+\end{figurehere}
+\begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-peak-shaving300.eps}
+   \caption{300辆EV的削峰填谷}
+\end{figurehere}
+
+
+
+
+
    \begin{figurehere}
    \centering
     \includegraphics[width=6cm]{img/fig-error.eps}
-   \caption{Elliptic Paraboloid}
+   \caption{100辆EV的原始和对偶误差}
+\end{figurehere}
+ \begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-error200.eps}
+   \caption{200辆EV的原始和对偶误差}
+\end{figurehere}
+ \begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-error300.eps}
+   \caption{300辆EV的原始和对偶误差}
 \end{figurehere}
 
-\begin{figurehere}
-   \centering
-    \includegraphics[width=6cm]{img/fig-load.eps}
-   \caption{Elliptic Paraboloid}
-\end{figurehere}
 
-\begin{figurehere}
-   \centering
-    \includegraphics[width=6cm]{img/fig-satify.eps}
-   \caption{Elliptic Paraboloid}
-\end{figurehere}
 
-\begin{figurehere}
-   \centering
-    \includegraphics[width=6cm]{img/fig-SOC.eps}
-   \caption{Elliptic Paraboloid}
-\end{figurehere}
+
 
 
 \end{multicols}
