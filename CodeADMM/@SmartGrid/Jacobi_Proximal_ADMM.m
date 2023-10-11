@@ -4,7 +4,8 @@ gamma=C(1);
 
 
 %因为要考虑近邻项所以需要设置初值
-Pk=zeros(obj.T,obj.N+1);  u=zeros(obj.T,1);
+% Pk=zeros(obj.T,obj.N+1);  u=zeros(obj.T,1);
+Pk=zeros(obj.T,1);  u=zeros(obj.T,1);
 
 %设置参数
 kMax=200;%最大迭代次数
@@ -63,7 +64,12 @@ psi=c*(N-1)*rho;
 H2=2*ones(T,T); f2=-2*obj.Ep(n)*ones(T,1);
 %0范数
  f4=ones(T,1); %等价于电价约束
-
+ 
+ 
+ PnOld=repmat(PnOld,1,N);%复制N列
+ 
+ 
+ 
 Y=-(sum(PnOld(:,1:N),2)-PnOld(:,n))+PnOld(:,end)-u;
 [H55,f55]=getHof2norm(Y);
 

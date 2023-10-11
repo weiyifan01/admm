@@ -1,0 +1,735 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{tabularx}
+\usepackage{bm}
+\usepackage{graphicx, color, epstopdf}
+\usepackage{esint}
+\usepackage{diagbox}
+\usepackage{graphics}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{CJK}%中文
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{amsthm}
+\geometry{a4paper,left=2.5cm,right=2.5cm,top=2cm,bottom=2cm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}{Example}[section]
+\newtheorem{xca}[theorem]{Exercise}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{condition}{Condition}[section]
+\newtheorem{proposition}{Proposition}[section]
+\numberwithin{equation}{section}
+
+
+
+
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Caputo}{{\mathcal{D}^\alpha_t}}
+\newcommand{\DCaputo}{{\mathcal{D}^\alpha_\tau}}
+\newcommand{\Ank}{{A_{n-k}^{(n)}}}
+\newcommand{\rd}[1]{{\color{red}#1}}
+\newcommand{\bl}[1]{{\color{blue}#1}}
+
+
+
+\usepackage{subfig,graphicx}
+\begin{document}
+
+\makeatletter
+\newenvironment{figurehere}
+    {\def\@captype{figure}}
+    {}
+\makeatother
+\begin{CJK*}{GBK}{song}
+
+\title{文献笔记}
+\maketitle
+\section{介绍}
+为应对能源和环境方面的双重压力，发展新能源汽车已成为未来交通端的重要趋势，我国《新能源汽车产业发展规划（2021-2025年）》提出，到2035 年，纯电动汽车成为新销售车辆的主流，公共领域用车全面电动化。在“新基建”浪潮下，大规模电动汽车接入对电网产生的影响不可忽视。电动汽车充电负荷具有很强的时空不确定性，大量电动汽车无序接入给配电网的运行控制增加了难度。
+而采取合理的调控策略及引导措施对电动汽车充电负荷进行管理，不仅可以提高配电网运行的经济性与稳定性，还可以提高配电网对可再生能源的接纳能力。在本文中，所提及的电动汽车均指纯电动汽车，其使用电能而几乎不产生污染物排放，因此是一种生态友好型的车辆。因此，电动汽车提供了一种清洁交通系统的选择，并具有巨大的可持续交通发展潜力。此外，电动汽车更容易与智能交通系统融合，从而增强了智能交通服务的效能。电动汽车可以通过智能充电设施进行充电，并与智能手机等设备连接，实现远程监控和管理，为充电提供智能化解决方案。同时，电动汽车还可以与其他交通工具和基础设施进行信息共享和协同，以实现交通系统的整体优化和智能化调度。通过与智能交通系统的结合，电动汽车可以参与智能导航、实时路况监测和拥堵缓解等功能，提高交通系统的效率和可持续性。因此，电动汽车在推动绿色智能交通系统的发展方面扮演着重要的角色，并为未来交通运输的可持续发展提供了新的可能性。
+
+{\color{red}迄今为止,已经开发了各种$EV$充电策略,一般可分为集中式或分布式方法，在集中式方法中，一个中央实体，如配电系统运营商,负责收集和处理整个EV网络的所有信息。由于所有决策都是在一个点上做出的，集中式算法被认为是更准确和可控的。然而，数据采集、数据处理和控制信号调度的通信和计算负担}
+
+
+
+
+
+
+
+
+20世纪70年代提出了一种对偶算法求解非线性变分问题，该方法基于使用增广拉格朗日泛函，得到了一种有效且简单可实现的算法。在1983年，D.Gabay 和 R.Glowinski 进一步发展 ADMM 方法，并将其应用于非凸问题的求解。他们提出了分布式 ADMM，将原始问题分解为两个或多个子问题，并通过交替地求解每个子问题来逐步逼近全局最优解。随着计算机技术的进步，研究者们开始考虑如何将ADMM方法应用于分布式计算环境中。2010年，Boyd 等人提出ADMM在
+解决各个领域中的大规模优化问题（如信号处理、机器学习和图像重建）上的有效性，它重新引起了人们的关注。随着时间的推移，研究人员开发了多种ADMM的扩展和变种，以解决特定的问题特征，例如用于分布式优化的共识ADMM、用于加速收敛的加速ADMM以及用于处理非光滑目标的近端ADMM。随着时间的推移，研究人员开发了多种ADMM的扩展和变种，以解决特定的问题特征，例如用于分布式优化的共识ADMM、用于加速收敛的加速ADMM以及用于处理非光滑目标的近端ADMM。
+
+
+
+
+
+
+
+
+{\color{red}文献3}提出了一种基于增广拉格朗日法和交替方向乘子法的电动汽车聚合器的分散充电控制策略,但这种方法不能保证收敛性。
+
+文献{\color{red}1}提出了一种不同类型电动汽车的最优充电调度策略。此外，基于实际充电场景，开发了一种适合大规模电动汽车部署的充电调度仿真平台。
+{\color{red}文献2}提出了一种紧急优先充电（UFC）调度策略，该策略通过充电紧急性(根据充电需求和剩余停车时间计算)对电动车进行排序。
+
+{\color{red}文献4}建立了一种基于电网、电动汽车负荷聚集和单辆电动汽车的分布式框架。在此基础上，建立了考虑风力发电预测误差和电动汽车预测信息的电动汽车滚动实时优化模型。
+\subsection{问题描述}
+在该模型中，电动汽车用户在将电动汽车接入充电桩时，将自己的充电需求信息上传至聚合器。然后将每辆电动汽车的充电计划发送给电动汽车用户。充电需求信息包括到达时间$t_i^c$、预定出发时间$t_i^d$、连接到充电桩时，车辆的$SOC(State\,of\,Charge)$ 被表示为 $SOC_c$，而每辆电动汽车的预期$SOC$被称为$SOC_d$。 协调充电调度过程如图1 所示。\\
+
+在本文中，我们设计了一种基于$Jacobi-Proximal\,ADMM$并行分布式算法来解决电动汽车协调问题，使每辆电动汽车同时更新自己的充电策略，其基本思想是：1)解耦耦合约束并将原始模型分解为一组小尺度子问题，并且在$n$个子问题上添加近端项。2)算法1中提出的策略用并行的方式实现，并从理论上建立该算法1的全局收敛行，并得到该算法的显式收敛速度。
+
+在提出的模型中有一些假设。首先，电动汽车用户对充电成本比较敏感，在不影响充电需求满足的情况下，愿意让聚合器来安排充电过程。二是出现早退等异常事件可能导致收费需求不满足。因此，本文假设所有电动汽车不会早于计划时间离开。电动汽车用户充电行为呈现出典型特征。许多研究致力于探索电动汽车用户充电行为的规律。电动汽车用户的充电行为会影响所提出的协调充电调度模型的有效性。因此，在该模型中有必要考虑电动汽车用户充电行为的特点。电动汽车用户的充电行为按用户到家时将电动汽车接入充电桩，第二天早上出门上班时断开充电桩，因此电动汽车到达时间thc和离开时间thd服从正态分布
+
+为了简化协调调度充电模型，将连续时间划分为多个时隙，每辆电动汽车的充电状态在一个时间段内保持不变，调度计划通常以时间段为单位执行，以提高执行效率。将调度时间划分为多个时间段。在提出的电动汽车充电调度模型中，将整个时间段离散为96个时隙，每个时隙的长度为15min，第$i$辆电动汽车的时隙表示到达时间和出发时间可由以下(*)(*)计算：
+\begin{align}
+I_i^c=[\frac{t_i^c}{\Delta T}],i=1,2,...,N.
+\end{align}
+\begin{align}
+I_i^{d}=[\frac{t_i^d}{\Delta T}],i=1,2,...,N.
+\end{align}
+其中$I_i^c$是第$i$辆电动汽车连接到充电桩的时间槽，而$I_i^d$是第$i$辆电动汽车离开时的时间槽。$t_i^c$和$t_i^d$分别是第$i$辆电动汽车的到达时间和预定离开时间，$\lceil\frac{t_i^c}{\bigtriangleup t}\rceil$是比$\frac{t_i^c}{\bigtriangleup t}$大的最小正整数，而$\lceil\frac{t_i^d}{\bigtriangleup t}\rceil$是比$\frac{t_i^d}{\bigtriangleup t}$大的最小正整数.
+
+
+
+
+\subsection{EV充电协调问题}
+考虑在多时间段$\mathcal{T}\equiv\{1,...,T\}$上，用$\mathcal{N}\equiv\{1,...,N\}$表示的电动汽车种群的协调。设$\mathcal{T}_n\in T$表示 $EV$\,$n\in\mathcal{N}$所需的充电周期，在用户有紧急情况时，充电周期较短。
+基于分段线性模型\cite{1},电池动力学描述如下:
+\begin{align}\label{0000}
+soc_{n,t+1}=soc_{n,t}+\frac{q_n^+p_{n,t}}{C_n}\Delta t-\frac{\omega_{n,t}}{q_n^-C_n}\Delta t
+\end{align}
+\begin{align}\label{1111}
+  soc_n^{min}\leq soc_{n,t}\leq soc_n^{max}
+\end{align}
+其中$q_n^+,q_n^-\in(0,1]$分别为电动汽车充电和放电的额能量转换效率。为了延长电池寿命，建议$soc_n^{min}$和$soc_n^{max}$分别为$15\%$和$90\%$\cite{1},$p_{n,t}$(单位为$kW$)表示在$t \in \mathcal{T}$时的充电速率，$C_n$为$EV n$的电池容量。在每个时隙，每辆电动汽车的充电速率保持恒定。
+
+$EV n$的允许充电策略集合用$\mathcal{P}_n$表示，所有电动汽车的允许充电策略集合用$\mathcal{P}$表示
+\begin{align}
+  \mathcal{P}\triangleq \mathcal{P}_1\times\cdots\times\mathcal{P}_N
+\end{align}
+
+充电策略是影响电网投资的最重要因素,\,为保证电网安全,\,我们有如下不等式成立:
+\begin{align}\label{maxP}
+p_n^{min}\leq p_{n,t}\leq p_n^{max}
+\end{align}
+其中\,$p_n^{min}$\,和\,$p_n^{max}$\, 分别是\,$EV\,n$\,的最大和最小充电功率
+
+通过决定电动汽车在每个时隙中是否充电,\,实现了电动汽车的协调充电调度,\,第\,$n$\, 个\,$EV$
+充电状态如下:
+\begin{align}
+x_{n,t}=\left\{
+\begin{array}{cl}
+1 & \text{如果电动汽车在充电,}\\
+0 & \text{其它}.\\
+\end{array}\right.
+\end{align}
+约束满足以下形式:
+\begin{align}
+(1-x_{n,t})p_{n,t}=0
+\end{align}
+
+有迫切充电需求的电动汽车由于连接时间短,\,可能无法获得足够的电量,\,因此其离开\,$SOC_n^{end}$\, 时的\,$SOC$\, 可能与\,$SOC_n^d$\, 不同。
+\begin{align}\label{SOCcondition}
+&SOC_n^{end}=min\{SOC_i^C+\frac{p_{n,t}\cdot\bigtriangleup t\times \eta_n}{C_n},SOC_i^d\}\\
+&SOC_n^{min}\leq SOC_{n,t}\leq SOC_N^{max}
+\end{align}
+其中$\eta$表示$EV n$充电能量转换效率，
+
+
+
+
+当电动汽车用户有充电需求时，他们更喜欢高效率充电，并尽可能快地在期望时间内完成充电。{\color{red}(这里怎么加一句话衔接)}同时,不协调的充电行为可能会产生新的需求高峰，因此，有必要采用文献中削峰填谷的方式来调节EV的负荷。\\
+
+我们给定电动汽车充电的集中协调问题如下：目标函数事电动汽车的总系统成本最小:
+\begin{align}\label{OBJ}
+\mathcal{J}_0(\bm{p})&\triangleq\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})
++g_n(\sum_{t\in\mathcal{N}}p_{nt})
++\sum_{t\in \mathcal{T}}h_n(\sum_{t\in\mathcal{T}}p_{nt})+\|\bm{p}_n\|_0\right\}\nonumber\\
+\end{align}
+其中每一项的具体解释如下:
+
+1)第一项$f_n(u_{nt})$:表示第$n$辆电动汽车的总充电成本，这是一种价格引导的有序充电调控方式，价格引导是一种基于市场的控制方式，调度机构将价格信号广播到需求侧，并定期进行更新，其架构示意图如图1所示，其充电总成本如下：
+\begin{align}
+f_n(p_{n,t})=\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t
+\end{align}
+其中,\,$E_t$\, 为\,$t$\, 时间段的电价,\,$p_{n,t}$\, 为电动汽车\,$t$\, 时间段的充电功率,\,$\Delta t$\, 为时间间隔.
+
+2)第二项$g_n(\sum\limits_{t\in \mathcal{T}}p_{nt})$:这是关于充电期间所交付的总能量的满意度函数。表示充电周期内的总能量的满意函数,~ 并且由\,(\ref{satify})\, 可知,\,$EV\,n\in\mathcal{N}$\, 不随时间\,$t\in\mathcal{T}$,\, 电动汽车用户希望尽可能增加配电网提供的电量，直到在期望周期内达到所需能量为止.
+\begin{align}\label{satify}
+g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
+\end{align}
+权重参数$\varpi_n\in(0,\varpi_{max}]$反应了充满电相对于$\mathcal{T}_n$的相对重要性。
+
+3)第三项$h_n(\sum\limits_{n\in\mathcal{N}}p_{n,t})$:表示削峰填谷,\,削峰填谷就是让总电网它的功率是稳定的，所以这里我们用总电网它的功率方差来对应它的稳定度。方差越小，说明他越稳定，总功率就包括电车充电的总功率和居民用电总功率，具体表示如下
+\begin{align}
+h=(\sum_{n\in \mathcal{N}}(p_{n,t}+B_{n,t})-\overline{p+B})^2
+\end{align}
+$\omega_n\in(0,\omega^{max})$\, 为权重参数,且$\overline{p}=(\sum_{t\in \mathcal{T}}\sum_{n\in \mathcal{N}}p_{n,t})/N$。
+
+4)第四项$\|\bm{p}\|_0$：这是充电策略$\bm{p_n}$的基数,即$\bm{p_n}$中非零元素的总数。$l_0$范数的最小化代表着总充电在一定程度上考虑了EV 用户的舒适度.\,一方面,\,用于尽量减少充电次数,\,保护电池健康.\,另一方面,\,$EV$\, 用户希望尽可能地完成任务,\,因为他们希望尽量减少中断或重新启动\,$EV$\, 充电,\,等待更长的时间来完成任务对大多数用户来说是不可接受的，因此,\,通过引入稀疏充电计划，可以统一衡量用户满意度的目标。
+
+随着电动汽车规模化进程，一开始大家尝试将充电策略问题建模为最小$l_2$范数问题进行求解，但是$l_2$范数并不具有电动汽车充电策略中规定的稀疏性。相比之下，$l_0$范数是计算向量中非0值的个数，因此，充电策略被建模为最小$l_0$范数问题进行求解，从而达到电动汽车充电时间短，提高电池寿命，从而提高用户满意度，但最小$l_0$范数是一个NP-hard问题，无法通过常规方法求解。最小L$l_1$问题和最小$l_0$范数问题在一定条件下是等价的，即可以通过求解最小$l_1$问题来得到最小L0问题的解.
+
+
+因此使用$l_1$范数逼近$l_0$范数。我们将\,(\ref{OBJ})\, 重新建模为以下稀疏促进充电控制模型
+\begin{align}
+\mathcal{J}_1(\bm{p})&\triangleq\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})
++g_n(\sum_{t\in\mathcal{N}}p_{nt})
++\sum_{t\in \mathcal{T}}h_n(\sum_{t\in\mathcal{T}}p_{nt})+\|\bm{p}_n\|_1\right\}\nonumber\\
+\end{align}
+注意:
+
+以下假设适用于整个文章:\
+
+(1)\,对任意的$x$,$h(\cdot)$是Lipschitz连续性的;
+
+(2)\,对于所有$n\in\mathcal{N}$和所有$x$,$g_n(\cdot)$是非递减、凹的且Lipschitz连续性的;
+
+(3)
+
+将集中式电动汽车快速充电协调制定为以下优化问题:
+\begin{align}\label{obj_0}
+  \mathop{min}_{\bm{p}\in \mathcal{P}} \quad \mathcal{J}_1(\bm{p})
+\end{align}
+
+
+
+
+\section{基于$Jacobi-Proximal ADMM$ 的电动汽车充电框架}
+$Jacobi-Proximal\,ADMM$\,对于稀疏性问题保持了很好的性质。在每次迭代中，该方法使用软阈值操作来更新变量，这可以促进解在稀疏表示下的稀疏性，即保持或增强变量的稀疏性质,该算法扩展了乘法器交替方向法(ADMM)，将原问题分解为N 个较小的子问题，并在每次迭代时并行求解。
+在问题\eqref{obj_0}的目标中的第三项耦合了所有的变量$p_{n,t}\,n\in\mathcal{N}$,为了解耦这个项，我们引入了一个辅助变量
+\begin{align*}
+  \bm{p}_{N+1}=(p_{N+1,1},\cdots,p_{N+1,T})^T\in\mathbb{R}^T
+\end{align*}
+设$p_{N+1,t}=\sum_{n=1}^N p_{n,t},\,\forall t\in \mathcal{T}$, 因此问题\eqref{obj_0} 能够等价地写成如下的形式:
+\begin{align}\label{obj_1}
+ \mathop{min}_{\bm{p}\in \mathcal{P}} \quad \mathcal{J}_1(\bm{p})\\
+\text{s.t}\quad \bm{p}_{N+1}=\sum_{n=1}^N \bm{p}_{n}\label{good}
+\end{align}
+这里
+\begin{align*}
+ &\mathcal{J}_1(\bm{p})=\sum\limits_{n=1}^{N+1}f_n(\bm{p}_n)\\
+ &f_n(\bm{p}_n)=\sum_{t\in \mathcal{T}}E_tp_{1,t}\Delta t+(\sum_{t\in \mathcal{T}}p_{1,t}-\Gamma_1)^2+\|\{p_{1,t}\}_{t=1}^{T}\|_0\nonumber\\
+&f_{N+1}(\bm{p}_{N+1})=\sum_{t\in \mathcal{T}}(p_{N+1,t}-\overline{p})^2\\
+\end{align*}
+为了使用\,$Jacobi-Proximal\,\,ADMM$\,,定义
+\begin{align}
+\bm{P}=\{\bm{p}_1,...,\bm{p}_N,\bm{p}_{N+1}\}^{T}\in\mathcal{R}^{(N+1)\times T}
+\end{align}
+也可以写成\,$\bm{P}=(\bm{p}_1,...,\bm{p}_T)\in\mathbb{R}^{(N+1)\times T}$,\, 其中
+\begin{align}\label{girl}
+\bm{p}_t=(p_{1,t},...,p_{N+1,t})\in \mathbb{R}^{N+1},\,t\in\mathcal{T}.
+\end{align}
+定义
+\begin{align}
+\mathcal{X}_t^{(2)}=\{\bm{p}_t|\bm{p}_t\,\,\text{满足}\,(\ref{good})~and~(\ref{girl})\}
+\end{align}
+且
+\begin{align}
+\mathcal{X}_t^{(2)}=\mathcal{X}_1^{(2)}\times \cdot\cdot\cdot \times \mathcal{X}_t^{(2)}\times\cdot\cdot\cdot\times \mathcal{X}_T^{(2)}
+\end{align}
+
+%因此我们需要将优化问题\eqref{obj_0} 相应地转化为多个小问题。
+%为此我们引入如下记号：
+%\begin{align*}
+% & \mathbf{E}=(E_1,\cdots E_T)^T;\\
+% & \bm{p}_n=(p_{n,1},\cdots p_{n,T})^T;\\
+% & \bm{p}_{N+1}=(p_{N+1,1}\cdots  p_{N+1,T})^T
+%  \end{align*}
+%\begin{align*}
+%f_n(\bm{p}_n):
+%=\underbrace{\mathbf{E}^T\bm{p}_n\Delta t}_{\text{第n辆车的充电成本}}\\
+%+\underbrace{(\|\bm{p}_n\|_1-\Gamma_n)^2}_{\text{满足充电需求}}\\
+%+\underbrace{\|\bm{p}_n\|_0}_{\text{充电时间尽可能少}}\\+\mathbf{I}_{\mathcal{X}_n}(\bm{p}_n),\quad \forall 1\leq n\leq N\\
+%f_{N+1}(\bm{p}_{N+1}):=\underbrace{\|\bm{p}_{N+1}-\|\bm{p}_{N+1}\|_1/N\|_2^2}_{\text{削峰填谷}}
+%\end{align*}
+
+其拉格朗日量为:
+\begin{align}
+\mathcal{L}_{\rho}(\bm{p},u)=\sum_{n=1}^{N+1}f_i(\bm{p}_i)+\frac{\rho}{2}\|\sum_{i=1}^N\bm{p}_i-\bm{p}_{N+1}+\bm{u}\|_2^2
+\end{align}
+其中\,$\rho>0$\,为标准惩罚参数,\,$\bm{u}$\,称为缩放对偶变量或缩放拉格朗日乘子.\,变量\,$\bm{p}$\, 和\,$\bm{u}$同时通过添加额外的近似项进行更新,对于任意的$i=1,\cdots,N+1$,具体更新方式如下:
+
+\begin{align}
+\bm{p}_i^{k+1}:=\mathop{\arg\min}\limits_{\bm{p}\in\mathcal{P}}f_i(\bm{p}_i)+
+\end{align}
+
+\section{结果与讨论}
+\subsection{仿真数据与设置}
+
+为了验证协调调度模型的有效性，进行了基于$Jacobi-Proximal ADMM$方法的仿真实验。实验中的输入数据根据概率密度函数随机生成，模拟真实电动汽车充电情况。然而，为了简单起见，必须建立一些假设。
+
+首先，采用不同数量的电动汽车(100辆、200 辆、300 辆)进行对比实验
+
+其次，$SOC_i^{con}$表示电动汽车的连续均匀分布，取值范围为$0.1$到$0.3$。$SOC_i^{min}$ 表示电动汽车的最小充电状态，服从0.4 到0.6 之间的均匀分布，而$SOC_i^max$表示电动汽车的最大充电状态，服从0.8 到1.0 之间的均匀分布[8,33]。此外，所有电动汽车电池的容量$Cap_{EV}^{bat}$ 设定为30kWh\cite{1}。
+
+最后，根据用电规律对基本负荷数据进行了模拟\cite{10}.仿真结果如图2所示。分时电价如图1 所示，假设所有电动汽车的$Cap_{battery}$ 值为30kwh[*], 电网的基本负荷如图2所示。
+考虑到用户下班前充电一定电量的意愿,本仿真中电动汽车充电协调的时间范围T{\color{red}
+正态分布考虑}.
+
+
+
+
+
+
+
+
+
+
+
+
+{\color{red}\section{算法总结}
+\begin{align}
+\bm{r}^{k+1}=\|\bm{P}^{k+1}-\bm{Y}^{k+1}\|_F
+\end{align}
+\begin{align}
+\bm{s}^{k+1}=\|\rho(\bm{Y}^{k+1}-\bm{Y}^{k})\|_F
+\end{align}
+如果迭代次数达到给定阈值$iter_{max}$或同时满足以下条件[20],则终止所提出的$DJP-ADMM$方法要求原始残差和对偶残差足够小满足:
+
+一个合理的终止标准是原始残差和对偶残差要足够小,~ 如下:
+\begin{align*}
+\|\bm{r}^k\|_2\leq \varepsilon^{pri}\,\,\,\,\,\,\,\,\|\bm{s}^k\|_2\leq \varepsilon^{dual}
+\end{align*}
+其中$\varepsilon^{pri}>0$和$\varepsilon^{dual}>0$分别是原始和对偶问题可行性条件的可行性误差。这些公差可以使用绝对和相对准则来选择,such~as
+\begin{align*}
+&\varepsilon^{pri}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}max\{\|p\|_2,\|-x\|_2\},\\
+&\varepsilon^{dual}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}\|\mu^k\|_2
+\end{align*}
+其中$\varepsilon^{pri}>0$和$\varepsilon^{dual}>0$分别是原始和对偶问题可行性条件的可行性误差。feasibility~tolerances~for~the~primal~and~dual~feasibity~conditions~()~and~().These~tolerances~can~be~
+chosen~using~an~absolute~and~relative~criterion,such~as
+\begin{align*}
+&\varepsilon^{pri}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}max\{\|p\|_2,\|-x\|_2\},\\
+&\varepsilon^{dual}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}\|\mu^k\|_2
+\end{align*}
+where~$\varepsilon^{abs}>0$~is~an~absolute~tolerance~and~$\varepsilon^{rel}>0$~is~a~relative~tolerance.A~reasonable~value~for~the~relative~stopping
+criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-JADMM~is~then~give~in~Algorithm~1.
+
+\begin{theorem}\label{Th1}
+对$k\geq 1$,我们有
+\begin{align*}
+\|u^k-u^*\|_G^2-\|u^{k+1}-u^*\|_G^2\geq \|u^k-u^{k+1}\|_Q^2
+\end{align*}
+其中$\|u^k-u^{k+1}\|_Q^2:=\|x^k-x^{k+1}\|_{G_x}^2+\frac{2-\gamma}{\rho\gamma^2}\|\lambda^k-\lambda^{k+1}\|^2+\frac{2}{\gamma}(\lambda^k-\lambda^{k+1})^TA(x^k-x^{k+1})$
+\end{theorem}
+\begin{theorem}\label{Th1}
+应用()-()中的ADMM方法，当迭代步长$k\rightarrow \infty$时，系统收敛到最优值$p^*$
+\end{theorem}
+\begin{proof}
+hello world.
+\end{proof}
+\begin{theorem}\label{Th1}
+如果$Q\succ0$且$M_x\succeq 0$,那么$\|u^k-u^{k+1}\|_M^2=o(1/k)$,因此，$\ |x^k-x^{k+1}\|_{M_x}^2=o(1/k)$且$\|\lambda^k-\lambda^{k+1}\|^2=o(1/k).$
+\end{theorem}}
+
+
+
+
+
+
+
+
+
+\end{CJK*}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%根据以上各种指标介绍,\,建立电动汽车用户的充电协调优化目标函数
+%\begin{align}\label{OBJ}
+%\mathcal{J}_0(\bm{p})&\triangleq\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})
+%+g_n(\sum_{t\in\mathcal{N}}p_{nt})
+%+\|\bm{p}_n\|_0\right\}\nonumber\\
+%&+\sum_{t\in \mathcal{T}}h_n(\sum_{t\in\mathcal{T}}p_{nt})
+%\end{align}
+%\subsection{约束}
+%\subsubsection{电动汽车充电策略约束}
+%充电策略是影响电网投资的最重要因素,\,为保证电网安全,\,我们有如下不等式成立:
+%\begin{align}\label{maxP}
+%p_n^{min}\leq p_{n,t}\leq p_n^{max}
+%\end{align}
+%其中\,$p_n^{min}$\,和\,$p_n^{max}$\, 分别是\,$EV\,n$\,的最大和最小充电功率
+%\subsubsection{电网状态约束}
+%通过决定电动汽车在每个时隙中是否充电,\,实现了电动汽车的协调充电调度,\,第\,$n$\, 个\,$EV$
+%充电状态如下:
+%\begin{align}
+%x_{n,t}=\left\{
+%\begin{array}{cl}
+%1 & \text{如果电动汽车在充电,}\\
+%0 & \text{其它}.\\
+%\end{array}\right.
+%\end{align}
+%约束满足以下形式:
+%\begin{align}
+%(1-x_{n,t})p_{n,t}=0
+%\end{align}
+%\subsubsection{离开时对SOC的约束}
+%有迫切充电需求的电动汽车由于连接时间短,\,可能无法获得足够的电量,\,因此其离开\,$SOC_n^{end}$\, 时的\,$SOC$\, 可能与\,$SOC_n^d$\, 不同。
+%\begin{align}\label{SOCcondition}
+%&SOC_n^{end}=min\{SOC_i^C+\frac{p_{n,t}\cdot\bigtriangleup t\times \eta_n}{C_n},SOC_i^d\}\\
+%&SOC_n^{min}\leq SOC_{n,t}\leq SOC_N^{max}
+%\end{align}
+%其中$\eta$表示$EV n$充电能量转换效率，为了延长电池寿命，建议$SOC_{min}$ 和$SOC_{max}$ 的值分别为$15\%$ 和$90\%$.
+%
+%设$\bm{p}\triangleq (\bm{p}_n;n\in\mathcal{N})$ 代表电动汽车集群的充电策略。$EV n$ 的可允许充电策略用$\mathcal{X}_n$ 表示，所有电动汽车可允许充电策略用$\mathcal{X}$ 表示，为
+%\begin{align}
+%  \mathcal{X}\triangleq \mathcal{X}_1\times\cdots\times \mathcal{X}_N
+%\end{align}
+
+
+
+
+
+%在本节中建立一个协调调度充电模型来控制电动汽车充电,\,令
+%$\bm{p}_n\triangleq(p_{n,t};t\in\mathcal{T})\in \mathbb{R}^T$,\,$\bm{p}=(\bm{p}_1,\cdot\cdot\cdot,\bm{p}_N)$.
+%N表示为EV数量，
+%i时EV的指数，i=1,2,...,N.j 是一天的时间指数,且j=1,...,96.$J_i^c$ 和$J_i^{dis}$ 表示时隙的序号当电动汽车分别接入分布式电网和断开
+%分布式电网。$t_i^c$和$t_i^{dis}$表示第i辆电动汽车到达时间和出发时间，$\Delta T$ 表示时间步长。
+%\section{电动汽车退化协调模型}
+%问题:怎么将场景与数学g方法联系在一起?\\
+%
+%考虑了电动汽车用户满意度、电池退化成本、负载调节和总充电时间之间的权衡,~设计了一种基于ADMM方法的分散递阶算法,~解决了具有集中不可分目标函数和耦合约束的电动汽车群体快速充电协调问题,~电动汽车用户想要尽快充电的愿望用满意度和个人总充电时间的加权参数表示.\\
+%
+%后退地平线的使用方法?\\
+%
+%由于未来预测信息可能发生变化，后退地平线方法仅对当前时间t采用控制策略$\mathbf{u}_{nt|t}^*$。 在当前时间t处求解优化问题后，预测水平窗口移至下一个时间t+1，类似地收集预测信息，在整个时间框架内重复求解问题1。这个过程一直持续到时间框架结束。用$\mathbf{u}_n^{er}\overset{\mathrm{\bigtriangleup}}{=}\{u_{nt}^{er},t\in\mathbb{T}\}$ 表示考虑预测误差的冲锋协调策略。可由以下算法3 实现。
+%一般情况下，电动汽车协调预测提前15分钟。假设电动汽车在15分钟内到达充电节点进行充电。15分钟不算太长，也是可以接受的。电动汽车用户可以选择离自己近的充电站。然后根据所提出的方法计算得到的充电间隔，用户只需要根据实时的交通信息，如百度地图等应用程序可以估计到充电站选择正确的路线。
+%\section{电动汽车充电的分散容错优化}
+%{\color{red}一、管理电动汽车充电大致包括三个不同的阶段:}\\
+%
+%(1)正向调度,即电动汽车充电需求提前数天至数小时进行预测,~并在远期电力市场(日前、日内市场)进行竞价,~允许整个系统在考虑电动汽车需求和灵活性的同时进行调度.\\
+%
+%(2)近实时调度,~即提前几分钟预测电动汽车充电需求,~以便将电动汽车充电与5分钟的系统调度相结合.\\
+%
+%(3)实时控制,~电动汽车充电实际发生的地方,~尽可能遵循近实时调度中设置的模式,~纠正偏差,~并响应来自系统运营商的指令,~提供辅助服务.\\
+%
+%
+%在本文中,~我们关注的是近实时调度阶段.~我们提出了一种新的算法,~ 以完全分散的方式递推求解最优电动汽车充电问题,~从而解决了前面提到的在现阶段利用电动汽车充电灵活性的两个挑战:~扩展到现实世界的车队和需求规模~以及对现实世界故障的容忍度.\\
+%
+%{\color{red}二、两种不同的并行算法:}\\
+%
+%1、分布式算法有多个工作者与一个中央协调器通信,~以计算公共数量.\\
+%
+%2、分散算法没有中央协调器,~所有的计算都是由多个工作者共同执行的.\\
+%
+%{\color{red}三、我们的贡献:}\\
+%
+%我们的主要贡献是设计了一个完全分散的算法来解决电动汽车充电的近实时调度问题.算法设计考虑了每个充电站或枢纽的局部约束、电网的容量约束、峰值需求收费和向电网提供的辅助服务.~它适用于滚动地平线方案,~如图1所示,~其中实时控制实现5分钟调度,~并在每个站点或枢纽的每次运行时更新对未来间隔的预测.\\
+%
+%
+
+
+
+
+
+
+
+
+
+%\begin{figure}
+%\begin{minipage}[b]{0.65\linewidth}
+%  位一凡签名位一凡签名位一凡签名位一凡签名\\
+%  位一凡签名位一凡签名位一凡签名位一凡签名\\
+%  位一凡签名位一凡签名位一凡签名位一凡签名\\
+%  位一凡签名位一凡签名位一凡签名位一凡签名\\
+%  位一凡签名位一凡签名位一凡签名位一凡签名\\
+%  位一凡签名位一凡签名位一凡签名位一凡签名\\
+%\end{minipage}
+%\hfill
+%\begin{minipage}[b]{0.25\linewidth}
+%\includegraphics[height=8\baselineskip]{c.png}
+%\end{minipage}
+%\end{figure}
+
+%\begin{align*}
+%    &\left\{
+%    \begin{array}l
+%    \min f(x)+g(x), \\
+%     s.t.\quad x\in\mathbb{R}^d
+%    \end{array}\right.\\
+%    &\hspace{1cm}{\Downarrow}\text{令}y=x\\
+%    &\left\{\begin{array}l
+%    \min f(x)+g(y)\\
+%    s.t. \quad x-y=0, \quad   x,y\in\mathbb{R}^d
+%    \end{array}\right.
+%\end{align*}
+%
+%
+%
+%
+%\begin{align}
+%  \begin{array}c
+%    \min f(x)\\
+%    s.t. \quad x\in X\bigcap Y
+%  \end{array}
+%  \overset{\text{令}y=x}{\Rightarrow}
+%    \begin{array}c
+%    \min \frac{1}{2}f(x)+\frac{1}{2}g(y)\\
+%    s.t. \quad x-y=0,\quad x\in X, y\in Y ,
+%  \end{array}
+%\end{align}
+%
+%\begin{align}
+%  \begin{array}c
+%    \min f(x)\\
+%    s.t. \quad x\in X\bigcap Y
+%  \end{array}
+%  \overset{\text{令}y=x}{\Rightarrow}
+%    \begin{array}c
+%    \min \frac{1}{2}f(x)+\frac{1}{2}g(y)\\
+%    s.t. \quad x-y=0,\quad x\in X, y\in Y ,
+%  \end{array}
+%\end{align}
+%
+%\begin{align}
+%&V:=\mathop{\min}_{\zeta}\sum_{k=t}^{t+N-1}\left(\sum_{j=1}^{J}\Pi^T(t)\zeta_j(t)+[\overline{\Omega}(t)-\sum_{j=1}^J\left(\Omega_j(t)+\zeta_j(t)\right)]^2\right)\\
+%&s.t. \left(\begin{aligned}
+% &x_{i,j}(t+1)=x_{i,j}(t)+Tz_{i,j}(t)\\
+% &u_{i,j}(t)=\omega_{i,j}(t)+z_{i,j}(t)\\
+% &\underline{z}_{i,j}\leq z_{i,j}(t)\leq \overline{z}_{i,j}\\
+% &\underline{C}_{i,j}(t)\leq X_{i,j}(t)\leq \overline{c}_{i,j}(t)\\
+% &C_{F_j}(t)\leq \overline{C}_{F_j}\\
+% &\sum_{j=1}^{I_J}C_{F_j}(t)\leq \overline{C}_{EVMS}(t)
+%\end{aligned}\right.
+%\end{align}
+%\begin{equation}
+%x_{rec}=arg \min \limits_{x}\underbrace{\parallel \mathbb{A}(x)-b\parallel^{2}_{2}}_{\text{保真项}} ~~+ ~~\lambda \underbrace{\parallel\mathbb{N}_{w}(x)\parallel^{2}}_{\text{正则项}}
+%\end{equation}
+%
+%\begin{equation}
+%\parallel x-{D}_{w}(x_{n}+\Delta x))\parallel^{2} ~~\approx~~ \parallel x-z_{n}\parallel^{2}+ \parallel J_{n}^{T}\Delta x \parallel
+%\tag{2.11}
+%\end{equation}
+%\newpage
+%\section{加速投影梯度}
+%
+%\subsection{准备工作}
+%稀疏约束优化:
+%\begin{align}\tag{1}
+%\min_{w\in A_s} f(w),
+%\end{align}
+%稀疏集:
+%\begin{align}\tag{2}
+%A_s:=\{w\in\Re^n:\|w\|_0\leq s\},
+%\end{align}
+%传统的线性回归是最小化最小二乘~$(LS)$~损失函数:
+%\begin{align}\tag{3}
+%f(w)=\|y=Xw\|^2/2.
+%\end{align}
+%问题结构:
+%\begin{align}\tag{4}
+%f(w)=g(Xw),\quad g(z)=\sum_{i=1}^m g_i(z_i),
+%\end{align}
+%\subsection{梯度投影}
+%求解问题~(1)~的梯度投影:
+%\begin{align}\tag{5}
+%w^{k+1}\in \mathbf{T}_{PG}^{\lambda}(w^k):=P_{A_s}(w^k-\lambda \nabla f(w^k)),
+%\end{align}
+%~$f$~具有~$L-Lipschitz$~
+%\begin{align}\tag{6}
+%\|\nabla f(w)-\nabla f(w')\|\leq L\|w-w'\|\quad w,w'\in \Re^n,
+%\end{align}
+%(2)给出的非凸集可以分解为:
+%\begin{align}\tag{7}
+%A_s=\bigcup_{J\in\mathbf{J}_s}A_J,\quad A_J:=span{e_j:j\in J},\quad \mathbf{J}_s:=\{J\subseteq\{1,2,...,n\}:|J|=s\},
+%\end{align}
+%
+%
+%\textbf{Theorem 2.1}\quad 设~$\{w^k\}$~为~(5)~生成的序列,那么：
+%
+%(a)(子序列收敛)~$\{f(w_k)\}$~要么是严格递减的,~要么存在~$N>0$,~ 使得对于所有~$k\geq N$,~使得~$w^k=w^N$.~此外,~${w^k}$~的任何聚点~$w^*$~满足~$w^*\in P_{A_s}(w^*-\lambda \nabla f(w^*))$,~ 因此是~(1)~的稳定点。
+%
+%(b)(子空间识别和完全收敛) 存在~$N \in \mathbb{N}$~使得
+%\begin{align}\tag{8}
+%\{w^k\}_{k=N}^{\infty}\subseteq \bigcup_{J\in \mathbf{I}_{w^*}}A_J,\quad \mathbf{I}_{w^*}:=\{J\in \mathbf{J}_s:w^*\in A_J\}.
+%\end{align}
+%每当~$w^k\rightarrow w^*$.~特别是,~如果~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~是单态的,~${w^k}$~ 的聚点是~$w^*$,~则~$w^*$~是~$(1)$~的局部极小值,$w^k\rightarrow w^*$,~且~(8)~成立.
+%
+%(c)(局部线性收敛) 如果对于聚点~$w^*$,~$\mathbf{T}_ {PG}^{\lambda}(w^*)$~是单态的,~并且对于所有~$J\in \mathbb{I}_{w^*}$,~$w \mapsto w-\lambda \Delta f(w)$~是对~$A_J$~的收缩,~则~${w^k}$~ 以~$Q$~线性速率收敛到~$w^*$.~换句话说,~$N_2\in N$~和~$\gamma \in [0,1)$~使得
+%\begin{align}\tag{9}
+%\|w^{k+1}-w^*\|\leq \gamma \|w^k-w^*\|,\quad \forall k \geq N_2.
+%\end{align}
+%\textbf{Theorem 2.2}(收敛率)
+%\subsection{本文主要贡献}
+%
+%1、在Bertsimas等[11]的次线性结果的基础上,~我们证明了(1)的PG具有局部线性速率全局收敛到局部最优.~我们强调我们的框架与[11]一样,~ 适用于满足凸性和光滑性要求的一般损失函数,~因此,~它不仅涵盖了经典的稀疏回归问题,~还涵盖了经验风险最小化(ERM)框架所包含的许多其他问题.\\
+%
+%2、{\color{red}通过分解As作为线性子空间的并集,~我们进一步证明了PG能够识别包含局部最优值为(1) 的子空间.}~利用这一性质,~我们为一般问题(1)提出了两种具有实际实现和收敛保证的加速策略.~我们的加速为收敛提供了计算和理论上的优势,~特别是可以获得超线性收敛.~\\
+%
+%3、与现有的非凸问题加速方法相比[27,36],~该工作提供了新的加速方案,~ 具有更快的理论速度(参见定理3.2和3.3),~除了应用于经典的PG算法之外,~ 这些方案还可以很容易地与现有的加速PG方法结合,~进一步使它们收敛得更快.\\
+%
+%4、数值实验证明了我们的加速方法在迭代和运行时间上的显著改进,~特别是优于[11]的投影梯度算法和[27]提出的求解非凸问题的加速近端梯度方法.
+
+
+%\section{加速方法}
+%
+%这项工作的主要焦点是在本节中提出的具有可靠收敛保证的新技术,~以加速上一节中提出的~$PG$~算法.~ 我们的技术充分利用包含~(8)~所描述的子空间识别特性,~ 以及~(4)~的问题结构来设计有效的算法.\\
+%
+%我们强调,~下面描述的两种加速策略是可以结合在一起的,~而且它们也具有广泛的适用性,~只要现有算法具有类似于~(8)~的属性,~它们就可以应用于~(1)~的其他算法。
+%
+%\subsection{外推加速}
+%
+%传统的外推技术在凸优化领域中发现,~以加速算法【9,30】,~保证收敛性的提高,~但通常只被用作非凸设置的启发式,~直到最近的一些工作表明也可以实现理论收敛【27,36】,~然而,~与凸情况不同的是,~对于非凸问题,~这些外推策略不会导致更快的收敛速度,~也没有这样做的直观原因.
+%
+%外推步骤沿着由两次连续迭代确定的方向选择一个正的步长.~也就是说,~给定两次迭代~$w^{k-1}$~和~$w^k$,~当步长~$t_k\geq0$~时,~首先计算中间点~$z^k:=w^k+t^k(w^k-w^{k-1})$~，然后应用原始算法映射(在我们的例子中为~$\mathbf{T}_{PG}^{\lambda}$~)\\
+%
+%{\color{red}另一个流行的梯度算法加速方案是由【5】开创的谱方法.~}他们利用连续两次迭代的梯度和迭代的差值来估计当前点的曲率,~并利用它来决定沿梯度相反的方向更新的步长.~在【38】中已经表明,~ 用回溯过程来装备这个步长可以显著更快地收敛正则化优化问题的近端梯度，这包括我们对(1)的PG作为一个特例.\\
+%
+%为了描述我们提出的结合外推和谱技术的双加速过程,~我们首先观察到所有~$PG$~迭代都位于~$A_s$~上,~并且~$A_s$~可以被有限分解为(7).~对于某些~$J\in\mathbb{J}$~当两个连续迭代位于同一凸子空间~$A_J$~上时,~在这两个迭代中,~我们实际上是在进行凸优化.~在这种情况下,~$A_J$~内的外推步骤是合理的,~因为它不会违反约束,~并且可以从【9,31】中关于凸问题的加速近端梯度的改进率中预期加速.~由定理2.1(b)可知,~对应的~$J$~ 也是一个候选指标集属于~$\mathbb{I}_{w^*}$,~因此在~$A_J$~内进行外推更有意义,~如果~$d^k$~不是~$f$~在~$w^k$~处的下降方向,~我们设~$t_k=0$~ 以跳过外推步骤.~否则,~我们从由~$f$~的曲率信息决定的某个~$\hat{t}_k>0$~ 开始,~然后沿着~$d^k:=w^k-w^{k-1}$~进行回溯线搜索,~ 使~$t_k=\eta^i\hat{t}_k$~为能提供足够下降的最小整数~$i\geq0$\\
+%\begin{align}\tag{12}
+%f(w^{k}+t_kd^k)\leq f(w^k)-\sigma t_k^2\|d^k\|^2,
+%\end{align}
+%给定参数~$\eta,\sigma\in(0,1)$,~则应用~(5)~令~$z^k=w^k+t_kd^k$~ 得到~$w^{k+1}$.\\~
+%
+%用于谱初始化,~用于加速收敛,~而不是直接使用【5,38】方法,~将反向梯度作为更新方向,~我们需要设计一个不同的机制,~因为我们的方向~$d^k$~ 与梯度没有直接关系。在【5】中使用的步长
+%\begin{align}\tag{13}
+%\alpha_k:=<s^k,s^k>/<s^k,r^k>,\quad s^k:=w^k-w^{k-1},\quad r^k:=\nabla f(w^k)-f(w^{k-1})
+%\end{align}
+%最终更新~$-\alpha_k\nabla f(w^k)$~实际上是以下子问题的最小值
+%\begin{align}\tag{14}
+%\min_{d\in {\Re}^n}<\nabla f(w^k),d>+\|d\|^2/(2\alpha_k).
+%\end{align}
+%
+%通过将上述二次问题与下降引理[7，引理5.7]提供的上界对比,~我们可以将~$\alpha_k^{-1}$~视为局部~$Lipschitz$~参数的估计,~该参数可以远小于~$L$,~但仍然保证目标的下降.~因此,~我们遵循这个思想,~ 用这样的曲率估计和下降引理来确定~$\hat{t}_k$~
+%\begin{align}\tag{15}
+%\hat{t}_k=\mathop{argmin}_{t\geq0}<\nabla f(w^k),td^k>+\|td^k\|^2/(2\alpha_k)\Leftrightarrow \hat{t}_k=-<\alpha_k \nabla f(w^k),d^k>/\|d^k\|^2.
+%\end{align}
+%(13)的另一种解释是:~$\alpha_k^{-1}$~也可作为~$\nabla^2 f(w^k)$~ 的估计,~(14)中的目标是~$f$~ 的二阶泰勒展开的低成本近似.~然而,~我们注意到,~对于~(4)~形式的问题和~$d^k\in A_J$~精确的二阶泰勒展开
+%\begin{align}\tag{16}
+%f(w^k+td^k)\approx f(w^k)+t<\nabla f(w^k),d^k>+t^2<\nabla^2f(w^k)d^k,d^k>/2
+%\end{align}
+%可以高效计算,~尤其是对于~(4)~和任意~$d^k\in A_J$~令~$Xd^k=X:,$~
+%\begin{align}\tag{17}
+%\nabla f \left(w^{k}\right)^{\top} d^{k} &=\nabla g\left((X w^{k})\right)^{\top}\left(X_{:, J} d_{J}^{k}\right) \\
+%\left\langle\nabla^{2} f\left(w^{k}\right) d^{k}, d^{k}\right\rangle &=\left\langle\left(X_{:, J} d_{J}^{k}\right), \nabla^{2} g\left(\left(X w^{k}\right)\right)\left(X_{:, J} d_{J}^{k}\right)\right\rangle,
+%\end{align}
+%
+%%\textcolor{red}{
+%\begin{align}\tag{18}
+%  \hat{t}_k \leftarrow P_{[c_k \alpha_{\min},c_k\alpha_{\max}]}  (\hat{t}_k)\\
+%  c_k:=\|(\nabla f(w^k))_J\|/(\xi_k\|d^k\|), \xi_k=-\langle d^k,\nabla f(w^k)\rangle / (\|d^k\|\|(\nabla f(w^k))_J\|)\in (0,1].\\
+%  (f(w)-f(w^*))^\theta\leq \kappa \|(\nabla f(w))_J\|,\forall w\in A_j\bigcap U
+%\end{align}
+%%}
+%
+%
+%\textbf{Theorem 3.1}\quad 在定理2.1的假设下,~由算法1生成的序列的任何聚点都是稳定点.\\
+%
+%\textbf{Theorem 3.2}\quad 考虑~(5)~或者算法1,~$\eta,\sigma,\varepsilon \in (0,1)$~和~$\alpha_{max}\geq\alpha_{min}\geq0$,~假设有一个聚点~$w^*$,~在这个点上KL条件成立.那么~$w^k\rightarrow w^*.$~此外,~以下收敛率成立:\\
+%(a)如果~$\theta\in (1/2,1):f(w^k)-f(w^*)=O((k+n_k)^{-1/(2\theta-1)}).$~\\
+%(b)如果~$\theta\in (1/2,1]:f(w^k)-f(w^*)=O(exp(-(k+n_k))).$\\
+%(c)如果~$\theta=0,~\theta \in [0,1/2]$,~$f$~是凸的:~存在~$k_0\geq 0$~使得对~$\forall k\geq k_0$,都有~$f(w^k)=f(w^*)$~
+%
+%
+%
+%我们强调,~除了定理~3.2~最后一项的后半部分,~定理~3.1~和~3.2~不要求~$f$~的凸性.~与文献【27,36】中已有的外推策略相比,~提出的外推策略有几个优点.~ 最明显的是定理~3.2~中比~$PG$~更快的速度,~因此我们的方法中每一个成功的外推步骤都有助于提高收敛速度,~而现有的方法只能提供与~$PG$~ 相同的收敛速度.~ 其次,~现有策略只使用预先指定的步长,~没有给定问题的信息,~也没有当前进度的信息,~并且只将步长限制在~$[0,1]$~以内.~另一方面,~我们的方法充分利用了函数曲率,~可以允许任意大的步长来更好地减少目标.~事实上,~在我们的数值实验中经常观察到~$t_k\gg1$~.此外,~ 我们的加速技术利用~(7)~和~(4)~的性质,~对~$ERM$因~问题获得非常有效的实现,~例如算法~1~的每次迭代代价几乎与~$PG$~相同,~而【27】的方法需要在每次迭代的两个点计算~$f$~和~$\Delta f$,~因此每次迭代的成本是原来的两倍.
+%
+%\subsection{子空间识别}
+%
+%根据上面的讨论,~我们将~(8)~解释为一个理论属性,~保证投影梯度算法~(5)~的迭代在有限次迭代之后最终会识别出包含候选解~$w^*$~的子空间~$A_J$~因此,~在非凸集~$A_s$~上最小化~$f$~的问题可以简化为最小化为~$f$~在~$A_J$~的凸优化问题.~基于此,~我们提出了算法~2~中描述的两阶段算法,~该算法在候选块~$A_J$~被识别后切换到高阶方法进行光滑凸优化,~从而获得更快的收敛速度.~基于此,~我们提出了算法2中描述的两阶段算法,~ 该算法在候选块~$A_J$~被识别后切换到高阶方法进行光滑凸优化,~从而获得更快的收敛速度.~由于假设~$f$~是~$Lipschitz$~ 连续的,~$f$~的广义~$Hessian$~在【19】的任何地方都存在,~因此我们可以采用带回溯线研究的半光滑牛顿~$(SSN)$~方法【34】,~以较低的代价获得更快的收敛速度(详情见附录a).~特别地,~我们考虑了~$f$~对子空间~$A_J$~的限制,~将不在~$J$~中的坐标视为非变量,~ 从而减少了计算成本,~使所考虑的问题确实是光滑凸的.~由于我们无法先验地知道~$I_{w^*}$~是否确实被识别了,~所以我们采用【26,28,23】中实现的方法,~认为当~$w^k$~ 连续迭代足够长时间激活同一个~$A_J$~时,~$I_{w^*}$~就被识别了.~为了进一步保证我们没有在错误的子空间上进行优化,~我们还结合了【37,4,28,23】的思想,~在切换到~SSN~ 阶段后定期交替到~$PG$~步骤~(5).~这个两阶段算法的详细描述见算法2.
+%
+%
+%
+%在下面的定理中,~我们证明了算法~2~即使在(5)的两个步骤之间每次只执行一个~SSN~步骤,~也可以获得超线性收敛,~使用的是二次可微的简化设置.~ 对于下一个定理,~ 我们需要引入一些额外的符号.~给定任意~$w\in A_J$,~我们用~$f_J(w_J):= f(w)$~表示只考虑~$w$~在~$J$~中的坐标为变量,~ 其余均为常数零的函数.~我们假设定理2.1(b)~的条件对于~$w^*\in A_s$~是成立的,~并且对于所有~$J\in \mathbf{I}w^*$,~f 在~$w^*$~邻域~U~附近是二次可微的,~且~$\nabla^2f_J$~$Lipschitz$~ 在~$U$~中连续且~$\nabla^2f_J(w^*)$~是正定的.
+%
+%\textbf{Theorem 3.3}\quad 假设~$k\geq N$~且~$P_{A_s}(\omega^k)\subset U,$~当~$t\geq 1$~时,~ 在~$(5)$~的每两步之间进行~$t$~牛顿步:
+%
+%
+%在实际应用中,~获得~SSN~步长的线性系统只能通过~(预条件)~共轭梯度~(PCG)~方法不精确求解,~只要~$PCG$~方法有适当的停止条件和适当的算法修改~(如[39,29]),~仍然可以很容易地获得超线性收敛.~感兴趣的读者可以参考附录A,~以获得对我们实现的更详细描述.
+%
+%我们首先讨论在第3.2节中描述的获取非精确SSN步骤的实现。对于任意~$\omega \in A_J$,~我们用符号~$f_J(\omega_J):= f(\omega)$~表示只考虑~$\omega$~在J 中的坐标为变量,~其余为常数等于零的函数,~ 对任意~$p\in \Re^s$,~对于~$i\notin J$，我们用~$\hat{p}_J=p$~和~$\hat{p}_i=0$~ 表示向量~$\hat{p}\in \Re^n$.~注意由于~$f_J$~是~$lipschitz$~连续可微的,~所以广义~$Hessian$~$\nabla^2f_J$~始终存在[19]当广义黑森集合不是单元素时,~我们可以在集合中选取任何元素.
+%
+%在现代机器学习任务中经常面临的大规模问题中,~即使~$s\ll n$,~因此显式地形成广义黑森矩阵并将其反求仍然是非常昂贵的即使我们只考虑~$s$~ 维子空间中的广义黑森矩阵.~我们凭借~$PCG$,~给定一个预处理条件~$M$,~对于~$u,v\in \Re^n$~迭代使用矩阵-向量内积~$\nabla^2f_J(\omega_J)v$~ 和~$M^{-1}u$,~这可以降低成本，特别是如果M有特定的结构来促进逆.~PCG方法提供了一个近似
+%
+%{\color{red}\begin{align*}
+%p \approx \nabla^2f_J(\omega_J)^{-1}\nabla f_J(\omega_J),
+%\end{align*}}
+%或等价于
+%\begin{align*}
+%p \approx \mathop{arg min}_{\overline{p}}\left(Q_J(\overline{p};\omega):=<\nabla f_J(\omega_J),\overline{p}>+\frac{1}{2}<\overline{p},\nabla^2f_J(\omega_J)\overline{p}>\right)
+%\end{align*}
+%
+%
+%
+%
+%设步长~$\alpha=\beta^i$~
+%\begin{align*}
+%\omega_J \leftarrow \omega_J +\alpha p
+%\end{align*}
+%
+%
+%如果~$\alpha$~太小，或者即使~$\beta_i$~已经非常小,~也不能满足这个递减条件,我们丢弃这个SSN步骤,~并在算法~$2$~中宣布这个光滑优化部分失败.
+%
+%对于(25)中的近似准则，设PCG的第i次迭代为p(i)， Qi:= QJ(p(i);wJ)，当PCG达到s次迭代时(理论上它应该已经找到(25)的右边的精确解)，或者当第i次迭代满足i≥1和时，我们遵循[16]终止PCG
+%
+%
+%
+%
+%\section{结论}
+%
+%在此工作中，我们回顾了求解0范数约束优化问题的投影梯度算法。通过将约束集自然分解为子空间，以及投影梯度法已证明的识别包含解的子空间的能力，我们进一步提出了有效的加速方案，并可证明收敛速度的提高。
+%
+%实验表明，我们的加速策略在收敛速度和运行时间上都显著提高了原有的投影梯度算法，在0范数约束问题上的性能大大优于现有的算法。我们计划在不久的将来将我们的分析和算法扩展到非凸目标的设置。
+%
+%提出的外推策略有几个优点.~最明显的是定理~3.2~中比~$PG$~更快的速度,~因此我们的方法中每一个成功的外推步骤都有助于提高收敛速度,~而现有的方法只能提供与~$PG$~相同的收敛速度.~其次,~现有策略只使用预先指定的步长,~没有给定问题的信息,~也没有当前进度的信息,~并且只将步长限制在~$[0,1]$~以内.~另一方面,~我们的方法充分利用了函数曲率,~可以允许任意大的步长来更好地减少目标.
+
+
+
+
+
+

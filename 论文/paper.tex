@@ -1,0 +1,437 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{tabularx}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{esint,graphicx}
+\usepackage{diagbox}
+\usepackage{graphics}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{CJK}%中文
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{multicol}
+\usepackage{geometry}
+\geometry{a4paper,left=2.5cm,right=2.5cm,top=2cm,bottom=2cm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}{Example}[section]
+\newtheorem{xca}[theorem]{Exercise}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{condition}{Condition}[section]
+\newtheorem{proposition}{Proposition}[section]
+\numberwithin{equation}{section}
+
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Caputo}{{\mathcal{D}^\alpha_t}}
+\newcommand{\DCaputo}{{\mathcal{D}^\alpha_\tau}}
+\newcommand{\Ank}{{A_{n-k}^{(n)}}}
+\newcommand{\rd}[1]{{\color{red}#1}}
+\newcommand{\bl}[1]{{\color{blue}#1}}
+
+
+\usepackage{subfig,graphicx}
+\begin{document}
+\begin{CJK*}{GBK}{song}
+
+\title{论文}
+\maketitle
+%\section{问题描述}
+%
+%在这种模式下,~电动汽车用户将电动汽车连接到充电桩,~ 充电需求信息上传到聚合器.~ 每个电动汽车的充电计划将被发送回给电动汽车用户，充电信息包括到达时间~$t_i^a$,
+%
+%在所提的模型中的一些假设,~首先，电动汽车用户对充电成本很敏感,~ 我们引入有序充电的策略,~ 对于一些不着急充电的用户来说可以选择在电价低时期进行充电,~电价高时不来充电,~ 从而达到削峰填谷的效果,~ 第二,~ 我们假设电动汽车用户的到达时间和离开时间服从以下的泊松分布:
+%\section{摘要}
+\begin{multicols}{2}
+\section{介绍}
+
+交通运输电气化是实现碳排放减少和可持续发展的关键解决方案。电动汽车的推广将引领绿色智能交通系统在物流和能源领域的发展。在本文中，所提及的电动汽车均指纯电动汽车，其使用电能而几乎不产生污染物排放，因此是一种生态友好型的车辆。
+因此，电动汽车提供了一种清洁交通系统的选择，并具有巨大的可持续交通发展潜力。此外，电动汽车更容易与智能交通系统融合，从而增强了智能交通服务的效能。电动汽车可以通过智能充电设施进行充电，并与智能手机等设备连接，实现远程监控和管理，为充电提供智能化解决方案。同时，电动汽车还可以与其他交通工具和基础设施进行信息共享和协同，以实现交通系统的整体优化和智能化调度。通过与智能交通系统的结合，电动汽车可以参与智能导航、实时路况监测和拥堵缓解等功能，提高交通系统的效率和可持续性。
+因此，电动汽车在推动绿色智能交通系统的发展方面扮演着重要的角色，并为未来交通运输的可持续发展提供了新的可能性。
+
+\subsection{文献综述}
+
+
+{\color{red}\section{问题描述}}
+本研究旨在开发一种能够实现分布式电网削峰提谷的协调方法。在电动汽车充电调度过程中，电动汽车聚合器负责收集充电信息并进行调度。
+当电动汽车接入电网后，车主会设置充电相关信息并发送给电动汽车聚合器。这些信息包括电动汽车连接到微电网时的到达时间和离开时间，
+以及电池的充电状态（SOC）。同时还包括充电需求的最低SOC和电池安全的最高SOC。
+在该模型中，电动汽车用户在将电动汽车接入充电桩时，会向聚合器上传充电需求信息。然后聚合器会向每辆电动汽车用户发送充电计划。
+充电需求信息中包括到达时间（tic）和出发时间（tid）等信息。电动汽车到达时间tc 和出发时间td 服从正态分布，可表示为:
+\begin{align}
+f(t_c)=\left\{
+\begin{array}{cl}
+\frac{1}{\sqrt{2\pi}\sigma_{t_c}}exp(-\frac{(t_{c}+24-\mu_{t_c})^2}{2\sigma_{t_c}^2}),\\ 0<t_c\leq \mu_{t_c}-12; \\
+ \frac{1}{\sqrt{2\pi}\sigma_{t_c}}exp(-\frac{(t_{c}-\mu_{t_c})^2}{2\sigma_{t_c}^2}),\\ \mu_{t_c}-12<t_c\leq 24; \\
+\end{array} \right.
+\end{align}
+
+\begin{align}
+f(t_{dis})=\left\{
+\begin{array}{cl}
+\frac{1}{\sqrt{2\pi}\sigma_{t_{dis}}}exp(-\frac{(t_{dis}-\mu_{t_{dis}})^2}{2\sigma_{t_c}^2}),\\ 0<t_{dis}\leq \mu_{t_{dis}}+12; \\
+ \frac{1}{\sqrt{2\pi}\sigma_{t_{dis}}}exp(-\frac{(t_{dis}-24-\mu_{t_{dis}})^2}{2\sigma_{t_c}^2}),\\ \mu_{t_{dis}}+12<t_{dis}\leq 24; \\
+\end{array} \right.
+\end{align}
+其中\,$\mu_{t_c}=18,\sigma_{t_c}=3.3,\mu_{t_{dis}}=8$,和$\sigma_{t_{dis}}=3.24$
+
+\subsection{时间划分}
+在调度过程中，调度计划通常以时间段为单位执行，以提高执行效率。将调度时间划分为多个时间段。在提出的电动汽车充电调度模型中，将一天离散为96 个时隙，
+每个时隙的长度为15min，则每辆电动汽车的到达时间和出发时间表示为：
+\begin{align}
+J_i^c=[\frac{t_i^c}{\Delta T}],i=1,2,...,N.
+\end{align}
+\begin{align}
+J_i^{dis}=[\frac{t_i^{dis}}{\Delta T}],i=1,2,...,N.
+\end{align}
+其中N表示为EV数量，i时EV的指数，i=1,2,...,N.j是一天的时间指数,且j=1,...,96.$J_i^c$和$J_i^{dis}$表示时隙的序号当电动汽车分别接入分布式电网和断开
+分布式电网。$t_i^c$和$t_i^{dis}$表示第i辆电动汽车到达时间和出发时间，$\Delta T$表示时间步长。
+\end{multicols}
+
+\begin{table}[htbp]
+	\centering
+	\caption{符号表示}
+	\label{tab:1}
+	\begin{tabular}{cccc ccc}%表格中的数据居中，c的个数为表格的列数
+		\hline\hline\noalign{\smallskip}	
+		$\mathcal{N}$&电动汽车个数集合:$\mathcal{N}=\{1,...,N\}$ \\
+		%\noalign{\smallskip}\hline\noalign{\smallskip}
+		$\mathcal{T}$&离散时间集合:$\mathcal{T}=\{1,...,T\}$ \\
+		$\mathcal{L}$&馈线集合:$\mathcal{L}=\{1,...,L\}$ \\
+        $p_{n,t}$&在\,$t$\,时刻第\,$n$\,辆电动汽车的充电速率\\
+        $\mathcal{N}_l$&通过馈线\,$l$\,供电的电动汽车的集合\\
+        $\mathcal{N}_m$&在节点\,$m$\,充电的电动汽车的集合\\
+        $C_n$&电动汽车的电车容量\\
+        $d_t$&在\,$t$\,时刻总基本需求\\
+
+		\noalign{\smallskip}\hline
+	\end{tabular}
+\end{table}
+
+\begin{multicols}{2}
+\section{充电调度模型}
+\subsection{目标函数}
+%\rd{决策变量是什么？$p_{n,1}$的具体意义是什么？}
+在本节中建立一个协调调度充电模型来控制电动汽车充电,\,令
+$\bm{p}_n\triangleq(p_{n,t};t\in\mathcal{T})\in \mathbb{R}^T$,\,$\bm{p}=(\bm{p}_1,\cdot\cdot\cdot,\bm{p}_N)$.
+\subsubsection{充电总成本}
+\begin{align}
+f_n(p_{n,t})=\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t
+\end{align}
+
+它代表第\,$n$\,辆电动汽车的充电总成本,\,其中,\,$E_t$\, 为\,$t$\, 时间段的电价,\,$p_{n,t}$\,为电动汽车\,$t$\,时间段的充电功率,\,$\Delta t$\, 为时间间隔.
+\subsubsection{满意度}
+\begin{align}\label{satify}
+g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
+\end{align}
+表示充电周期内的总能量的满意函数,~并且由\,(\ref{satify})\, 可知,\,$EV\,n\in\mathcal{N}$\, 不随时间\,$t\in\mathcal{T}$,\,电动汽车用户希望尽可能增加配电网提供的电量，直到在期望周期内达到所需能量为止.
+\subsubsection{$\|\bm{p}\|_0$}
+$\|\bm{p}\|_0$\,表示~$EV\,n$~用户的充电计划~$\bm{p}_n$~ 的基数最小化,\,在一定程度上考虑了EV用户的舒适度.\,一方面,\,用于尽量减少充电次数,\,保护电池健康.\,另一方面,\,$EV$\,用户希望尽可能地完成任务,\,因为他们希望尽量减少中断或重新启动\,$EV$\,充电,\,等待更长的时间来完成任务对大多数用户来说是不可接受的，因此,\,通过引入稀疏充电计划，可以统一衡量用户满意度的目标
+
+\subsubsection{削峰填谷}
+\begin{align}
+h=(\sum_{n\in \mathcal{N}}(p_{n,t}+B_{n,t})-\overline{p+B})^2
+\end{align}
+表示削峰填谷,\,也表示配电网对总电力需求的功率损耗\,$\sum_{n\in \mathcal{N}}p_{n,t}-\overline{p}$,\,$\omega_n\in(0,\omega^{max})$\, 为权重参数,\,反映了减少快速充电行为对电网不利影响的相对趋势.\,且\,$\overline{p}=(\sum_{t\in \mathcal{T}}\sum_{n\in \mathcal{N}}p_{n,t})/N$\\
+
+根据以上各种指标介绍,\,建立电动汽车用户的充电协调优化目标函数
+\begin{align}\label{OBJ}
+\mathcal{J}_0(\bm{p})&\triangleq\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})
++g_n(\sum_{t\in\mathcal{N}}p_{nt})
++\|\bm{p}_n\|_0\right\}\nonumber\\
+&+\sum_{t\in \mathcal{T}}h_n(\sum_{t\in\mathcal{T}}p_{nt})
+\end{align}
+\subsection{约束}
+\subsubsection{电动汽车充电策略约束}
+充电策略是影响电网投资的最重要因素,\,为保证电网安全,\,我们有如下不等式成立:
+\begin{align}\label{maxP}
+p_n^{min}\leq p_{n,t}\leq p_n^{max}
+\end{align}
+其中\,$p_n^{min}$\,和\,$p_n^{max}$\,分别是\,$EV\,n$\,的最大和最小充电功率
+\subsubsection{电网状态约束}
+通过决定电动汽车在每个时隙中是否充电,\,实现了电动汽车的协调充电调度,\,第\,$n$\,个\,$EV$
+充电状态如下:
+\begin{align}
+x_{n,t}=\left\{
+\begin{array}{cl}
+1 & \text{如果电动汽车在充电,}\\
+0 & \text{其它}.\\
+\end{array}\right.
+\end{align}
+约束满足以下形式:
+\begin{align}
+(1-x_{n,t})p_{n,t}=0
+\end{align}
+\subsubsection{离开时对SOC的约束}
+有迫切充电需求的电动汽车由于连接时间短,\,可能无法获得足够的电量,\,因此其离开\,$SOC_n^{end}$\,时的\,$SOC$\,可能与\,$SOC_n^d$\, 不同。
+\begin{align}\label{SOCcondition}
+&SOC_n^{end}=min\{SOC_i^C+\frac{p_{n,t}\cdot\bigtriangleup t\times \eta_n}{C_n},SOC_i^d\}\\
+&SOC_n^{min}\leq SOC_{n,t}\leq SOC_N^{max}
+\end{align}
+其中$\eta$表示$EV n$充电能量转换效率，为了延长电池寿命，建议$SOC_{min}$ 和$SOC_{max}$的值分别为$15\%$和$90\%$.
+
+设$\bm{p}\triangleq (\bm{p}_n;n\in\mathcal{N})$代表电动汽车集群的充电策略。$EV n$的可允许充电策略用$\mathcal{X}_n$表示，所有电动汽车可允许充电策略用$\mathcal{X}$表示，为
+\begin{align}
+  \mathcal{X}\triangleq \mathcal{X}_1\times\cdots\times \mathcal{X}_N
+\end{align}
+\subsection{优化问题}
+
+使用$l_1$范数逼近$l_0$范数。我们将\,(\ref{OBJ})\,重新建模为以下稀疏促进充电控制模型
+\begin{align}
+\mathcal{J}_1(\bm{p})&\triangleq\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})
++g_n(\sum_{t\in\mathcal{N}}p_{nt})
++\|\bm{p}_n\|_1\right\}\nonumber\\
+&+\sum_{t\in \mathcal{T}}h_n(\sum_{t\in\mathcal{T}}p_{nt})
+\end{align}
+将集中式电动汽车快速充电协调制定为以下优化问题:
+\begin{align}\label{obj_0}
+  \mathop{min}_{\bm{p}\in \mathcal{X}} \quad \mathcal{J}_1(\bm{p})
+\end{align}
+
+
+
+\section{基于$Jacobi-Proximal ADMM$的电动汽车充电框架}
+ADMM方法已经成为大规模结构化的有力工具,\,值得注意的是,\,$ADMM$~可以解耦空间耦合约束,\,并将解耦问题分解为许多个小问题,\,其中每个子问题分解都很容易解决.\,在\,[1]\,中提出了并行分布式计算\,$Jacobi-Proximal\, ADMM$.\,近端项的灵活使用以不同的方法解决子问题\,提高了标准\,$ADMM$\, 的收敛率.$Jacobi-Proximal\,ADMM$\,对于稀疏性问题保持了很好的性质。在每次迭代中，该方法使用软阈值操作来更新变量，这可以促进解在稀疏表示下的稀疏性，即保持或增强变量的稀疏性质,该算法扩展了乘法器交替方向法(ADMM)，将原问题分解为N个较小的子问题，并在每次迭代时并行求解。
+
+值得注意的是,\,在模型\,(11)\,中的第二项耦合了所有的变量\,$p_{n,t},\,n\in \mathcal{N}$,\,为了解耦此项,\,引入辅助变量
+\begin{align*}
+\bm{p}_{N+1}=(p_{N+1,1},\cdot\cdot\cdot,p_{N+1,1})^T\in \mathbb{R}^T
+\end{align*}
+其中~$p_{N+1,t}=\sum\limits_{t\in \mathcal{T}}p_{nt}-\Gamma_n,t\in \mathcal{T}$,\,因此模型(\ref{OBJ})等价表示如下:
+\begin{align}
+&\min_{\bm{p}}\,\,\,\mathcal{J}(\bm{p})\label{objectf}\\
+&\,\,s.t.\,\,\,\sum_{n\in\mathcal{M}_l}p_{n,t}\leq c_{lt}\label{objectfc1}\\
+&\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,p_{N+1,t}=\sum\limits_{t\in \mathcal{T}}p_{nt}-\overline{\bm{p}},\,t\in \mathcal{T}\label{objectfc2}
+\end{align}
+
+为了使用\,$Jacobi-Proximal\,\,ADMM$\,,定义
+\begin{align}
+\bm{P}=\{\bm{p}_1,...,\bm{p}_N,\bm{p}_{N+1}\}^{T}\in\mathcal{R}^{(N+1)\times T}
+\end{align}
+
+也可以写成\,$\bm{P}=(\bm{p}_1,...,\bm{p}_T)\in\mathbb{R}^{(N+1)\times T}$,\, 其中
+\begin{align}
+\bm{p}_t=(p_{1,t},...,p_{N+1,t})\in \mathbb{R}^{N+1},\,t\in\mathcal{T}.
+\end{align}
+定义
+\begin{align}
+\mathcal{P}_t^{(2)}=\{\bm{p}_t|\bm{p}_t\,\,\text{满足}\,(\ref{objectfc1})~and~(\ref{objectfc2})\}
+\end{align}
+且
+\begin{align}
+\mathcal{P}_t^{(2)}=\mathcal{P}_1^{(2)}\times \cdot\cdot\cdot \times \mathcal{P}_t^{(2)}\times\cdot\cdot\cdot\times \mathcal{P}_T^{(2)}
+\end{align}
+其中约束\,$P_t^{(2)}$\,是一个全局约束,\,在空间上耦合所有EV的充电时间表.\,$P_t^{(2)}$\,是闭的、非空凸集的指示函数是恰当的、闭的和凸的,\,所以为了使用\,$Jacobi-Proximal\,ADMM$\,更一步介绍以下凸集\,$P^{(i)},i=1,2$,\, 如下，
+\begin{equation}
+\mathcal{I}_i(\bm{p})=\left\{
+\begin{array}{cl}
+0 & if\quad \bm{p} \in \mathcal{P}^{(i)},\\
++\infty & otherwise.\\
+\end{array}\right.
+\end{equation}
+很清楚地,\,$\mathcal{I}_i(\bm{p}),\,i=1,2$\,是凸函数.
+
+很容易地将~$(\ref{objectf})-(\ref{objectfc2})$~所描述的问题写成标准的ADMM 形式，如下所示
+\begin{align}
+&\min_{\bm{P},\bm{Y}}\mathcal{J}(\bm{P})+\mathcal{I}_1(\bm{P})+\mathcal{I}_2(\bm{Y})\\
+&s.t~~\bm{P}-\bm{Y}=0.\nonumber
+\end{align}
+
+这里定义:
+\begin{align*}
+&F(\bm{P})\triangleq \mathcal{J}(\bm{P})+\mathcal{I}_1(\bm{P})\\
+&G(\bm{Y})\triangleq \mathcal{I}_2(\bm{Y})
+\end{align*}
+
+定义增广拉格朗日函数如下:
+\begin{align}
+\mathcal{L}_{\rho}(\bm{P},\bm{Y},\bm{U})&=F(\bm{P})+G(\bm{Y})+\Lambda^T(\bm{P}-\bm{Y})+\frac{\rho}{2}\|\bm{P}-\bm{Y}\|_F^2\\
+&=f(\bm{P})+g(\bm{Y})+\frac{\rho}{2}\|\bm{P}-\bm{Y}+\bm{U}\|_F^2\nonumber
+\end{align}
+其中~$\rho>0$~是惩罚参数,\,$\Lambda$\,称为对偶变量或者拉格朗日乘子,\,$\bm{U}$ 称为缩放后的对偶变量,\,i.e.$\bm{U}=(1/\rho)\Lambda$\,变量\,$\bm{P},\bm{Y},\bm{U}$\,的更新
+
+\begin{align}
+&\bm{P}^{k+1} \triangleq \mathop{argmin}\limits_{\bm{P}}\left\{\mathcal{L}_{\rho}(\bm{P},\bm{Y},\bm{U}^k)+\frac{1}{2}\|\bm{P}-\bm{P}^k\|_{\Phi}^2\right\}\\
+&\bm{Y}^{k+1}\triangleq \mathop{argmin}\limits_{Y}\left\{\mathcal{L}_{\rho}(\bm{P}^{k},\bm{Y},\bm{U}^k)+\frac{1}{2}\|\bm{Y}-\bm{Y}^k\|_\Psi^2\right\}\label{yupdate}\\
+&\bm{U}^{k+1}\triangleq \bm{U}^k-\zeta\rho(\bm{P}^{k+1}-\bm{Y}^{k+1})
+\end{align}
+\begin{definition}\label{Def_DOC}
+{如果选择~$\delta_i>0$~使得参数~$\rho,~\zeta,~\Phi,~\Psi$~满足以下的情况:}
+\begin{align*}
+\left\{
+\begin{array}{cl}
+\Phi\succ\rho(\frac{1}{\delta_1}-1)I,\\
+\Psi\succ\rho(\frac{1}{\delta_2}-1)I,\\
+\delta_1+\delta_2<2-\zeta,
+\end{array}\right.
+\end{align*}
+\end{definition}
+选择参数\,$\rho,~\zeta,~\Phi,~\Psi$\,的方法多种多样,~本文采用一个简单的选择\,$\Phi=\phi I,\Psi=\psi I$\,使得
+\begin{align*}
+\left\{
+\begin{array}{cl}
+\phi\succ\rho(\frac{1}{\delta_1}-1),\\
+\psi\succ\rho(\frac{1}{\delta_2}-1),\\
+\delta_1+\delta_2<2-\zeta,
+\end{array}\right.
+\end{align*}
+
+\section{计算P}
+本节给出了在计算\,$\bm{P}$\,的详细信息,\,从指示函数的定义中可以容易地看出,\,$\bm{p}^{k+1}$\,的实际优化策略如下:
+\begin{align}
+\bm{P}^{k+1}=\mathop{argmin}\limits_{P\in\mathcal{P}^{(1)}}\left\{F(\bm{P})+\frac{\rho}{2}\|\bm{P}-\bm{Y}^k+\bm{U}^k\|_F^2+\frac{\phi}{2}(\bm{P}-\bm{P}^k)^T(\bm{P}-\bm{P}^k)\right\}
+\end{align}
+当\,$n=N+1$\,时
+\begin{align}
+\bm{p}_{N+1}^{k+1}=\frac{\rho(\bm{U}_n^k-\bm{y}_{N+1}^k)+\phi\bm{P}_{N+1}^k}{2+\rho+\phi}
+\end{align}
+
+对于每一个~n=1,...,N,\,令$$f(\bm{p})\triangleq \sum\limits_{n \in \mathcal{N}}\left\{f_n(p_{nt})-\omega_ng_n(\sum_{t\in \mathcal{T}}p_{nt})+\gamma\|\bm{p}_n\|_1\right\}$$
+相应的子问题计算如下
+\begin{align}\label{subp}
+\bm{p}_n^{k+1}=\mathop{argmin}\limits_{\bm{p}_n\in\mathcal{P}_n^{(1)}}\,\left\{f(\bm{p})+\frac{\rho}{2}\|\bm{p}_n-\bm{y}_n^k+\bm{U}_n^k\|_F^2+\frac{\psi}{2}(\bm{p}_n-\bm{p}_n^k)^T(\bm{p}_n-\bm{p}_n^k)\right\}
+\end{align}
+\section{计算Y}
+本节详细介绍\,(\ref{yupdate})\,中变量\,$\bm{Y}$\,的更新,\,等价于求解以下凸优化问题的解:
+\begin{align}\label{subob}
+\bm{Y}^{k+1}&=\mathop{argmin}\limits_{\bm{Y}}~\mathcal{I}_2(\bm{Y})+\frac{\rho}{2}\|\bm{P}^k-\bm{Y}+\bm{U}^k\|_F^2+\frac{\psi}{2}\|\bm{Y}-\bm{Y}^k\|_F^2\\
+       &=\mathop{argmin}\limits_{\bm{Y}\in\mathcal{P}^{(2)}}~\frac{\rho}{2}\|\bm{Y}-(\bm{P}^{k}+\bm{U}^k)\|_F^2+\frac{\psi}{2}\|\bm{Y}-\bm{Y}^k\|_F^2\nonumber
+\end{align}
+对于~$\bm{y}-update$~的更新,~可以由以下分散方式计算变量
+\begin{align}\label{subbb}
+\mathop{min}\limits_{\bm{y}_t\in\mathcal{P}_t^{(2)}}\,\,\left\{(\rho+\psi)\bm{y}_t^T\bm{y}_t-2(\rho(\bm{p}_t^k+\bm{U}_t^k)+\psi\bm{y}_t^k)\bm{y}_t\right\}
+\end{align}
+子问题(\ref{subbb})是一个CQP问题.\,为了简化符号,~我们引入一个~$(L\times N)$~ 矩阵~$A^t$~来表示时刻\,$t$\,的馈线用户关联矩阵及其在\,$a_{l,n}^t$\, 处的分量
+ \begin{equation}
+a_{l,n}^t=\left\{
+\begin{array}{cl}
+1  &  if~PEV~n~uses~feeder~l~at~time~t \\
+0  &  otherwise \\
+\end{array} \right.
+\end{equation}
+设\,$A^t=(a_1^t,...,a_N^t)$\,$a_n^t$\,是\,$A^t$\,的第\,$n$\,列向量,\,表示\,$EV n$\,使用的相应馈线)\,$a_{N+1}^t=0\in \mathcal{R}^l,\,$\,$c^t=(c_{1,t},...c_{l,t})$,\,$b_n -1,n\in\mathcal{N},b_{N+1}=1$,~ 那么子问题重写为
+\begin{align}\label{subyone}
+&min \quad\sum_{n=1}^{N+1}[(\rho+\psi)y_{n,t}^2-2(\rho(p_{n,t}^k+U_{n,t}^k)+\psi y_{n,t}^k)y_{n,t}]\\
+&s.t.\quad\,\,\sum_{n=1}^{N+1}a_n^ty_{n,t}\leq c^t\\
+&\quad\quad\,\,\,\,\sum_{n=1}^{N+1}b_ny_{n,t}=d_t\label{subytwo}
+\end{align}
+引入子问题\,(\ref{subyone})-(\ref{subytwo})\,的拉格朗日函数
+\begin{align}\label{dualp}
+\mathcal{L}^t(\bm{y}_t;\lambda_t,\mu_t)&=\sum_{n=1}^{N+1}[(\rho+\psi)y_{n,t}^2-2(\rho(p_{n,t}^k+U_{n,t}^k)+\psi y_{n,t}^k)y_{n,t}]\\\nonumber
+&+\lambda_t^T[a_n^ty_{n,t}-c^t/(N+1)]+\mu_t[b_ny_{n,t}-d_t/(N+1)]\\
+&:=\sum_{n=1}^{N+1}\mathcal{L}_{n=1}^t(y_t;\lambda_t,\mu_t)\nonumber
+\end{align}
+(\ref{dualp})的对偶问题为
+\begin{align}\label{maxobj}
+\mathop{max}_{\lambda_t\succeq0,\mu_t}\left\{D^t(\lambda_t,\mu_t)=\sum_{n=1}^{N+1}\mathop{min}_{y_t}\mathcal{L}^t(y_t;\lambda_t,\mu_t)\right\}
+\end{align}
+根据(\ref{maxobj}),\,目标函数被重写为
+\begin{align}
+D^t(\lambda_t,\mu_t)=\sum_{n=1}^{N+1}\mathop{min}_{y_{n,t}}\mathcal{L}_n^t(y_t;\lambda_t,\mu_t)
+\end{align}
+{\color{blue}第二种思路:\\
+由于(\ref{subob})中的函数是解耦的,\,因此计算其变量\,$y_t^k$,\,\,t=1,...,T.\,的优化问题为
+\begin{align}
+&\min_{y_t\in \mathcal{P}_t^{(2)}}\quad[(\rho+\psi)y_t^2-2(\rho(p_i^k+\bm{u}_i^k)+\psi y_i^k)y_t]\\
+&\quad s.t.\quad \quad \hat{p}_{nt}^{min}\leq y_t\leq \hat{p}_{nt}^{max}
+\end{align}
+它的解析解很容易得:
+\begin{equation}
+y_t^{k+1}=\left\{
+\begin{array}{cl}
+\hat{p}_{nt}^{min} &  \overline{y}_t^{k+1}<\hat{p}_{nt}^{min} \\
+\overline{y}_t^{k+1}  & \hat{p}_{nt}^{min}\leq \overline{y}_t^{k+1}\leq \hat{p}_{nt}^{max} \\
+ \hat{p}_{nt}^{max}& \overline{y}_t^{k+1}<\hat{p}_{nt}^{max}\\
+\end{array} \right.
+\end{equation}}
+\section{算法}
+算法收敛的表证如下：
+\begin{align*}
+\bm{r}^k=\|\bm{P}^k-\bm{Y}^k\|_F
+\end{align*}
+\begin{align*}
+\bm{s}^k=\|\rho(\bm{Y}^{k+1}-\bm{Y}^{k})\|_F
+\end{align*}
+其中$\bm{r}^k$和$\bm{s}^k$分别表示在第k次迭代时的原始和对偶残差。且满足如下形式:
+\begin{align}
+  \|\bm{r}\|_2\leq \varepsilon^{pri}\quad\quad\quad\|\bm{s}\|_2\leq\varepsilon^{dual}
+\end{align}
+\end{multicols}
+\begin{algorithm}[!h]
+    \caption{Jacobi-Proximal ADMM}
+    \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+    \renewcommand{\algorithmicensure}{\textbf{Output:}}
+    \begin{algorithmic}[1]
+        \REQUIRE $\mathbf{p}_n^0(n=1,...,N+1)$,~$\Lambda^0 $
+        \ENSURE $\mathbf{p}_n^k(n=1,...,N+1)$    %%output
+        \FOR{k=0,1,...}
+                \STATE Update~$\mathbf{p}_n$~for~$n=1,...,N+1$~in parallel by:
+                \STATE \qquad $\mathbf{p}_n^{k+1}= \textrm{\bl{argmin} }\big\{ f_n(\mathbf{p}_n)
+                +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum\limits_{j\neq n}A_j\mathbf{p}_j^k -c -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2\big\}$
+        \STATE Update $\Lambda$ by:
+                \STATE \qquad $\Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^N A_n\mathbf{p}_n^{k+1}-c)$
+        \IF {\rd{$\sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri}$}}
+            \STATE Break.
+        \ENDIF
+        \ENDFOR
+    \end{algorithmic}
+\end{algorithm}
+\begin{multicols}{2}
+\begin{definition}\label{Def_DOC}
+{如果选择~$\delta_i>0$~使得参数~$\rho,~\zeta,~\Phi,~\Psi$~ 满足以下的情况:}
+\begin{align*}
+\left\{
+\begin{array}{cl}
+\Phi\succ\rho(\frac{1}{\delta_1}-1)I,\\
+\Psi\succ\rho(\frac{1}{\delta_2}-1)I,\\
+\delta_1+\delta_2<2-\zeta,
+\end{array}\right.
+\end{align*}
+\end{definition}
+选择参数\,$\rho,~\zeta,~\Phi,~\Psi$\,的方法多种多样,~本文采用一个简单的选择\,$\Phi=\phi I,\Psi=\psi I$\, 使得
+\begin{align*}
+\left\{
+\begin{array}{cl}
+\phi\succ\rho(\frac{1}{\delta_1}-1),\\
+\psi\succ\rho(\frac{1}{\delta_2}-1),\\
+\delta_1+\delta_2<2-\zeta,
+\end{array}\right.
+\end{align*}
+\begin{theorem}\label{th}
+aaaa
+\end{theorem}
+
+
+算法收敛的表证如下：
+\begin{align*}
+\bm{r}^{k+1}=\|\bm{P}^{k+1}-\bm{Y}^{k+1}\|_F
+\end{align*}
+\begin{align*}
+\bm{s}^{k+1}=\|\rho(\bm{Y}^{k+1}-\bm{Y}^{k})\|_F
+\end{align*}
+一个合理的终止标准是原始残差和对偶残差要足够小,~如下:
+\begin{align*}
+\|\bm{r}^k\|_2\leq \varepsilon^{pri}\,\,\,\,\,\,\,\,\|\bm{s}^k\|_2\leq \varepsilon^{dual}
+\end{align*}
+where~$\varepsilon^{pri}>0$~和~$\varepsilon^{dual}>0$~are feasibility~tolerances~for~the~primal~and~dual~feasibity~conditions~()~and~().These~tolerances~can~be~
+chosen~using~an~absolute~and~relative~criterion,such~as
+\begin{align*}
+&\varepsilon^{pri}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}max\{\|p\|_2,\|-x\|_2\},\\
+&\varepsilon^{dual}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}\|\mu^k\|_2
+\end{align*}
+where~$\varepsilon^{abs}>0$~is~an~absolute~tolerance~and~$\varepsilon^{rel}>0$~is~a~relative~tolerance.A~reasonable~value~for~the~relative~stopping
+criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-JADMM~is~then~give~in~Algorithm~1.
+\begin{theorem}\label{th}
+aaaa
+\end{theorem}
+\section{实验结果}
+\end{multicols}
+\end{CJK*}
+\end{document}
+
+
+

@@ -34,6 +34,7 @@ classdef SmartGrid < Prepare
                     [Pk]=Jacobi_Proximal_ADMM(obj,rho,gamma); %Pk(T×N+1)
                     obj.P=Pk(:,1:end-1).'; %舍去最后一行的 求和行
             end
+            memory
         end
         
         

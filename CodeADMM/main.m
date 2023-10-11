@@ -20,7 +20,8 @@ rho=1*1/A.N; C=[1.5,2,0];  %gamma, psi1, psi2
 %gamma=C(1); psi=(obj.N-1)*rho*C(2);psi_N+1+=0.01*(obj.N-1)*rho*C(3);
 
 %使用多块ADMM 并计算误差衰减图
-A.Solve(rho,C);
+ A.Solve(rho,C);
+% A.Solve(rho);
 
 %画出结果（包括：每个时间单位总电费，电车功率，总功率）
 %画出满意函数，
