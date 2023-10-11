@@ -1,34 +1,70 @@
 %主函数
 close all
+clear
 
-A=SmartGrid();
+%设置 模拟电车数量和时间剖分间隔
+if 1==1
+    N=200;dt=15/60;
+    A=SmartGrid(N,dt);
+end
 
-%画出车辆到达和离开时间的分布
-generate_random_plot(A);
+if 1==2 %是否画图
+    generate_random_plot(A);   %画出车辆到达和离开时间的分布
+    PricandLoad(A);            %画出分时电价和居民用电功率分布
+end
 
-%画出分时电价和居民用电功率分布
-PricandLoad(A);
+%设置各优化目标的权重 （总电费；总不满意度；削峰填谷效果；L0范数）
+A.W=[0.5,1,10,0].*[15/9,1,1,0];
 
 
-%以优化功率方差为例
-A.W=[1,1,1,0.1];
 
-%选取合适的参数
-rho=1*1/A.N; C=[1.5,2,0];  %gamma, psi1, psi2
+% 方法一========================================================================================================
+if 1==2
+    tic
+    A.Solve();
+    toc;
+    A.Show();
+end
 
-%rho=(0.01-0.05) C=[(0.1-1.5)   (0--2)  (0-0)]
-%gamma=C(1); psi=(obj.N-1)*rho*C(2);psi_N+1+=0.01*(obj.N-1)*rho*C(3);
+%Jacobi_Proximal方法===========================================================================================
+if 1==2
+    %计算误差衰减速情况
+    rho=0.1; C=[1.5,2,0.01];  %选定合适的参数
+    A.RHO_c=rho;A.C_c=C;
+    %rho=(0.01-0.05) C=[(0.1-1.5)   (0--2)  (0-0)]
+    %gamma=C(1); psi=(obj.N-1)*rho*C(2);psi_N+1+=0.01*(obj.N-1)*rho*C(3);
+    A.Solve(rho,C);
+    
+    A.ShowIteration();
+    %存储结果
+    if A.W(3)==0
+        str0='noXue';
+    else
+        str0=num2str(A.W(3));
+    end
+    TT=strcat('result\Jac_Pro_',str0,'.mat');
+    save(TT,'A')
+end
 
-%使用多块ADMM 并计算误差衰减图
- A.Solve(rho,C);
-% A.Solve(rho);
+
+
+%两块ADMM方法==================================================================================================
+if 1==1
+    rho=5; %选取合适的参数    
+    A.RHO_c=rho;
+    
+    A.Solve(rho);
+    %存储结果
+    if A.W(3)==0
+        str0='noXue';
+    else
+        str0=num2str(A.W(3));
+    end
+    TT=strcat('result\ADMM2_',str0,'.mat');
+    save(TT,'A')
+end
+
 
 %画出结果（包括：每个时间单位总电费，电车功率，总功率）
-%画出满意函数，
 A.Show();
-
-
-% 总花费为1447.0891
-% 功率差=2.0142
-% 功率方差=0.55906
-% 总不满意度=1333.5401
+A.ShowIteration();
