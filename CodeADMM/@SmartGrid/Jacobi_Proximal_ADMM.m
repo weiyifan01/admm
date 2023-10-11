@@ -33,7 +33,7 @@ tend(obj.N+1)=cputime-tstart;
     result(1,k)=norm(Pk-Pk_1);  
     result(2,k)=uperror(sum(Pk(:,1:obj.N),2)-Pk(:,end));
 
-    result(3,k)=max(tend(1:end-1))+tend(obj.N+1)+tdt(k);
+    result(3,k)=max(tend(1:end-1))*floor(200/60+1)+tend(obj.N+1)+tdt(k);
     tdt(k+1)=result(3,k);
     disp(result(:,k))   
 end

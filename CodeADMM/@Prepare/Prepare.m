@@ -146,11 +146,12 @@ classdef Prepare < handle
         function PricandLoad(obj) %画出分时电价和居民荷载
 
             figure('name','price')
-            bar((1:obj.T)*obj.dt,obj.ElePrice,'BarWidth',1,'LineStyle','none','facecolor','cyan')
-            xlabel('time(h)')
-            ylabel('price(￥)')
+            bar((1:obj.T)*obj.dt,obj.ElePrice,'BarWidth',0.8,'LineStyle','none','facecolor','cyan')
+            xlabel('time$(h)$','interpreter','latex')
+            ylabel('price$(CNY)$','interpreter','latex')
+%             set(gca,)
             title('Price of electricity at different times')
-            ylim([0,1.5])
+            ylim([0,1.2])
             
             figure('name','base')
             x=0:0.05:24;Y=x;
@@ -158,9 +159,9 @@ classdef Prepare < handle
                 obj.time=x(k);
                 Y(k)=Residential_electricity_consumption(obj);
             end
-            bar(x,Y,'BarWidth',1,'LineStyle','none')
-            xlabel('time(h)')
-            ylabel('power(kw)')
+            bar(x,Y,'c','BarWidth',1,'LineStyle','none')
+            xlabel('time$(h)$','interpreter','latex')
+            ylabel('power($kw$)','interpreter','latex')
             title('Residential power distribution with time')
             ylim([0,800])
         end

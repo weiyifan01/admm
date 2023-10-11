@@ -3,6 +3,8 @@ classdef SmartGrid < Prepare
     
     properties
         P; %N行T列 由P_{n,t}组成的矩阵
+        RHO_c=[];%方便记录
+        C_c=[];
        
         W=[1,1,1,1]; %各个目标函数的权重 [总电费；不满意度；功率稳定；L0充电时长
         
