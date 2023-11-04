@@ -13,6 +13,8 @@ classdef SmartGrid < Prepare
         UUB; % 上界
         LLB; % 下界
         result; % 存储迭代结果
+        
+        gg;
     end
     
     methods
