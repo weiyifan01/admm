@@ -108,17 +108,15 @@ where$I_i^c$represents the time slot when the$i-th$electric vehicle is connected
 
 \begin{table}[htbp]
 	\centering
-	\caption{符号表示}
+	\caption{$LIST~OF~KEY~SYMBOLS$}
 	\label{tab:1}
 	\begin{tabular}{cccc ccc}%表格中的数据居中，c 的个数为表格的列数
 		\hline\hline\noalign{\smallskip}	
 		$\mathcal{N}$&EV population \\
 		%\noalign{\smallskip}\hline\noalign{\smallskip}
-		$\mathcal{T}$&离散时间集合 \\
-        $p_{n,t}$&在$t$时刻第$n$\, 辆电动汽车的充电速率\\
-        $\mathcal{N}_l$&通过馈线\,$l$\,供电的电动汽车的集合\\
-        $\mathcal{N}_m$&在节点\,$m$\, 充电的电动汽车的集合\\
-        $d_t$&在\,$t$\,时刻总基本需求\\
+		$\mathcal{T}$& EV~charging~intervals \\
+        $p_{n,t}$&Charginng~rate~of~EV~n~at~instant~t\\
+        $\Gamma_n$&Total~charging~power~required~to~be~fully~charged~of~EV~n\\
 
 		\noalign{\smallskip}\hline
 	\end{tabular}
@@ -187,7 +185,7 @@ g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
 The weight parameter$\varpi_n\in(0,\varpi_{max}]$ reflects the relative importance of reaching a full charge compared to
 $\mathcal{T}_n$.
 
-3)第三项$h_n(\sum_{n\in\mathcal{N}}p_{n,t})$:It represents the ability of peak shaving and valley filling, which aims to maintain the stability of the total power in the grid. Therefore, we use the variance of the total power to reflect its stability. A smaller variance indicates a more stable grid. The total power includes the total power of electric vehicle charging and the total power of residential electricity consumption, as shown below:
+3)The third term $h_n(\sum_{n\in\mathcal{N}}p_{n,t})$:It represents the ability of peak shaving and valley filling, which aims to maintain the stability of the total power in the grid. Therefore, we use the variance of the total power to reflect its stability. A smaller variance indicates a more stable grid. The total power includes the total power of electric vehicle charging and the total power of residential electricity consumption, as shown below:
 \begin{align}
 h=(\sum_{n\in \mathcal{N}}(p_{n,t}+B_{n,t})-\overline{p+B})^2
 \end{align}
@@ -347,6 +345,23 @@ hello world.
     \includegraphics[width=6cm]{img/fig-SOC300.eps}
    \caption{300辆EV离开时的SOC}
 \end{figurehere}
+\begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-power100.eps}
+   \caption{300辆EV离开时的SOC}
+\end{figurehere}
+\begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-power200.eps}
+   \caption{300辆EV离开时的SOC}
+\end{figurehere}
+\begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-power300.eps}
+   \caption{300辆EV离开时的SOC}
+\end{figurehere}
+
+
 
    \begin{figurehere}
    \centering

@@ -26,7 +26,7 @@ f_total=W(1)*f1+W(2)*f2 +  W(3)*f3 +W(4)*f4;
 switch obj.gg
     case 1 %Ê¹ÓÃL0·¶Êýby fmincon
         f_total_new=W(1)*f1+W(2)*f2 +  W(3)*f3;
-        fun = @(X)1/2*X*H_total*X.'+X*f_total_new+sum(X~=0);
+        fun = @(X)1/2*X*H_total*X.'+X*f_total_new+W(4)*sum(X~=0);
         
         options = optimoptions('fmincon','Display','iter','Algorithm','sqp');
         X = fmincon(fun,0*f4.',obj.AA,obj.bb,[],[],obj.LLB,obj.UUB,[],options);
