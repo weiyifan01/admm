@@ -261,7 +261,7 @@ for all $n=1,\cdots,N+1$
 
 
 \section{算法总结}
-\noindent 如果迭代次数达到给定阈值$iter_{max}$ 或同时满足以下条件[*]则$DCJ-ADMM$ 满足如下：
+\noindent 如果迭代次数达到给定阈值$iter_{max}$ 或同时满足以下条件[*] 则$DCJ-ADMM$ 满足如下：
 \begin{align*}
 \bm{r}^{k+1}=\|\bm{P}^{k+1}-\bm{Y}^{k+1}\|_F
 \end{align*}
@@ -303,17 +303,7 @@ hello world.
 
 \section{结果与讨论}
 \subsection{仿真数据与设置}
-
-为了验证协调调度模型的有效性，进行了基于$Jacobi-Proximal ADMM$方法的仿真实验。实验中的输入数据根据概率密度函数随机生成，模拟真实电动汽车充电情况。然而，为了简单起见，必须建立一些假设。
-
-首先，采用不同数量的电动汽车(100辆、200 辆、300 辆)进行对比实验
-
-其次，$SOC_i^{con}$表示电动汽车的连续均匀分布，取值范围为$0.1$到$0.3$。$SOC_i^{min}$ 表示电动汽车的最小充电状态，服从0.4 到0.6 之间的均匀分布，而$SOC_i^max$表示电动汽车的最大充电状态，服从0.8 到1.0 之间的均匀分布。此外，所有电动汽车电池的容量$Cap_{EV}^{bat}$ 设定为30kWh。
-
-最后，根据用电规律对基本负荷数据进行了模拟.仿真结果如图2所示。分时电价如图1 所示，假设所有电动汽车的$Cap_{battery}$ 值为30kwh[*], 电网的基本负荷如图2所示。
-考虑到用户下班前充电一定电量的意愿,本仿真中电动汽车充电协调的时间范围T{\color{red}正态分布考虑}.
-
-
+为了验证协调充电调度模型的有效性,建立了基于电网和电动汽车负荷聚合的分布式框架,采用改进的交替方向乘子器方法来求解模型,进行仿真实验,考虑使用不同数量的~$EV$~(i.e.100、200、300)进行对比实验，且不同数量的电动汽车的$SOC_c$ 遵循$0.1$ 到$0.3$ 之间的连续均匀分布,假设$SOC_d$ 遵循$0.7$ 到$0.9$ 之间的连续均匀分布\cite{2022}, 并且$24h$ 内电动汽车出发和离开的时间服从正态分布，分别为$N(18,3.3^2)$ 和$N(8,3.24^2)$.如图[x]所示,在这里简单假设所有的$EV$都为 $ Tesla Model S$, 具有相同的电池容量大小 $60 kWh$.
 
 \begin{figurehere}
    \centering
@@ -326,10 +316,7 @@ hello world.
     \includegraphics[width=6cm]{img/fig-base.eps}
    \caption{一天的典型基本负荷曲线{\color{red} 待修改}}
 \end{figurehere}
-首先，我们将$(u^0,z^0,v^0)$都初始化为0. 在初始迭代步骤中，假设$k=1$, 我们对所有$n\in\mathcal{N}$ 使用算法1实现$u_n^1$, 根据{\color{red} 图4} 的说明,它会在几次迭代中收敛。然后，基于收集到的充电策略*********通过(*)这个
 
-
-首先，我们将$(u^0,z^0,v^0)$都初始化为0。 在初始迭代步骤中，假设k=1, 我们对所有$n\in \mathcal{N}$ 使用算法1 实现$u_n^1$，根据图4 的说明，它会在几次迭代中收敛。然后，基于收集到的充电策略$u1 ≡ (u1n; n ∈ N)$和v0, 类似地，通过(25) 更新v1。这个过程会一直重复执行，直到满足终止准则，即$\varepsilon^{pri}\leq 10^{-3}$ 和$\varepsilon^{dual}\leq 10^{-3}$
    \begin{figurehere}
    \centering
     \includegraphics[width=6cm]{img/fig-SOC.eps}
@@ -393,8 +380,62 @@ hello world.
     \includegraphics[width=6cm]{img/fig-error300.eps}
    \caption{300辆EV的原始和对偶误差}
 \end{figurehere}
+
+\begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-ErrorReduction_ADMM2.eps}
+   \caption{300辆EV的原始和对偶误差}
+\end{figurehere}
+
+\begin{figurehere}
+   \centering
+    \includegraphics[width=6cm]{img/fig-ErrorReduction_Jac_Pro.eps}
+   \caption{300辆EV的原始和对偶误差}
+\end{figurehere}
+\section{A Final Checklist}
+\begin{enumerate}{}{}
+\item{Make sure that your equations are numbered sequentially and there are no equation numbers missing or duplicated. Avoid hyphens and periods in your equation numbering. Stay with IEEE style, i.e., (1), (2), (3) or for sub-equations (1a), (1b). For equations in the appendix (A1), (A2), etc.}.
+\item{Are your equations properly formatted? Text, functions, alignment points in cases and arrays, etc. }
+\item{Make sure all graphics are included.}
+\item{Make sure your references are included either in your main LaTeX file or a separate .bib file if calling the external file.}
+\end{enumerate}
+
+\begin{thebibliography}{1}
+
+\bibitem{ams}
+{\it{Mathematics into Type}}, American Mathematical Society. Online available:
+
+\bibitem{oxford}
+T.W. Chaundy, P.R. Barrett and C. Batey, {\it{The Printing of Mathematics}}, Oxford University Press. London, 1954.
+
+\bibitem{lacomp}{\it{The \LaTeX Companion}}, by F. Mittelbach and M. Goossens
+
+\bibitem{mmt}{\it{More Math into LaTeX}}, by G. Gr\"atzer
+
+\bibitem{amstyle}{\it{AMS-StyleGuide-online.pdf,}} published by the American Mathematical Society
+
+\bibitem{Sira3}
+H. Sira-Ramirez. ``On the sliding mode control of nonlinear systems,'' \textit{Systems \& Control Letters}, vol. 19, pp. 303--312, 1992.
+
+\bibitem{Levant}
+A. Levant. ``Exact differentiation of signals with unbounded higher derivatives,''  in \textit{Proceedings of the 45th IEEE Conference on Decision and Control}, San Diego, California, USA, pp. 5585--5590, 2006.
+
+\bibitem{Cedric}
+M. Fliess, C. Join, and H. Sira-Ramirez. ``Non-linear estimation is easy,'' \textit{International Journal of Modelling, Identification and Control}, vol. 4, no. 1, pp. 12--27, 2008.
+
+\bibitem{Ortega}
+R. Ortega, A. Astolfi, G. Bastin, and H. Rodriguez. ``Stabilization of food-chain systems using a port-controlled Hamiltonian description,'' in \textit{Proceedings of the American Control Conference}, Chicago, Illinois, USA, pp. 2245--2249, 2000.
+
+\end{thebibliography}
+
+\begin{IEEEbiographynophoto}{Jane Doe}
+Biography text here without a photo.
+\end{IEEEbiographynophoto}
+
 \end{CJK*}
 \end{document}
+
+
 %\begin{list}{}{}
 %\item{Regular Journal Article}
 %\item{{\tt{$\backslash$documentclass[journal]{IEEEtran}}}}\\
@@ -1146,46 +1187,7 @@ hello world.
 %
 %\balance
 %
-%\section{A Final Checklist}
-%\begin{enumerate}{}{}
-%\item{Make sure that your equations are numbered sequentially and there are no equation numbers missing or duplicated. Avoid hyphens and periods in your equation numbering. Stay with IEEE style, i.e., (1), (2), (3) or for sub-equations (1a), (1b). For equations in the appendix (A1), (A2), etc.}.
-%\item{Are your equations properly formatted? Text, functions, alignment points in cases and arrays, etc. }
-%\item{Make sure all graphics are included.}
-%\item{Make sure your references are included either in your main LaTeX file or a separate .bib file if calling the external file.}
-%\end{enumerate}
-%
-%\begin{thebibliography}{1}
-%
-%\bibitem{ams}
-%{\it{Mathematics into Type}}, American Mathematical Society. Online available:
-%
-%\bibitem{oxford}
-%T.W. Chaundy, P.R. Barrett and C. Batey, {\it{The Printing of Mathematics}}, Oxford University Press. London, 1954.
-%
-%\bibitem{lacomp}{\it{The \LaTeX Companion}}, by F. Mittelbach and M. Goossens
-%
-%\bibitem{mmt}{\it{More Math into LaTeX}}, by G. Gr\"atzer
-%
-%\bibitem{amstyle}{\it{AMS-StyleGuide-online.pdf,}} published by the American Mathematical Society
-%
-%\bibitem{Sira3}
-%H. Sira-Ramirez. ``On the sliding mode control of nonlinear systems,'' \textit{Systems \& Control Letters}, vol. 19, pp. 303--312, 1992.
-%
-%\bibitem{Levant}
-%A. Levant. ``Exact differentiation of signals with unbounded higher derivatives,''  in \textit{Proceedings of the 45th IEEE Conference on Decision and Control}, San Diego, California, USA, pp. 5585--5590, 2006.
-%
-%\bibitem{Cedric}
-%M. Fliess, C. Join, and H. Sira-Ramirez. ``Non-linear estimation is easy,'' \textit{International Journal of Modelling, Identification and Control}, vol. 4, no. 1, pp. 12--27, 2008.
-%
-%\bibitem{Ortega}
-%R. Ortega, A. Astolfi, G. Bastin, and H. Rodriguez. ``Stabilization of food-chain systems using a port-controlled Hamiltonian description,'' in \textit{Proceedings of the American Control Conference}, Chicago, Illinois, USA, pp. 2245--2249, 2000.
-%
-%\end{thebibliography}
-%
-%\begin{IEEEbiographynophoto}{Jane Doe}
-%Biography text here without a photo.
-%\end{IEEEbiographynophoto}
-%
+
 %\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{fig1.png}}]{IEEE Publications Technology Team}
 %In this paragraph you can place your educational, professional background and research and other interests.\end{IEEEbiography}
 
