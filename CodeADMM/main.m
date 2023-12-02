@@ -63,6 +63,7 @@ if 1==2
 end
 
 
-%画出结果（包括：每个时间单位总电费，电车功率，总功率）
-A.Show();
-A.ShowIteration();
+
+% 画出结果（包括：每个时间单位总电费，电车功率，总功率）
+% A.Show();
+% A.ShowIteration();
