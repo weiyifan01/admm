@@ -1,0 +1,1363 @@
+\documentclass[lettersize,journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+%\usepackage{subfigure}
+\usepackage{graphicx, color, epstopdf}
+\usepackage{CJK}% 中文
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{amsthm}
+
+%\newtheorem{definition}[theorem]{Definition}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage{balance}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{\indent 引理}
+\newtheorem{proposition}[theorem]{\indent 命题}
+\newtheorem{corollary}[theorem]{\indent 推论}
+\newtheorem{definition}{\indent 定义}[section]
+\newtheorem{example}{\indent 例}[section]
+\newtheorem{remark}{\indent 注}[section]
+\newenvironment{solution}{\begin{proof}[\indent\bf 解]}{\end{proof}}
+\renewcommand{\proofname}{\indent\bf 证明}
+%\newtheorem{theorem}{Theorem}
+\begin{document}
+\makeatletter
+%\newenvironment{figure}
+%    {\def\@captype{figure}}
+%    {}
+%\makeatother
+
+\begin{CJK*}{GBK}{song}
+\title{ Coordination Optimization Algorithm Based on Improved ADMM of EV Considering Orderly Charging }
+\author{IEEE Publication Technology Department
+\thanks{Manuscript created October, 2020; This work was developed by the IEEE Publication Technology Department. This work is distributed under the \LaTeX \ Project Public License (LPPL) ( http://www.latex-project.org/ ) version 1.3. A copy of the LPPL, version 1.3, is included in the base \LaTeX \ documentation of all distributions of \LaTeX \ released 2003/12/01 or later. The opinions expressed here are entirely that of the author. No warranty is expressed or implied. User assumes all risk.}}
+
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~18, No.~9, September~2020}%
+{How to Use the IEEEtran \LaTeX \ Templates}
+
+\maketitle
+
+\begin{abstract}
+This document describes the most common article elements and how to use the IEEEtran class with \LaTeX \ to produce files that are suitable for submission to the Institute of Electrical and Electronics Engineers (IEEE).  IEEEtran can produce conference, journal and technical note (correspondence) papers with a suitable choice of class options.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Class, IEEEtran, \LaTeX, paper, style, template, typesetting.
+\end{IEEEkeywords}
+
+
+\section{Introduction}
+\IEEEPARstart{I}{n} recent years, transportation has shifted from vehicles based on internal combustion engines to electric vehicles(EV). This transition is driven by the lower emissions, reduced fuel costs, and higher efficiency of electric vehicles. These advancements herald a promising future for the development of electric cars and wield a profound impact on human society.In the new Infrastructure trend, China's Development Plan for New Energy Vehicles (2021-2035) proposes that by 2035, pure electric vehicles will become the mainstream of new sales of vehicle , public sector vehicles in the field of electrification. In the "new infrastructure" wave. Undoubtedly, the widespread integration of electric vehicles into the power grid has brought about a significant increase in electrical load[1-2].The charging loads of electric vehicles exhibits strong spatial and temporal uncertainty, and the uncoordinated integration of a significant number of electric vehicles poses challenges to the operation and control of the distribution grid.The charging load of electric vehicles exhibits significant spatio-temporal uncertainty, posing challenges to the operation and control of the distribution grid due to the uncoordinated charging of a large number of electric vehicles. For instance, factors such as battery degradation, high battery costs, fast-charging technology, and charging station planning contribute to this uncertainty. To achieve coordinated charging for electric vehicles, optimizing the scheduling of electric vehicle charging is essential.
+
+
+
+As described in the literature[3], the daily commuting distances and working hours of residential individuals are increasingly aligning. The peak hours for residential electricity usage span from 6 PM to 11 PM. Without coordinated charging of electric vehicles, the peak hours for residential electricity consumption could coincide with the charging periods for electric cars, potentially intensifying the strain on the distribution grid.
+
+
+
+
+
+
+ In this article, the term "electric vehicles" refers specifically to pure electric vehicles, which primarily utilize electric power and produce minimal emissions of pollutants. Therefore, they can be classified as environmentally friendly transportation options. Therefore, electric vehicles present a clean transportation system choice and hold significant potential for sustainable transportation development. Moreover, electric vehicles are more easily integrated with intelligent transportation systems, thereby enhancing the efficiency of intelligent transportation services. Electric vehicles can be charged through smart charging facilities and connected to devices such as smartphones, enabling remote monitoring and management. This provides intelligent solutions for charging.Additionally, electric vehicles can engage in information sharing and collaboration with other transportation vehicles and infrastructure, aiming to achieve overall optimization and intelligent scheduling of the transportation system.By integrating with intelligent transportation systems, electric vehicles can participate in functions such as smart navigation, real-time traffic monitoring, and congestion mitigation. This enhances the efficiency and sustainability of the transportation system. Therefore, electric vehicles play a crucial role in driving the development of green intelligent transportation systems and offer new possibilities for the sustainable future of transportation.
+
+During the 1970s, a dual algorithm was proposed to solve nonlinear variational problems. This method, based on the utilization of augmented Lagrangian functional, resulted in an effective and easily implementable algorithm. Building upon this, in 1983, D. Gabay and R. Glowinski further advanced the Alternating Direction Method of Multipliers (ADMM) and applied it to solve non-convex problems. They introduced distributed ADMM, which decomposes the original problem into two or more subproblems and gradually approaches the global optimum by iteratively solving each subproblem alternately.With the continuous advancement of computer technology, researchers have embarked on exploring the application of the ADMM (Alternating Direction Method of Multipliers) technique in distributed computing environments. In 2010, Boyd et al. identified that the alternating direction method of multipliers is highly suitable for distributed convex optimization, particularly in tackling large-scale problems arising in the fields of statistics, machine learning, and related domains.
+
+The contributions of this article are as follows:
+
+1)To ensure the stability of the power grid, a model was proposed to promote sparsity under ordered charging constraints. This model minimizes the total charging cost, overall load disparity, and simultaneously improves the cumulative satisfaction of all electric vehicle (EV) users.
+
+2)We propose an improved distributed method based on the $Jacobi-proximal$ ADMM framework to solve this model. The underlying idea is to decouple the coupled constraints, decomposing the original model into a set of smaller-scale problems that can be solved in parallel. This approach not only preserves the privacy of EV users but also provides theoretical guarantees of optimality and convergence for the algorithm.
+
+3)Compared to ADMM, the advantage of Jacobi-proximal ADMM is its faster convergence. Jacobi-proximal ADMM updates variables simultaneously at each iteration step, rather than sequentially updating them. This enables Jacobi-proximal ADMM to converge to the optimal solution more quickly. By updating variables simultaneously, Jacobi-proximal ADMM can reduce the propagation of numerical errors, which is especially important when dealing with numerically unstable problems and can provide more reliable numerical results.
+
+
+\section{Descriptions}
+\subsection{EV distributed optimization framework }
+\noindent In this  model, electric vehicle (EV) users upload their charging demand information to an aggregator when connecting their EVs to charging stations. Subsequently, the charging schedules for each EV are sent back to the respective EV users. The
+charging demand information includes the arrival time $t_i^c$, and the state of charge (SOC) of the vehicle when it is connected to the charging station, denoted as $SOC_c$. The expected $SOC$ for each electric vehicle is referred to as $SOC_d$. The coordinated charging scheduling process is illustrated in Fig.1.
+
+In this paper, we propose a novel parallel distributed algorithm based on Jacobi-Proximal ADMM to address the coordination problem of electric vehicles (EVs). This algorithm enables each EV to update its charging strategy simultaneously. The main idea is as follows: 1) Decouple the coupled constraints and decompose the original model into a set of smaller-scale subproblems, while adding proximal terms to each of the n subproblems. 2) The strategies proposed in Algorithm 1 are implemented in a parallel manner, and the global convergence of Algorithm 1 is theoretically established, along with its explicit convergence rate.We made several assumptions in our model. Firstly, electric vehicle (EV) users are sensitive to charging costs and are willing to let the aggregator arrange the charging process as long as it does not compromise their charging needs. Secondly, unforeseen events such as early departures may lead to unmet charging demands. Therefore, this study assumes that all EVs will not leave before the planned time and that EV user charging behavior exhibits typical characteristics. Numerous studies have focused on exploring the patterns of EV user charging behavior. The charging behavior of EV users can influence the effectiveness of the proposed coordinated charging scheduling model. Hence, it is necessary to consider the charging behavior characteristics of EV users in this model. Specifically, EV users connect their vehicles to the charging stations upon arriving home and disconnect them the following morning when leaving for work, resulting in the arrival time $t^{c}$ and departure time
+$t^{d}$ of EVs following a normal distribution.
+\begin{align}
+f(t_c)=\left\{
+\begin{array}{cl}
+\frac{1}{\sqrt{2\pi}\sigma_{t_c}}exp(-\frac{(t_{c}+24-\mu_{t_c})^2}{2\sigma_{t_c}^2}),\\ 0<t_c\leq \mu_{t_c}-12; \\
+ \frac{1}{\sqrt{2\pi}\sigma_{t_c}}exp(-\frac{(t_{c}-\mu_{t_c})^2}{2\sigma_{t_c}^2}),\\ \mu_{t_c}-12<t_c\leq 24; \\
+\end{array} \right.
+\end{align}
+
+\begin{align}
+f(t_{dis})=\left\{
+\begin{array}{cl}
+\frac{1}{\sqrt{2\pi}\sigma_{t_{dis}}}exp(-\frac{(t_{dis}-\mu_{t_{dis}})^2}{2\sigma_{t_c}^2}),\\ 0<t_{dis}\leq \mu_{t_{dis}}+12; \\
+ \frac{1}{\sqrt{2\pi}\sigma_{t_{dis}}}exp(-\frac{(t_{dis}-24-\mu_{t_{dis}})^2}{2\sigma_{t_c}^2}),\\ \mu_{t_{dis}}+12<t_{dis}\leq 24; \\
+\end{array} \right.
+\end{align}
+where$\mu_{t^c}$ and $\sigma_{t^c}$ are the mean and variance of the probability density function of the arrival time$t^c$ respectively;$\mu_{t^d}$and$\sigma_{t^d}$ are the mean and variance of the probability density function of the departure time$t_d$,Specifically,$\mu_{t_c}=18,\sigma_{t_c}=3.3,\mu_{t_{d}}=8$, 和$\sigma_{t_{d}}=3.24$.
+
+To simplify the coordination and scheduling of the charging model, continuous time is divided into multiple time slots, where the charging status of each electric vehicle remains unchanged within a time slot. Scheduling plans are typically executed on a per-time-slot basis to improve efficiency. The scheduling time is divided into multiple time slots. In the proposed electric vehicle charging scheduling model, the entire time period is discretized into 96 time slots, with each slot having a duration of 15 minutes. The time slot for the $EV i$ represents the arrival time and departure time, which can be calculated using the following formula(\ref{time1})and(\ref{time2})
+\begin{align}\label{time1}
+I_i^c=[\frac{t_i^c}{\Delta T}],i=1,2,...,N.
+\end{align}
+\begin{align}\label{time2}
+I_i^{d}=[\frac{t_i^d}{\Delta T}],i=1,2,...,N.
+\end{align}
+where$I_i^c$represents the time slot when the$i-th$electric vehicle is connected to the charging station,while $I_i^d$ represents the time slot when the $i-th$electric vehicle departs.$t_i^c$ and $t_i^d$represent the arrival time and scheduled departure time of the $EV i$,respective.$\lceil\frac{t_i^c}{\bigtriangleup t}\rceil$is the smallest positive integer greater than or equal to $\frac{t_i^c}{\bigtriangleup t}$,while$\lceil\frac{t_i^d}{\bigtriangleup t}\rceil$ is the smallest positive integer greater than or equal to$\frac{t_i^d}{\bigtriangleup t}$.
+
+\begin{table}[htbp]
+	\centering
+	\caption{$LIST~OF~KEY~SYMBOLS$}
+	\label{tab:1}
+	\begin{tabular}{cccc ccc}%表格中的数据居中，c 的个数为表格的列数
+		\hline\hline\noalign{\smallskip}	
+		$\mathcal{N}$&EV population \\
+		%\noalign{\smallskip}\hline\noalign{\smallskip}
+		$\mathcal{T}$& EV~charging~intervals \\
+        $p_{n,t}$&Charginng~rate~of~EV~n~at~instant~t\\
+        $\Gamma_n$&Total~charging~power~required~to~be~fully~charged~of~EV~n\\
+
+		\noalign{\smallskip}\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Charging Scheduling Model Constraints}
+\noindent Based on the piecewise linear model, the battery dynamics can be described as follows
+\begin{align}\label{0000}
+soc_{n,t+1}=soc_{n,t}+\frac{q_n^+p_{n,t}}{C_n}\Delta t-\frac{\omega_{n,t}}{q_n^-C_n}\Delta t
+\end{align}
+\begin{align}\label{1111}
+  soc_n^{min}\leq soc_{n,t}\leq soc_n^{max}
+\end{align}
+where $q_n^+,q_n^-\in(0,1]$ represent the energy conversion efficiency for charging and discharging of electric vehicles, respectively.To extend battery life,it is recommended to set $soc_n^{min}$ and $soc_n^{max}$ at $15\%$ and $90\%$ respectively,$p_{n,t}$($kW$)represents the charging rate of$EV n$at time slot $t \in \mathcal{T}$,and $C_n$ denotes $EV n$ In each time slot, the charging rate for each electric vehicle remains constant.
+
+%用$\Gamma_n$表示$EV n$充满电所需的总充电功率。由于排队等待时间的限制，$EV n$在$\mathcal{I}_n$ 时间段可能无法充满电，因此$EV n$ 的充电策略$p_n\triangleq (p_{n,t};t\in \mathcal{T})$满足如下等式:
+
+Let $\bm{p}\triangleq(\bm{p}_n;n\in\mathcal{N})$ represent the charging strategy for the population of $EV$,The set of permissible charging strategies for $EV n$ is denoted as $\mathcal{P}_n$, and the set of permissible charging strategies for all electric vehicles is represented by $\mathcal{P}$.
+\begin{align}
+  \mathcal{P}\triangleq \mathcal{P}_1\times\cdots\times\mathcal{P}_N
+\end{align}
+The charging strategy is the most significant factor influencing grid investment. To ensure grid safety, the following inequality holds:
+\begin{align}\label{maxP}
+p_n^{min}\leq p_{n,t}\leq p_n^{max}
+\end{align}
+where\,$p_n^{min}$and$p_n^{max}$ represent the minimum and maximum charging power of $EV n$,respectively.By determining whether to charge electric vehicles in each time slot, coordinated charging scheduling of electric vehicles is achieved. The charging status of$EV n$ is as follows
+\begin{align}
+x_{n,t}=\left\{
+\begin{array}{cl}
+1 & \text{if the $EV$ is charging}\\
+0 & \text{otherwise}.\\
+\end{array}\right.
+\end{align}
+The constraints satisfy the following form:
+\begin{align}
+(1-x_{n,t})p_{n,t}=0
+\end{align}
+Electric vehicles with urgent charging needs may not be able to obtain sufficient charge due to their short connection time. Therefore, the state of chargeTherefore, the state of charge (SOC)at the end of their charging period, denoted as$SOC_n^{end}$, may differ from the desired SOC, represented as $SOC_n^d$
+\begin{align}\label{SOCcondition}
+&SOC_n^{end}=min\{SOC_i^C+\frac{p_{n,t}\cdot\bigtriangleup t\times \eta_n}{C_n},SOC_i^d\}\\
+&SOC_n^{min}\leq SOC_{n,t}\leq SOC_N^{max}
+\end{align}
+where $\eta$ represents the charging energy conversion efficiency of$EV n$.
+\subsection{Objective Function Optimization}
+%\rd{决策变量是什么？$p_{n,1}$ 的具体意义是什么？}
+When electric vehicle users require charging, they tend to prefer efficient charging and aim to complete the charging process as quickly as possible within the designated timeframe. However, such preferences can lead to charging imbalances. Charging imbalances may give rise to new demand peaks, making it necessary to adopt the peak shaving and valley filling method mentioned in the literature to balance the load of electric vehicles.
+The problem we are facing is how to centrally coordinate the charging of electric vehicles in order to minimize the total system cost, which serves as the objective function.
+\begin{align}\label{OBJ}
+\mathcal{J}_0(\bm{p})&\triangleq\sum_{n\in \mathcal{N}}\left\{\right.f_n(p_{nt})
++g_n(\sum_{t\in\mathcal{N}}p_{nt})\nonumber\\
+&+\sum_{t\in \mathcal{T}}h_n(\sum_{t\in\mathcal{T}}p_{nt})
++\|\bm{p}_n\|_0\left.\right\}\nonumber\\
+\end{align}
+where each term is specifically explained as below.
+
+1)The first term $f_n(u_{nt})$:it represents the total charging cost for the $EV n$.
+This is a price-guided sequential charging control method, which utilizes market-based control approach. The scheduling authority broadcasts price signals to the demand side and updates them periodically. The architecture diagram for this approach is illustrated in Figure 1. The total charging cost can be calculated as follows:
+\begin{align}
+f_n(p_{n,t})=\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t
+\end{align}
+where $E_t$ represents the electricity price in time period $t$,$p_{n,t}$denotes the charging power of electric vehicle$n$ during time period $t$, and$\Delta t$refers to the time interval.
+
+2)The second term $g_n(\sum_{t\in \mathcal{T}}p_{nt})$:This is a satisfaction function for the total energy delivered during the charging period. It represents the satisfaction function for the total energy within the charging cycle. According to equation (\ref{satify}), it can be observed that for electric vehicle $EV\,n\in\mathcal{N}$,the user's desire to increase the amount of electricity provided by the distribution grid as much as possible remains constant across time$t\in\mathcal{T}$until the desired energy is achieved within the expected period.
+\begin{align}\label{satify}
+g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
+\end{align}
+The weight parameter$\varpi_n\in(0,\varpi_{max}]$ reflects the relative importance of reaching a full charge compared to
+$\mathcal{T}_n$.
+
+3)The third term $h_n(\sum_{n\in\mathcal{N}}p_{n,t})$:It represents the ability of peak shaving and valley filling, which aims to maintain the stability of the total power in the grid. Therefore, we use the variance of the total power to reflect its stability. A smaller variance indicates a more stable grid. The total power includes the total power of electric vehicle charging and the total power of residential electricity consumption, as shown below:
+\begin{align}
+h=(\sum_{n\in \mathcal{N}}(p_{n,t}+B_{n,t})-\overline{p+B})^2
+\end{align}
+The weight parameter $\omega_n\in(0,\omega^{max})$ and $\overline{p}=(\sum_{t\in \mathcal{T}}\sum_{n\in \mathcal{N}}p_{n,t})/N$。
+
+4)The last term $\|\bm{p}\|_0$: The cardinality mentioned here refers to the total number of non-zero elements in the charging strategy $bm{p_n}$.Minimizing the $l_0$ norm represents considering the comfort of EV users to some extent in the overall charging process. On one hand, it aims to minimize the number of charging times and protect the battery's health. On the other hand, EV users prefer to complete their tasks as much as possible because they want to minimize interruptions or restarts of EV charging. It is generally unacceptable for most users to wait longer to complete their tasks. Therefore, by introducing a sparse charging plan, the goal of measuring user satisfaction can be unified.
+
+This is the cardinality of the charging strategy$\bm{p_n}$,which refers to the total number of non-zero elements in $\bm{p_n}$.Minimizing the $l_0$ norm represents considering the comfort of EV users to a certain extent in the overall charging process. On one hand, it aims to minimize the number of charging times and protect the battery's health. On the other hand, EV users prefer to complete their tasks as much as possible because they want to minimize interruptions or restarts during EV charging. Waiting for a longer time to complete tasks is generally unacceptable for most users. Therefore, by introducing a sparse charging plan, the objective of measuring user satisfaction can be unified.
+
+As the process of electrification in the automotive industry progresses, initially, attempts were made to model the charging strategy problem as a minimum $l_2$ norm problem for solving. However, the $l_2$ norm does not capture the sparsity required by the charging strategy of electric vehicles. In contrast, the $l_0$ norm counts the number of non-zero values in a vector. Therefore, the charging strategy is modeled as a minimum $l_0$ norm problem to achieve shorter charging time, improved battery lifespan, and increased user satisfaction. However, the minimum $l_0$ norm problem is NP-hard and cannot be solved using conventional methods. Under certain conditions, the minimum$l_1$ problem and the minimum $l_0$ norm problem are equivalent, meaning that solving the minimum $l_1$ problem can yield the solution to the minimum $l_0$ problem.
+
+Therefore, we approximate the $l_0$ norm with the $l_1$ norm. We rephrase equation(\ref{OBJ}),into the following sparse-promoting charging control model.
+\begin{align}
+&\mathcal{J}_1(\bm{p})\triangleq\nonumber\\
+&\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})
++g_n(\sum_{t\in\mathcal{N}}p_{nt})
++\sum_{t\in \mathcal{T}}h_n(\sum_{t\in\mathcal{T}}p_{nt})+\|\bm{p}_n\|_1\right\}\nonumber\\
+\end{align}
+Note:
+
+The following assumptions apply to the entire article:\\
+(1) $h(\cdot)$ is Lipschitz continuous,for all $x$\\
+(2）$g_n(\cdot)$ is non-decreasing, concave, and Lipschitz continuous,for all$n\in\mathcal{N}$ and all $x$.\\
+(3)
+
+Formulate the coordination of centralized fast charging for electric vehicles as the following optimization problem:
+\begin{align}\label{obj_0}
+  \mathop{min}_{\bm{p}\in \mathcal{P}} \quad \mathcal{J}_1(\bm{p})
+\end{align}
+\section{EV Charging Framework based on $Jacobi-Proximal$ ADMM}
+\noindent  $Jacobi-Proximal ADMM$ maintains excellent properties for sparsity problems. In each iteration, this method utilizes soft thresholding operations to update variables, promoting sparsity in the solution by preserving or enhancing the sparse nature of the variables. This algorithm extends the Alternating Direction Method of Multipliers (ADMM) by decomposing the original problem into smaller subproblems, which are solved in parallel at each iteration.
+
+To decouple the third term in the objective function of problem \eqref{obj_0},which couples all variables $p_{n,t}\,n\in\mathcal{N}$,we introduce an auxiliary variable.
+\begin{align*}
+  \bm{p}_{N+1}=(p_{N+1,1},\cdots,p_{N+1,T})^T\in\mathbb{R}^T
+\end{align*}
+let $p_{N+1,t}=\sum_{n=1}^N p_{n,t},\,\forall t\in \mathcal{T}$,Thus,problem\eqref{obj_0} can be equivalently written in the following form:
+\begin{align}\label{obj_1}
+ \mathop{min}_{\bm{p}\in \mathcal{P}} \quad \mathcal{J}_1(\bm{p})\\
+\text{s.t}\quad \bm{p}_{N+1}=\sum_{n=1}^N \bm{p}_{n}\label{good}
+\end{align}
+where
+\begin{align*}
+ &\mathcal{J}_1(\bm{p})=\sum\limits_{n=1}^{N+1}f_n(\bm{p}_n)\\
+ &f_n(\bm{p}_n)=\sum_{t\in \mathcal{T}}E_tp_{1,t}\Delta t+(\sum_{t\in \mathcal{T}}p_{1,t}-\Gamma_1)^2+\|\{p_{1,t}\}_{t=1}^{T}\|_0\nonumber\\
+&f_{N+1}(\bm{p}_{N+1})=\sum_{t\in \mathcal{T}}(p_{N+1,t}-\overline{p})^2\\
+\end{align*}
+To utilize\,$Jacobi-Proximal\,\,ADMM$,we define
+\begin{align}
+\bm{P}=\{\bm{p}_1,...,\bm{p}_N,\bm{p}_{N+1}\}^{T}\in\mathcal{R}^{(N+1)\times T}
+\end{align}
+we also write\,$\bm{P}=(\bm{p}_1,...,\bm{p}_T)\in\mathbb{R}^{(N+1)\times T}$,\, where
+\begin{align}\label{girl}
+\bm{p}_t=(p_{1,t},...,p_{N+1,t})\in \mathbb{R}^{N+1},\,t\in\mathcal{T}.
+\end{align}
+Define
+\begin{align}
+\mathcal{X}_t^{(2)}=\{\bm{p}_t|\bm{p}_t\,\,\text{满足}\,(\ref{good})~and~(\ref{girl})\}
+\end{align}
+and
+\begin{align}
+\mathcal{X}_t^{(2)}=\mathcal{X}_1^{(2)}\times \cdot\cdot\cdot \times \mathcal{X}_t^{(2)}\times\cdot\cdot\cdot\times \mathcal{X}_T^{(2)}
+\end{align}
+The augmented lagrangian:
+\begin{align}
+\mathcal{L}_{\rho}(\bm{p},u)=\sum_{n=1}^{N+1}f_i(\bm{p}_i)+\frac{\rho}{2}\|\sum_{i=1}^Np_i-p_{N+1}+u\|_2^2
+\end{align}
+where$\rho>0$ is the standard penalty parameter, $u$is referred to as the scaling dual variable or scaling Lagrange multiplier.The variables $p$\, and \,$u$\, are updated simultaneously by adding additional approximation terms. The specific update procedures are as follows:
+for all $n=1,\cdots,N+1$
+\begin{align}
+&\bm{p}_n^{k+1}:=\mathop{\arg\min}\limits_{\bm{p}\in\mathcal{P}}f_n(\bm{p}_n)\\\nonumber&+\frac{\rho}{2}\|\bm{p}_n^k+\sum_{n\neq j}p_j^k-\bm{u}^k\|_2^2+\frac{1}{2}\|\bm{p}_n-\bm{p}_n^k\|_\Psi^2\\
+& {\color{red}\bm{u}^{k+1}=\bm{u}^k+\gamma\rho(\sum_{n=1}^N A_n\mathbf{p}_n^{k+1}-c)}
+\end{align}
+
+
+\section{Algorithm}
+\noindent If the number of iterations reaches a given threshold $iter_{max}$ or satisfies the following conditions simultaneously[*], then $ADMM$ meets the following criteria:
+\begin{align*}
+\bm{r}^{k+1}=\|\bm{P}^{k+1}-\bm{Y}^{k+1}\|_F
+\end{align*}
+\begin{align*}
+\bm{s}^{k+1}=\|\rho(\bm{Y}^{k+1}-\bm{Y}^{k})\|_F
+\end{align*}
+this shows that when the residual$\bm{r}^k$ and $\bm{s}^k$ are small as follow
+\begin{align*}
+\|\bm{r}^k\|_2\leq \varepsilon^{pri}\,\,\,\,\,\,\,\,\|\bm{s}^k\|_2\leq \varepsilon^{dual}
+\end{align*}
+where~$\varepsilon^{pri}>0$ and $\varepsilon^{dual}>0$~are feasibility~tolerances~for~the~primal~and~dual~feasibity~conditions~()~and~().These~tolerances~can~be~
+chosen~using~an~absolute~and~relative~criterion,such~as
+\begin{align*}
+&\varepsilon^{pri}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}max\{\|p\|_2,\|-x\|_2\},\\
+&\varepsilon^{dual}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}\|\mu^k\|_2
+\end{align*}
+where~$\varepsilon^{abs}>0$~is~an~absolute~tolerance~and~$\varepsilon^{rel}>0$~is~a~relative~tolerance.A~reasonable~value~for~the~relative~stopping
+criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Prox-JADMM~is~then~give~in~Algorithm~1.
+\begin{algorithm*}[!htp]
+    \caption{Implementation of Charging Coordination via the Parallel Method  }
+    \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+    \renewcommand{\algorithmicensure}{\textbf{Output:}}
+    \begin{algorithmic}[1]
+        \REQUIRE Set the initial strategy state $\bm{p}^0$,
+        \REQUIRE Set the feasibility tollerance $\varepsilon^{pri}$,$\varepsilon^{dual}$,
+        \REQUIRE Set $k=0$,$r>\varepsilon^{pri}$ and $s>\varepsilon^{dual}$
+        \ENSURE $\mathbf{p}_n^k(n=1,...,N+1)$    %%output
+        \FOR{k=0,1,...}
+                \STATE Update~$\mathbf{p}_n$~for~$n=1,...,N+1$~in parallel by:
+                \STATE \qquad $\mathbf{p}_n^{k+1}=
+                \textrm{ argmin }
+                \big\{ f_n(\mathbf{p}_n)
+              +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum\limits_{j\neq n}A_j\mathbf{p}_j^k -c   -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2\big\}$
+        \STATE Update the dual variable $\Lambda$by:
+                \STATE \qquad $\Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^N A_n\mathbf{p}_n^{k+1}-c)$
+        \IF {$\sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri}$}
+            \STATE Break.
+        \ENDIF
+        \ENDFOR
+    \end{algorithmic}
+\end{algorithm*}
+\begin{theorem}\label{Th1}
+For $k\geq 1$,we have
+\begin{align*}
+\|u^k-u^*\|_G^2-\|u^{k+1}-u^*\|_G^2\geq \|u^k-u^{k+1}\|_Q^2
+\end{align*}
+where $\|u^k-u^{k+1}\|_Q^2:=\|x^k-x^{k+1}\|_{G_x}^2+\frac{2-\gamma}{\rho\gamma^2}\|\lambda^k-\lambda^{k+1}\|^2+\frac{2}{\gamma}(\lambda^k-\lambda^{k+1})^TA(x^k-x^{k+1})$
+\end{theorem}
+%\begin{theorem}\label{Th1}
+%应用()-()中的ADMM 方法，当迭代步长$k\rightarrow \infty$时，系统收敛到最优值$p^*$
+%\end{theorem}
+%\begin{proof}
+%hello world.
+%\end{proof}
+
+\begin{theorem}
+\label{Th1}
+If $Q\succ0$ and $M_x\succeq 0$, then $\|u^k-u^{k+1}\|_M^2=o(1/k)$, however $\|x^k-x^{k+1}\|_{M_x}^2=o(1/k)$ and $\|\lambda^k-\lambda^{k+1}\|^2=o(1/k).$
+\end{theorem}
+
+
+\section{Results and Discussion}
+\subsection{Simulation data and settings}
+To validate the effectiveness of the coordinated charging scheduling model, we established a distributed framework based on the aggregation of grid and electric vehicle loads. We employed an enhanced alternating direction multiplier method to solve the model and conducted simulation experiments. These experiments involved the use of different quantities of EVs (i.e., 100, 200, 300) for comparative analysis. The state of charge ($SOC_c$) for varying numbers of electric vehicles followed a continuous uniform distribution between 0.1 and 0.3, while $SOC_d$ followed a continuous uniform distribution between 0.7 and 0.9. Additionally, the times for electric vehicles to depart from and return to the grid within a day followed normal distributions of $N(18,3.3^2)$ and $N(8,3.24^2)$, respectively [2022]. For simplicity, we assumed all EVs to be BYD e6s with the same battery capacity of 30 kWh.
+
+We've seted up the electricity pricing within a day as showed in Fig.1, showcasing two high-priced periods, namely from 9:00 AM to 1:00 PM and from 6:00 PM to 10:00 PM. During the 6:00 PM to 10:00 PM period, there's a significant reduction in charging load, while there's a slight increase in charging load from 9:00 AM to 1:00 PM. Overall, there's a decrease in charging load during the high-priced periods. Additionally, a smaller peak load interval has formed. Basic load data was simulated based on usage patterns. The simulation results, illustrated in Figure 2, demonstrate the typical profile of the basic load curve for a regional microgrid within a daily cycle. Peak loads occur approximately at 6 hours, 10 hours, and 18 hours. The highest observed load is 710.62 kW, while the lowest load is 445.69 kW [2022].
+\begin{figure}[htb]
+   \centering
+    \includegraphics[width=6cm]{img/fig-price.eps}
+   \caption{TOU electricity price}
+\end{figure}
+
+\begin{figure}
+   \centering
+    \includegraphics[width=6cm]{img/fig-baseload.eps}
+   \caption{一天的典型基本负荷曲线}
+\end{figure}
+
+As show in Fig.3,the convergence of the $ADMM$ algorithm with different $\rho$ enhancements. It is evident from the graph that the convergence is poorest when $\rho=10$, whereas it is optimal when $\rho=0.1$. The convergence doesn't uniformly improve with larger values of $\rho$, nor does it necessarily improve with smaller values; rather, an optimal convergence is achieved with a moderate value.
+\begin{figure}
+   \centering
+    \includegraphics[width=6cm]{img/fig-RHO.eps}
+   \caption{关于不同的$\rho$ 算法的收敛性}
+\end{figure}
+
+\begin{figure*}[h]
+	
+	\begin{minipage}{0.32\linewidth}
+		\vspace{3pt}
+        %这个图片路径替换成你的图片路径即可使用
+		\centerline{\includegraphics[width=\textwidth]{img/fig-error.eps}}
+          % 加入对这列的图片说明
+		\centerline{(a)100EV}
+	\end{minipage}
+	\begin{minipage}{0.32\linewidth}
+		\vspace{3pt}
+		\centerline{\includegraphics[width=\textwidth]{img/fig-error200.eps}}
+	
+		\centerline{(a)200EV}
+	\end{minipage}
+	\begin{minipage}{0.32\linewidth}
+		\vspace{3pt}
+		\centerline{\includegraphics[width=\textwidth]{img/fig-error300.eps}}
+	
+		\centerline{(a)300EV}
+	\end{minipage}
+
+	\caption{Visual comparisons of original models.  }
+	\label{fig4}
+\end{figure*}
+The total power is the sum of electric vehicle power and residential power consumption. Our aim is to minimize the difference between the maximum (peak power) and minimum (low power) values of the total power. Considering that residential power consumption generally peaks during the day and reduces at night—contrary to the pattern of electric vehicle power consumption—this dichotomy enables peak shaving. In our simulation, depicted in Figure 6, we assume residential power consumption remains constant, while the expected charging times for electric vehicles follow a specific distribution pattern. By optimizing the charging strategy for each vehicle, we effectively implement "peak shaving," thereby enhancing grid stability. Figure 6 illustrates the impact of varying numbers of electric vehicles on peak shaving: as the number of electric vehicles increases, the total power exhibits a trend consistent with the distribution of electric vehicle power (lower power during the day and higher power at night).
+
+
+
+\begin{figure*}[ht]
+	
+	\begin{minipage}{0.32\linewidth}
+		\vspace{3pt}
+        %这个图片路径替换成你的图片路径即可使用
+		\centerline{\includegraphics[width=\textwidth]{img/fig-SOC.eps}}
+          % 加入对这列的图片说明
+		\centerline{(a)100EV}
+	\end{minipage}
+	\begin{minipage}{0.32\linewidth}
+		\vspace{3pt}
+		\centerline{\includegraphics[width=\textwidth]{img/fig-SOC200.eps}}
+	
+		\centerline{(b)200EV}
+	\end{minipage}
+	\begin{minipage}{0.32\linewidth}
+		\vspace{3pt}
+		\centerline{\includegraphics[width=\textwidth]{img/fig-SOC300.eps}}
+	
+		\centerline{(c)300EV}
+	\end{minipage}
+
+	\caption{Visual comparisons of original models.  }
+	\label{fig4}
+\end{figure*}
+
+
+
+	
+	
+\begin{figure*}[h]
+	
+	\begin{minipage}{0.32\linewidth}
+		\vspace{3pt}
+        %这个图片路径替换成你的图片路径即可使用
+		\centerline{\includegraphics[width=\textwidth]{img/fig-power100.eps}}
+          % 加入对这列的图片说明
+		\centerline{100EV}
+	\end{minipage}
+	\begin{minipage}{0.32\linewidth}
+		\vspace{3pt}
+		\centerline{\includegraphics[width=\textwidth]{img/fig-power200.eps}}
+	
+		\centerline{200EV}
+	\end{minipage}
+	\begin{minipage}{0.32\linewidth}
+		\vspace{3pt}
+		\centerline{\includegraphics[width=\textwidth]{img/fig-power300.eps}}
+	
+		\centerline{300EV}
+	\end{minipage}
+
+	\caption{Visual comparisons of original models.  }
+	\label{fig4}
+\end{figure*}
+  % \begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-SOC.eps}
+%   \caption{100 辆EV 离开时的SOC}
+%\end{figure}
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-SOC200.eps}
+%   \caption{200 辆EV 离开时的SOC}
+%\end{figure}
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-SOC300.eps}
+%   \caption{300 辆EV 离开时的SOC}
+%\end{figure}
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-power100.eps}
+%   \caption{300 辆EV 离开时的SOC}
+%\end{figure}
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-power200.eps}
+%   \caption{300 辆EV 离开时的SOC}
+%\end{figure}
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-power300.eps}
+%   \caption{300 辆EV 离开时的SOC}
+%\end{figure}
+
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-peak-shaving100.eps}
+%   \caption{所提出的100辆电动汽车充电协调控制下的电车功率和居民功率}
+%\end{figure}
+%
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-peak-shaving200.eps}
+%   \caption{所提出的200辆电动汽车充电协调控制下的电车功率和居民功率}
+%\end{figure}
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-peak-shaving300.eps}
+%   \caption{所提出的300辆电动汽车充电协调控制下的电车功率和居民功率}
+%\end{figure}
+
+
+We calculated the decay rates of the primal and dual errors separately during the iterative process. To facilitate the observation of error decay trends, the total error here is simply the summation of these two errors. Specifically, the convergence results of the classical ADMM method as illustrated in Fig.7(left), while the right graph showcases the convergence results of the improved Jacobi-proximal ADMM method. By comparing these two methods, it is evident that the enhanced ADMM method exhibits faster convergence when addressing the optimization problems of interest in this study. With a CPU time of 60 seconds, it can reduce the error to $10^{-2}$. Hence, the introduction of parallel algorithms significantly enhances computational efficiency
+
+
+\begin{figure*}[htbp]
+	\centering
+	\begin{minipage}{0.49\linewidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{img/fig-ErrorReduction_ADMM2.eps}
+		\caption{chutian1}
+		\label{chutian1}% 文中引用该图片代号
+	\end{minipage}
+	%\qquad
+	\begin{minipage}{0.49\linewidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{img/fig-ErrorReduction_Jac_Pro.eps}
+		\caption{chutian2}
+		\label{chutian2}% 文中引用该图片代号
+	\end{minipage}
+\end{figure*}
+
+%\textcolor{blue}{We first initialized $\bm{p}^(0)$both as $0$. At the initial
+%iteration step, say $k = 1$, we implement $ $ by Algorithm 1
+%for all $n\in N$ , which converges in several iterations as
+%illustrated in Fig.3. Then based on the collected charging
+%strategies ***we implement $z1$ by (24) in Algorithm 2. Similarly, v1 is updated by (25). The process is repeated until the termination criterions are satisfied, i.e., $r \leq 10^{-3}$ and $s\leq 10^{-3}.$}
+
+
+
+ %\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-error.eps}
+%\caption{100辆EV 的原始和对偶误差}
+%\end{figure}
+% \begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-error200.eps}
+%   \caption{200 辆EV 的原始和对偶误差}
+%\end{figure}
+% \begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-error300.eps}
+%   \caption{300 辆EV 的原始和对偶误差}
+%\end{figure}
+
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-ErrorReduction_ADMM2.eps}
+%   \caption{关于经典ADMM方法的原始和对偶误差的收敛性}
+%\end{figure}
+%
+%\begin{figure}
+%   \centering
+%    \includegraphics[width=6cm]{img/fig-ErrorReduction_Jac_Pro.eps}
+%   \caption{关于改进ADMM方法的原始和对偶误差的收敛性}
+%\end{figure}
+
+
+
+
+
+
+
+
+
+\section{A Final Checklist}
+%\begin{enumerate}{}{}
+%\item{Make sure that your equations are numbered sequentially and there are no equation numbers missing or duplicated. Avoid hyphens and periods in your equation numbering. Stay with IEEE style, i.e., (1), (2), (3) or for sub-equations (1a), (1b). For equations in the appendix (A1), (A2), etc.}.
+%\item{Are your equations properly formatted? Text, functions, alignment points in cases and arrays, etc. }
+%\item{Make sure all graphics are included.}
+%\item{Make sure your references are included either in your main LaTeX file or a separate .bib file if calling the external file.}
+%\end{enumerate}
+
+\newpage
+\cite{ams}
+\begin{thebibliography}{1}
+
+\bibitem{ams}
+{\it{Mathematics into Type}}, American Mathematical Society. Online available:
+
+\bibitem{oxford}
+T.W. Chaundy, P.R. Barrett and C. Batey, {\it{The Printing of Mathematics}}, Oxford University Press. London, 1954.
+
+\bibitem{lacomp}{\it{The \LaTeX Companion}}, by F. Mittelbach and M. Goossens
+
+\bibitem{mmt}{\it{More Math into LaTeX}}, by G. Gr\"atzer
+
+\bibitem{amstyle}{\it{AMS-StyleGuide-online.pdf,}} published by the American Mathematical Society
+
+\bibitem{Sira3}
+H. Sira-Ramirez. ``On the sliding mode control of nonlinear systems,'' \textit{Systems \& Control Letters}, vol. 19, pp. 303--312, 1992.
+
+\bibitem{Levant}
+A. Levant. ``Exact differentiation of signals with unbounded higher derivatives,''  in \textit{Proceedings of the 45th IEEE Conference on Decision and Control}, San Diego, California, USA, pp. 5585--5590, 2006.
+
+\bibitem{Cedric}
+M. Fliess, C. Join, and H. Sira-Ramirez. ``Non-linear estimation is easy,'' \textit{International Journal of Modelling, Identification and Control}, vol. 4, no. 1, pp. 12--27, 2008.
+
+\bibitem{Ortega}
+R. Ortega, A. Astolfi, G. Bastin, and H. Rodriguez. ``Stabilization of food-chain systems using a port-controlled Hamiltonian description,'' in \textit{Proceedings of the American Control Conference}, Chicago, Illinois, USA, pp. 2245--2249, 2000.
+
+\end{thebibliography}
+
+\begin{IEEEbiographynophoto}{Jane Doe}
+Biography text here without a photo.
+\end{IEEEbiographynophoto}
+
+\end{CJK*}
+\end{document}
+
+
+%\begin{list}{}{}
+%\item{Regular Journal Article}
+%\item{{\tt{$\backslash$documentclass[journal]{IEEEtran}}}}\\
+%\item{{Conference Paper}}
+%\item{{\tt{$\backslash$documentclass[conference]{IEEEtran}}}}\\
+%\item{Computer Society Journal Article}
+%\item{{\tt{$\backslash$documentclass[10pt,journal,compsoc]{IEEEtran}}}}\\
+%\item{Computer Society Conference Paper}
+%\item{{\tt{$\backslash$documentclass[conference,compsoc]{IEEEtran}}}}\\
+%\item{{Communications Society Journal Article}}
+%\item{{\tt{$\backslash$documentclass[journal,comsoc]{IEEEtran}}}}\\
+%\item{{Brief, Correspondence or Technote}}
+%\item{{\tt{$\backslash$documentclass[9pt,technote]{IEEEtran}}}}
+%\end{list}
+%
+%There are other options available for each of these when submitting for peer review or other special requirements. IEEE recommends to compose your article in the base 2-column format to make sure all your equations, tables and graphics will fit the final 2-column format. Please refer to the document ``IEEEtran\_HOWTO.pdf'' for more information on settings for peer review submission if required by your EIC.
+%
+%\section{DCJ-ADMM for Soving Decentralized Problem}
+%\noindent The following sections describe general coding for these common elements. Computer Society publications and Conferences may have their own special variations and will be noted below.
+%\subsection{Paper Title}
+%\noindent The title of your paper is coded as:
+%
+%\begin{verbatim}
+%\title{The Title of Your Paper}
+%\end{verbatim}
+%
+%\noindent Please try to avoid the use of math or chemical formulas in your title if possible.
+%
+%\subsection{Author Names and Affiliations}
+%\noindent The author section should be coded as follows:
+%\begin{verbatim}
+%\author{Masahito Hayashi
+%\IEEEmembership{Fellow, IEEE}, Masaki Owari
+%\thanks{M. Hayashi is with Graduate School
+%of Mathematics, Nagoya University, Nagoya,
+%Japan}
+%\thanks{M. Owari is with the Faculty of
+%Informatics, Shizuoka University,
+%Hamamatsu, Shizuoka, Japan.}
+%}
+%\end{verbatim}
+%Be sure to use the $\backslash$IEEEmembership command to identify IEEE membership status.
+%Please see the ``IEEEtran\_HOWTO.pdf'' for specific information on coding authors for Conferences and Computer Society publications. Note that the closing curly brace for the author group comes at the end of the thanks group. This will prevent you from creating a blank first page.
+%
+%\subsection{Running Heads}
+%\noindent The running heads are declared by using the $\backslash${\tt{markboth}} command. There are two arguments to this command: the first contains the journal name information and the second contains the author names and paper title.
+%\begin{verbatim}
+%\markboth{Journal of Quantum Electronics,
+%Vol. 1, No. 1, January 2021}
+%{Author1, Author2,
+%\MakeLowercase{\textit{(et al.)}:
+%Paper Title}
+%\end{verbatim}
+%
+%\subsection{Copyright Line}
+%\noindent For Transactions and Journals papers, this is not necessary to use at the submission stage of your paper. The IEEE production process will add the appropriate copyright line. If you are writing a conference paper, please see the ``IEEEtran\_HOWTO.pdf'' for specific information on how to code "Publication ID Marks".
+%
+%\subsection{Abstracts}
+%\noindent The abstract is the first element of a paper after the $\backslash${\tt{maketitle}} macro is invoked.  The coding is simply:
+%\begin{verbatim}
+%\begin{abstract}
+%Text of your abstract.
+%\end{abstract}
+%\end{verbatim}
+%Please try to avoid mathematical and chemical formulas in the abstract.
+%
+%\subsection{Index Terms}
+%\noindent The index terms are used to help other researchers discover your paper. Each society may have it's own keyword set. Contact the EIC of your intended publication for this list.
+%\begin{verbatim}
+%\begin{IEEEkeywords}
+%Broad band networks, quality of service
+%\end{IEEEkeywords}
+%\end{verbatim}
+%\section{How to Create Common Body Elements}
+%\noindent The following sections describe common body text elements and how to code them.
+%
+%\subsection{Initial Drop Cap Letter}
+%\noindent The first text paragraph uses a ``drop cap'' followed by the first word in ALL CAPS. This is accomplished by using the $\backslash${\tt{IEEEPARstart}} command as follows:
+%\begin{verbatim}
+%\IEEEPARstart{T}{his} is the first paragraph
+%of your paper. . .
+%\end{verbatim}
+%
+%\subsection{Sections and Subsections}
+%\noindent Section headings use standard \LaTeX\ commands: $\backslash${\tt{section}}, $\backslash${\tt{subsection}} and $\backslash${\tt{subsubsection}}. Numbering is handled automatically for you and varies according to type of publication. It is common to not indent the first paragraph following a section head by using $\backslash${\tt{noindent}} as follows:
+%\begin{verbatim}
+%\section{Section Head}
+%\noindent The text of your paragraph . . .
+%\end{verbatim}
+%
+%\subsection{Citations to the Bibliography}
+%\noindent The coding for the citations are made with the \LaTeX\ $\backslash${\tt{cite}} command. This will produce individual bracketed reference numbers in the IEEE style. At the top of your \LaTeX\ file you should include:
+%\begin{verbatim}
+%\usepackage{cite}
+%\end{verbatim}
+%For a single citation code as follows:
+%\begin{verbatim}
+%see \cite{ams}
+%\end{verbatim}
+%This will display as: see \cite{ams}\\
+%
+%For multiple citations code as follows:
+%\begin{verbatim}
+%\cite{ams,oxford,lacomp}
+%\end{verbatim}
+%
+%This will display as \cite{ams,oxford,lacomp}
+%
+%\subsection{Figures}
+%\noindent Figures are coded with the standard \LaTeX\ commands as follows:
+%\begin{verbatim}
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{fig1}
+%\caption{This is the caption for one fig.}
+%\label{fig1}
+%\end{figure}
+%\end{verbatim}
+%The [!t] argument enables floats to the top of the page to follow IEEE style. Make sure you include:
+%\begin{verbatim}
+%\usepackage{graphicx}
+%\end{verbatim}
+%
+%\noindent at the top of your \LaTeX file with the other package declarations.
+%
+%To cross-reference your figures in the text use the following code example:
+%\begin{verbatim}
+%See figure \ref{fig1} ...
+%\end{verbatim}
+%This will produce:\\
+%See figure \ref{fig1} . . .
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{fig1}
+%\caption{This is the caption for one fig.}
+%\label{fig1}
+%\end{figure}
+%
+%\subsection{Tables}
+%\noindent Tables should be coded with the standard \LaTeX\ coding. The following example shows a simple table.
+%
+%
+%\begin{verbatim}
+%\begin{table}
+%\begin{center}
+%\caption{Filter design equations  ...}
+%\label{tab1}
+%\begin{tabular}{| c | c | c |}
+%\hline
+%Order & Arbitrary coefficients &
+%coefficients\\
+%of filter & $e_m$ &   $b_{ij}$ \\
+%\hline
+%1& $b_{ij}=\hat{e}.\hat{\beta_{ij}}$,
+%& $b_{00}=0$\\
+%\hline
+%2&$\beta_{22}=(~1,-1,-1,~~1,~~1,~~1)$ &\\
+%\hline
+%3& $b_{ij}=\hat{e}.\hat{\beta_{ij}}$,
+%& $b_{00}=0$,\\
+%\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+%\end{verbatim}
+%To reference the table in the text, code as follows:
+%\begin{verbatim}Table~\ref{tab1} lists the closed-form...\end{verbatim}
+%to produce:
+%
+%Table~\ref{tab1} lists the closed-form . . .
+%
+%
+%%moved here for pagination purposes
+%\begin{table}
+%\begin{center}
+%\caption{A Simple Table Example.}
+%\label{tab1}
+%\begin{tabular}{| c | c | c |}
+%\hline
+%Order & Arbitrary coefficients & coefficients\\
+%of filter & $e_m$ &   $b_{ij}$ \\
+%\hline
+%1& $b_{ij}=\hat{e}.\hat{\beta_{ij}}$, & $b_{00}=0$\\
+%\hline
+%2&$\beta_{22}=(~1,-1,-1,~~1,~~1,~~1)$ &\\
+%\hline
+%3& $b_{ij}=\hat{e}.\hat{\beta_{ij}}$, & $b_{00}=0$,\\
+%\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+%
+%
+%\subsection{Lists}
+%\noindent In this section, we will consider three types of lists: simple unnumbered, numbered and bulleted. There have been numerous options added to IEEEtran to enhance the creation of lists. If your lists are more complex than those shown below, please refer to the  ``IEEEtran\_HOWTO.pdf'' for additional options.\\
+%
+%\noindent{\bf A plain  unnumbered list}
+%
+%\begin{list}{}{}
+%\item{bare\_jrnl.tex}
+%\item{bare\_conf.tex}
+%\item{bare\_jrnl\_compsoc.tex}
+%\item{bare\_conf\_compsoc.tex}
+%\item{bare\_jrnl\_comsoc.tex}
+%\end{list}
+%
+%\noindent coded as:
+%\begin{verbatim}
+%\begin{list}{}{}
+%\item{bare\_jrnl.tex}
+%\item{bare\_conf.tex}
+%\item{bare\_jrnl\_compsoc.tex}
+%\item{bare\_conf\_compsoc.tex}
+%\item{bare\_jrnl\_comsoc.tex}
+%\end{list}
+%\end{verbatim}
+%\noindent{\bf A simple numbered list}
+%
+%\begin{enumerate}
+%\item{bare\_jrnl.tex}
+%\item{bare\_conf.tex}
+%\item{bare\_jrnl\_compsoc.tex}
+%\item{bare\_conf\_compsoc.tex}
+%\item{bare\_jrnl\_comsoc.tex}
+%\end{enumerate}
+%\noindent coded as:
+%\begin{verbatim}
+%\begin{enumerate}
+%\item{bare\_jrnl.tex}
+%\item{bare\_conf.tex}
+%\item{bare\_jrnl\_compsoc.tex}
+%\item{bare\_conf\_compsoc.tex}
+%\item{bare\_jrnl\_comsoc.tex}
+%\end{enumerate}
+%\end{verbatim}
+%
+%\noindent{\bf A simple bulleted list}
+%
+%\begin{itemize}
+%\item{bare\_jrnl.tex}
+%\item{bare\_conf.tex}
+%\item{bare\_jrnl\_compsoc.tex}
+%\item{bare\_conf\_compsoc.tex}
+%\item{bare\_jrnl\_comsoc.tex}
+%\end{itemize}
+%
+%\noindent coded as:
+%
+%\begin{verbatim}
+%\begin{itemize}
+%\item{bare\_jrnl.tex}
+%\item{bare\_conf.tex}
+%\item{bare\_jrnl\_compsoc.tex}
+%\item{bare\_conf\_compsoc.tex}
+%\item{bare\_jrnl\_comsoc.tex}
+%\end{itemize}
+%\end{verbatim}
+%
+%
+%\subsection{Other Elements}
+%\noindent For other less common elements such as Algorithms, Theorems and Proofs, and Floating Structures such as page-wide tables, figures or equations, please refer to the ``IEEEtran\_HOWTO.pdf'' section on ``Double Column Floats.''
+%
+%
+%\section{How to Create Common Back Matter Elements}
+%\noindent The following sections demonstrate common back matter elements such as Acknowledgments, Bibliographies, Appendicies and Author Biographies.
+%
+%\subsection{Acknowledgments}
+%\noindent This should be a simple paragraph before the bibliography to thank those individuals and institutions who have supported your work on this article.
+%
+%\begin{verbatim}
+%\section{Acknowledgments}
+%\noindent Text describing those who
+%supported your paper.
+%\end{verbatim}
+%
+%\subsection{Bibliographies}
+%\noindent {\bf{References Simplified:}} A simple way of composing references is to use the $\backslash${\tt{bibitem}} macro to define the beginning of a reference as in the following examples:\\
+%
+%
+%\noindent [6] H. Sira-Ramirez. ``On the sliding mode control of nonlinear systems,'' \textit{Systems \& Control Letters}, vol. 19, pp. 303--312, 1992.
+%
+%\noindent coded as:
+%\begin{verbatim}
+%\bibitem{Sira3}
+%H. Sira-Ramirez. ``On the sliding mode
+%control of nonlinear systems,''
+%\textit{Systems \& Control Letters},
+%vol. 19, pp. 303--312, 1992.
+%\end{verbatim}
+%
+%\noindent [7] A. Levant.``Exact differentiation of signals with unbounded higher derivatives,''  in \textit{Proceedings of the 45th IEEE Conference on Decision and Control}, San Diego, California, USA, pp. 5585--5590, 2006.
+%
+%\noindent coded as:
+%\begin{verbatim}\bibitem{Levant}
+%A. Levant. ``Exact differentiation of
+%signals with unbounded higher
+%derivatives,''  in \textit{Proceedings
+%of the 45th IEEE Conference on
+%Decision and Control}, San Diego,
+%California, USA, pp. 5585--5590, 2006.
+%\end{verbatim}
+%
+%
+%\noindent [8] M. Fliess, C. Join, and H. Sira-Ramirez. ``Non-linear estimation is easy,'' \textit{International Journal of Modelling, Identification and Control}, vol. 4, no. 1, pp. 12--27, 2008.
+%
+%\noindent coded as:
+%\begin{verbatim}
+%\bibitem{Cedric}
+%M. Fliess, C. Join, and H. Sira-Ramirez.
+%``Non-linear estimation is easy,''
+%\textit{International Journal of Modelling,
+%Identification and Control}, vol. 4,
+%no. 1, pp. 12--27, 2008.
+%\end{verbatim}
+%
+%\noindent [9] R. Ortega, A. Astolfi, G. Bastin, and H. Rodriguez. ``Stabilization of food-chain systems using a port-controlled Hamiltonian description,'' in \textit{Proceedings of the American Control Conference}, Chicago, Illinois, USA, pp. 2245--2249, 2000.
+%
+%\noindent coded as:
+%\begin{verbatim}
+%\bibitem{Ortega}
+%R. Ortega, A. Astolfi, G. Bastin, and H.
+%Rodriguez. ``Stabilization of food-chain
+%systems using a port-controlled Hamiltonian
+%description,'' in \textit{Proceedings of the
+%American Control Conference}, Chicago,
+%Illinois, USA, pp. 2245--2249, 2000.
+%\end{verbatim}
+%
+%\subsection{Accented Characters in References}
+%\noindent When using accented characters in references, please use the standard LaTeX coding for accents. {\bf{Do not use math coding for character accents}}. For example:
+%\begin{verbatim}
+%\'e, \"o, \`a, \~e
+%\end{verbatim}
+%will produce: \'e, \"o, \`a, \~e
+%
+%
+%\subsection{Use of BibTeX}
+%\noindent If you wish to use BibTeX, please see the documentation that accompanies the IEEEtran Bibliography package.
+%
+%\subsection{Biographies and Author Photos}
+%\noindent Authors may have options to include their photo or not. Photos should be a bit-map graphic (.tif or .jpg) and sized to fit in the space allowed. Please see the coding samples below:
+%\begin{verbatim}
+%\begin{IEEEbiographynophoto}{Jane Doe}
+%Biography text here without a photo.
+%\end{IEEEbiographynophoto}
+%\end{verbatim}
+%or a biography with a photo
+%
+%\begin{verbatim}
+%\begin{IEEEbiography}[{\includegraphics
+%[width=1in,height=1.25in,clip,
+%keepaspectratio]{fig1.png}}]
+%{IEEE Publications Technology Team}
+%In this paragraph you can place
+%your educational, professional background
+%and research and other interests.
+%\end{IEEEbiography}
+%\end{verbatim}
+%
+%Please see the end of this document to see the output of these coding examples.
+%
+%
+%
+%\section{Mathematical Typography \\ and Why It Matters}
+%
+%\noindent Typographical conventions for mathematical formulas have been developed to {\bf provide uniformity and clarity of presentation across mathematical texts}. This enables the readers of those texts to both understand the author's ideas and to grasp new concepts quickly. While software such as \LaTeX \ and MathType\textsuperscript{\textregistered} can produce aesthetically pleasing math when used properly, it is also very easy to misuse the software, potentially resulting in incorrect math display.
+%
+%IEEE aims to provide authors with the proper guidance on mathematical typesetting style and assist them in writing the best possible article.
+%
+%As such, IEEE has assembled a set of examples of good and bad mathematical typesetting. You will see how various issues are dealt with. The following publications have been referenced in preparing this material:
+%
+%\begin{list}{}{}
+%\item{\emph{Mathematics into Type}, published by the American Mathematical Society}
+%\item{\emph{The Printing of Mathematics}, published by Oxford University Press}
+%\item{\emph{The \LaTeX Companion}, by F. Mittelbach and M. Goossens}
+%\item{\emph{More Math into LaTeX}, by G. Gr\"atzer}
+%\item{AMS-StyleGuide-online.pdf, published by the American Mathematical Society}
+%\end{list}
+%
+%Further examples can be seen at \url{http://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE-Math-Typesetting-Guide.pdf}
+%
+%\subsection{Display Equations}
+%\noindent A simple display equation example shown below uses the ``equation'' environment. To number the equations, use the $\backslash${\tt{label}} macro to create an identifier for the equation. LaTeX will automatically number the equation for you.
+%\begin{equation}
+%\label{deqn_ex1}
+%x = \sum_{i=0}^{n} 2{i} Q.
+%\end{equation}
+%
+%\noindent is coded as follows:
+%\begin{verbatim}
+%\begin{equation}
+%\label{deqn_ex1}
+%x = \sum_{i=0}^{n} 2{i} Q.
+%\end{equation}
+%\end{verbatim}
+%
+%To reference this equation in the text use the $\backslash${\tt{ref}} macro.
+%Please see (\ref{deqn_ex1})\\
+%\noindent is coded as follows:
+%\begin{verbatim}
+%Please see (\ref{deqn_ex1})\end{verbatim}
+%
+%\subsection{Equation Numbering}
+%\noindent {\bf{Consecutive Numbering:}} Equations within an article are numbered consecutively from the beginning of the
+%article to the end, i.e., (1), (2), (3), (4), (5), etc. Do not use roman numerals or section numbers for equation numbering.\\
+%
+%\noindent {\bf{Appendix Equations:}} The continuation of consecutively numbered equations is best in the Appendix, but numbering
+% as (A1), (A2), etc., is permissible.\\
+%
+%\noindent {\bf{Hyphens and Periods}}: Hyphens and periods should not be used in equation numbers, i.e., use (1a) rather than
+%(1-a) and (2a) rather than (2.a) for sub-equations. This should be consistent throughout the article.
+%
+%\subsection{Multi-line equations and alignment}
+%\noindent Here we show several examples of multi-line equations and proper alignments.
+%
+%\noindent {\bf{A single equation that must break over multiple lines due to length with no specific alignment.}}
+%\begin{multline}
+%\text{The first line of this example}\\
+%\text{The second line of this example}\\
+%\text{The third line of this example}
+%\end{multline}
+%
+%\noindent is coded as:
+%\begin{verbatim}
+%\begin{multline}
+%\text{The first line of this example}\\
+%\text{The second line of this example}\\
+%\text{The third line of this example}
+%\end{multline}
+%\end{verbatim}
+%
+%\noindent {\bf{A single equation with multiple lines aligned at the = signs}}
+%\begin{align}
+%a &= c+d \\
+%b &= e+f
+%\end{align}
+%\noindent is coded as:
+%\begin{verbatim}
+%\begin{align}
+%a &= c+d \\
+%b &= e+f
+%\end{align}
+%\end{verbatim}
+%
+%The {\tt{align}} environment can align on multiple  points as shown in the following example:
+%\begin{align}
+%x &= y & X & =Y & a &=bc\\
+%x' &= y' & X' &=Y' &a' &=bz
+%\end{align}
+%\noindent is coded as:
+%\begin{verbatim}
+%\begin{align}
+%x &= y & X & =Y & a &=bc\\
+%x' &= y' & X' &=Y' &a' &=bz
+%\end{align}
+%\end{verbatim}
+%
+%
+%
+%
+%
+%\subsection{Subnumbering}
+%\noindent The amsmath package provides a {\tt{subequations}} environment to facilitate subnumbering. An example:
+%
+%\begin{subequations}\label{eq:2}
+%\begin{align}
+%f&=g \label{eq:2A}\\
+%f' &=g' \label{eq:2B}\\
+%\mathcal{L}f &= \mathcal{L}g \label{eq:2c}
+%\end{align}
+%\end{subequations}
+%
+%\noindent is coded as:
+%\begin{verbatim}
+%\begin{subequations}\label{eq:2}
+%\begin{align}
+%f&=g \label{eq:2A}\\
+%f' &=g' \label{eq:2B}\\
+%\mathcal{L}f &= \mathcal{L}g \label{eq:2c}
+%\end{align}
+%\end{subequations}
+%
+%\end{verbatim}
+%
+%\subsection{Matrices}
+%\noindent There are several useful matrix environments that can save you some keystrokes. See the example coding below and the output.
+%
+%\noindent {\bf{A simple matrix:}}
+%\begin{equation}
+%\begin{matrix}  0 &  1 \\
+%1 &  0 \end{matrix}
+%\end{equation}
+%is coded as:
+%\begin{verbatim}
+%\begin{equation}
+%\begin{matrix}  0 &  1 \\
+%1 &  0 \end{matrix}
+%\end{equation}
+%\end{verbatim}
+%
+%\noindent {\bf{A matrix with parenthesis}}
+%\begin{equation}
+%\begin{pmatrix} 0 & -i \\
+% i &  0 \end{pmatrix}
+%\end{equation}
+%is coded as:
+%\begin{verbatim}
+%\begin{equation}
+%\begin{pmatrix} 0 & -i \\
+% i &  0 \end{pmatrix}
+%\end{equation}
+%\end{verbatim}
+%
+%\noindent {\bf{A matrix with square brackets}}
+%\begin{equation}
+%\begin{bmatrix} 0 & -1 \\
+%1 &  0 \end{bmatrix}
+%\end{equation}
+%is coded as:
+%\begin{verbatim}
+%\begin{equation}
+%\begin{bmatrix} 0 & -1 \\
+%1 &  0 \end{bmatrix}
+%\end{equation}
+%\end{verbatim}
+%
+%\noindent {\bf{A matrix with curly braces}}
+%\begin{equation}
+%\begin{Bmatrix} 1 &  0 \\
+%0 & -1 \end{Bmatrix}
+%\end{equation}
+%is coded as:
+%\begin{verbatim}
+%\begin{equation}
+%\begin{Bmatrix} 1 &  0 \\
+%0 & -1 \end{Bmatrix}
+%\end{equation}\end{verbatim}
+%
+%\noindent {\bf{A matrix with single verticals}}
+%\begin{equation}
+%\begin{vmatrix} a &  b \\
+%c &  d \end{vmatrix}
+%\end{equation}
+%is coded as:
+%\begin{verbatim}
+%\begin{equation}
+%\begin{vmatrix} a &  b \\
+%c &  d \end{vmatrix}
+%\end{equation}\end{verbatim}
+%
+%\noindent {\bf{A matrix with double verticals}}
+%\begin{equation}
+%\begin{Vmatrix} i &  0 \\
+%0 & -i \end{Vmatrix}
+%\end{equation}
+%is coded as:
+%\begin{verbatim}
+%\begin{equation}
+%\begin{Vmatrix} i &  0 \\
+%0 & -i \end{Vmatrix}
+%\end{equation}\end{verbatim}
+%
+%\subsection{Arrays}
+%\noindent The {\tt{array}} environment allows you some options for matrix-like equations. You will have to manually key the fences, but you'll have options for alignment of the columns and for setting horizontal and vertical rules. The argument to {\tt{array}} controls alignment and placement of vertical rules.
+%
+%A simple array
+%\begin{equation}
+%\left(
+%\begin{array}{cccc}
+%a+b+c & uv & x-y & 27\\
+%a+b & u+v & z & 134
+%\end{array}\right)
+%\end{equation}
+%is coded as:
+%\begin{verbatim}
+%\begin{equation}
+%\left(
+%\begin{array}{cccc}
+%a+b+c & uv & x-y & 27\\
+%a+b & u+v & z & 134
+%\end{array} \right)
+%\end{equation}
+%\end{verbatim}
+%
+%A slight variation on this to better align the numbers in the last column
+%\begin{equation}
+%\left(
+%\begin{array}{cccr}
+%a+b+c & uv & x-y & 27\\
+%a+b & u+v & z & 134
+%\end{array}\right)
+%\end{equation}
+%is coded as:
+%\begin{verbatim}
+%\begin{equation}
+%\left(
+%\begin{array}{cccr}
+%a+b+c & uv & x-y & 27\\
+%a+b & u+v & z & 134
+%\end{array} \right)
+%\end{equation}
+%\end{verbatim}
+%
+%An array with vertical and horizontal rules
+%\begin{equation}
+%\left( \begin{array}{c|c|c|r}
+%a+b+c & uv & x-y & 27\\ \hline
+%a+b & u+v & z & 134
+%\end{array}\right)
+%\end{equation}
+%is coded as:
+%\begin{verbatim}
+%\begin{equation}
+%\left(
+%\begin{array}{c|c|c|r}
+%a+b+c & uv & x-y & 27\\
+%a+b & u+v & z & 134
+%\end{array} \right)
+%\end{equation}
+%\end{verbatim}
+%Note the argument now has the pipe "$\vert$" included to indicate the placement of the vertical rules.
+%
+%
+%\subsection{Cases Structures}
+%\noindent Many times we find cases coded using the wrong environment, i.e., {\tt{array}}. Using the {\tt{cases}} environment will save keystrokes (from not having to type the $\backslash${\tt{left}}$\backslash${\tt{lbrace}}) and automatically provide the correct column alignment.
+%\begin{equation*}
+%{z_m(t)} = \begin{cases}
+%1,&{\text{if}}\ {\beta }_m(t) \\
+%{0,}&{\text{otherwise.}}
+%\end{cases}
+%\end{equation*}
+%\noindent is coded as follows:
+%\begin{verbatim}
+%\begin{equation*}
+%{z_m(t)} =
+%\begin{cases}
+%1,&{\text{if}}\ {\beta }_m(t),\\
+%{0,}&{\text{otherwise.}}
+%\end{cases}
+%\end{equation*}
+%\end{verbatim}
+%\noindent Note that the ``\&'' is used to mark the tabular alignment. This is important to get  proper column alignment. Do not use $\backslash${\tt{quad}} or other fixed spaces to try and align the columns. Also, note the use of the $\backslash${\tt{text}} macro for text elements such as ``if'' and ``otherwise''.
+%
+%\subsection{Function Formatting in Equations}
+%In many cases there is an easy way to properly format most common functions. Use of the $\backslash$ in front of the function name will in most cases, provide the correct formatting. When this does not work, the following example provides a solution using the $\backslash${\tt{text}} macro.
+%
+%\begin{equation*}
+%  d_{R}^{KM} = \underset {d_{l}^{KM}} {\text{arg min}} \{ d_{1}^{KM},\ldots,d_{6}^{KM}\}.
+%\end{equation*}
+%
+%\noindent is coded as follows:
+%\begin{verbatim}
+%\begin{equation*}
+% d_{R}^{KM} = \underset {d_{l}^{KM}}
+% {\text{arg min}} \{ d_{1}^{KM},
+% \ldots,d_{6}^{KM}\}.
+%\end{equation*}
+%\end{verbatim}
+%
+%\subsection{ Text Acronyms inside equations}
+%\noindent This example shows where the acronym ``MSE" is coded using $\backslash${\tt{text\{\}}} to match how it appears in the text.
+%
+%\begin{equation*}
+% \text{MSE} = \frac {1}{n}\sum _{i=1}^{n}(Y_{i} - \hat {Y_{i}})^{2}
+%\end{equation*}
+%
+%\begin{verbatim}
+%\begin{equation*}
+% \text{MSE} = \frac {1}{n}\sum _{i=1}^{n}
+%(Y_{i} - \hat {Y_{i}})^{2}
+%\end{equation*}
+%\end{verbatim}
+%
+%\subsection{Obsolete Coding}
+%\noindent Avoid the use of outdated environments, such as {\tt{eqnarray}} and \$\$ math delimiters, for display equations. The \$\$ display math delimiters are left over from PlainTeX and should not be used in \LaTeX, ever. Poor vertical spacing will result.
+%\subsection{Use Appropriate Delimiters for Display Equations}
+%\noindent Some improper mathematical coding advice has been given in various YouTube\textsuperscript{TM} videos on how to write scholarly articles, so please follow these good examples:\\
+%
+%For {\bf{single-line unnumbered display equations}}, please use the following delimiters:
+%\begin{verbatim}\[ . . . \] or \end{verbatim}
+%\begin{verbatim}\begin{equation*} . . . \end{equation*}\end{verbatim}
+%Note that the * in the environment name turns off equation numbering.\\
+%
+%For {\bf{multiline unnumbered display equations}} that have alignment requirements, please use the following delimiters:
+%\begin{verbatim}
+%\begin{align*} . . . \end{align*}
+%\end{verbatim}
+%
+%For {\bf{single-line numbered display equations}}, please use the following delimiters:
+%\begin{verbatim}
+%\begin{equation} . . . \end{equation}
+%\end{verbatim}
+%
+%For {\bf{multiline numbered display equations}}, please use the following delimiters:
+%\begin{verbatim}
+%\begin{align} . . . \end{align}
+%\end{verbatim}
+%
+%\section{LaTeX Package Suggestions}
+%\noindent Immediately after your documenttype declaration at the top of your \LaTeX\ file is the place where you should declare any packages that are being used. The following packages were used in the production of this document.
+%\begin{verbatim}
+%\usepackage{amsmath,amsfonts}
+%\usepackage{algorithmic}
+%\usepackage{array}
+%\usepackage[caption=false,font=normalsize,
+%   labelfont=sf,textfont=sf]{subfig}
+%\u00sepackage{textcomp}
+%\usepackage{stfloats}
+%\usepackage{url}
+%\usepackage{verbatim}
+%\usepackage{graphicx}
+%\usepackage{balance}
+%\end{verbatim}
+%
+%\section{Additional Advice}
+%
+%Please use ``soft'' (e.g., \verb|\eqref{Eq}|) or \verb|(\ref{Eq})|
+%cross references instead of ``hard'' references (e.g., \verb|(1)|).
+%That will make it possible to combine sections, add equations, or
+%change the order of figures or citations without having to go through
+%the file line by line.
+%
+%Please note that the \verb|{subequations}| environment in {\LaTeX}
+%will increment the main equation counter even when there are no
+%equation numbers displayed. If you forget that, you might write an
+%article in which the equation numbers skip from (17) to (20), causing
+%the copy editors to wonder if you've discovered a new method of
+%counting.
+%
+%{\BibTeX} does not work by magic. It doesn't get the bibliographic
+%data from thin air but from .bib files. If you use {\BibTeX} to produce a
+%bibliography you must send the .bib files.
+%
+%{\LaTeX} can't read your mind. If you assign the same label to a
+%subsubsection and a table, you might find that Table I has been cross
+%referenced as Table IV-B3.
+%
+%{\LaTeX} does not have precognitive abilities. If you put a
+%\verb|\label| command before the command that updates the counter it's
+%supposed to be using, the label will pick up the last counter to be
+%cross referenced instead. In particular, a \verb|\label| command
+%should not go before the caption of a figure or a table.
+%
+%Please do not use \verb|\nonumber| or \verb|\notag| inside the
+%\verb|{array}| environment. It will not stop equation numbers inside
+%\verb|{array}| (there won't be any anyway) and it might stop a wanted
+%equation number in the surrounding equation.
+%
+%\balance
+%
+
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{fig1.png}}]{IEEE Publications Technology Team}
+%In this paragraph you can place your educational, professional background and research and other interests.\end{IEEEbiography}
+
+
+
