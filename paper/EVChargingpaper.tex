@@ -86,52 +86,80 @@ Class, IEEEtran, \LaTeX, paper, style, template, typesetting.
 
 
 \section{Introduction}
-电动汽车的快速普及对电网安全构成挑战,充电不确定性可能导致峰谷电荷波动,影响电压的稳定性,甚至给输电线路带来负担\cite{li2018gis}-\cite{wang2020stochastic}.The increased use of EVs has been prompted by the rapid development of EV technology and the rise in gasoline prices, indicating that the development of EVs has broad prospects and a strong penetration effect
-on human society. Without a doubt, the randomness and instability of large-scale EV grid access will have an impact on the grid's optimal operation and dispatch, which is viewed as a major challenge [1,2].解决这一问题的关键在于引导电动车有序充电,{\color{red}同时协调电网运营商、聚合商和电动汽车用户信息传递}.以确保电网安全运行并降低经济成本\cite{xftgo}-\cite{xftgt}.
+\bl{有序充电问题的重要性}
+The surge in electric vehicle (EV) adoption is attributable to the swift advancement in EV technology and the escalation of gasoline prices. This phenomenon signifies the expansive potential and pronounced societal penetration impact associated with the development of EVs. Unquestionably, the stochastic nature and instability inherent in the widespread integration of EVs into the grid are anticipated to exert influence on the optimal operation and dispatch of the grid, constituting a notable challenge \cite{li2018gis,wang2020stochastic}.
+%电动汽车的快速普及对电网安全构成挑战,充电不确定性可能导致峰谷电荷波动,影响电压的稳定性,甚至给输电线路带来负担\cite{li2018gis}-\cite{wang2020stochastic}.The increased use of EVs has been prompted by the rapid development of EV technology and the rise in gasoline prices, indicating that the development of EVs has broad prospects and a strong penetration effect. on human society. Without a doubt, the randomness and instability of large-scale EV grid access will have an impact on the grid's optimal operation and dispatch, which is viewed as a major challenge [1,2].
+The key to addressing this issue is the implementation of \rd{Coordinated Charging Scheduling Method} for electric vehicles. This method serves to facilitate seamless information exchange among grid operators, aggregator entities, and electric vehicle users, thereby ensuring the secure operation of the grid and reducing economic costs.
+%解决这一问题的关键在于引导电动车有序充电,{\color{red}同时协调电网运营商、聚合商和电动汽车用户信息传递}.以确保电网安全运行并降低经济成本\cite{xftgo}-\cite{xftgt}.
 
-研究人员探索了用于电动汽车有序充电的协调方法,可分为集中式\cite{nimalsiri2021coordinated},\cite{de2014optimal} 和分布式\cite{kennel2012energy},\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage}
-\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}方法.收集所有相关参数,由单个实体执行中央计算的方案为称为集中式控制方案.{\color{red}分布式通过多个代理进行能够通过有限的信息交换执行共享和并行计算\cite{nimalsiri2019survey}.(查分布式的定义)}因此,分布式方法具有更高的计算效率和可扩展性,可以在整个配电网中协调更多的电动汽车群体,同时还可以在决策过程中为电动汽车客户提供更多选择.事实上,关于电动汽车充电分散协调的研究非常丰富\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},
-\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}.然而\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},
-\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}中的这些方法需要有中央协调器(或聚合器)这导致部分分布式优化.具体来说,这些方法需要一个通信网络,其中所有信息都通过聚合器传输到电动汽车,从而导致大量的通信开销.
-Several researchers have explored coordinated EV charging approaches for voltage regulation that can be classified into centralized [2], [3] and distributed [4], [5], [6], [7], [8], [9],[10], [11] approaches. Rather than collecting information centrally for computation, distributed approaches enable multiple agents to perform shared and parallel computations via limited information exchange [12]. As such, distributed approaches are more computationally efficient and scalable, allowing for larger EV populations to be coordinated across the distribution grid,while also empowering EV customers in the decision-making process.
-为了解决上述提到的不足,常用的分布式优化算法是交替方向乘子法($ADMM$), 它将目标函数拆分为两个子问题,利用交替优化的方式同时实现整体优化目标，也有学者直接直接扩展$ADMM$算法,使其能够解决包含三个或者三个以上可分离算子的优化问题
-\cite{kraning2013dynamic},\cite{liu2019linearized}. 但$ADMM$直接扩展的收敛性对于不同的问题有不同的结果,{\color{red}加文献支撑}学者引入高斯反代入法，在预测环节后添加修正策略.然而,额外的校正步骤将导致大量的额外计算
-\cite{he2012alternating}.The commonly used distributed optimization algorithm is the
-Alternating Direction Multiplier Method ($ADMM$), which splits the objective function into two sub-problems, and uses alternating optimization to achieve the optimal goals for both problems at the same time,thereby achieving the overall optimization goal. Some scholars also directly extend the $ADMM$ algorithm so that it can solve optimization problems containing three or more separable operators [31,32], but the convergence of the direct extension of $ADMM$ has different results for different problems, and the convergence is not able to be determined. In order to solve the convergence problem, some scholars have introduced the Gaussian back-substitution method to add a correction strategy after the prediction link. However, the additional correction steps will bring difficulties to some applications of the model. On the one hand, it will destroy the original data. On the other hand, the correction steps required to solve large-scale optimization problems will lead to a large amount of additional calculations [33].
+\bl{目前的主要研究方法及其不足}
+The implementation of orderly charging for electric vehicles can be broadly categorized into two methods: centralized \cite{nimalsiri2021coordinated, de2014optimal} and distributed \cite{kennel2012energy,liu2017decentralized,zhang2016scalable,zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm} approaches. The former involves the collection of all relevant parameters, entrusted to a single entity for centralized computation. The latter, on the other hand, enables parallel computation through multiple agents \cite{nimalsiri2019survey}, requiring limited information exchange for collaborative computation. Consequently, distributed methods exhibit higher computational efficiency and scalability. They can coordinate larger groups of electric vehicles across the entire distribution network while providing more choices for electric vehicle customers during the decision-making process. 
+Indeed, there is a wealth of research on the decentralized coordination of electric vehicle charging \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}. However, it is crucial to note that the methods mentioned above, including \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}, require a central coordinator (or aggregator), leading to partial distributed optimization. Specifically, these methods necessitate a communication network where all information is transmitted through the aggregator to the electric vehicles, resulting in substantial communication overhead. Hence, the Alternating Direction Method of Multipliers (ADMM) has garnered extensive attention and research as a \rd{fully distributed approach} over the long term.
 
-针对大规模电动汽车有序充电车主隐私泄露和约束描述困难的问题,提出了一种分布式优化方法.本文建立了一个通过动态电价引导下的电动汽车有序充电策略,以削峰填谷为目标,很好地实现了电网、充电站和用户的共赢.同时确保电动汽车充电成本最低、满意度最高.采用改进的ADMM 分布式优化方法对电动汽车充电进行实时优化.通过每次迭代中两个实体之间少量的信息传递,实现各个实体优化目标的并行求解.通过实际电网验证了本文建立的分布式优化模型的可行性和算法的收敛性.
+%研究人员探索了用于电动汽车有序充电的协调方法,可分为集中式\cite{nimalsiri2021coordinated},\cite{de2014optimal} 和分布式\cite{kennel2012energy},\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage} \cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 方法.收集所有相关参数,由单个实体执行中央计算的方案为称为集中式控制方案.{\color{red}分布式通过多个代理进行能够通过有限的信息交换执行共享和并行计算\cite{nimalsiri2019survey}.(查分布式的定义)}因此,分布式方法具有更高的计算效率和可扩展性,可以在整个配电网中协调更多的电动汽车群体,同时还可以在决策过程中为电动汽车客户提供更多选择.事实上,关于电动汽车充电分散协调的研究非常丰富\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}.然而\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}中的这些方法需要有中央协调器(或聚合器)这导致部分分布式优化.具体来说,这些方法需要一个通信网络,其中所有信息都通过聚合器传输到电动汽车,从而导致大量的通信开销.
+%Several researchers have explored coordinated EV charging approaches for voltage regulation that can be classified into centralized [2], [3] and distributed [4], [5], [6], [7], [8], [9],[10], [11] approaches. Rather than collecting information centrally for computation, distributed approaches enable multiple agents to perform shared and parallel computations via limited information exchange [12]. As such, distributed approaches are more computationally efficient and scalable, allowing for larger EV populations to be coordinated across the distribution grid,while also empowering EV customers in the decision-making process.
 
-此外,除了本文提出的改进ADMM方法的分布式优化算法之外，许多论文还提出了基于博弈方法\cite{shakerighadi2018}
-,\cite{tan2015real},\cite{zhao2017real},遗传算法\cite{khaki2019hierarchical},\cite{qi2014hierarchical}等其他优化算法，解决与电动汽车充电协调相关的问题。参考文献\cite{shakerighadi2018}开发了一种新的三级博弈理论方法.用于电动汽车和电动汽车充电站的能座位源管理.在\cite{khaki2019hierarchical}中，应用ADMM方法的分布式方法被用来处理作为具有耦合约束的交换问题而发展的分层分布式电动汽车充电调度.{\color{red}然而,这些工作在计算方法上度没有考虑并行求解}
-Furthermore, besides the proposed hierarchical algorithm based on ADMM in this work, many papers have also pro-
-posed other hierarchical algorithms based on game approaches [24]–[26], ADMM [27], heuristic methods [28], \cite{xia2019hierarchical}
-and other approaches [30], [31], to solve the problem related to the EV charging coordination. Reference [24] developed a new tri-level game theoretical approach for energy management of EVs and EV charging stations. In [27], a distributed manner by applying ADMM method was used to deal with the hierarchical distributed EV charging scheduling developed as the exchange problem with coupling constraints.Reference \cite{hu2016preventing}
-considered the market-based control and price-based control into the hierarchical EVs’ management
-system. Reference \cite{yang2019novel} proposed a search-swapping algorithm in the hierarchical coordinated framework to achieve power dispatch with near-optimal solutions guaranteed. However,these works didn’t consider the need of EV fast charging in the modeling process.
-
-{\color{red}以分布式引出本文的问题框架}
-
-在这项工作中,我们通过个人总充电时间来表达用户快速充电的愿望.充电时间越短,表明用户快充意愿越强.基于期望的充电期限,我们有动机建立一个电动汽车协调问题来确定合适的充电时间和速率,即满足快速充电需求,减轻电池退化并避免电池过载的充电策略.我们针对\cite{ma2015distributed}中导出的充电功率应用了二次形式的退化成本模型.因此,电动汽车协调问题最小化了电动汽车用户满意度、负载调节、电池退化成本和总充电时间之间的权衡,它建模了一个不可分离的目标函数,即它不能写成求和形式个人目标.此外,馈线的容量限制吸引了各个电动汽车之间充电策略的耦合空间约束,并且还解决了跨时间约束,使得每个电动汽车的总充电功率具有与初始SOC和电池尺寸相关的上限.这些都给以去中心化的方式解决优化问题带来了挑战.In this work, we express the desire of fast charging of users by individual total charging time. The shorter the charging horizon is the stronger willing of fast charging the user has.Based on the desired charging horizon, we are motivated to
-establish an EV coordination problem to determine the proper charging time and rate, i.e., the charging strategy to satisfy the need of fast charging, and mitigate the degradation of batteries and avoid the overload of the distribution network.We apply a quadratic form of the degradation cost model with  respect to the charging power derived in[8].Consequently,the EV coordination problem minimizes the tradeoff among the EV users’ satisfaction, the load regulation, the battery degradation cost and the total charging time, which models a non-separable objective function, i.e., it cannot be written as a summation form of individual objectives. Moreover, capacity
-limits of feeder lines draw coupling spatial constraints of charging strategies among individual EVs, and inter-temporal constraints are also addressed such that the total charging power of each EV has an upper limit associated with initial SOC and battery size. All these bring challenges to solve the optimization problem in a decentralized way.
-
-{\color{red}解决分布式的分布式优化主要介绍工程背景下的ADMM应用以及引出本文的改进ADMM方法}
-
-关于电动汽车充电分散协调的研究非常丰富,参见\cite{ghavami2016dece},\cite{koshal2011multiuser}
-\cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed},\cite{ma2017charging} 及其参考文献.在\cite{koshal2011multiuser}中,它提出了一种分散正则化原始对偶投影方案来解决具有不可分离目标和约束的多用户问题,但该方法可能会给最优解带来一定的误差.\cite{ghavami2016dece},
-\cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed},中的这些工作采用了一定的偏差惩罚成本来替代馈线过载约束,但应用具有松弛参数的拉格朗日乘子可能会违反馈线容量,这可调度模型通过拉格朗日松弛分解为分布式优化模型,实现对各个电动汽车聚合器(EVA)的并行控制.为了解决优化过程中参数对称性引起的振荡,我们提出了一种基于扰动函数的收敛加速算法,扰动函数是一种随机分布函数,用于在可接受的计算误差范围内打破参数对称性.
-Researches in decentralized coordination of EV charging are abundant,see[10],[12]–[16]and the reference therein. In [12],it developed a decentralized regularized primal-dual projection scheme to solve the multiuser problems with non-separable objective and constraints, while this method might introduce certain errors to the optimal solution. These works in [10],[13]–[15] adopted certain deviation penalty costs to substitute the feeder overload constraints, but the feeder capacity might be violated by applying the Lagrangian multipliers with slack
-parameters which could result in suboptimal solutions. The gradient projection-based method in [16] could handle the charging control problem of EVs with hard constraints of the feeder capacity, but the implemented solution might not be the system optimal solution.
-
-The contributions of this article are as follows:
-
-1.提出了一种基于稀疏数学模型的电动汽车分布式框架,通过将原先紧密耦合的问题分解为多个子问题的解耦方法,显著提升了系统处理复杂性的效率,增强了电动汽车调度问题的可解释性.
-
-2.为了解决稀疏化模型收敛速度慢,本文引入了改进的ADMM算法,将经典的ADMM方法扩展为多块雅可比形式,并添加了近端项,这样不仅保证可以并行求解而且保证收敛性更高,相比经典ADMM方法,收敛阶速度从O(1/k)提升到o(1/k).
+\bl{分布式的最优解也是一个挑战}
+\rd{Research on decentralized coordination of Electric Vehicle (EV) charging poses significant challenges. Despite the abundance of studies in this domain, as evidenced by references such as [10], [12]–[16], and others cited therein, achieving an optimal solution remains a complex task. 
+In [12], a decentralized regularized primal-dual projection scheme was proposed to address multiuser problems with non-separable objectives and constraints. However, it is noteworthy that this method may introduce certain errors to the optimal solution. Similarly, works in [10], [13]–[15] explored the use of deviation penalty costs to replace feeder overload constraints. While this approach has its merits, the application of Lagrangian multipliers with slack parameters raises concerns about potential violations of feeder capacity, leading to suboptimal solutions. 
+In [16], a gradient projection-based method was introduced to handle the charging control problem of EVs with hard constraints on feeder capacity. Despite its capability to address these constraints, there is a caveat: the implemented solution might not necessarily be the system's optimal solution. Hence, navigating the decentralized coordination of EV charging demands careful consideration of the trade-offs and limitations associated with existing methodologies. The aforementioned studies provide valuable insights, yet there remains a need for further exploration and refinement to achieve more robust and optimal decentralized coordination solutions in the realm of EV charging.}
 
 
+\bl{尽管ADMM很强，但针对复杂的有序充电问题仍需要改进.}
+The ordered charging problem is a multi-objective and strongly coupled complex optimization issue, and utilizing the traditional ADMM method for its resolution is deemed inefficient and cumbersome.
+Indeed, the ordered charging problem encompasses numerous optimization objectives, leading to the development of various models catering to distinct requirements (such as fast charging models, adjustable electricity pricing models, etc.). This study considers a mathematical model that balances the interests of charging users (e.g.,electricity cost and charging satisfaction) with power grid stability and safety (e.g.,peak-shaving of power grid). Achieving a balance among these diverse optimization objectives is facilitated by adjusting the charging power of each electric vehicle at different time intervals. It is noteworthy that the optimization objectives for power grid stability are intricately coupled with the interests of charging users. This intricacy poses a challenge for parallel computation in distributed ADMM algorithms. Conventional decoupling methods often compromise the inherent convergence speed of the ADMM algorithm. Consequently, the challenge is to propose an effective decoupling algorithm that simultaneously preserves convergence speed without significant degradation.
+%\rd{有序充电问题是多目标强耦合的复杂优化问题，传统的ADMM方法是低效和笨重的。事实上，有序充电问题需要考虑的问题很多。因此衍生出很多不同的模型以刻画不同的需求。（如快速充电模型，可调电价模型等）. 本文考虑的数学模型兼顾了充电用户的利益（电价成本，和充电满意度）和电网稳定及安全（电网功率的削峰填谷）。通过调节每辆电车在不同时刻的充电功率，来平衡众多优化目标。需要指出的是，电网稳定的优化目标总是和充电用户的利益目标深度耦合。这对分布式ADMMM算法的并行运算提出了挑战。一般的解耦方法总是污染ADMM算法原有的收敛性速度。 因此如何提出一个有效的解耦算法，同时不显著降低收敛速度，是一个广泛关注的问题。本文的主要目的就是给出一个ADMM解耦算法，在不显著影响收敛速度的情况下，实现并行计算。}
 
-在本文的其余结构如下.第二部分介绍了用于配电网络和电动汽车充电基础设施的数学模型.在第三节中,定义了一般的*****优化问题,并提出了所提出的改进ADMM框架.此外,还开发了******,第四节介绍了仿真结果,并通过定义各种性能指标验证了所提出的******模型的有效性.最后,第五节给出了结论.
+
+\bl{ADMM的改进并不容易}
+Over an extended period, scholars have endeavored to optimize and enhance the Alternating Direction Method of Multipliers ($ADMM$) to address diverse requirements. It is noted that the original $ADMM$ decomposes the objective function into two subproblems, employing an alternating optimization approach to concurrently achieve the overall optimization objective. In response to more intricate scenarios, scholars have naturally sought to directly extend the $ADMM$ algorithm to tackle optimization problems involving three or more separable operators \cite{kraning2013dynamic, liu2019linearized}. However, the convergence of directly extended $ADMM$ exhibits varying outcomes for different problems, as supported by the literature. Scholars have introduced the Gaussian alternating direction method to address this, incorporating correction strategies after the prediction step. Nevertheless, the additional correction steps result in a substantial increase in computational overhead.
+%交替方向乘子法($ADMM$), 它将目标函数拆分为两个子问题,利用交替优化的方式同时实现整体优化目标，也有学者直接直接扩展$ADMM$算法,使其能够解决包含三个或者三个以上可分离算子的优化问题\cite{kraning2013dynamic},\cite{liu2019linearized}. 但$ADMM$直接扩展的收敛性对于不同的问题有不同的结果,{\color{red}加文献支撑}学者引入高斯反代入法，在预测环节后添加修正策略.然而,额外的校正步骤将导致大量的额外计算
+%\cite{he2012alternating}.The commonly used distributed optimization algorithm is the Alternating Direction Multiplier Method ($ADMM$), which splits the objective function into two sub-problems, and uses alternating optimization to achieve the optimal goals for both problems at the same time,thereby achieving the overall optimization goal. Some scholars also directly extend the $ADMM$ algorithm so that it can solve optimization problems containing three or more separable operators [31,32], but the convergence of the direct extension of $ADMM$ has different results for different problems, and the convergence is not able to be determined. In order to solve the convergence problem, some scholars have introduced the Gaussian back-substitution method to add a correction strategy after the prediction link. However, the additional correction steps will bring difficulties to some applications of the model. On the one hand, it will destroy the original data. On the other hand, the correction steps required to solve large-scale optimization problems will lead to a large amount of additional calculations [33].
+
+
+%
+%\bl{而传统ADMM方法来求解有序充电问题力不从心}
+%针对大规模电动汽车有序充电车主隐私泄露和约束描述困难的问题,提出了一种分布式优化方法.本文建立了一个通过动态电价引导下的电动汽车有序充电策略,以削峰填谷为目标,很好地实现了电网、充电站和用户的共赢.同时确保电动汽车充电成本最低、满意度最高.采用改进的ADMM 分布式优化方法对电动汽车充电进行实时优化.通过每次迭代中两个实体之间少量的信息传递,实现各个实体优化目标的并行求解.通过实际电网验证了本文建立的分布式优化模型的可行性和算法的收敛性.
+
+%此外,除了本文提出的改进ADMM方法的分布式优化算法之外，许多论文还提出了基于博弈方法\cite{shakerighadi2018},\cite{tan2015real},\cite{zhao2017real},遗传算法\cite{khaki2019hierarchical},\cite{qi2014hierarchical}等其他优化算法，解决与电动汽车充电协调相关的问题。参考文献\cite{shakerighadi2018}开发了一种新的三级博弈理论方法.用于电动汽车和电动汽车充电站的能座位源管理.在\cite{khaki2019hierarchical}中，应用ADMM方法的分布式方法被用来处理作为具有耦合约束的交换问题而发展的分层分布式电动汽车充电调度.{\color{red}然而,这些工作在计算方法上度没有考虑并行求解}Furthermore, besides the proposed hierarchical algorithm based on ADMM in this work, many papers have also proposed other hierarchical algorithms based on game approaches [24]–[26], ADMM [27], heuristic methods [28], \cite{xia2019hierarchical} and other approaches [30], [31], to solve the problem related to the EV charging coordination. Reference [24] developed a new tri-level game theoretical approach for energy management of EVs and EV charging stations. In [27], a distributed manner by applying ADMM method was used to deal with the hierarchical distributed EV charging scheduling developed as the exchange problem with coupling constraints.Reference \cite{hu2016preventing} considered the market-based control and price-based control into the hierarchical EVs’ management system. Reference \cite{yang2019novel} proposed a search-swapping algorithm in the hierarchical coordinated framework to achieve power dispatch with near-optimal solutions guaranteed. However,these works didn’t consider the need of EV fast charging in the modeling process.
+
+%{\color{red}以分布式引出本文的问题框架}
+
+%在这项工作中,我们通过个人总充电时间来表达用户快速充电的愿望.充电时间越短,表明用户快充意愿越强.基于期望的充电期限,我们有动机建立一个电动汽车协调问题来确定合适的充电时间和速率,即满足快速充电需求,减轻电池退化并避免电池过载的充电策略.我们针对\cite{ma2015distributed}中导出的充电功率应用了二次形式的退化成本模型.因此,电动汽车协调问题最小化了电动汽车用户满意度、负载调节、电池退化成本和总充电时间之间的权衡,它建模了一个不可分离的目标函数,即它不能写成求和形式个人目标.此外,馈线的容量限制吸引了各个电动汽车之间充电策略的耦合空间约束,并且还解决了跨时间约束,使得每个电动汽车的总充电功率具有与初始SOC和电池尺寸相关的上限.这些都给以去中心化的方式解决优化问题带来了挑战.In this work, we express the desire of fast charging of users by individual total charging time. The shorter the charging horizon is the stronger willing of fast charging the user has.Based on the desired charging horizon, we are motivated to
+%establish an EV coordination problem to determine the proper charging time and rate, i.e., the charging strategy to satisfy the need of fast charging, and mitigate the degradation of batteries and avoid the overload of the distribution network.We apply a quadratic form of the degradation cost model with  respect to the charging power derived in[8].Consequently,the EV coordination problem minimizes the tradeoff among the EV users’ satisfaction, the load regulation, the battery degradation cost and the total charging time, which models a non-separable objective function, i.e., it cannot be written as a summation form of individual objectives. Moreover, capacity
+%limits of feeder lines draw coupling spatial constraints of charging strategies among individual EVs, and inter-temporal constraints are also addressed such that the total charging power of each EV has an upper limit associated with initial SOC and battery size. All these bring challenges to solve the optimization problem in a decentralized way.
+
+%{\color{red}解决分布式的分布式优化主要介绍工程背景下的ADMM应用以及引出本文的改进ADMM方法}
+
+%关于电动汽车充电分散协调的研究非常丰富,参见\cite{ghavami2016dece},\cite{koshal2011multiuser} \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed},\cite{ma2017charging} 及其参考文献.在\cite{koshal2011multiuser}中,它提出了一种分散正则化原始对偶投影方案来解决具有不可分离目标和约束的多用户问题,但该方法可能会给最优解带来一定的误差.\cite{ghavami2016dece}, \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed},中的这些工作采用了一定的偏差惩罚成本来替代馈线过载约束,但应用具有松弛参数的拉格朗日乘子可能会违反馈线容量,这可调度模型通过拉格朗日松弛分解为分布式优化模型,实现对各个电动汽车聚合器(EVA)的并行控制.为了解决优化过程中参数对称性引起的振荡,我们提出了一种基于扰动函数的收敛加速算法,扰动函数是一种随机分布函数,用于在可接受的计算误差范围内打破参数对称性. Researches in decentralized coordination of EV charging are abundant,see[10],[12]–[16]and the reference therein. In [12],it developed a decentralized regularized primal-dual projection scheme to solve the multiuser problems with non-separable objective and constraints, while this method might introduce certain errors to the optimal solution. These works in [10],[13]–[15] adopted certain deviation penalty costs to substitute the feeder overload constraints, but the feeder capacity might be violated by applying the Lagrangian multipliers with slack parameters which could result in suboptimal solutions. The gradient projection-based method in [16] could handle the charging control problem of EVs with hard constraints of the feeder capacity, but the implemented solution might not be the system optimal solution.
+
+\bl{本文的解决问题的主要思路}
+The primary objective of this paper is to present a decoupling algorithm for ADMM that enables parallel computation without significantly compromising convergence speed.
+This paper introduces refinements to the original ADMM method, addressing the increasing demand for parallel computation and presenting a comprehensive solution to challenges associated with large-scale electric vehicle (EV) coordinated charging. To achieve this, we ingeniously decouple the initially intertwined multi-objective optimization problem into N+1 sub-problems, where N represents the number of electric vehicles involved. This strategic decoupling allows for the deployment of distributed parallel computation, significantly enhancing computational efficiency. 
+The solutions to these sub-problems are meticulously aggregated and harmonized through Lagrangian multipliers, providing an effective coordination mechanism. This iterative process continues until reaching an acceptable error threshold, signifying the completion of iterations. To bolster the convergence speed, a proximity term is introduced, ensuring a more rapid and robust convergence. 
+Notably, our approach successfully addresses challenges related to large-scale electric vehicle coordinated charging, including privacy concerns for EV owners and difficulties in accurately describing constraints. This accomplishment is pivotal in achieving a mutually beneficial outcome for the power grid, charging stations, and users, effectively balancing the interests of all stakeholders. The carefully orchestrated parallelized sub-problems, coupled with the coordination mechanism, not only enhance computational speed but also contribute to a scalable and adaptable solution. 
+In short, our refined ADMM method not only improves computational efficiency but also navigates the complexities of large-scale electric vehicle coordination, ensuring privacy preservation and overcoming constraint description challenges. This achievement is a significant stride toward a win-win scenario for the power grid, charging stations, and users.
+
+\bl{本文的主要贡献}
+The contributions of this article are outlined as follows:
+\begin{enumerate}
+  \item Proposing a Sparse Mathematical Model-Based Distributed Framework for Electric Vehicle (EV) Management:
+We introduce a distributed framework for electric vehicle management based on a sparse mathematical model. By employing a method that decouples the originally tightly coupled issues into solutions for multiple sub-problems, the efficiency in handling system complexity is significantly improved. This approach enhances the interpretability of electric vehicle scheduling problems.
+  \item Enhancing Convergence Speed with an Improved ADMM Algorithm:
+To address the slow convergence of sparse models, this paper introduces an enhanced Alternating Direction Method of Multipliers (ADMM) algorithm. We extend the classical ADMM method into multiple block Jacobi forms and incorporate a proximal term. This ensures not only parallel solvability but also higher convergence compared to the classical ADMM method. The convergence rate improves from $O(1/k)$ to $o(1/k)$.
+\end{enumerate}
+
+The remaining structure of this article is as follows. The section 2 presents the mathematical models for the distribution network and electric vehicle charging infrastructure. In the third section, we define a general ***** optimization problem and propose the improved ADMM framework. Additionally, ***** are developed. The fourth section presents simulation results, validating the effectiveness of the proposed ****** model by defining various performance metrics. Finally, the conclusion is provided in the fifth section.
+
+%The contributions of this article are as follows:
+%
+%1.提出了一种基于稀疏数学模型的电动汽车分布式框架,通过将原先紧密耦合的问题分解为多个子问题的解耦方法,显著提升了系统处理复杂性的效率,增强了电动汽车调度问题的可解释性.
+%
+%2.为了解决稀疏化模型收敛速度慢,本文引入了改进的ADMM算法,将经典的ADMM方法扩展为多块雅可比形式,并添加了近端项,这样不仅保证可以并行求解而且保证收敛性更高,相比经典ADMM方法,收敛阶速度从O(1/k)提升到o(1/k).
+%
+%
+%
+%在本文的其余结构如下.第二部分介绍了用于配电网络和电动汽车充电基础设施的数学模型.在第三节中,定义了一般的*****优化问题,并提出了所提出的改进ADMM框架.此外,还开发了******,第四节介绍了仿真结果,并通过定义各种性能指标验证了所提出的******模型的有效性.最后,第五节给出了结论.
 
 \section{Descriptions}
 \subsection{EV distributed optimization framework }
@@ -639,7 +667,7 @@ We calculated the decay rates of the primal and dual errors separately during th
 \cite{disone}
 
 
-%\begin{thebibliography}{1}
+\begin{thebibliography}{1}
 %
 %\bibitem{ams}
 %{\it{Hu, Yang, et al.}} Optimization of orderly charging strategy of electric vehicle based on improved alternating direction method of multipliers. Journal of Energy Storage 55 (2022): 105483.
@@ -651,10 +679,10 @@ We calculated the decay rates of the primal and dual errors separately during th
 %\bibitem{mmt}{\it{More Math into LaTeX}}, by G. Gr\"atzer
 %
 %%\bibitem{amstyle}{\it{AMS-StyleGuide-online.pdf,}} published by the American Mathematical Society
-%\bibitem{xftgo}
-%Zhou, Kaile, et al.``A coordinated charging scheduling method for electric vehicles considering different charging demands`` \textit{Energy} 213 (2020): 118882.
-%\bibitem{xftgt}
-%Liu, Lu, and Kaile Zhou.``Electric vehicle charging scheduling considering urgent demand under different charging modes.``\textit{Energy} 249 (2022): 123714.
+\bibitem{xftgo}
+Zhou, Kaile, et al.``A coordinated charging scheduling method for electric vehicles considering different charging demands`` \textit{Energy} 213 (2020): 118882.
+\bibitem{xftgt}
+Liu, Lu, and Kaile Zhou.``Electric vehicle charging scheduling considering urgent demand under different charging modes.``\textit{Energy} 249 (2022): 123714.
 %\bibitem{Sira3}
 %H. Sira-Ramirez. ``On the sliding mode control of nonlinear systems,'' \textit{Systems \& Control Letters}, vol. 19, pp. 303--312, 1992.
 %
@@ -680,7 +708,7 @@ We calculated the decay rates of the primal and dual errors separately during th
 %
 %\bibitem{lalangsongchi}
 %Chen, Weijia, et al.``Exploring Symmetry-Induced Divergence in Decentralized Electric Vehicle Scheduling.``\textit{IEEE Transactions on Industry Applications}(2023).
-%\end{thebibliography}
+\end{thebibliography}
 %
 %\begin{IEEEbiographynophoto}{Jane Doe}
 %Biography text here without a photo.
