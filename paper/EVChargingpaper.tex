@@ -57,43 +57,29 @@
 \maketitle
 
 \begin{abstract}
-This paper presents a three-layer hierarchical dis-
-tributed framework for optimal electric vehicle charging schedul-
-ing (EVCS). The proposed hierarchical EVCS structure includes
-a distribution system operator (DSO) at the top layer, electric
-vehicle aggregators (EVAs) at the middle layer, and electric
-vehicles (EVs) charging stations at the bottom layer. A single-
-loop iterative algorithm is developed to solve the EVCS problem
-by combining the alternating direction method of multipliers
-(ADMM) and the distribution line power flow model (DistFlow).
-Using the single-loop structure, the primal variables of all
-agents are updated simultaneously at every iteration resulting
-in a reduced number of iterations and faster convergence. The
-developed framework is employed to provide charging cost
-minimization at the EV charging stations level, peak load shaving
-at the EVAs level, and voltage regulation at the DSO level. In
-order to further improve the performance of the optimization
-framework, a neural network-based load forecasting model is
-implemented to include the uncertainties related to non-EV
-residential load demand. The efficiency and the optimality of
-the proposed EVCS framework are evaluated through numerical
-simulations, conducted for a modified IEEE 13 bus test feeder
-with different EV penetration levels.
+With the rapid proliferation of electric vehicles (EVs), the challenges of integrating their charging demands into the power grid have intensified. This paper addresses the imperative of orderly EV charginga multi-objective optimization problem that balances grid stability, cost-efficiency, and user convenience. We propose a dual-pronged solution that encompasses the development of a sparse mathematical model-based distributed framework for EV management and an improved Alternating Direction Method of Multipliers (ADMM) algorithm. The framework facilitates the decoupling of complex charging coordination problems into multiple sub-problems, enhancing system interpretability and computational efficiency. The refined ADMM algorithm, with its multiple block Jacobi forms and the inclusion of a proximal term, not only allows for parallel computation but also achieves superior convergence rates, improving from $O(1/k)$ to $o(1/k)$. Simulation results confirm the efficacy of our model in managing large-scale EV charging coordination, ensuring grid stability, and offering a scalable, privacy-preserving solution for EV users and operators. This study contributes to the advancement of smart grid technology by providing a robust mechanism for accommodating the burgeoning EV charging demand while maintaining grid integrity and optimizing user experience.
 \end{abstract}
 \begin{IEEEkeywords}
-Class, IEEEtran, \LaTeX, paper, style, template, typesetting.
+Electric Vehicle Charging, Orderly Charging, Power Grid Stability, Multi-Objective Optimization, ADMM, Distributed Framework, Convergence Rate, Smart Grid.
 \end{IEEEkeywords}
 
 
 \section{Introduction}
 \bl{有序充电问题的重要性}
-The surge in electric vehicle (EV) adoption is attributable to the swift advancement in EV technology and the escalation of gasoline prices. This phenomenon signifies the expansive potential and pronounced societal penetration impact associated with the development of EVs. Unquestionably, the stochastic nature and instability inherent in the widespread integration of EVs into the grid are anticipated to exert influence on the optimal operation and dispatch of the grid, constituting a notable challenge \cite{li2018gis,wang2020stochastic}.
+As the number of electric vehicles (EVs) continues to climb, the importance of  Orderly
+Charging becomes increasingly paramount. The surge in EV adoption is a direct result of swift advancements in EV technology coupled with rising gasoline prices. This trend underscores the vast potential and significant societal impact that EV development is poised to deliver. However, the stochastic and unstable nature of integrating EVs into the power grid is expected to challenge the grid's optimal operation and dispatch, presenting a noteworthy hurdle \cite{li2018gis,wang2020stochastic}.
+The cornerstone for surmounting this challenge lies in the deployment of coordinated charging scheduling method for electric vehicles. This method serves to facilitate seamless information exchange among grid operators, aggregator entities, and electric vehicle users, thereby ensuring the secure operation of the grid and reducing economic costs.
+
 %电动汽车的快速普及对电网安全构成挑战,充电不确定性可能导致峰谷电荷波动,影响电压的稳定性,甚至给输电线路带来负担\cite{li2018gis}-\cite{wang2020stochastic}.The increased use of EVs has been prompted by the rapid development of EV technology and the rise in gasoline prices, indicating that the development of EVs has broad prospects and a strong penetration effect. on human society. Without a doubt, the randomness and instability of large-scale EV grid access will have an impact on the grid's optimal operation and dispatch, which is viewed as a major challenge [1,2].
-The key to addressing this issue is the implementation of \rd{Coordinated Charging Scheduling Method} for electric vehicles. This method serves to facilitate seamless information exchange among grid operators, aggregator entities, and electric vehicle users, thereby ensuring the secure operation of the grid and reducing economic costs.
-%解决这一问题的关键在于引导电动车有序充电,{\color{red}同时协调电网运营商、聚合商和电动汽车用户信息传递}.以确保电网安全运行并降低经济成本\cite{xftgo}-\cite{xftgt}.
+%解决这一问题的关键在于引导电动车有序充电,{\color{red}同时协调电网运营商、聚合商和电动汽车用户信息传递}.以确 保电网安全运行并降低经济成本\cite{xftgo}-\cite{xftgt}.
+
+
+The orderly charging issue for electric vehicles (EVs) is inherently a multi-objective optimization problem that requires a delicate balance between various competing factors. 
+First and foremost, the stability of the power grid is a critical factor as the burgeoning number of electric vehicles contributes to substantial and erratic demand. Without judicious coordination and control, this surge in consumption could precipitate fluctuations in grid performance, potentially triggering widespread power disruptions or necessitating costly enhancements to existing electrical infrastructure. Secondly, the cost of charging for EV users should also be taken into account. This aspect is crucial as it directly affects the adoption rate of electric vehicles and the willingness of consumers to engage with smart charging practices. Lastly, the convenience of the charging process must not be overlooked. Through judicious coordination, it is feasible to ensure that every EV user can recharge their vehicle without excessive waiting times, thus streamlining the user experience.  The optimization variables involved in addressing this problem are highly interconnected, which adds a layer of complexity to finding efficient solutions.
+
 
 \bl{目前的主要研究方法及其不足}
-The implementation of orderly charging for electric vehicles can be broadly categorized into two methods: centralized \cite{nimalsiri2021coordinated, de2014optimal} and distributed \cite{kennel2012energy,liu2017decentralized,zhang2016scalable,zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm} approaches. The former involves the collection of all relevant parameters, entrusted to a single entity for centralized computation. The latter, on the other hand, enables parallel computation through multiple agents \cite{nimalsiri2019survey}, requiring limited information exchange for collaborative computation. Consequently, distributed methods exhibit higher computational efficiency and scalability. They can coordinate larger groups of electric vehicles across the entire distribution network while providing more choices for electric vehicle customers during the decision-making process.
+The approach for solving the numerous EV coordinated charging models can be broadly classified into two distinct categories: centralized \cite{nimalsiri2021coordinated, de2014optimal} and distributed \cite{kennel2012energy,liu2017decentralized,zhang2016scalable,zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm} approaches. The former involves the collection of all relevant parameters, entrusted to a single entity for centralized computation. The latter, on the other hand, enables parallel computation through multiple agents \cite{nimalsiri2019survey}, requiring limited information exchange for collaborative computation. Consequently, distributed methods exhibit higher computational efficiency and scalability. They can coordinate larger groups of electric vehicles across the entire distribution network while providing more choices for electric vehicle customers during the decision-making process.
 Indeed, there is a wealth of research on the decentralized coordination of electric vehicle charging \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}. However, it is crucial to note that the methods mentioned above, including \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}, require a central coordinator (or aggregator), leading to partial distributed optimization. Specifically, these methods necessitate a communication network where all information is transmitted through the aggregator to the electric vehicles, resulting in substantial communication overhead. Hence, the Alternating Direction Method of Multipliers (ADMM) has garnered extensive attention and research as a \rd{fully distributed approach} over the long term.
 
 %研究人员探索了用于电动汽车有序充电的协调方法,可分为集中式\cite{nimalsiri2021coordinated},\cite{de2014optimal} 和分布式\cite{kennel2012energy},\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage} \cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 方法.收集所有相关参数,由单个实体执行中央计算的方案为称为集中式控制方案.{\color{red}分布式通过多个代理进行能够通过有限的信息交换执行共享和并行计算\cite{nimalsiri2019survey}.(查分布式的定义)}因此,分布式方法具有更高的计算效率和可扩展性,可以在整个配电网中协调更多的电动汽车群体,同时还可以在决策过程中为电动汽车客户提供更多选择.事实上,关于电动汽车充电分散协调的研究非常丰富\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}.然 而\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 中的这些方法需要有中央协调器(或聚合器)这导致部分分布式优化.具体来说,这些方法需要一个通信网络,其中所有信息都通过聚合器传输到电动汽车,从而导致大量的通信开销.
@@ -101,7 +87,7 @@ Indeed, there is a wealth of research on the decentralized coordination of elect
 
 \bl{分布式的最优解也是一个挑战}
 Research on decentralized coordination of Electric Vehicle (EV) charging poses significant challenges. Despite the abundance of studies in this domain, as evidenced by references such as [10], [12]–[16], and others cited therein, achieving an optimal solution remains a complex task.
-In [12], a decentralized regularized primal-dual projection scheme was proposed to address multiuser problems with non-separable objectives and constraints. However, it is noteworthy that this method may introduce certain errors to the optimal solution. Similarly, works in [10], [13]–[15] explored the use of deviation penalty costs to replace feeder overload constraints. While this approach has its merits, the application of Lagrangian multipliers with slack parameters raises concerns about potential violations of feeder capacity, leading to suboptimal solutions.
+In [12], a decentralized regularized primal-dual projection scheme was proposed to address multiuser problems with non-separable objectives and constraints. However, it is noteworthy that this method may introduce certain errors to the optimal solution. Similarly, works in [10], [13] –[15] explored the use of deviation penalty costs to replace feeder overload constraints. While this approach has its merits, the application of Lagrangian multipliers with slack parameters raises concerns about potential violations of feeder capacity, leading to suboptimal solutions.
 In [16], a gradient projection-based method was introduced to handle the charging control problem of EVs with hard constraints on feeder capacity. Despite its capability to address these constraints, there is a caveat: the implemented solution might not necessarily be the system's optimal solution. Hence, navigating the decentralized coordination of EV charging demands careful consideration of the trade-offs and limitations associated with existing methodologies. The aforementioned studies provide valuable insights, yet there remains a need for further exploration and refinement to achieve more robust and optimal decentralized coordination solutions in the realm of EV charging.
 
 
