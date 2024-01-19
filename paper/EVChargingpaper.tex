@@ -79,13 +79,13 @@ The cornerstone for surmounting this challenge lies in the deployment of coordin
 The orderly charging issue for EVs is inherently a multi-objective optimization problem that requires a delicate balance between various competing factors.
 First and foremost, the stability of the power grid is a critical factor as the burgeoning number of electric vehicles contributes to substantial and erratic demand. Without judicious coordination and control, this surge in consumption could precipitate fluctuations in grid performance, potentially triggering widespread power disruptions or necessitating costly enhancements to existing electrical infrastructure. Secondly, the cost of charging for EV users should also be taken into account.
 This factor is pivotal, as it significantly influences the uptake of electric vehicles within the constraint of a fixed power supply and shapes consumer readiness to participate in intelligent charging processes.
-Lastly, the convenience of the charging process must not be overlooked. Through judicious coordination, it is feasible to ensure that every EV user can recharge their vehicle without excessive waiting times, thus streamlining the user experience.  
+Lastly, the convenience of the charging process must not be overlooked. Through judicious coordination, it is feasible to ensure that every EV user can recharge their vehicle without excessive waiting times, thus streamlining the user experience.
 \emph{Unfortunately}, the optimization variables involved in addressing this problem are highly interconnected, which adds a layer of complexity to finding efficient solutions.
 
 
 %\bl{The main methods of solving this model and the shortcomings of the methods}
 The approach for solving the numerous EV coordinated charging models can be broadly classified into two distinct categories: centralized \cite{nimalsiri2021coordinated, de2014optimal} and distributed \cite{kennel2012energy,liu2017decentralized,zhang2016scalable,zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm} approaches. The former involves the collection of all relevant parameters, entrusted to a single entity for centralized computation. The latter, on the other hand, enables parallel computation through multiple agents \cite{nimalsiri2019survey}, requiring limited information exchange for collaborative computation. Consequently, distributed methods exhibit higher computational efficiency and scalability. They can coordinate larger groups of electric vehicles across the entire distribution network while providing more choices for electric vehicle customers during the decision-making process.
-Indeed, there is a wealth of research on the decentralized coordination of electric vehicle charging \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}. However, it is crucial to note that the methods mentioned above, including \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}, require a central coordinator (or aggregator), leading to partial distributed optimization. Specifically, these methods necessitate a communication network where all information is transmitted through the aggregator to the electric vehicles, resulting in substantial communication overhead. 
+Indeed, there is a wealth of research on the decentralized coordination of electric vehicle charging \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}. However, it is crucial to note that the methods mentioned above, including \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}, require a central coordinator (or aggregator), leading to partial distributed optimization. Specifically, these methods necessitate a communication network where all information is transmitted through the aggregator to the electric vehicles, resulting in substantial communication overhead.
 
 %研究人员探索了用于电动汽车有序充电的协调方法,可分为集中式\cite{nimalsiri2021coordinated},\cite{de2014optimal} 和分布式\cite{kennel2012energy},\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage} \cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 方法.收集所有相关参数,由单个实体执行中央计算的方案为称为集中式控制方案.{\color{red}分布式通过多个代理进行能够通过有限的信息交换执行共享和并行计算\cite{nimalsiri2019survey}.(查分布式的定义)}因此,分布式方法具有更高的计算效率和可扩展性,可以在整个配电网中协调更多的电动汽车群体,同时还可以在决策过程中为电动汽车客户提供更多选择.事实上,关于电动汽车充电分散协调的研究非常丰富\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}.然 而\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 中的这些方法需要有中央协调器(或聚合器)这导致部分分布式优化.具体来说,这些方法需要一个通信网络,其中所有信息都通过聚合器传输到电动汽车,从而导致大量的通信开销.
 %Several researchers have explored coordinated EV charging approaches for voltage regulation that can be classified into centralized [2], [3] and distributed [4], [5], [6], [7], [8], [9],[10], [11] approaches. Rather than collecting information centrally for computation, distributed approaches enable multiple agents to perform shared and parallel computations via limited information exchange [12]. As such, distributed approaches are more computationally efficient and scalable, allowing for larger EV populations to be coordinated across the distribution grid,while also empowering EV customers in the decision-making process.
@@ -93,8 +93,8 @@ Indeed, there is a wealth of research on the decentralized coordination of elect
 
 
 %\bl{Pointing out that the main methodology of this paper is ADMM, and further elaborating on ADMM}
-In this paper, we address the coordinated charging problem by employing the Alternating Direction Method of Multipliers (ADMM) as the foundational approach. 
-As a fully distributed method, the  ADMM  has gained significant attention over an extended period. 
+In this paper, we address the coordinated charging problem by employing the Alternating Direction Method of Multipliers (ADMM) as the foundational approach.
+As a fully distributed method, the  ADMM  has gained significant attention over an extended period.
 %\bl{尽管ADMM很强，但针对复杂的有序充电问题仍需要改进.}
 Since  the ordered charging problem is a multi-objective and strongly coupled complex optimization issue,  utilizing the traditional ADMM method for its resolution is deemed inefficient and cumbersome.
 Indeed, the ordered charging problem encompasses numerous optimization objectives, leading to the development of various models catering to distinct requirements (such as fast charging models, adjustable electricity pricing models, etc.). This study considers a mathematical model that balances the interests of charging users (e.g.,electricity cost and charging satisfaction) with power grid stability and safety (e.g.,peak-shaving of power grid). Achieving a balance among these diverse optimization objectives is facilitated by adjusting the charging power of each electric vehicle at different time intervals. It is noteworthy that the optimization objectives for power grid stability are intricately coupled with the interests of charging users. This intricacy poses a challenge for parallel computation in distributed ADMM algorithms. Conventional decoupling methods often compromise the inherent convergence speed of the ADMM algorithm. Consequently, the challenge is to propose an effective decoupling algorithm that simultaneously preserves convergence speed without significant degradation.
@@ -145,7 +145,8 @@ We introduce a distributed framework for electric vehicle management based on a 
 To address the slow convergence of sparse models, this paper introduces an enhanced Alternating Direction Method of Multipliers (ADMM) algorithm. We extend the classical ADMM method into multiple block Jacobi forms and incorporate a proximal term. This ensures not only parallel solvability but also higher convergence compared to the classical ADMM method. The convergence rate improves from $O(1/k)$ to $o(1/k)$.
 \end{enumerate}
 
-The remaining structure of this article is as follows. The second section  presents the mathematical models for the distribution network and electric vehicle charging infrastructure. In the third section, we define a general \rd{*****} optimization problem and propose the improved ADMM framework. Additionally, \rd{*****}  are developed. The fourth section presents simulation results, validating the effectiveness of the proposed \rd{*****}  model by defining various performance metrics. Finally, the conclusion is provided in the fifth section.
+The rest of the paper is structured as follows. In Section II,we propose the mathematical models for the distribution network and EV orderly charging scheduling.In Section III,we propose an improved ADMM method to solve the underlying problem, We then verify the convergence and optimality of the proposed algorithm.Numerical examples are shown in Section V to demonstrate the results developed in the paper. Finally, conclusions and future research directions are given in Section VI.
+
 
 %The contributions of this article are as follows:
 %
@@ -157,18 +158,22 @@ The remaining structure of this article is as follows. The second section  prese
 %
 %在本文的其余结构如下.第二部分介绍了用于配电网络和电动汽车充电基础设施的数学模型.在第三节中,定义了一般的*****优化问题,并提出了所提出的改进ADMM框架.此外,还开发了******,第四节介绍了仿真结果,并通过定义各种性能指标验证了所提出的******模型的有效性.最后,第五节给出了结论.
 
-\section{Descriptions}
+\section{EV MODEL CONSTRUCT}
 \subsection{EV distributed optimization framework }
-\noindent \rd{ 在该模型中,电动汽车(EV)用户在将其电动汽车连接到充电站时,将其充电需求信息上传到聚合器.随后,每辆电动汽车的充电时间表会被发回给相应的电动汽车用户.充电需求信息包括到达时间$t_i^c$, 以及车辆连接到充电站时的充电状态(SOC), 表示为$SOC_c$. 每辆电动汽车的预期$SOC$值称为$SOC_d$.协调充电调度流程如图1所示.在所提出的电动汽车充电调度模型中,充电状态是一个状态变量,被定义为反映电动汽车是否在某个时间段充电.所提出的协调充电调度方法的目标是最小化EV 用户的充电成本,微电网的峰谷负荷差异.
+\noindent \rd{ 
+In this model, EV users upload their charging demand information to the aggregator when they connect their EVs to charging piles. Charging plan of each EV will then be sent back to EV users.The charging demand information include arrival time $t_i^c$,predefined departure time $t_i^d$,the SOC when connecting to charging piles$SOC_i^c$
+and the expected SOC called $SOC_i^d$ of each EV. The coordinated charging scheduling process is shown in Fig. 1.
 
-基于收集到的信息,可以实现协调充电调度方法.第一步是设置时隙的长度和数量,接下来,EV到达时间和出发时间被归一化为时隙.为了简化充电模型的协调和调度,连续时间被划分为多个时隙,每个电动汽车的充电状态在一个时隙内保持不变.调度计划通常按时段执行,以提高效率.调度时间被分为多个时隙.在拟议的电动汽车充电调度模型中,整个时间段被划分为$96$ 个时隙,每个时隙的持续时间为$15$分钟.电动汽车$i$的时隙代表到达时间和离开时间,计算公式如下}
+In the scheduling process, the scheduling plan is usually executed by period of time for improving execution efficiency. The scheduling time is divided into several time periods. In the proposed EV charging scheduling model, a day is discretized into 96 time slots and the length of a time slot is 15 min. Then, the arrival
+time and departure time of each EV can be are expressed as:
+}
 \begin{align}\label{time1}
 I_i^c=[\frac{t_i^c}{\Delta T}],i=1,2,...,N.
 \end{align}
 \begin{align}\label{time2}
 I_i^{d}=[\frac{t_i^d}{\Delta T}],i=1,2,...,N.
 \end{align}
-其中$I_i^c$represents the time slot when the$i-th$electric vehicle is connected to the charging station,while $I_i^d$ represents the time slot when the $i-th$electric vehicle departs.$t_i^c$ and $t_i^d$represent the arrival time and scheduled departure time of the $EV i$,respective.$\lceil\frac{t_i^c}{\bigtriangleup t}\rceil$is the smallest positive integer greater than or equal to $\frac{t_i^c}{\bigtriangleup t}$,while$\lceil\frac{t_i^d}{\bigtriangleup t}\rceil$ is the smallest positive integer greater than or equal to$\frac{t_i^d}{\bigtriangleup t}$.
+Where $I_i^c$represents the time slot when the$i-th$electric vehicle is connected to the charging station,while $I_i^d$ represents the time slot when the $i-th$electric vehicle departs.$t_i^c$ and $t_i^d$represent the arrival time and scheduled departure time of the $EV i$,respective.$\lceil\frac{t_i^c}{\bigtriangleup t}\rceil$is the smallest positive integer greater than or equal to $\frac{t_i^c}{\bigtriangleup t}$,while$\lceil\frac{t_i^d}{\bigtriangleup t}\rceil$ is the smallest positive integer greater than or equal to$\frac{t_i^d}{\bigtriangleup t}$.
 
 \begin{table}[htbp]
 	\centering
@@ -218,12 +223,15 @@ The constraints satisfy the following form:
 \begin{align}
 (1-x_{n,t})p_{n,t}=0
 \end{align}
-Electric vehicles with urgent charging needs may not be able to obtain sufficient charge due to their short connection time. Therefore, the state of chargeTherefore, the state of charge (SOC)at the end of their charging period, denoted as$SOC_n^{end}$, may differ from the desired SOC, represented as $SOC_n^d$
+Electric vehicles with urgent charging needs may not be able to obtain sufficient charge due to their short connection time. Therefore, the state of charge Therefore, the state of charge (SOC)at the end of their charging period, denoted as$SOC_n^{end}$, may differ from the desired SOC, represented as $SOC_n^d$
 \begin{align}\label{SOCcondition}
 &SOC_n^{end}=min\{SOC_i^C+\frac{p_{n,t}\cdot\bigtriangleup t\times \eta_n}{C_n},SOC_i^d\}\\
-&SOC_n^{min}\leq SOC_{n,t}\leq SOC_N^{max}
+&SOC_n^{min}\leq SOC                                                                                    _{n,t}\leq SOC_N^{max}
 \end{align}
 where $\eta$ represents the charging energy conversion efficiency of$EV n$.
+
+
+\rd{这部分我要重新写,我明天写！今天没时间了
 \subsection{Objective Function Optimization}
 %\rd{决策变量是什么？$p_{n,1}$ 的具体意义是什么？}
 When electric vehicle users require charging, they tend to prefer efficient charging and aim to complete the charging process as quickly as possible within the designated timeframe. However, such preferences can lead to charging imbalances. Charging imbalances may give rise to new demand peaks, making it necessary to adopt the peak shaving and valley filling method mentioned in the literature to balance the load of electric vehicles.
@@ -252,7 +260,7 @@ $\mathcal{T}_n$.
 
 3)The third term $h_n(\sum_{n\in\mathcal{N}}p_{n,t})$:It represents the ability of peak shaving and valley filling, which aims to maintain the stability of the total power in the grid. Therefore, we use the variance of the total power to reflect its stability. A smaller variance indicates a more stable grid. The total power includes the total power of electric vehicle charging and the total power of residential electricity consumption (denoted as $B_t$), as shown below:
 \begin{align}
-h(\sum_{n\in\mathcal{N}}p_{nt})=\bl{\frac{1}{T}}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2
+h(\sum_{n\in\mathcal{N}}p_{nt})=\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2
 \end{align}
 The weight parameter $\omega_n\in(0,\omega^{max})$ and $\overline{p}=(\sum_{t\in \mathcal{T}}\sum_{n\in \mathcal{N}}p_{n,t})/T$ 。$\overline{B}=(\sum_{t\in \mathcal{T}}B_{n,t})/T$
 
@@ -286,7 +294,7 @@ The following assumptions apply to the entire article:
 \begin{enumerate}
 \item  is Lipschitz continuous,for all $x$,
 \item $g_n(\cdot)$ is non-decreasing, concave, and Lipschitz continuous,for all$n\in\mathcal{N}$ and all $x$.
-\end{enumerate}
+\end{enumerate}}
 
 
 
