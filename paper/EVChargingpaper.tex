@@ -160,7 +160,7 @@ The rest of the paper is structured as follows. In Section II,we propose the mat
 
 \section{EV MODEL CONSTRUCT}
 \subsection{EV distributed optimization framework }
-\noindent 
+\noindent
 In this model, EV users upload their charging demand information to the aggregator when they connect their EVs to charging piles. Charging plan of each EV will then be sent back to EV users.The charging demand information include arrival time $t_i^c$,predefined departure time $t_i^d$,the SOC when connecting to charging piles$SOC_i^c$
 and the expected SOC called $SOC_i^d$ of each EV. The coordinated charging scheduling process is shown in Fig. 1.
 
@@ -245,7 +245,7 @@ The problem we are facing is how to centrally coordinate the charging of electri
 where each term is specifically explained as below.
 
 1)The first term $f_n(p_{nt})$:it represents the total charging cost for the $EVn$.
-This is a price-guided sequential charging control method, which utilizes market-based control approach. The scheduling authority broadcasts price signals to the demand side and updates them periodically. The architecture diagram for this approach is illustrated in Figure 1. The total charging cost can be calculated as follows:
+This is a price-guided sequential charging control method, which utilizes market-based control approach. The scheduling authority broadcasts price signals to the demand side and updates them periodically. The architecture diagram for this approach is illustrated in Fig. 1. The total charging cost can be calculated as follows:
 \begin{align}
 f_n(p_{n,t})=\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t
 \end{align}
@@ -445,11 +445,7 @@ where $\Phi$,$\Psi$,$\gamma>0$ satisfy
 \end{align}
 
 for $\mu_1>0$,$\mu_2>0$. (\ref{Con1}) is suffucuent for the convergence of the improved ADMM.
-\begin{figure}[!ht]
-   \centering
-    \includegraphics[scale=0.5]{img/fig-baseload.eps}
-   \caption{Typical basic load profile in one-day cycle.}
-\end{figure}
+
 Several viable selections of $\Phi,\Psi$,and $\gamma$ exist that satisfy (\ref{Con1}). For this purpose, a straightforward choice applied here involves setting $\Phi=\phi I$,$\Psi=\psi I$,thereby fulfilling
 \begin{align}\label{con1}
   &\phi\succ \rho(\frac{1}{\mu_1}-1),\psi\succ \rho(\frac{1}{\mu_2}<2-\gamma)\nonumber\\
@@ -460,11 +456,7 @@ Several viable selections of $\Phi,\Psi$,and $\gamma$ exist that satisfy (\ref{C
 
 Remark2：我们提出$Amproved ADMM$ 相对于[Classical] 中的分布式ADMM 的优点如下.首先,[13] 中的ADMM 变量$(P,X,u)$ 必须按顺序更新,类似于经典的集中式ADMM. 这意味着，在迭代 k +1 时,需要首先更新 P 并用它来更新 X, 然后更新$\bm{u}$ 该更新顺序是不可更改的,因此变量不能同时更新.另一方面,我们提出的$Amproved-ADMM$ 算法通过同时以任意顺序更新 $P、X、u$, 显著改进了[Classical] 中的算法.这对于并行和分布式计算加快计算时间非常重要,特别是当代理数量非常大时.其次,并行更新变量的能力使我们提出的DCJ-ADMM 算法的收敛速度为$o(1/k)$, 这明显快于[Classical] 中算法的$O(1/k)$.}
 
-\begin{figure}[!ht]
-   \centering
-    \includegraphics[scale=0.5]{img/fig-price.eps}
-   \caption{TOU electricity price}
-\end{figure}
+
 \subsection{Algorthms}
 
 \noindent If the number of iterations reaches a given threshold $iter_{max}$ or satisfies the following conditions simultaneously~\cite{boyd2011distributed}, then ADMM meets the following criteria:
@@ -488,30 +480,7 @@ where~$\varepsilon^{abs}>0$~is~an~absolute~tolerance~and~$\varepsilon^{rel}>0$~i
 criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Improved -ADMM~is~then~give~in~Algorithm~2.
 Here,
 $$A_n=1, \forall 1\leq n\leq N;\quad A_{N+1}=-1;\quad c=0. $$
-\begin{figure}[!ht]	
-	\begin{minipage}{\linewidth}
-		\vspace{3pt}
-        %这个图片路径替换成你的图片路径即可使用
-		\centerline{\includegraphics[width=\textwidth]{img/fig-error.eps}}
-          % 加入对这列的图片说明
-		\centerline{(a)100EV}
-	\end{minipage}
-	\begin{minipage}{\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{img/fig-error200.eps}}
-	
-		\centerline{(a)200EV}
-	\end{minipage}
-	\begin{minipage}{\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{img/fig-error300.eps}}
-	
-		\centerline{(a)300EV}
-	\end{minipage}
 
-	\caption{Visual comparisons of original models.  }
-	\label{fig4}
-\end{figure}
 \begin{theorem}\label{Th1}
 For $k\geq 1$,we have
 \begin{align*}
@@ -527,71 +496,67 @@ If $Q\succ0$ and $M_x\succeq 0$, then $\|u^k-u^{k+1}\|_M^2=o(1/k)$, however $\|x
 
 
 
+
+
+\section{Results and Discussion}
+In this section, we will present and discuss the experimental results obtained, highlighting a comparative analysis of efficiency between the traditional ADMM algorithm and our proposed approach. The results will shed light on the advantages and potential improvements offered by our approach in terms of optimization results and computational efficiency.
+
+\subsection{Assumptions and Parameter Settings}
+
+For simplicity, we assumed all EVs to be BYD Seagull 305 with the same battery capacity of 30 kWh.
+
+\subsubsection{EV depart and return}
+ \begin{figure}[!ht]
+	\centering
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/arrive.eps}
+		\caption{arrive}
+		\label{arrive}% 文中引用该图片代号
+	\end{minipage}
+	\hfill
+	\begin{minipage}{ \linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/depart.eps}
+		\caption{depart}
+		\label{depart}% 文中引用该图片代号
+	\end{minipage}
+\end{figure}
+ The times for electric vehicles to depart from and return to the grid within a day followed normal distributions of $N(18,3.3^2)$(see Fig. \ref{arrive}) and $N(8,3.24^2)$ (see Fig. \ref{depart}), respectively \cite{liu2022electric}.
+
+\subsubsection{fundamental load data}
+\begin{figure}[!ht]
+   \centering
+    \includegraphics[width=\linewidth]{img/fig-baseload.eps}
+   \caption{Typical basic load profile in one-day cycle.}
+   \label{baseLoad}
+\end{figure}
+In this paper, we consider the fundamental load data following the electricity usage pattern~\cite{zheng2018novel}, and the specific data is illustrated in Fig. \ref{baseLoad}. The typical profile of the basic load curve within a daily-cycle for a regional microgrid can be observed. Peak loads are observed to occur approximately at 6 hours, 10 hours, and 18 hours. The highest observed load is approximately 710.62 kW, while the lowest load recorded is 445.69 kW.
+
+\subsubsection{electric price}
+\begin{figure}[!ht]
+   \centering
+    \includegraphics[width=\linewidth]{img/fig-price.eps}
+   \caption{TOU electricity price}
+   \label{price}
+\end{figure}
+We have set the electricity prices within a day as shown in the Fig. \ref{price}. Two high-priced time periods can be observed, from 9:00 am to 1:00 pm and from 6:00 pm to 10:00 pm. During peak electricity consumption periods, prices are generally higher, which in turn may suppress the desire of electric vehicle users to charge their vehicles. The pricing setup in this paper is similar to that assumed in the literature \rd{\cite{?}}.
+\subsubsection{assume about SOC}
+We assume that the initial state of charge ($SOC_c$) of electric vehicles is uniformly and continuously distributed between 0.1 and 0.3, while the expected charging completion state ($SOC_d$) is uniformly and continuously distributed between 0.7 and 0.9.
+
+
+
+\subsection{Effect of Varying $\rho$ on Convergence Speed}
 \begin{figure}[!ht]
    \centering
     \includegraphics[scale=0.5]{img/fig-RHO.eps}
-   \caption{he convergence of Algorithm 2 under k=1 with respect to different $\rho$ and $\alpha$ }
+   \caption{The convergence of Algorithm 2 under k=1 with respect to different $\rho$}
+   \label{rho}
 \end{figure}
-\begin{figure}[!ht]
-	
-	\begin{minipage}{\linewidth}
-		\vspace{3pt}
-        %这个图片路径替换成你的图片路径即可使用
-		\centerline{\includegraphics[width=\textwidth]{img/fig-error.eps}}
-          % 加入对这列的图片说明
-		\centerline{(a)100EV}
-	\end{minipage}
-    \hfill
-	\begin{minipage}{\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{img/fig-error200.eps}}
-	
-		\centerline{(a)200EV}
-	\end{minipage}
-    \hfill
-	\begin{minipage}{\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{img/fig-error300.eps}}
-	
-		\centerline{(a)300EV}
-	\end{minipage}
-
-	\caption{Visual comparisons of original models.  }
-	\label{fig4}
-\end{figure}
-\section{Results and Discussion}
-\rd{In this section we report and illustrate some experimental results on the performances of the proposed algorithms as
-well as making comparisons with existing algorithms}
-\subsection{Simulation data and settings}
-
-Utilizing the improved ADMM algorithm proposed, we simulated the fundamental load data following the electricity usage pattern~\cite{zheng2018novel}. The simulation results, illustrated in Fig.1, display the typical daily load profile of the regional microgrid in a day-cycle scenario.
+As depicted in Fig. \ref{rho}, the convergence behavior of the improved ADMM algorithm under different $\rho$ conditions is examined. It can be observed from the graph that the convergence is least favorable when $\rho=10$, while it attains optimal convergence when $\rho=0.1$. It is important to note that the convergence does not exhibit a linear improvement with increasing values of $\rho$, nor does it necessarily improve with decreasing values. Instead, an optimal convergence is achieved within a moderate range of $\rho$ values.
 
 
-We've seted up the electricity pricing within a day as showed in Fig.1, showcasing two high-priced periods, namely from 9:00 AM to 1:00 PM and from 6:00 PM to 10:00 PM. During the 6:00 PM to 10:00 PM period, there's a significant reduction in charging load, while there's a slight increase in charging load from 9:00 AM to 1:00 PM. Overall, there's a decrease in charging load during the high-priced periods. Additionally, a smaller peak load interval has formed. Basic load data was simulated based on usage patterns. The simulation results, illustrated in Figure 2, demonstrate the typical profile of the basic load curve for a regional microgrid within a daily cycle. Peak loads occur approximately at 6 hours, 10 hours, and 18 hours. The highest observed load is 710.62 kW, while the lowest load is 445.69 kW \cite{liu2022electric}.
-
-To validate the effectiveness of the coordinated charging scheduling model, we established a distributed framework based on the aggregation of grid and electric vehicle loads. We employed an enhanced alternating direction multiplier method to solve the model and conducted simulation experiments. These experiments involved the use of different quantities of EVs (i.e., 100, 200, 300) for comparative analysis. The state of charge ($SOC_c$) for varying numbers of electric vehicles followed a continuous uniform distribution between 0.1 and 0.3, while $SOC_d$ followed a continuous uniform distribution between 0.7 and 0.9. Additionally, the times for electric vehicles to depart from and return to the grid within a day followed normal distributions of $N(18,3.3^2)$ and $N(8,3.24^2)$, respectively \cite{liu2022electric}. For simplicity, we assumed all EVs to be BYD Seagull 305 with the same battery capacity of 30 kWh.
-
-%\begin{figure}
-%   \centering
-%    \includegraphics[width=9cm]{img/fig-baseload.eps}
-%   \caption{一天的典型基本负荷曲线}
-%\end{figure}
-
-As show in Fig.3, the convergence of the ADMM algorithm with different $\rho$ enhancements. It is evident from the graph that the convergence is poorest when $\rho=10$, whereas it is optimal when $\rho=0.1$. The convergence doesn't uniformly improve with larger values of $\rho$, nor does it necessarily improve with smaller values; rather, an optimal convergence is achieved with a moderate value.
-
-
-
-The total power is the sum of electric vehicle power and residential power consumption. Our aim is to minimize the difference between the maximum (peak power) and minimum (low power) values of the total power. Considering that residential power consumption generally peaks during the day and reduces at night—contrary to the pattern of electric vehicle power consumption-this dichotomy enables peak shaving. In our simulation, depicted in Figure 6, we assume residential power consumption remains constant, while the expected charging times for electric vehicles follow a specific distribution pattern. By optimizing the charging strategy for each vehicle, we effectively implement "peak shaving," thereby enhancing grid stability. Figure 6 illustrates the impact of varying numbers of electric vehicles on peak shaving: as the number of electric vehicles increases, the total power exhibits a trend consistent with the distribution of electric vehicle power (lower power during the day and higher power at night).
-
-
-
-
-
-
-
-	
-	
-
+\subsection{Effect of  Peaking shaving and valley filling}
  \begin{figure}[!ht]
 	\centering
 	\begin{minipage}{ \linewidth}
@@ -608,8 +573,9 @@ The total power is the sum of electric vehicle power and residential power consu
 		\label{fig:peak_valley_fill}% 文中引用该图片代号
 	\end{minipage}
 \end{figure}
+Total power is the sum of the power consumed by electric vehicles and residential electricity usage. Our objective is to minimize the difference between the maximum (peak power) and minimum (low power) values of the total power. Considering that residential electricity usage typically peaks during the day and decreases at night, which differs from the charging pattern of electric vehicles, peak shaving and valley filling of the grid's total power can be achieved through proper optimization control. In this case study, we selected 100 electric vehicles for investigation. The weight coefficients for each optimization objective were chosen as (1, 1, 0, 1) and (1, 1, 100, 1) to test the differences in the effectiveness of power control. Specifically, Fig. \ref{fig:no_peak_valley_fill} illustrates the power situation without power stabilization, while Fig. \ref{fig:peak_valley_fill} shows the power profile after peak shaving and valley filling optimization. It is evident that the power peaks at 5 AM and 11 PM have been eliminated, resulting in a significant reduction in the absolute power difference from 250kw to 100 kw.
 
-
+\subsection{Computational efficiency compared to traditional ADMM}
 \begin{figure}[!ht]
 	\centering
 	\begin{minipage}{\linewidth}
@@ -627,8 +593,53 @@ The total power is the sum of electric vehicle power and residential power consu
 	\end{minipage}
 \end{figure}
 
+We conducted separate calculations of the decay rates for the primal and dual errors throughout the iterative process. In order to facilitate the observation of error decay trends, we defined the total error as the sum of these two errors. The convergence results of the classical ADMM method are depicted in Fig. \ref{Result of covergence by ADMM}, while the improved Jacobi-proximal ADMM method's convergence results are presented in Fig. \ref{Result of covergence by ADMM}. A comparison between the two methods reveals that the improved ADMM method demonstrates accelerated convergence when addressing the optimization problems investigated in this study. Within a CPU time of 60 seconds, it achieves a reduction in error to $10^{-2}$. Consequently, the implementation of parallel algorithms significantly enhances computational efficiency.
 
-We calculated the decay rates of the primal and dual errors separately during the iterative process. To facilitate the observation of error decay trends, the total error here is simply the summation of these two errors. Specifically, the convergence results of the classical ADMM method as illustrated in Fig.7(left), while the right graph showcases the convergence results of the improved Jacobi-proximal ADMM method. By comparing these two methods, it is evident that the enhanced ADMM method exhibits faster convergence when addressing the optimization problems of interest in this study. With a CPU time of 60 seconds, it can reduce the error to $10^{-2}$. Hence, the introduction of parallel algorithms significantly enhances computational efficiency
+\subsection{Numerical performance of large vehicles}
+\begin{figure}[!ht]
+	
+	\begin{minipage}{\linewidth}
+		\vspace{3pt}
+        %这个图片路径替换成你的图片路径即可使用
+		\includegraphics[width=\textwidth]{img/fig-error.eps}
+          \centerline{(a)100EV} 
+	\end{minipage}
+    \hfill
+	\begin{minipage}{\linewidth}
+		\vspace{3pt}
+		\centerline{\includegraphics[width=\textwidth]{img/fig-error200.eps}}
+		\centerline{(a)200EV}
+	\end{minipage}
+    \hfill
+	\begin{minipage}{\linewidth}
+		\vspace{3pt}
+		\centerline{\includegraphics[width=\textwidth]{img/fig-error300.eps}}
+	
+		\centerline{(a)300EV}
+
+	\caption{Visual comparisons of original models.  }
+	\label{ccc}
+	\end{minipage}
+\end{figure}
+To further investigate the performance of our proposed model in handling large-scale data, we conducted experiments for different numbers of electric vehicles (EVs), ranging from 100 to 300. The results were compared by analyzing the error decay trends of the algorithm, as depicted in Fig. \ref{ccc}. It is evident that increasing the number of EVs does not significantly impede the convergence of the error. This highlights the robustness and scalability of our proposed algorithm for addressing large-scale optimization problems. In addition, the algorithm's promising performance in handling big data implies its potential applications in real-world scenarios, where the amount of data is typically large and diverse. Therefore, our proposed model could be instrumental in providing efficient and effective solutions to various complex optimization tasks across a broad range of domains.
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
 
 
 %\section{A Final Checklist}
