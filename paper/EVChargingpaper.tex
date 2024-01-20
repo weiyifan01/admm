@@ -160,7 +160,7 @@ The rest of the paper is structured as follows. In Section II,we propose the mat
 
 \section{EV MODEL CONSTRUCT}
 \subsection{EV distributed optimization framework }
-\noindent \rd{ 
+\noindent \rd{
 In this model, EV users upload their charging demand information to the aggregator when they connect their EVs to charging piles. Charging plan of each EV will then be sent back to EV users.The charging demand information include arrival time $t_i^c$,predefined departure time $t_i^d$,the SOC when connecting to charging piles$SOC_i^c$
 and the expected SOC called $SOC_i^d$ of each EV. The coordinated charging scheduling process is shown in Fig. 1.
 
@@ -231,49 +231,74 @@ Electric vehicles with urgent charging needs may not be able to obtain sufficien
 where $\eta$ represents the charging energy conversion efficiency of$EV n$.
 
 
-\rd{这部分我要重新写,我明天写！今天没时间了
+
 \subsection{Objective Function Optimization}
 %\rd{决策变量是什么？$p_{n,1}$ 的具体意义是什么？}
-When electric vehicle users require charging, they tend to prefer efficient charging and aim to complete the charging process as quickly as possible within the designated timeframe. However, such preferences can lead to charging imbalances. Charging imbalances may give rise to new demand peaks, making it necessary to adopt the peak shaving and valley filling method mentioned in the literature to balance the load of electric vehicles.
-The problem we are facing is how to centrally coordinate the charging of electric vehicles in order to minimize the total system cost, which serves as the objective function.
-\begin{align}\label{OBJ}
-\mathcal{J}_0(\bm{p})&\triangleq\sum_{n\in \mathcal{N}}\left\{\right.f_n(p_{nt})
-+g_n(\sum_{t\in\mathcal{N}}p_{nt})\nonumber\\
-&+\sum_{t\in \mathcal{T}}h_n(\sum_{t\in\mathcal{T}}p_{nt})
-+\|\bm{p}_n\|_0\left.\right\}\nonumber\\
-\end{align}
-where each term is specifically explained as below.
+In this section, we delve into the intricacies of electric vehicle (EV) charging, placing a significant emphasis on addressing challenges related to minimizing costs, enhancing charging satisfaction, peak shaving, and formulating effective charging strategies. Our research focuses on the development of multi-objective optimization models for electric vehicles, aiming to strike a balance between minimizing charging costs and optimizing user satisfaction. Simultaneously, we implement strategies for peak shaving to establish an efficient charging scheduling policy for sustainable electric mobility.
 
-1)The first term $f_n(p_{nt})$:it represents the total charging cost for the $EVn$.
-This is a price-guided sequential charging control method, which utilizes market-based control approach. The scheduling authority broadcasts price signals to the demand side and updates them periodically. The architecture diagram for this approach is illustrated in Figure 1. The total charging cost can be calculated as follows:
-\begin{align}
-f_n(p_{n,t})=\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t
+To reduce the cost of electric vehicle charging, we have designed corresponding electricity price models based on different time periods throughout the day fig.1, The approach aims to mitigate the impact of a large number of electric vehicles randomly connecting to the grid. We aim to enhance the stability of the power system when accommodating a significant number of electric vehicles, with the overarching objective of minimizing the overall cost of electric vehicle charging, as follows:
+\begin{align}\label{G1}
+G_1=\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t
 \end{align}
-where $E_t$ represents the electricity price in time period $t$,$p_{n,t}$denotes the charging power of electric vehicle$n$ during time period $t$, and$\Delta t$refers to the time interval.
+where $E_t$ represents the electricity price at time $t$, $p_{n,t}$ denotes the charging rate of $EV n$ at time $t$, and $\Delta t$ represents the length of a time slot.
 
-2)The second term $g_n(\sum_{t\in \mathcal{T}}p_{nt})$:This is a satisfaction function for the total energy delivered during the charging period. It represents the satisfaction function for the total energy within the charging cycle. According to equation (\ref{satify}), it can be observed that for electric vehicle $EV\,n\in\mathcal{N}$,the user's desire to increase the amount of electricity provided by the distribution grid as much as possible remains constant across time$t\in\mathcal{T}$until the desired energy is achieved within the expected period.
-\begin{align}\label{satify}
-g_n(\sum_{t\in \mathcal{T}}p_{nt})=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
+EV users typically take into account the satisfaction function for the total energy delivered during the charging period. Given the opportunity, EV users would prefer to charge their vehicles with more electricity provided by the grid until they attain the required energy within the expected time $t\in\mathcal{T}$, They maintain this desire constant within the expected time frame until the required energy is achieved.The goal of electric vehicle owners is to maximize charging satisfaction,which is
+
+\begin{align}\label{G2}
+G_2=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
 \end{align}
-The weight parameter$\varpi_n\in(0,\varpi_{max}]$ reflects the relative importance of reaching a full charge compared to
-$\mathcal{T}_n$.
+To enable peak shaving and valley filling in the aggregated power of electric vehicle charging, we utilize the variance of the total power to reflect its stability. A smaller variance indicates a more stable grid. The total power encompasses the overall power from electric vehicle charging and residential electricity consumption (denoted as $B_t$), as illustrated below:
 
-3)The third term $h_n(\sum_{n\in\mathcal{N}}p_{n,t})$:It represents the ability of peak shaving and valley filling, which aims to maintain the stability of the total power in the grid. Therefore, we use the variance of the total power to reflect its stability. A smaller variance indicates a more stable grid. The total power includes the total power of electric vehicle charging and the total power of residential electricity consumption (denoted as $B_t$), as shown below:
-\begin{align}
-h(\sum_{n\in\mathcal{N}}p_{nt})=\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2
+\begin{align}\label{G3}
+G_3=\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2
 \end{align}
 The weight parameter $\omega_n\in(0,\omega^{max})$ and $\overline{p}=(\sum_{t\in \mathcal{T}}\sum_{n\in \mathcal{N}}p_{n,t})/T$ 。$\overline{B}=(\sum_{t\in \mathcal{T}}B_{n,t})/T$
 
-4)The last term $\|\bm{p}\|_0$: The cardinality mentioned here refers to the total number of non-zero elements in the charging strategy $bm{p_n}$.Minimizing the $l_0$ norm represents considering the comfort of EV users to some extent in the overall charging process. On one hand, it aims to minimize the number of charging times and protect the battery's health. On the other hand, EV users prefer to complete their tasks as much as possible because they want to minimize interruptions or restarts of EV charging. It is generally unacceptable for most users to wait longer to complete their tasks. Therefore, by introducing a sparse charging plan, the goal of measuring user satisfaction can be unified.
-
-This is the cardinality of the charging strategy $\bm{p_n}$,which refers to the total number of non-zero elements in $\bm{p_n}$.Minimizing the $l_0$ norm represents considering the comfort of EV users to a certain extent in the overall charging process. On one hand, it aims to minimize the number of charging times and protect the battery's health. On the other hand, EV users prefer to complete their tasks as much as possible because they want to minimize interruptions or restarts during EV charging. Waiting for a longer time to complete tasks is generally unacceptable for most users. Therefore, by introducing a sparse charging plan, the objective of measuring user satisfaction can be unified.
+The cardinality mentioned here refers to the total number of non-zero elements in the charging strategy $bm{p_n}$.Minimizing the $l_0$ norm represents considering the comfort of EV users to some extent in the overall charging process. On one hand, it aims to minimize the number of charging times and protect the battery's health. On the other hand, EV users prefer to complete their tasks as much as possible because they want to minimize interruptions or restarts of EV charging. It is generally unacceptable for most users to wait longer to complete their tasks. Therefore, by introducing a sparse charging plan, the goal of measuring user satisfaction can be unified.
+\begin{align}\label{G4}
+G_4=\|\bm{p}_n\|_0
+\end{align}
+\rd{This is the cardinality of the charging strategy $\bm{p_n}$,which refers to the total number of non-zero elements in $\bm{p_n}$.Minimizing the $l_0$ norm represents considering the comfort of EV users to a certain extent in the overall charging process. On one hand, it aims to minimize the number of charging times and protect the battery's health. On the other hand, EV users prefer to complete their tasks as much as possible because they want to minimize interruptions or restarts during EV charging. Waiting for a longer time to complete tasks is generally unacceptable for most users. Therefore, by introducing a sparse charging plan, the objective of measuring user satisfaction can be unified.
 
 As the process of electrification in the automotive industry progresses, initially, attempts were made to model the charging strategy problem as a minimum $l_2$ norm problem for solving. However, the $l_2$ norm does not capture the sparsity required by the charging strategy of electric vehicles. In contrast, the $l_0$ norm counts the number of non-zero values in a vector. Therefore, the charging strategy is modeled as a minimum $l_0$ norm problem to achieve shorter charging time, improved battery lifespan, and increased user satisfaction. However, the minimum $l_0$ norm problem is NP-hard and cannot be solved using conventional methods. Under certain conditions, the minimum$l_1$ problem and the minimum $l_0$ norm problem are equivalent, meaning that solving the minimum $l_1$ problem can yield the solution to the minimum $l_0$ problem.
 Therefore, we approximate the $l_0$ norm with the $l_1$ norm. We rephrase equation(\ref{OBJ}),into the following sparse-promoting charging control model.Formulate the coordination of centralized fast charging for electric vehicles as the following optimization problem:
-\begin{align}\label{OBJ_J1}
-  \min_{\bm{p}\in\mathcal{P}}\mathcal{J}_1(\bm{p}).
+\begin{align}\label{GG4}
+\tilde{G}_4=\|p_n\|_1
 \end{align}
-where
+The above issue involves a multi-objective optimization model that integrates multiple objectives with distributed optimization algorithms. The equation achieves optimal scheduling goals for minimizing EV charging costs, maximizing user satisfaction, minimizing grid load variance, and optimizing the electric vehicle charging strategy by linearly weighting the terms in equations \eqref{G1}, \eqref{G2},\eqref{G3}, and \eqref{GG4}. Thus, the objective function is formulated as follows:
+
+\begin{equation}\label{G}
+\begin{aligned}
+min~~\omega_1g_1+\omega_2g_2+\omega_3g_3+\omega_4\tilde {g}_4
+\end{aligned}
+\end{equation}
+Due to the diverse dimensions of the four metrics EV charging cost, user satisfaction, grid load variance, and optimized electric vehicle charging strategy data normalization is required. In \eqref{G}, $g_1$, $g_2$, $g_3$, and $g_4$ represent the dimensionless values of the four objective functions after normalization. $\omega_1$, $\omega_2$, $\omega_3$, and $\omega_4$ respectively denote the weight values assigned to each objective.
+
+
+Note:
+
+The following assumptions apply to the entire article:
+\begin{enumerate}
+\item $g_1$ is Lipschitz continuous,for all $x$,
+\item $g_3$ is non-decreasing, concave, and Lipschitz continuous,for all$n\in\mathcal{N}$ and all $x$.
+\item $g_2$ is non-decreasing,strictly convex and differentiable.
+\end{enumerate}
+
+Since the objective function shown in \eqref{OG} is minimized, for $G_1,i=1,3,4$, the smaller the better, that is:
+\begin{align}
+g_i=\frac{G_j-minG_j}{max G_j-min G_j}
+\end{align}
+for $G_2$, the bigger the better, that is:
+\begin{align}
+g_2=\frac{max G_2-G_2}{max G_2-min G_2}
+\end{align}
+After dimensionless transformation of each objective function, \eqref{OG} can be further expressed as follows:
+\begin{equation}\label{OG}
+\begin{aligned}
+min~~&\tau_1G_1+\tau_2G_2+\tau_3G_3+\tau_4\tilde{G}_4\\
+\end{aligned}
+\end{equation}
+
 \begin{equation}
 \begin{aligned}
 \mathcal{J}_1(\bm{p})\triangleq&\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})+g_n(\sum_{t\in\mathcal{N}}p_{nt})
@@ -281,21 +306,7 @@ where
 &
 +h(\sum_{n\in\mathcal{N}}p_{nt})
 \end{aligned}
-\end{equation}
-%\begin{align*}
-%&\mathcal{J}_1(\bm{p})\triangleq\nonumber\\
-%&\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})
-%+g_n(\sum_{t\in\mathcal{N}}p_{nt})
-%+\|\bm{p}_n\|_1\right\}+h(\sum_{n\in\mathcal{N}}p_{nt})
-%\end{align*}
-Note:
-
-The following assumptions apply to the entire article:
-\begin{enumerate}
-\item  is Lipschitz continuous,for all $x$,
-\item $g_n(\cdot)$ is non-decreasing, concave, and Lipschitz continuous,for all$n\in\mathcal{N}$ and all $x$.
-\end{enumerate}}
-
+\end{equation}}
 
 
 \section{EV Charging Framework based on Amproved ADMM}
