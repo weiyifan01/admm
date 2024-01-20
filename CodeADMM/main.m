@@ -8,7 +8,7 @@ if 1==1
     A=SmartGrid(N,dt);
 end
 
-if 1==2 %是否画图
+if 1==1 %是否画图
     generate_random_plot(A);   %画出车辆到达和离开时间的分布
     PricandLoad(A);            %画出分时电价和居民用电功率分布
 end
