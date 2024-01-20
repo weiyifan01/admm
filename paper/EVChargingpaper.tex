@@ -87,7 +87,7 @@ Lastly, the convenience of the charging process must not be overlooked. Through 
 The approach for solving the numerous EV coordinated charging models can be broadly classified into two distinct categories: centralized \cite{nimalsiri2021coordinated, de2014optimal} and distributed \cite{kennel2012energy,liu2017decentralized,zhang2016scalable,zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm} approaches. The former involves the collection of all relevant parameters, entrusted to a single entity for centralized computation. The latter, on the other hand, enables parallel computation through multiple agents \cite{nimalsiri2019survey}, requiring limited information exchange for collaborative computation. Consequently, distributed methods exhibit higher computational efficiency and scalability. They can coordinate larger groups of electric vehicles across the entire distribution network while providing more choices for electric vehicle customers during the decision-making process.
 Indeed, there is a wealth of research on the decentralized coordination of electric vehicle charging \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}. However, it is crucial to note that the methods mentioned above, including \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}, require a central coordinator (or aggregator), leading to partial distributed optimization. Specifically, these methods necessitate a communication network where all information is transmitted through the aggregator to the electric vehicles, resulting in substantial communication overhead.
 
-%研究人员探索了用于电动汽车有序充电的协调方法,可分为集中式\cite{nimalsiri2021coordinated},\cite{de2014optimal} 和分布式\cite{kennel2012energy},\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage} \cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 方法.收集所有相关参数,由单个实体执行中央计算的方案为称为集中式控制方案.{\color{red}分布式通过多个代理进行能够通过有限的信息交换执行共享和并行计算\cite{nimalsiri2019survey}.(查分布式的定义)}因此,分布式方法具有更高的计算效率和可扩展性,可以在整个配电网中协调更多的电动汽车群体,同时还可以在决策过程中为电动汽车客户提供更多选择.事实上,关于电动汽车充电分散协调的研究非常丰富\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}.然 而\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 中的这些方法需要有中央协调器(或聚合器)这导致部分分布式优化.具体来说,这些方法需要一个通信网络,其中所有信息都通过聚合器传输到电动汽车,从而导致大量的通信开销.
+%研究人员探索了用于电动汽车有序充电的协调方法,可分为集中式\cite{nimalsiri2021coordinated},\cite{de2014optimal} 和分布式\cite{kennel2012energy},\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage} \cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 方法.收集所有相关参数,由单个实体执行中央计算的方案为称为集中式控制方案.{\color{red}分布式通过多个代理进行能够通过有限的信息交换执行共享和并行计算\cite{nimalsiri2019survey}.(查分布式的定义)}因此,分布式方法具有更高的计算效率和可扩展性,可以在整个配电网中协调更多的电动汽车群体,同时还可以在决策过程中为电动汽车客户提供更多选择.事实上,关于电动汽车充电分散协调的研究非常丰富\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}. 然 而\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 中的这些方法需要有中央协调器(或聚合器)这导致部分分布式优化.具体来说,这些方法需要一个通信网络,其中所有信息都通过聚合器传输到电动汽车,从而导致大量的通信开销.
 %Several researchers have explored coordinated EV charging approaches for voltage regulation that can be classified into centralized [2], [3] and distributed [4], [5], [6], [7], [8], [9],[10], [11] approaches. Rather than collecting information centrally for computation, distributed approaches enable multiple agents to perform shared and parallel computations via limited information exchange [12]. As such, distributed approaches are more computationally efficient and scalable, allowing for larger EV populations to be coordinated across the distribution grid,while also empowering EV customers in the decision-making process.
 
 
@@ -119,9 +119,9 @@ Over an extended period, scholars have endeavored to optimize and enhance the  A
 %establish an EV coordination problem to determine the proper charging time and rate, i.e., the charging strategy to satisfy the need of fast charging, and mitigate the degradation of batteries and avoid the overload of the distribution network.We apply a quadratic form of the degradation cost model with  respect to the charging power derived in[8].Consequently,the EV coordination problem minimizes the tradeoff among the EV users’ satisfaction, the load regulation, the battery degradation cost and the total charging time, which models a non-separable objective function, i.e., it cannot be written as a summation form of individual objectives. Moreover, capacity
 %limits of feeder lines draw coupling spatial constraints of charging strategies among individual EVs, and inter-temporal constraints are also addressed such that the total charging power of each EV has an upper limit associated with initial SOC and battery size. All these bring challenges to solve the optimization problem in a decentralized way.
 
-%{\color{red}解决分布式的分布式优化主要介绍工程背景下的ADMM应用以及引出本文的改进ADMM方法}
+%{\color{red}解决分布式的分布式优化主要介绍工程背景下的ADMM应用以及引出本文的改进ADMM 方法}
 
-%关于电动汽车充电分散协调的研究非常丰富,参见\cite{ghavami2016dece},\cite{koshal2011multiuser} \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed},\cite{ma2017charging} 及其参考文献.在\cite{koshal2011multiuser}中,它提出了一种分散正则化原始对偶投影方案来解决具有不可分离目标和约束的多用户问题,但该方法可能会给最优解带来一定的误差.\cite{ghavami2016dece}, \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed},中的这些工作采用了一定的偏差惩罚成本来替代馈线过载约束,但应用具有松弛参数的拉格朗日乘子可能会违反馈线容量,这可调度模型通过拉格朗日松弛分解为分布式优化模型,实现对各个电动汽车聚合器(EVA)的并行控制.为了解决优化过程中参数对称性引起的振荡,我们提出了一种基于扰动函数的收敛加速算法,扰动函数是一种随机分布函数,用于在可接受的计算误差范围内打破参数对称性. Researches in decentralized coordination of EV charging are abundant,see[10],[12]–[16]and the reference therein. In [12],it developed a decentralized regularized primal-dual projection scheme to solve the multiuser problems with non-separable objective and constraints, while this method might introduce certain errors to the optimal solution. These works in [10],[13]–[15] adopted certain deviation penalty costs to substitute the feeder overload constraints, but the feeder capacity might be violated by applying the Lagrangian multipliers with slack parameters which could result in suboptimal solutions. The gradient projection-based method in [16] could handle the charging control problem of EVs with hard constraints of the feeder capacity, but the implemented solution might not be the system optimal solution.
+%关于电动汽车充电分散协调的研究非常丰富,参见\cite{ghavami2016dece},\cite{koshal2011multiuser} \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed},\cite{ma2017charging} 及其参考文献.在\cite{koshal2011multiuser}中,它提出了一种分散正则化原始对偶投影方案来解决具有不可分离目标和约束的多用户问题,但该方法可能会给最优解带来一定的误差.\cite{ghavami2016dece}, \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed}, 中的这些工作采用了一定的偏差惩罚成本来替代馈线过载约束,但应用具有松弛参数的拉格朗日乘子可能会违反馈线容量,这可调度模型通过拉格朗日松弛分解为分布式优化模型,实现对各个电动汽车聚合器(EVA)的并行控制.为了解决优化过程中参数对称性引起的振荡,我们提出了一种基于扰动函数的收敛加速算法,扰动函数是一种随机分布函数,用于在可接受的计算误差范围内打破参数对称性. Researches in decentralized coordination of EV charging are abundant,see[10],[12]–[16]and the reference therein. In [12],it developed a decentralized regularized primal-dual projection scheme to solve the multiuser problems with non-separable objective and constraints, while this method might introduce certain errors to the optimal solution. These works in [10],[13]–[15] adopted certain deviation penalty costs to substitute the feeder overload constraints, but the feeder capacity might be violated by applying the Lagrangian multipliers with slack parameters which could result in suboptimal solutions. The gradient projection-based method in [16] could handle the charging control problem of EVs with hard constraints of the feeder capacity, but the implemented solution might not be the system optimal solution.
 
 %\bl{本文的解决问题的主要思路}
 The primary objective of this paper is to present a decoupling algorithm for ADMM that enables parallel computation without significantly compromising convergence speed.
@@ -160,13 +160,13 @@ The rest of the paper is structured as follows. In Section II,we propose the mat
 
 \section{EV MODEL CONSTRUCT}
 \subsection{EV distributed optimization framework }
-\noindent \rd{ 
+\noindent 
 In this model, EV users upload their charging demand information to the aggregator when they connect their EVs to charging piles. Charging plan of each EV will then be sent back to EV users.The charging demand information include arrival time $t_i^c$,predefined departure time $t_i^d$,the SOC when connecting to charging piles$SOC_i^c$
 and the expected SOC called $SOC_i^d$ of each EV. The coordinated charging scheduling process is shown in Fig. 1.
 
 In the scheduling process, the scheduling plan is usually executed by period of time for improving execution efficiency. The scheduling time is divided into several time periods. In the proposed EV charging scheduling model, a day is discretized into 96 time slots and the length of a time slot is 15 min. Then, the arrival
 time and departure time of each EV can be are expressed as:
-}
+
 \begin{align}\label{time1}
 I_i^c=[\frac{t_i^c}{\Delta T}],i=1,2,...,N.
 \end{align}
@@ -298,9 +298,10 @@ The following assumptions apply to the entire article:
 
 
 
-\section{EV Charging Framework based on Amproved ADMM}
+\section{EV Charging Framework based on improved ADMM}
+\rd{******}
 
-\subsection{Problem reformulation based on Amproved ADMM}
+\subsection{Problem reformulation based on improved ADMM}
 
 \noindent
 
@@ -444,7 +445,7 @@ where $\Phi$,$\Psi$,$\gamma>0$ satisfy
 \end{align}
 
 for $\mu_1>0$,$\mu_2>0$. (\ref{Con1}) is suffucuent for the convergence of the improved ADMM.
-\begin{figure}
+\begin{figure}[!ht]
    \centering
     \includegraphics[scale=0.5]{img/fig-baseload.eps}
    \caption{Typical basic load profile in one-day cycle.}
@@ -459,7 +460,7 @@ Several viable selections of $\Phi,\Psi$,and $\gamma$ exist that satisfy (\ref{C
 
 Remark2：我们提出$Amproved ADMM$ 相对于[Classical] 中的分布式ADMM 的优点如下.首先,[13] 中的ADMM 变量$(P,X,u)$ 必须按顺序更新,类似于经典的集中式ADMM. 这意味着，在迭代 k +1 时,需要首先更新 P 并用它来更新 X, 然后更新$\bm{u}$ 该更新顺序是不可更改的,因此变量不能同时更新.另一方面,我们提出的$Amproved-ADMM$ 算法通过同时以任意顺序更新 $P、X、u$, 显著改进了[Classical] 中的算法.这对于并行和分布式计算加快计算时间非常重要,特别是当代理数量非常大时.其次,并行更新变量的能力使我们提出的DCJ-ADMM 算法的收敛速度为$o(1/k)$, 这明显快于[Classical] 中算法的$O(1/k)$.}
 
-\begin{figure}
+\begin{figure}[!ht]
    \centering
     \includegraphics[scale=0.5]{img/fig-price.eps}
    \caption{TOU electricity price}
@@ -487,22 +488,21 @@ where~$\varepsilon^{abs}>0$~is~an~absolute~tolerance~and~$\varepsilon^{rel}>0$~i
 criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Improved -ADMM~is~then~give~in~Algorithm~2.
 Here,
 $$A_n=1, \forall 1\leq n\leq N;\quad A_{N+1}=-1;\quad c=0. $$
-\begin{figure*}
-	
-	\begin{minipage}{0.32\linewidth}
+\begin{figure}[!ht]	
+	\begin{minipage}{\linewidth}
 		\vspace{3pt}
         %这个图片路径替换成你的图片路径即可使用
 		\centerline{\includegraphics[width=\textwidth]{img/fig-error.eps}}
           % 加入对这列的图片说明
 		\centerline{(a)100EV}
 	\end{minipage}
-	\begin{minipage}{0.32\linewidth}
+	\begin{minipage}{\linewidth}
 		\vspace{3pt}
 		\centerline{\includegraphics[width=\textwidth]{img/fig-error200.eps}}
 	
 		\centerline{(a)200EV}
 	\end{minipage}
-	\begin{minipage}{0.32\linewidth}
+	\begin{minipage}{\linewidth}
 		\vspace{3pt}
 		\centerline{\includegraphics[width=\textwidth]{img/fig-error300.eps}}
 	
@@ -511,7 +511,7 @@ $$A_n=1, \forall 1\leq n\leq N;\quad A_{N+1}=-1;\quad c=0. $$
 
 	\caption{Visual comparisons of original models.  }
 	\label{fig4}
-\end{figure*}
+\end{figure}
 \begin{theorem}\label{Th1}
 For $k\geq 1$,we have
 \begin{align*}
@@ -527,27 +527,29 @@ If $Q\succ0$ and $M_x\succeq 0$, then $\|u^k-u^{k+1}\|_M^2=o(1/k)$, however $\|x
 
 
 
-\begin{figure}
+\begin{figure}[!ht]
    \centering
     \includegraphics[scale=0.5]{img/fig-RHO.eps}
    \caption{he convergence of Algorithm 2 under k=1 with respect to different $\rho$ and $\alpha$ }
 \end{figure}
-\begin{figure*}
+\begin{figure}[!ht]
 	
-	\begin{minipage}{0.32\linewidth}
+	\begin{minipage}{\linewidth}
 		\vspace{3pt}
         %这个图片路径替换成你的图片路径即可使用
 		\centerline{\includegraphics[width=\textwidth]{img/fig-error.eps}}
           % 加入对这列的图片说明
 		\centerline{(a)100EV}
 	\end{minipage}
-	\begin{minipage}{0.32\linewidth}
+    \hfill
+	\begin{minipage}{\linewidth}
 		\vspace{3pt}
 		\centerline{\includegraphics[width=\textwidth]{img/fig-error200.eps}}
 	
 		\centerline{(a)200EV}
 	\end{minipage}
-	\begin{minipage}{0.32\linewidth}
+    \hfill
+	\begin{minipage}{\linewidth}
 		\vspace{3pt}
 		\centerline{\includegraphics[width=\textwidth]{img/fig-error300.eps}}
 	
@@ -556,8 +558,10 @@ If $Q\succ0$ and $M_x\succeq 0$, then $\|u^k-u^{k+1}\|_M^2=o(1/k)$, however $\|x
 
 	\caption{Visual comparisons of original models.  }
 	\label{fig4}
-\end{figure*}
+\end{figure}
 \section{Results and Discussion}
+\rd{In this section we report and illustrate some experimental results on the performances of the proposed algorithms as
+well as making comparisons with existing algorithms}
 \subsection{Simulation data and settings}
 
 Utilizing the improved ADMM algorithm proposed, we simulated the fundamental load data following the electricity usage pattern~\cite{zheng2018novel}. The simulation results, illustrated in Fig.1, display the typical daily load profile of the regional microgrid in a day-cycle scenario.
@@ -581,71 +585,47 @@ The total power is the sum of electric vehicle power and residential power consu
 
 
 
-\begin{figure*}
-	
-	\begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-        %这个图片路径替换成你的图片路径即可使用
-		\centerline{\includegraphics[width=\textwidth]{img/fig-SOC.eps}}
-          % 加入对这列的图片说明
-		\centerline{(a)100EV}
-	\end{minipage}
-	\begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{img/fig-SOC200.eps}}
-	
-		\centerline{(b)200EV}
-	\end{minipage}
-	\begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{img/fig-SOC300.eps}}
-	
-		\centerline{(c)300EV}
-	\end{minipage}
 
-	\caption{Visual comparisons of original models.  }
-	\label{fig4}
-\end{figure*}
 
 
 
 	
 	
 
- \begin{figure*}
+ \begin{figure}[!ht]
 	\centering
-	\begin{minipage}{0.49\linewidth}
+	\begin{minipage}{ \linewidth}
 		\centering
-		\includegraphics[width=0.9\linewidth]{img/fig-100EVnoxue.eps}
+		\includegraphics[width=\linewidth]{img/fig-100EVnoxue.eps}
 		\caption{Rusult of no Peaking shaving and valley filling}
 		\label{fig:no_peak_valley_fill}% 文中引用该图片代号
 	\end{minipage}
-	%\qquad
-	\begin{minipage}{0.49\linewidth}
+	\hfill
+	\begin{minipage}{ \linewidth}
 		\centering
-		\includegraphics[width=0.9\linewidth]{img/fig-100EVxue.eps}
+		\includegraphics[width=\linewidth]{img/fig-100EVxue.eps}
 		\caption{Rusult of Peaking shaving and valley filling}
 		\label{fig:peak_valley_fill}% 文中引用该图片代号
 	\end{minipage}
-\end{figure*}
+\end{figure}
 
 
-\begin{figure*}
+\begin{figure}[!ht]
 	\centering
-	\begin{minipage}{0.49\linewidth}
+	\begin{minipage}{\linewidth}
 		\centering
-		\includegraphics[width=0.9\linewidth]{img/fig-ErrorReduction_ADMM2.eps}
+		\includegraphics[width=\linewidth]{img/fig-ErrorReduction_ADMM2.eps}
 		\caption{Result of covergence by ADMM}
 		\label{Result of covergence by ADMM}% 文中引用该图片代号
 	\end{minipage}
-	%\qquad
-	\begin{minipage}{0.49\linewidth}
+	\hfill
+	\begin{minipage}{\linewidth}
 		\centering
-		\includegraphics[width=0.9\linewidth]{img/fig-ErrorReduction_Jac_Pro.eps}
+		\includegraphics[width=\linewidth]{img/fig-ErrorReduction_Jac_Pro.eps}
 		\caption{Result of covergence by Amproved ADMM}
 		\label{Result of covergence by ADMM}% 文中引用该图片代号
 	\end{minipage}
-\end{figure*}
+\end{figure}
 
 
 We calculated the decay rates of the primal and dual errors separately during the iterative process. To facilitate the observation of error decay trends, the total error here is simply the summation of these two errors. Specifically, the convergence results of the classical ADMM method as illustrated in Fig.7(left), while the right graph showcases the convergence results of the improved Jacobi-proximal ADMM method. By comparing these two methods, it is evident that the enhanced ADMM method exhibits faster convergence when addressing the optimization problems of interest in this study. With a CPU time of 60 seconds, it can reduce the error to $10^{-2}$. Hence, the introduction of parallel algorithms significantly enhances computational efficiency
