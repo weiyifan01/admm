@@ -238,7 +238,7 @@ In this section, we delve into the intricacies of electric vehicle (EV) charging
 
 To reduce the cost of electric vehicle charging, we have designed corresponding electricity price models based on different time periods throughout the day fig.1, The approach aims to mitigate the impact of a large number of electric vehicles randomly connecting to the grid. We aim to enhance the stability of the power system when accommodating a significant number of electric vehicles, with the overarching objective of minimizing the overall cost of electric vehicle charging, as follows:
 \begin{align}\label{G1}
-G_1=\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t
+G_1=\sum_{n\in \mathcal{N}}\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t
 \end{align}
 where $E_t$ represents the electricity price at time $t$, $p_{n,t}$ denotes the charging rate of $EV n$ at time $t$, and $\Delta t$ represents the length of a time slot.
 
@@ -250,43 +250,37 @@ G_2=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
 To enable peak shaving and valley filling in the aggregated power of electric vehicle charging, we utilize the variance of the total power to reflect its stability. A smaller variance indicates a more stable grid. The total power encompasses the overall power from electric vehicle charging and residential electricity consumption (denoted as $B_t$), as illustrated below:
 
 \begin{align}\label{G3}
-G_3=\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2
+G_3=\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2,
 \end{align}
-The weight parameter $\omega_n\in(0,\omega^{max})$ and $\overline{p}=(\sum_{t\in \mathcal{T}}\sum_{n\in \mathcal{N}}p_{n,t})/T$ 。$\overline{B}=(\sum_{t\in \mathcal{T}}B_{n,t})/T$
 
-The cardinality mentioned here refers to the total number of non-zero elements in the charging strategy $bm{p_n}$.Minimizing the $l_0$ norm represents considering the comfort of EV users to some extent in the overall charging process. On one hand, it aims to minimize the number of charging times and protect the battery's health. On the other hand, EV users prefer to complete their tasks as much as possible because they want to minimize interruptions or restarts of EV charging. It is generally unacceptable for most users to wait longer to complete their tasks. Therefore, by introducing a sparse charging plan, the goal of measuring user satisfaction can be unified.
+Charging behavior significantly impacts critical battery characteristics, such as health status, cycle life, and the growth of resistance impedance. Intermittent charging tends to shorten the battery's lifespan. Therefore, it is crucial to minimize the number of charging cycles to maintain battery health. On the other hand, prolonged waiting times for completing charging tasks and/or frequent interruptions during the charging process are deemed unacceptable. These factors can cause discomfort for EV owners. Recent research  emphasizes that the solution for charging time must be sufficiently sparse, as a sparse schedule implies a lower charging frequency.
 \begin{align}\label{G4}
 G_4=\|\bm{p}_n\|_0
 \end{align}
-\rd{This is the cardinality of the charging strategy $\bm{p_n}$,which refers to the total number of non-zero elements in $\bm{p_n}$.Minimizing the $l_0$ norm represents considering the comfort of EV users to a certain extent in the overall charging process. On one hand, it aims to minimize the number of charging times and protect the battery's health. On the other hand, EV users prefer to complete their tasks as much as possible because they want to minimize interruptions or restarts during EV charging. Waiting for a longer time to complete tasks is generally unacceptable for most users. Therefore, by introducing a sparse charging plan, the objective of measuring user satisfaction can be unified.
+Where $\|\bm{p}_n\|_0$ is the cardinality of the charging strategy, i.e. the number of non-zero elements in $|\bm{p}_n|$. For EV owners with an urgent need for their vehicles, prioritizing charging is crucial, even though it comes with higher charging costs. On the other hand, owners who are not in a hurry to use their electric vehicles can shift the electric vehicle load to other time periods.
 
 As the process of electrification in the automotive industry progresses, initially, attempts were made to model the charging strategy problem as a minimum $l_2$ norm problem for solving. However, the $l_2$ norm does not capture the sparsity required by the charging strategy of electric vehicles. In contrast, the $l_0$ norm counts the number of non-zero values in a vector. Therefore, the charging strategy is modeled as a minimum $l_0$ norm problem to achieve shorter charging time, improved battery lifespan, and increased user satisfaction. However, the minimum $l_0$ norm problem is NP-hard and cannot be solved using conventional methods. Under certain conditions, the minimum$l_1$ problem and the minimum $l_0$ norm problem are equivalent, meaning that solving the minimum $l_1$ problem can yield the solution to the minimum $l_0$ problem.
-Therefore, we approximate the $l_0$ norm with the $l_1$ norm. We rephrase equation(\ref{OBJ}),into the following sparse-promoting charging control model.Formulate the coordination of centralized fast charging for electric vehicles as the following optimization problem:
+
+Therefore, we approximate the $l_0$ norm with the $l_1$ norm. We rephrase \eqref{G4} into the following sparse-promoting charging control model as follows:
 \begin{align}\label{GG4}
 \tilde{G}_4=\|p_n\|_1
 \end{align}
 The above issue involves a multi-objective optimization model that integrates multiple objectives with distributed optimization algorithms. The equation achieves optimal scheduling goals for minimizing EV charging costs, maximizing user satisfaction, minimizing grid load variance, and optimizing the electric vehicle charging strategy by linearly weighting the terms in equations \eqref{G1}, \eqref{G2},\eqref{G3}, and \eqref{GG4}. Thus, the objective function is formulated as follows:
-
 \begin{equation}\label{G}
 \begin{aligned}
 min~~\omega_1g_1+\omega_2g_2+\omega_3g_3+\omega_4\tilde {g}_4
 \end{aligned}
 \end{equation}
+
 Due to the diverse dimensions of the four metrics EV charging cost, user satisfaction, grid load variance, and optimized electric vehicle charging strategy data normalization is required. In \eqref{G}, $g_1$, $g_2$, $g_3$, and $g_4$ represent the dimensionless values of the four objective functions after normalization. $\omega_1$, $\omega_2$, $\omega_3$, and $\omega_4$ respectively denote the weight values assigned to each objective.
 
-
-Note:
-
-The following assumptions apply to the entire article:
-\begin{enumerate}
-\item $g_1$ is Lipschitz continuous,for all $x$,
-\item $g_3$ is non-decreasing, concave, and Lipschitz continuous,for all$n\in\mathcal{N}$ and all $x$.
-\item $g_2$ is non-decreasing,strictly convex and differentiable.
-\end{enumerate}
-
-Since the objective function shown in \eqref{OG} is minimized, for $G_1,i=1,3,4$, the smaller the better, that is:
+Since the objective function shown in \eqref{G} is minimized, for $G_1,i=1,3$, the smaller the better, that is:
 \begin{align}
 g_i=\frac{G_j-minG_j}{max G_j-min G_j}
+\end{align}
+for $\tilde{G}_2$, the smaller the better, that is:
+\begin{align}
+g_4=\frac{\tilde{G}_4-min\tilde{G}_4}{max \tilde{G}_4-min \tilde{G}_4}
 \end{align}
 for $G_2$, the bigger the better, that is:
 \begin{align}
@@ -296,17 +290,19 @@ After dimensionless transformation of each objective function, \eqref{OG} can be
 \begin{equation}\label{OG}
 \begin{aligned}
 min~~&\tau_1G_1+\tau_2G_2+\tau_3G_3+\tau_4\tilde{G}_4\\
+& =\tau_1 \sum_{n\in \mathcal{N}}\{\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t+\tau_2-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2\\&+\tau_3\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2+\tau_4\|\bm{p}_n\|.
 \end{aligned}
 \end{equation}
+Note:
 
-\begin{equation}
-\begin{aligned}
-\mathcal{J}_1(\bm{p})\triangleq&\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})+g_n(\sum_{t\in\mathcal{N}}p_{nt})
-+\|\bm{p}_n\|_1\right\} \\
-&
-+h(\sum_{n\in\mathcal{N}}p_{nt})
-\end{aligned}
-\end{equation}}
+The following assumptions apply to the entire article:
+\begin{enumerate}
+\item $G_1$ is Lipschitz continuous,for all $x$,
+\item $G_3$ is non-decreasing, concave, and Lipschitz continuous,for all$n\in\mathcal{N}$ and all $x$.
+\item $G_2$ is non-decreasing,strictly convex and differentiable.
+\end{enumerate}
+
+
 
 
 \section{EV Charging Framework based on improved ADMM}
@@ -463,7 +459,7 @@ Several viable selections of $\Phi,\Psi$,and $\gamma$ exist that satisfy (\ref{C
   &\mu_1+\mu_2<2-\gamma
 \end{align}
 
-{\color{red}Remark 1：需要注意的是,\cite{deng2017parallel}中的Jacobian ADMM是并行的,可以直接应用于求解模型,但所有电动汽车需要共享信息,而我们在这里更倾向于每个智能体仅连接到几个邻居.
+{\color{red}Remark 1：需要注意的是,\cite{deng2017parallel} 中的Jacobian ADMM是并行的,可以直接应用于求解模型,但所有电动汽车需要共享信息,而我们在这里更倾向于每个智能体仅连接到几个邻居.
 
 Remark2：我们提出$Amproved ADMM$ 相对于[Classical] 中的分布式ADMM 的优点如下.首先,[13] 中的ADMM 变量$(P,X,u)$ 必须按顺序更新,类似于经典的集中式ADMM. 这意味着，在迭代 k +1 时,需要首先更新 P 并用它来更新 X, 然后更新$\bm{u}$ 该更新顺序是不可更改的,因此变量不能同时更新.另一方面,我们提出的$Amproved-ADMM$ 算法通过同时以任意顺序更新 $P、X、u$, 显著改进了[Classical] 中的算法.这对于并行和分布式计算加快计算时间非常重要,特别是当代理数量非常大时.其次,并行更新变量的能力使我们提出的DCJ-ADMM 算法的收敛速度为$o(1/k)$, 这明显快于[Classical] 中算法的$O(1/k)$.}
 
