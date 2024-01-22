@@ -131,7 +131,7 @@ Notably, our approach successfully addresses challenges related to large-scale e
 In short, our refined ADMM method not only improves computational efficiency but also navigates the complexities of large-scale electric vehicle coordination, ensuring privacy preservation and overcoming constraint description challenges. This achievement is a significant stride toward a win-win scenario for the power grid, charging stations, and users.
 
 Additionally, the inclusion of  proximity term in this paper makes a significant contribution to convergence. In fact, many methods struggle to converge to the optimal solution.
-\bl{分布式的最优解也是一个挑战}
+%\bl{分布式的最优解也是一个挑战}
 In the field of distributed optimization, despite extensive research as evidenced by the cited literature such as \cite{yuan2018optimal}, \cite{cheng2022distributed}-\cite{nedic2017achieving},\cite{jakovetic2020primal} achieving a global optimal solution remains a formidable task.
 The study presented in \cite{yuan2018optimal} explores non-Euclidean stochastic strongly convex optimization methods. While this strategy demonstrates effectiveness, it entails some nodes waiting for others to complete computations, resulting in shortcomings in the speed and efficiency of the algorithm. Similarly, in \cite{cheng2022distributed}-\cite{nedic2017achieving}, researchers propose a gradient tracking approach to solve optimization problems with linear objectives in strongly convex optimization. However, this method typically yields only local optimal solutions in general distributed optimization, hindering the attainment of a globally optimal solution. In \cite{jakovetic2020primal}, a primal-dual method is introduced to address large-scale distributed convex optimization and data analysis. Despite its long history and capability to handle constraints, it is important to note that this method is unable to solve nonsmooth problems and exhibits relatively slow convergence. Therefore, careful consideration of the trade-offs and limitations associated with the current methods is essential in the realm of distributed coordination. While existing research provides valuable insights, there is a noticeable gap that requires further exploration and refinement to establish more robust and optimal solutions in the field of distributed optimization.
 %在分布式优化领域，尽管有大量研究，如文献中所引用的\cite{yuan2018optimal},\cite{cheng2022distributed}-\cite{nedic2017achieving},等参考文献，但实现全局最优解仍然是一个艰巨的任务.
@@ -286,7 +286,7 @@ for $ \tilde{G}_2 $, the smaller the better, that is:
 \begin{align}
 g_4=\frac{\tilde{G}_4-min\tilde{G}_4}{max \tilde{G}_4-min \tilde{G}_4}
 \end{align}
-{\color{red} for $ G_2 $, the bigger the better}, that is:
+{\color{red} for $ G_2 $, the bigger the better 这里G2已经取负了}, that is:
 \begin{align}
 g_2=\frac{max G_2-G_2}{max G_2-min G_2}
 \end{align}
@@ -334,12 +334,12 @@ where $ \theta_i $ is a non-strictly convex function, $ M\geq3 $. $ L $ is the n
     \begin{algorithmic}
         \STATE {Initialize: $ \bm{p}_i^0(i=1,2,\cdots, M) $ and $ \lambda^0 $ }
         \FOR{k=0,1,...}
-                \STATE Update~ $ \mathbf{p}_i $ ~for~ $ i=1,..., M $ ~in parallel by:
-                \STATE \qquad $ \mathbf{p}_i^{k+1}=
+                \STATE Update~ $ \bm{p}_i $ ~for~ $ i=1,..., M $ ~in parallel by:
+                \STATE \qquad $ \bm{p}_i^{k+1}=
                 \textrm{ argmin }
-                \big\{ \theta_i(\mathbf{p}_i)
-              +\frac{\rho}{2}\|A_i\mathbf{p}_i+\sum\limits_{j\neq i}A_j\mathbf{p}_j^k -c   -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_i-\mathbf{p}_i^k\|_{\Psi}^2\big\} $
-        \STATE Update $ \Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{i=1}^M A_n\mathbf{p}_n^{k+1}-c) $
+                \big\{ \theta_i(\bm{p}_i)
+              +\frac{\rho}{2}\|A_i\bm{p}_i+\sum\limits_{j\neq i}A_j\bm{p}_j^k -c   -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\bm{p}_i-\bm{p}_i^k\|_{\Psi}^2\big\} $
+        \STATE Update $ \Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{i=1}^M A_n\bm{p}_n^{k+1}-c) $
         \ENDFOR
     \end{algorithmic}
 \end{algorithm*}
@@ -351,16 +351,16 @@ where $ \theta_i $ is a non-strictly convex function, $ M\geq3 $. $ L $ is the n
         \REQUIRE Set the initial strategy state $ \bm{p}^0 $,
         \REQUIRE Set the feasibility tollerance $ \varepsilon^{pri} $, $ \varepsilon^{dual} $,
         \REQUIRE Set $ k=0 $, $ r>\varepsilon^{pri} $ and $ s>\varepsilon^{dual} $
-        \ENSURE $ \mathbf{p}_n^k(n=1,..., N+1) $    %%output
+        \ENSURE $ \bm{p}_n^k(n=1,..., N+1) $    %%output
         \FOR{k=0,1,...}
-                \STATE Update~ $ \mathbf{p}_n $ ~for~ $ n=1,..., N+1 $ ~in parallel by:
-                \STATE \qquad $ \mathbf{p}_n^{k+1}=
+                \STATE Update~ $ \bm{p}_n $ ~for~ $ n=1,..., N+1 $ ~in parallel by:
+                \STATE \qquad $ \bm{p}_n^{k+1}=
                 \textrm{ argmin }
-                \big\{ \Theta_n(\mathbf{p}_n)
-              +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum\limits_{j\neq n}A_j\mathbf{p}_j^k -c   -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2\big\} $
+                \big\{ \Theta_n(\bm{p}_n)
+              +\frac{\rho}{2}\|A_n\bm{p}_n+\sum\limits_{j\neq n}A_j\bm{p}_j^k -c   -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\bm{p}_n-\bm{p}_n^k\|_{\Psi}^2\big\} $
         \STATE Update the dual variable $ \Lambda $ by:
-                \STATE \qquad $ \Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^{N+1} A_n\mathbf{p}_n^{k+1}-c) $
-        \IF { $ \sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri} $ }
+                \STATE \qquad $ \Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^{N+1} A_n\bm{p}_n^{k+1}-c) $
+        \IF { $ \sum_{n=1}^{N+1}\|\bm{p}_n^{k+1}-\bm{p}_n^{k}\|_F \leq \varepsilon^{pri} $ }
             \STATE Break.
         \ENDIF
         \ENDFOR
@@ -385,20 +385,19 @@ and applying \eqref{G3}, we arrive
 where $ D(\cdot) $ represents the variance.
 
 Combining equations \eqref{newG1}-\eqref{newG3} and \eqref{G4}, we ultimately obtain an equivalent form of equation (\ref{OG}) as follows.
-\begin{align*}
-  \textrm{minmize}{\bm{p}\in\mathcal{P}} \quad&\theta_1(\mathbf{p}_1)+\cdots+\theta_N(\mathbf{p}_N)+\theta_{N+1}(\mathbf{p}_{N+1}),\\
-  \textrm{subject to } \quad&\mathbf{p}_1+\cdots+\mathbf{p}_N-\mathbf{p}_{N+1}=\mathbf{0},
-\end{align*}
+\begin{align}
+\min\limits_{\bm{p}\in\mathcal{P}} \quad&\theta_1(\bm{p}_1)+\cdots+\theta_N(\bm{p}_N)+\theta_{N+1}(\bm{p}_{N+1}),\\
+  \text{s.t}\quad &\bm{p}_1+\cdots+\bm{p}_N-\bm{p}_{N+1}=\mathbf{0},\nonumber
+\end{align}
 where
 \begin{align*}
- &\mathcal{J}_1(\bm{p})=\sum\limits_{n=1}^{N+1}\theta_n(\bm{p}_n),\\
  &\theta_n(\bm{p}_n)=\Delta t\bm{E}\bm{p}_n -(\|\bm{p}_n\|_1-\Gamma_n)^2+\|\bm{p}_n\|_1,\nonumber\\
 &\theta_{N+1}(\bm{p}_{N+1})=D(\bm{p}_{N+1}+B_{t}).\\
 \end{align*}
 
-To tackle the core problem using the ADMM method, we initially introduce an indicator function of $ \mathcal{C} $, denoted as:
+To tackle the core problem using the ADMM method, we initially introduce an indicator function of $\mathcal{P}_n $, denoted as:
 \[
-\mathcal{I}_{\mathcal{C}}(\bm{p}_n) =
+\mathcal{I}_{\mathcal{P}_n}(\bm{p}_n) =
 \begin{cases}
 0 &\quad \text{if}~\bm{p}_n\in\mathcal{P}_n\\
  \infty &\quad\text{otherwise.} \\
@@ -409,53 +408,33 @@ and let
 &\Theta_n(\bm{p}_n):=\theta_n(\bm{p}_n)+\mathcal{I}_{\mathcal{P}_n}(\bm{p}_n), \forall 1\leq n\leq N,\\
 &\Theta_{N+1}(\bm{p}_{N+1}):=\theta_{N+1}(\bm{p}_{N+1})
 \end{align}
-
-Thus, problem\eqref{OG} can be equivalently written in the following form:
-\begin{align}\label{obj_1}
- \mathop{min} \quad \sum\limits_{n=1}^{N+1}\Theta_n(\bm{p}_n),\\
-\text{s.t}\quad \sum_{n=1}^{N+1} \bm{p}_{n}=0.\label{good}
+Thus, problem \eqref{OG} can be equivalently rewritten in the following form:
+\begin{align}\label{obj_2}
+  \min \quad \sum\limits_{n=1}^{N+1}\Theta_n(\bm{p}_n),\\
+\text{s.t}\quad \sum_{n=1}^{N+1} \bm{p}_{n}=\bm{0}.\nonumber
 \end{align}
 
-
-
-
-To utilize Amproved ADMM, we define
-\begin{align}
-\bm{P}=[\bm{p}_1,...,\bm{p}_N,\bm{p}_{N+1}]^{T}\in\mathcal{R}^{(N+1)\times T}
-\end{align}
-
-
-
-The augmented lagrangian:
-
+The augmented lagrangian of \eqref{obj_2} is:
 \bl{
-\begin{equation}
-\begin{aligned}
-\mathcal{L}_{\rho}(\bm{p}_1,\cdot\cdot\cdot,\bm{p}_{N+1},\bm{u})&=\sum_{n=1}^{N+1}\Theta_i(\bm{p}_i)\\ &+\frac{\rho}{2}\|\sum_{i=1}^N\bm{p}_i-\bm{p}_{N+1}+u\|_2^2
-\end{aligned}
-\end{equation}}
-where $ \rho>0 $ is the standard penalty parameter, $ u $ ~is referred to as the scaling dual variable or scaling Lagrange multiplier.~The variables $ p $ ~and~ $ u $ ~are updated simultaneously by adding additional approximation terms. The specific update procedures are as follows
+\begin{align}
+&\mathcal{L}_{\rho}(\bm{p}_1,\cdot\cdot\cdot,\bm{p}_{N+1},\bm{u})\nonumber\\ =&\sum_{n=1}^{N+1}\Theta_i(\bm{p}_i)+\frac{\rho}{2}\|\sum_{i=1}^N\bm{p}_i-\bm{p}_{N+1}+u\|_2^2,
+\end{align}
+}
+where $ \rho>0 $ is the standard penalty parameter, $ u $ ~is referred to as the scaling dual variable or scaling Lagrange multiplier.~The variables $ \bm{p}_i $ ~and~ $ u $ ~are updated simultaneously by adding additional approximation terms. The specific update procedures are as follows.
 \begin{equation}
 \begin{aligned}
 \bm{p}_n^{k+1}:&=\mathop{\arg\min}\limits_{\bm{p}\in\mathcal{P}}\Theta_n(\bm{p}_n)\\\nonumber
-&+\frac{\rho}{2}\|\bm{p}_n^k+\sum_{n\neq j}p_j^k-\bm{u}^k\|_2^2+\frac{1}{2}\|\bm{p}_n-\bm{p}_n^k\|_\Psi^2\\
+&+\frac{\rho}{2}\|\bm{p}_n^k+\sum_{n\neq j}p_j^k-\bm{u}^k\|_2^2+\frac{1}{2}\|\bm{p}_n-\bm{p}_n^k\|_\Psi^2,\\
+\Lambda^{k+1}&=\Lambda^k+\gamma\rho(\sum_{n=1}^{N+1} A_n\bm{p}_n^{k+1}),
 \end{aligned}
 \end{equation}
-\begin{equation}
-\begin{aligned}
-\Lambda^{k+1}=\Lambda^k+\gamma\rho(\sum_{n=1}^{N+1} A_n\mathbf{p}_n^{k+1})
-\end{aligned}
-\end{equation}
-
 where $ \Phi $, $ \Psi $, $ \gamma>0 $ satisfy
 \begin{align}\label{Con1}
-  &\Phi\succ \rho(\frac{1}{\mu_1}-1)I,\Psi\succ \rho(\frac{1}{\mu_2}<2-\gamma)I\nonumber\\
-  &\mu_1+\mu_2<2-\gamma
+  &\Phi\succ \rho(\frac{1}{\mu_1}-1)I,\quad\Psi\succ \rho(\frac{1}{\mu_2}<2-\gamma)I,\nonumber\\
+  &\mu_1+\mu_2<2-\gamma,
 \end{align}
-
-for $ \mu_1>0 $, $ \mu_2>0 $. (\ref{Con1}) is suffucuent for the convergence of the improved ADMM.
-
-Several viable selections of $ \Phi,\Psi $, and $ \gamma $ exist that satisfy (\ref{Con1}). For this purpose, a straightforward choice applied here involves setting $ \Phi=\phi I $, $ \Psi=\psi I $, thereby fulfilling
+for $ \mu_1>0 $, $ \mu_2>0 $.
+Here, (\ref{Con1}) is sufficient for the convergence of the improved ADMM. There are several viable selections of $ \Phi,\Psi $, and $ \gamma $ that satisfy (\ref{Con1}). For this purpose, a straightforward choice applied here involves setting $ \Phi=\phi I $, and $ \Psi=\psi I $, thereby fulfilling
 \begin{align}\label{con1}
   &\phi\succ \rho(\frac{1}{\mu_1}-1),\psi\succ \rho(\frac{1}{\mu_2}<2-\gamma)\nonumber\\
   &\mu_1+\mu_2<2-\gamma
@@ -464,15 +443,18 @@ Several viable selections of $ \Phi,\Psi $, and $ \gamma $ exist that satisfy (\
 Remark 1：It is important to note that the Jacobian ADMM mentioned in \cite{deng2017parallel} is parallel and can be directly applied to solve the model. However, it requires all electric vehicles to share information, while our preference here is for each intelligent agent to be connected only to a few neighbors.
 
 
-Remark2: We propose that $ Amproved -ADMM $ offers several advantages over the conventional ADMM. Firstly, in the ADMM variant presented in [13], the variables $ (P, X, u) $ must be updated sequentially, similar to the classical centralized ADMM. This means that in iteration k + 1, updating P first and using it to update X, and then updating $ \bm{u} $ are predetermined steps, and variable updates cannot occur simultaneously. In contrast, our proposed $ Amproved-ADMM $ algorithm significantly enhances the algorithm presented in [Classical] by allowing simultaneous updates of $ P, X, u $ in any order. This is particularly crucial for accelerating computation time in parallel and distributed computing, especially when the number of agents is large. Secondly, the ability to update variables in parallel accelerates the convergence speed of our proposed DCJ-ADMM algorithm to $ o(1/k) $, which is noticeably faster than the $ O(1/k) $ convergence speed in the algorithm presented in ADMM
+Remark2: We propose that $ Amproved -ADMM $ offers several advantages over the conventional ADMM. Firstly, in the ADMM variant presented in [13], the variables {\color{red} $ (P, X, u) $?} must be updated sequentially, similar to the classical centralized ADMM. This means that in iteration $k + 1$, updating {\color{red}P} first and using it to update {\color{red}X}, and then updating $ \bm{u} $ are predetermined steps, and variable updates cannot occur simultaneously. In contrast, our proposed $ Amproved-ADMM $ algorithm significantly enhances the algorithm presented in [Classical] by allowing simultaneous updates of $ P, X, u $ in any order. This is particularly crucial for accelerating computation time in parallel and distributed computing, especially when the number of agents is large. Secondly, the ability to update variables in parallel accelerates the convergence speed of our proposed DCJ-ADMM algorithm to $ o(1/k) $, which is noticeably faster than the $ O(1/k) $ convergence speed in the algorithm presented in ADMM
 
 
 \subsection{Algorthms}
+
 
 \noindent If the number of iterations reaches a given threshold $ iter_{max} $ or satisfies the following conditions simultaneously~\cite{boyd2011distributed}, then ADMM meets the following criteria:
 \begin{align*}
 \bm{r}^{k+1}=\|\bm{P}^{k+1}-\bm{Y}^{k+1}\|_F
 \end{align*}
+where
+$\bm{P}:=[\bm{p}_1,...,\bm{p}_N,\bm{p}_{N+1}]'\in\mathcal{R}^{(N+1)\times T}$.
 \begin{align*}
 \bm{s}^{k+1}=\|\rho(\bm{Y}^{k+1}-\bm{Y}^{k})\|_F
 \end{align*}
@@ -480,7 +462,7 @@ this shows that when the residual $ \bm{r}^k $ and $ \bm{s}^k $ are small as fol
 \begin{align*}
 \|\bm{r}^k\|_2\leq \varepsilon^{pri}\,\,\,\,\,\,\,\,\|\bm{s}^k\|_2\leq \varepsilon^{dual}
 \end{align*}
-where~ $ \varepsilon^{pri}>0 $ and $ \varepsilon^{dual}>0 $ ~are feasibility~tolerances~for~the~primal~and~dual~feasibity~conditions~()~and~(). These~tolerances~can~be~
+where~ $ \varepsilon^{pri}>0 $ and $ \varepsilon^{dual}>0 $ ~are feasibility~tolerances~for~the~primal~and~dual~feasibity~{\color{red}conditions~()}~and~(). These~tolerances~can~be~
 chosen~using~an~absolute~and~relative~criterion, such~as
 \begin{align*}
 &\varepsilon^{pri}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}max\{\|p\|_2,\|-x\|_2\},\\
@@ -490,7 +472,7 @@ where~ $ \varepsilon^{abs}>0 $ ~is~an~absolute~tolerance~and~ $ \varepsilon^{rel
 criterion~might~be~ $ 10^{-3} $ ~or~ $ 10^{-4} $.~A~pseudo-code~for~the~proposed Improved -ADMM~is~then~give~in~Algorithm~2.
 Here,
  $$ A_n=1, \forall 1\leq n\leq N;\quad A_{N+1}=-1;\quad c=0. $$
-
+{\color{red} 下面的定理需要证明或者引用参考文献？}
 \begin{theorem}\label{Th1}
 For $ k\geq 1 $, we have
 \begin{align*}
@@ -588,7 +570,7 @@ As depicted in Fig. \ref{rho}, the convergence behavior of the improved ADMM alg
         \label{fig:peak_valley_fill}% 文中引用该图片代号
     \end{minipage}
 \end{figure}
-Total power is the sum of the power consumed by electric vehicles and residential electricity usage. Our objective is to minimize the difference between the maximum (peak power) and minimum (low power) values of the total power. Considering that residential electricity usage typically peaks during the day and decreases at night, which differs from the charging pattern of electric vehicles, peak shaving and valley filling of the grid's total power can be achieved through proper optimization control. In this case study, we selected 100 electric vehicles for investigation. The weight coefficients for each optimization objective were chosen as (1, 1, 0, 1) and (1, 1, 100, 1) to test the differences in the effectiveness of power control. Specifically, Fig. \ref{fig:no_peak_valley_fill} illustrates the power situation without power stabilization, while Fig. \ref{fig:peak_valley_fill} shows the power profile after peak shaving and valley filling optimization. It is evident that the power peaks at 5 AM and 11 PM have been eliminated, resulting in a significant reduction in the absolute power difference from 250kw to 100 kw.
+Total power is the sum of the power consumed by electric vehicles and residential electricity usage. Our objective is to minimize the difference between the maximum (peak power) and minimum (low power) values of the total power. Considering that residential electricity usage typically peaks during the day and decreases at night, which differs from the charging pattern of electric vehicles, peak shaving and valley filling of the grid's total power can be achieved through proper optimization control. In this case study, we selected 100 electric vehicles for investigation. The weight coefficients for each optimization objective were chosen as (1, 1, 0, 1) and (1, 1, 100, 1) to test the differences in the effectiveness of power control. Specifically, Fig. \ref{fig:no_peak_valley_fill} illustrates the power situation without power stabilization, while Fig. \ref{fig:peak_valley_fill} shows the power profile after peak shaving and valley filling optimization. It is evident that the power peaks at 5 AM and 11 PM have been eliminated, resulting in a significant reduction in the absolute power difference from 250 kw to 100 kw.
 
 \subsection{Computational efficiency compared to traditional ADMM}
 \begin{figure}[!ht]
