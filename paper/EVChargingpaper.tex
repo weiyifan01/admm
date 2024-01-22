@@ -1,10 +1,10 @@
-\documentclass[lettersize,journal]{IEEEtran}
+\documentclass[lettersize, journal]{IEEEtran}
 \usepackage{amsfonts}
-\usepackage{amsmath,amsthm,amssymb}
+\usepackage{amsmath, amsthm, amssymb}
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{array}
-\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage[caption=false, font=normalsize, labelfont=sf, textfont=sf]{subfig}
 \usepackage{textcomp}
 \usepackage{stfloats}
 \usepackage{float}
@@ -57,7 +57,7 @@
 \maketitle
 
 \begin{abstract}
-With the rapid proliferation of electric vehicles (EVs), the challenges of integrating their charging demands into the power grid have intensified. This paper addresses the imperative of orderly EV charginga multi-objective optimization problem that balances grid stability, cost-efficiency, and user convenience. We propose a dual-pronged solution that encompasses the development of a sparse mathematical model-based distributed framework for EV management and an improved Alternating Direction Method of Multipliers (ADMM) algorithm. The framework facilitates the decoupling of complex charging coordination problems into multiple sub-problems, enhancing system interpretability and computational efficiency. The refined ADMM algorithm, with its multiple block Jacobi forms and the inclusion of a proximal term, not only allows for parallel computation but also achieves superior convergence rates, improving from $O(1/k)$ to $o(1/k)$. Simulation results confirm the efficacy of our model in managing large-scale EV charging coordination, ensuring grid stability, and offering a scalable, privacy-preserving solution for EV users and operators. This study contributes to the advancement of smart grid technology by providing a robust mechanism for accommodating the burgeoning EV charging demand while maintaining grid integrity and optimizing user experience.
+With the rapid proliferation of electric vehicles (EVs), the challenges of integrating their charging demands into the power grid have intensified. This paper addresses the imperative of orderly EV charginga multi-objective optimization problem that balances grid stability, cost-efficiency, and user convenience. We propose a dual-pronged solution that encompasses the development of a sparse mathematical model-based distributed framework for EV management and an improved Alternating Direction Method of Multipliers (ADMM) algorithm. The framework facilitates the decoupling of complex charging coordination problems into multiple sub-problems, enhancing system interpretability and computational efficiency. The refined ADMM algorithm, with its multiple block Jacobi forms and the inclusion of a proximal term, not only allows for parallel computation but also achieves superior convergence rates, improving from $ O(1/k) $ to $ o(1/k) $. Simulation results confirm the efficacy of our model in managing large-scale EV charging coordination, ensuring grid stability, and offering a scalable, privacy-preserving solution for EV users and operators. This study contributes to the advancement of smart grid technology by providing a robust mechanism for accommodating the burgeoning EV charging demand while maintaining grid integrity and optimizing user experience.
 \end{abstract}
 \begin{IEEEkeywords}
 Electric Vehicle Charging, Orderly Charging, Power Grid Stability, Multi-Objective Optimization, ADMM, Distributed Framework, Convergence Rate, Smart Grid.
@@ -69,10 +69,10 @@ Electric Vehicle Charging, Orderly Charging, Power Grid Stability, Multi-Objecti
 As the number of Electric Vehicles (EVs) continues to climb, the concept of orderly charging is garnering increasing attention within the realms of scientific research and smart grid technologies.
 The surge in EV adoption is a direct result of swift advancements in EV technology coupled with rising gasoline prices.
 This trend underscores the vast potential and significant societal impact that EV development is poised to deliver.
-However, the fluctuating and unstable nature of integrating EVs into the power grid is expected to challenge the grid's optimal operation and dispatch, presenting a noteworthy hurdle \cite{li2018gis,wang2020stochastic}.
+However, the fluctuating and unstable nature of integrating EVs into the power grid is expected to challenge the grid's optimal operation and dispatch, presenting a noteworthy hurdle \cite{li2018gis, wang2020stochastic}.
 The cornerstone for surmounting this challenge lies in the deployment of coordinated charging scheduling method for electric vehicles. This method serves to facilitate seamless information exchange among grid operators, aggregator entities, and electric vehicle users, thereby ensuring the secure operation of the grid and reducing economic costs.
 
-%电动汽车的快速普及对电网安全构成挑战,充电不确定性可能导致峰谷电荷波动,影响电压的稳定性,甚至给输电线路带来负担\cite{li2018gis}-\cite{wang2020stochastic}.The increased use of EVs has been prompted by the rapid development of EV technology and the rise in gasoline prices, indicating that the development of EVs has broad prospects and a strong penetration effect. on human society. Without a doubt, the randomness and instability of large-scale EV grid access will have an impact on the grid's optimal operation and dispatch, which is viewed as a major challenge [1,2].
+%电动汽车的快速普及对电网安全构成挑战,充电不确定性可能导致峰谷电荷波动,影响电压的稳定性,甚至给输电线路带来负担\cite{li2018gis}-\cite{wang2020stochastic}. The increased use of EVs has been prompted by the rapid development of EV technology and the rise in gasoline prices, indicating that the development of EVs has broad prospects and a strong penetration effect. on human society. Without a doubt, the randomness and instability of large-scale EV grid access will have an impact on the grid's optimal operation and dispatch, which is viewed as a major challenge [1,2].
 %解决这一问题的关键在于引导电动车有序充电,{\color{red}同时协调电网运营商、聚合商和电动汽车用户信息传递}.以确 保电网安全运行并降低经济成本\cite{xftgo}-\cite{xftgt}.
 
 %\bl{Further clarification around orderly charging}
@@ -84,11 +84,11 @@ Lastly, the convenience of the charging process must not be overlooked. Through 
 
 
 %\bl{The main methods of solving this model and the shortcomings of the methods}
-The approach for solving the numerous EV coordinated charging models can be broadly classified into two distinct categories: centralized \cite{nimalsiri2021coordinated, de2014optimal} and distributed \cite{kennel2012energy,liu2017decentralized,zhang2016scalable,zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm} approaches. The former involves the collection of all relevant parameters, entrusted to a single entity for centralized computation. The latter, on the other hand, enables parallel computation through multiple agents \cite{nimalsiri2019survey}, requiring limited information exchange for collaborative computation. Consequently, distributed methods exhibit higher computational efficiency and scalability. They can coordinate larger groups of electric vehicles across the entire distribution network while providing more choices for electric vehicle customers during the decision-making process.
+The approach for solving the numerous EV coordinated charging models can be broadly classified into two distinct categories: centralized \cite{nimalsiri2021coordinated, de2014optimal} and distributed \cite{kennel2012energy, liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm} approaches. The former involves the collection of all relevant parameters, entrusted to a single entity for centralized computation. The latter, on the other hand, enables parallel computation through multiple agents \cite{nimalsiri2019survey}, requiring limited information exchange for collaborative computation. Consequently, distributed methods exhibit higher computational efficiency and scalability. They can coordinate larger groups of electric vehicles across the entire distribution network while providing more choices for electric vehicle customers during the decision-making process.
 Indeed, there is a wealth of research on the decentralized coordination of electric vehicle charging \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}. However, it is crucial to note that the methods mentioned above, including \cite{liu2017decentralized, zhang2016scalable, zhou2020voltage, rahman2021continuous, zhou2018admm, fahmy2020grid, zhou2020admm}, require a central coordinator (or aggregator), leading to partial distributed optimization. Specifically, these methods necessitate a communication network where all information is transmitted through the aggregator to the electric vehicles, resulting in substantial communication overhead.
 
 %研究人员探索了用于电动汽车有序充电的协调方法,可分为集中式\cite{nimalsiri2021coordinated},\cite{de2014optimal} 和分布式\cite{kennel2012energy},\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage} \cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 方法.收集所有相关参数,由单个实体执行中央计算的方案为称为集中式控制方案.{\color{red}分布式通过多个代理进行能够通过有限的信息交换执行共享和并行计算\cite{nimalsiri2019survey}.(查分布式的定义)}因此,分布式方法具有更高的计算效率和可扩展性,可以在整个配电网中协调更多的电动汽车群体,同时还可以在决策过程中为电动汽车客户提供更多选择.事实上,关于电动汽车充电分散协调的研究非常丰富\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm}. 然 而\cite{liu2017decentralized},\cite{zhang2016scalable},\cite{zhou2020voltage},\cite{rahman2021continuous},\cite{zhou2018admm},\cite{fahmy2020grid},\cite{zhou2020admm} 中的这些方法需要有中央协调器(或聚合器)这导致部分分布式优化.具体来说,这些方法需要一个通信网络,其中所有信息都通过聚合器传输到电动汽车,从而导致大量的通信开销.
-%Several researchers have explored coordinated EV charging approaches for voltage regulation that can be classified into centralized [2], [3] and distributed [4], [5], [6], [7], [8], [9],[10], [11] approaches. Rather than collecting information centrally for computation, distributed approaches enable multiple agents to perform shared and parallel computations via limited information exchange [12]. As such, distributed approaches are more computationally efficient and scalable, allowing for larger EV populations to be coordinated across the distribution grid,while also empowering EV customers in the decision-making process.
+%Several researchers have explored coordinated EV charging approaches for voltage regulation that can be classified into centralized [2], [3] and distributed [4], [5], [6], [7], [8], [9],[10], [11] approaches. Rather than collecting information centrally for computation, distributed approaches enable multiple agents to perform shared and parallel computations via limited information exchange [12]. As such, distributed approaches are more computationally efficient and scalable, allowing for larger EV populations to be coordinated across the distribution grid, while also empowering EV customers in the decision-making process.
 
 
 
@@ -97,31 +97,31 @@ In this paper, we address the coordinated charging problem by employing the Alte
 As a fully distributed method, the  ADMM  has gained significant attention over an extended period.
 %\bl{尽管ADMM很强，但针对复杂的有序充电问题仍需要改进.}
 Since  the ordered charging problem is a multi-objective and strongly coupled complex optimization issue,  utilizing the traditional ADMM method for its resolution is deemed inefficient and cumbersome.
-Indeed, the ordered charging problem encompasses numerous optimization objectives, leading to the development of various models catering to distinct requirements (such as fast charging models, adjustable electricity pricing models, etc.). This study considers a mathematical model that balances the interests of charging users (e.g.,electricity cost and charging satisfaction) with power grid stability and safety (e.g.,peak-shaving of power grid). Achieving a balance among these diverse optimization objectives is facilitated by adjusting the charging power of each electric vehicle at different time intervals. It is noteworthy that the optimization objectives for power grid stability are intricately coupled with the interests of charging users. This intricacy poses a challenge for parallel computation in distributed ADMM algorithms. Conventional decoupling methods often compromise the inherent convergence speed of the ADMM algorithm. Consequently, the challenge is to propose an effective decoupling algorithm that simultaneously preserves convergence speed without significant degradation.
+Indeed, the ordered charging problem encompasses numerous optimization objectives, leading to the development of various models catering to distinct requirements (such as fast charging models, adjustable electricity pricing models, etc.). This study considers a mathematical model that balances the interests of charging users (e.g., electricity cost and charging satisfaction) with power grid stability and safety (e.g., peak-shaving of power grid). Achieving a balance among these diverse optimization objectives is facilitated by adjusting the charging power of each electric vehicle at different time intervals. It is noteworthy that the optimization objectives for power grid stability are intricately coupled with the interests of charging users. This intricacy poses a challenge for parallel computation in distributed ADMM algorithms. Conventional decoupling methods often compromise the inherent convergence speed of the ADMM algorithm. Consequently, the challenge is to propose an effective decoupling algorithm that simultaneously preserves convergence speed without significant degradation.
 %\rd{有序充电问题是多目标强耦合的复杂优化问题，传统的ADMM方法是低效和笨重的。事实上，有序充电问题需要考虑的问题很多。因此衍生出很多不同的模型以刻画不同的需求。（如快速充电模型，可调电价模型等）. 本文考虑的数学模型兼顾了充电用户的利益（电价成本，和充电满意度）和电网稳定及安全（电网功率的削峰填谷）。通过调节每辆电车在不同时刻的充电功率，来平衡众多优化目标。需要指出的是，电网稳定的优化目标总是和充电用户的利益目标深度耦合。这对分布式ADMMM算法的并行运算提出了挑战。一般的解耦方法总是污染ADMM算法原有的收敛性速度。 因此如何提出一个有效的解耦算法，同时不显著降低收敛速度，是一个广泛关注的问题。本文的主要目的就是给出一个ADMM解耦算法，在不显著影响收敛速度的情况下，实现并行计算。}
 
 
 %\bl{ADMM的改进并不容易}
 Over an extended period, scholars have endeavored to optimize and enhance the  ADMM to address diverse requirements. It is noted that the original ADMM decomposes the objective function into two subproblems, employing an alternating optimization approach to concurrently achieve the overall optimization objective. In response to more intricate scenarios, scholars have naturally sought to directly extend the ADMM algorithm to tackle optimization problems involving three or more separable operators \cite{kraning2013dynamic, liu2019linearized}. However, the convergence of directly extended ADMM exhibits varying outcomes for different problems, as supported by the literature. Scholars have introduced the Gaussian alternating direction method to address this, incorporating correction strategies after the prediction step. Nevertheless, the additional correction steps result in a substantial increase in computational overhead.
-%交替方向乘子法($ADMM$), 它将目标函数拆分为两个子问题,利用交替优化的方式同时实现整体优化目标，也有学者直接直接扩展$ADMM$算法,使其能够解决包含三个或者三个以上可分离算子的优化问题\cite{kraning2013dynamic},\cite{liu2019linearized}. 但$ADMM$直接扩展的收敛性对于不同的问题有不同的结果,{\color{red}加文献支撑}学者引入高斯反代入法，在预测环节后添加修正策略.然而,额外的校正步骤将导致大量的额外计算
-%\cite{he2012alternating}.The commonly used distributed optimization algorithm is the Alternating Direction Multiplier Method ($ADMM$), which splits the objective function into two sub-problems, and uses alternating optimization to achieve the optimal goals for both problems at the same time,thereby achieving the overall optimization goal. Some scholars also directly extend the $ADMM$ algorithm so that it can solve optimization problems containing three or more separable operators [31,32], but the convergence of the direct extension of $ADMM$ has different results for different problems, and the convergence is not able to be determined. In order to solve the convergence problem, some scholars have introduced the Gaussian back-substitution method to add a correction strategy after the prediction link. However, the additional correction steps will bring difficulties to some applications of the model. On the one hand, it will destroy the original data. On the other hand, the correction steps required to solve large-scale optimization problems will lead to a large amount of additional calculations [33].
+%交替方向乘子法( $ ADMM $ ), 它将目标函数拆分为两个子问题,利用交替优化的方式同时实现整体优化目标，也有学者直接直接扩展 $ ADMM $ 算法,使其能够解决包含三个或者三个以上可分离算子的优化问题\cite{kraning2013dynamic},\cite{liu2019linearized}. 但 $ ADMM $ 直接扩展的收敛性对于不同的问题有不同的结果,{\color{red}加文献支撑}学者引入高斯反代入法，在预测环节后添加修正策略.然而,额外的校正步骤将导致大量的额外计算
+%\cite{he2012alternating}. The commonly used distributed optimization algorithm is the Alternating Direction Multiplier Method ( $ ADMM $ ), which splits the objective function into two sub-problems, and uses alternating optimization to achieve the optimal goals for both problems at the same time, thereby achieving the overall optimization goal. Some scholars also directly extend the $ ADMM $ algorithm so that it can solve optimization problems containing three or more separable operators [31,32], but the convergence of the direct extension of $ ADMM $ has different results for different problems, and the convergence is not able to be determined. In order to solve the convergence problem, some scholars have introduced the Gaussian back-substitution method to add a correction strategy after the prediction link. However, the additional correction steps will bring difficulties to some applications of the model. On the one hand, it will destroy the original data. On the other hand, the correction steps required to solve large-scale optimization problems will lead to a large amount of additional calculations [33].
 
 
 %
 %\bl{而传统ADMM方法来求解有序充电问题力不从心}
 %针对大规模电动汽车有序充电车主隐私泄露和约束描述困难的问题,提出了一种分布式优化方法.本文建立了一个通过动态电价引导下的电动汽车有序充电策略,以削峰填谷为目标,很好地实现了电网、充电站和用户的共赢.同时确保电动汽车充电成本最低、满意度最高.采用改进的ADMM 分布式优化方法对电动汽车充电进行实时优化.通过每次迭代中两个实体之间少量的信息传递,实现各个实体优化目标的并行求解.通过实际电网验证了本文建立的分布式优化模型的可行性和算法的收敛性.
 
-%此外,除了本文提出的改进ADMM方法的分布式优化算法之外，许多论文还提出了基于博弈方法\cite{shakerighadi2018},\cite{tan2015real},\cite{zhao2017real},遗传算法\cite{khaki2019hierarchical},\cite{qi2014hierarchical}等其他优化算法，解决与电动汽车充电协调相关的问题。参考文献\cite{shakerighadi2018}开发了一种新的三级博弈理论方法.用于电动汽车和电动汽车充电站的能座位源管理.在\cite{khaki2019hierarchical}中，应用ADMM方法的分布式方法被用来处理作为具有耦合约束的交换问题而发展的分层分布式电动汽车充电调度.{\color{red}然而,这些工作在计算方法上度没有考虑并行求解}Furthermore, besides the proposed hierarchical algorithm based on ADMM in this work, many papers have also proposed other hierarchical algorithms based on game approaches [24]–[26], ADMM [27], heuristic methods [28], \cite{xia2019hierarchical} and other approaches [30], [31], to solve the problem related to the EV charging coordination. Reference [24] developed a new tri-level game theoretical approach for energy management of EVs and EV charging stations. In [27], a distributed manner by applying ADMM method was used to deal with the hierarchical distributed EV charging scheduling developed as the exchange problem with coupling constraints.Reference \cite{hu2016preventing} considered the market-based control and price-based control into the hierarchical EVs’ management system. Reference \cite{yang2019novel} proposed a search-swapping algorithm in the hierarchical coordinated framework to achieve power dispatch with near-optimal solutions guaranteed. However,these works didn’t consider the need of EV fast charging in the modeling process.
+%此外,除了本文提出的改进ADMM方法的分布式优化算法之外，许多论文还提出了基于博弈方法\cite{shakerighadi2018},\cite{tan2015real},\cite{zhao2017real},遗传算法\cite{khaki2019hierarchical},\cite{qi2014hierarchical}等其他优化算法，解决与电动汽车充电协调相关的问题。参考文献\cite{shakerighadi2018}开发了一种新的三级博弈理论方法.用于电动汽车和电动汽车充电站的能座位源管理.在\cite{khaki2019hierarchical}中，应用ADMM方法的分布式方法被用来处理作为具有耦合约束的交换问题而发展的分层分布式电动汽车充电调度.{\color{red}然而,这些工作在计算方法上度没有考虑并行求解}Furthermore, besides the proposed hierarchical algorithm based on ADMM in this work, many papers have also proposed other hierarchical algorithms based on game approaches [24]–[26], ADMM [27], heuristic methods [28], \cite{xia2019hierarchical} and other approaches [30], [31], to solve the problem related to the EV charging coordination. Reference [24] developed a new tri-level game theoretical approach for energy management of EVs and EV charging stations. In [27], a distributed manner by applying ADMM method was used to deal with the hierarchical distributed EV charging scheduling developed as the exchange problem with coupling constraints. Reference \cite{hu2016preventing} considered the market-based control and price-based control into the hierarchical EVs’ management system. Reference \cite{yang2019novel} proposed a search-swapping algorithm in the hierarchical coordinated framework to achieve power dispatch with near-optimal solutions guaranteed. However, these works didn’t consider the need of EV fast charging in the modeling process.
 
 %{\color{red}以分布式引出本文的问题框架}
 
-%在这项工作中,我们通过个人总充电时间来表达用户快速充电的愿望.充电时间越短,表明用户快充意愿越强.基于期望的充电期限,我们有动机建立一个电动汽车协调问题来确定合适的充电时间和速率,即满足快速充电需求,减轻电池退化并避免电池过载的充电策略.我们针对\cite{ma2015distributed}中导出的充电功率应用了二次形式的退化成本模型.因此,电动汽车协调问题最小化了电动汽车用户满意度、负载调节、电池退化成本和总充电时间之间的权衡,它建模了一个不可分离的目标函数,即它不能写成求和形式个人目标.此外,馈线的容量限制吸引了各个电动汽车之间充电策略的耦合空间约束,并且还解决了跨时间约束,使得每个电动汽车的总充电功率具有与初始SOC和电池尺寸相关的上限.这些都给以去中心化的方式解决优化问题带来了挑战.In this work, we express the desire of fast charging of users by individual total charging time. The shorter the charging horizon is the stronger willing of fast charging the user has.Based on the desired charging horizon, we are motivated to
-%establish an EV coordination problem to determine the proper charging time and rate, i.e., the charging strategy to satisfy the need of fast charging, and mitigate the degradation of batteries and avoid the overload of the distribution network.We apply a quadratic form of the degradation cost model with  respect to the charging power derived in[8].Consequently,the EV coordination problem minimizes the tradeoff among the EV users’ satisfaction, the load regulation, the battery degradation cost and the total charging time, which models a non-separable objective function, i.e., it cannot be written as a summation form of individual objectives. Moreover, capacity
+%在这项工作中,我们通过个人总充电时间来表达用户快速充电的愿望.充电时间越短,表明用户快充意愿越强.基于期望的充电期限,我们有动机建立一个电动汽车协调问题来确定合适的充电时间和速率,即满足快速充电需求,减轻电池退化并避免电池过载的充电策略.我们针对\cite{ma2015distributed}中导出的充电功率应用了二次形式的退化成本模型.因此,电动汽车协调问题最小化了电动汽车用户满意度、负载调节、电池退化成本和总充电时间之间的权衡,它建模了一个不可分离的目标函数,即它不能写成求和形式个人目标.此外,馈线的容量限制吸引了各个电动汽车之间充电策略的耦合空间约束,并且还解决了跨时间约束,使得每个电动汽车的总充电功率具有与初始SOC和电池尺寸相关的上限.这些都给以去中心化的方式解决优化问题带来了挑战. In this work, we express the desire of fast charging of users by individual total charging time. The shorter the charging horizon is the stronger willing of fast charging the user has. Based on the desired charging horizon, we are motivated to
+%establish an EV coordination problem to determine the proper charging time and rate, i.e., the charging strategy to satisfy the need of fast charging, and mitigate the degradation of batteries and avoid the overload of the distribution network. We apply a quadratic form of the degradation cost model with  respect to the charging power derived in[8]. Consequently, the EV coordination problem minimizes the tradeoff among the EV users’ satisfaction, the load regulation, the battery degradation cost and the total charging time, which models a non-separable objective function, i.e., it cannot be written as a summation form of individual objectives. Moreover, capacity
 %limits of feeder lines draw coupling spatial constraints of charging strategies among individual EVs, and inter-temporal constraints are also addressed such that the total charging power of each EV has an upper limit associated with initial SOC and battery size. All these bring challenges to solve the optimization problem in a decentralized way.
 
 %{\color{red}解决分布式的分布式优化主要介绍工程背景下的ADMM应用以及引出本文的改进ADMM 方法}
 
-%关于电动汽车充电分散协调的研究非常丰富,参见\cite{ghavami2016dece},\cite{koshal2011multiuser} \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed},\cite{ma2017charging} 及其参考文献.在\cite{koshal2011multiuser}中,它提出了一种分散正则化原始对偶投影方案来解决具有不可分离目标和约束的多用户问题,但该方法可能会给最优解带来一定的误差.\cite{ghavami2016dece}, \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed}, 中的这些工作采用了一定的偏差惩罚成本来替代馈线过载约束,但应用具有松弛参数的拉格朗日乘子可能会违反馈线容量,这可调度模型通过拉格朗日松弛分解为分布式优化模型,实现对各个电动汽车聚合器(EVA)的并行控制.为了解决优化过程中参数对称性引起的振荡,我们提出了一种基于扰动函数的收敛加速算法,扰动函数是一种随机分布函数,用于在可接受的计算误差范围内打破参数对称性. Researches in decentralized coordination of EV charging are abundant,see[10],[12]–[16]and the reference therein. In [12],it developed a decentralized regularized primal-dual projection scheme to solve the multiuser problems with non-separable objective and constraints, while this method might introduce certain errors to the optimal solution. These works in [10],[13]–[15] adopted certain deviation penalty costs to substitute the feeder overload constraints, but the feeder capacity might be violated by applying the Lagrangian multipliers with slack parameters which could result in suboptimal solutions. The gradient projection-based method in [16] could handle the charging control problem of EVs with hard constraints of the feeder capacity, but the implemented solution might not be the system optimal solution.
+%关于电动汽车充电分散协调的研究非常丰富,参见\cite{ghavami2016dece},\cite{koshal2011multiuser} \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed},\cite{ma2017charging} 及其参考文献.在\cite{koshal2011multiuser}中,它提出了一种分散正则化原始对偶投影方案来解决具有不可分离目标和约束的多用户问题,但该方法可能会给最优解带来一定的误差.\cite{ghavami2016dece}, \cite{sarker2014optimal},\cite{yang2016distributed},\cite{ardakanian2013distributed}, 中的这些工作采用了一定的偏差惩罚成本来替代馈线过载约束,但应用具有松弛参数的拉格朗日乘子可能会违反馈线容量,这可调度模型通过拉格朗日松弛分解为分布式优化模型,实现对各个电动汽车聚合器(EVA)的并行控制.为了解决优化过程中参数对称性引起的振荡,我们提出了一种基于扰动函数的收敛加速算法,扰动函数是一种随机分布函数,用于在可接受的计算误差范围内打破参数对称性. Researches in decentralized coordination of EV charging are abundant, see[10],[12]–[16]and the reference therein. In [12], it developed a decentralized regularized primal-dual projection scheme to solve the multiuser problems with non-separable objective and constraints, while this method might introduce certain errors to the optimal solution. These works in [10],[13]–[15] adopted certain deviation penalty costs to substitute the feeder overload constraints, but the feeder capacity might be violated by applying the Lagrangian multipliers with slack parameters which could result in suboptimal solutions. The gradient projection-based method in [16] could handle the charging control problem of EVs with hard constraints of the feeder capacity, but the implemented solution might not be the system optimal solution.
 
 %\bl{本文的解决问题的主要思路}
 The primary objective of this paper is to present a decoupling algorithm for ADMM that enables parallel computation without significantly compromising convergence speed.
@@ -133,7 +133,7 @@ In short, our refined ADMM method not only improves computational efficiency but
 Additionally, the inclusion of  proximity term in this paper makes a significant contribution to convergence. In fact, many methods struggle to converge to the optimal solution.
 \bl{分布式的最优解也是一个挑战}
 In the field of distributed optimization, despite extensive research as evidenced by the cited literature such as \cite{yuan2018optimal}, \cite{cheng2022distributed}-\cite{nedic2017achieving},\cite{jakovetic2020primal} achieving a global optimal solution remains a formidable task.
-The study presented in \cite{yuan2018optimal} explores non-Euclidean stochastic strongly convex optimization methods. While this strategy demonstrates effectiveness, it entails some nodes waiting for others to complete computations, resulting in shortcomings in the speed and efficiency of the algorithm. Similarly, in \cite{cheng2022distributed}-\cite{nedic2017achieving}, researchers propose a gradient tracking approach to solve optimization problems with linear objectives in strongly convex optimization. However, this method typically yields only local optimal solutions in general distributed optimization, hindering the attainment of a globally optimal solution. In \cite{jakovetic2020primal}, a primal-dual method is introduced to address large-scale distributed convex optimization and data analysis. Despite its long history and capability to handle constraints, it is important to note that this method is unable to solve nonsmooth problems and exhibits relatively slow convergence. Therefore, careful consideration of the trade-offs and limitations associated with the current methods is essential in the realm of distributed coordination.While existing research provides valuable insights, there is a noticeable gap that requires further exploration and refinement to establish more robust and optimal solutions in the field of distributed optimization.
+The study presented in \cite{yuan2018optimal} explores non-Euclidean stochastic strongly convex optimization methods. While this strategy demonstrates effectiveness, it entails some nodes waiting for others to complete computations, resulting in shortcomings in the speed and efficiency of the algorithm. Similarly, in \cite{cheng2022distributed}-\cite{nedic2017achieving}, researchers propose a gradient tracking approach to solve optimization problems with linear objectives in strongly convex optimization. However, this method typically yields only local optimal solutions in general distributed optimization, hindering the attainment of a globally optimal solution. In \cite{jakovetic2020primal}, a primal-dual method is introduced to address large-scale distributed convex optimization and data analysis. Despite its long history and capability to handle constraints, it is important to note that this method is unable to solve nonsmooth problems and exhibits relatively slow convergence. Therefore, careful consideration of the trade-offs and limitations associated with the current methods is essential in the realm of distributed coordination. While existing research provides valuable insights, there is a noticeable gap that requires further exploration and refinement to establish more robust and optimal solutions in the field of distributed optimization.
 %在分布式优化领域，尽管有大量研究，如文献中所引用的\cite{yuan2018optimal},\cite{cheng2022distributed}-\cite{nedic2017achieving},等参考文献，但实现全局最优解仍然是一个艰巨的任务.
 %\cite{yuan2018optimal} 中的研究探讨了非欧几里德意义上的随机强凸优化方法。虽然这种策略显示出有效性，但在在计算上需要一些节点等待其他节点完成计算,所以在算法的速度和效率上有所欠缺.类似地, 在\cite{cheng2022distributed}-\cite{nedic2017achieving}中, 研究人员提出了一种采用梯度跟踪方法来解决具有强凸优化的线性目标的优化问题的方法。然而,这种方法在一般的分布式优化中只能求得局部最优解,阻碍实现真正最优解.在\cite{jakovetic2020primal}中，引入了一种基于原始-对偶方法来处理大规模分布式凸优化和数据分析.该方法有着悠久的历史,尽管它能够解决这些约束，但需要注意的是,该方法不能求解非光滑问题并且收敛速度相对比较慢. 因此, 在分布式协调的领域中, 需要仔细考虑与当前方法相关的权衡和限制. 虽然现有研究提供了宝贵的见解, 但存在一个明显的差距, 需要进一步探索和完善, 以在分布式优化领域建立更为健壮和最优的解决方案.
 
@@ -144,7 +144,7 @@ The contributions of this article are outlined as follows:
   \item Proposing a Sparse Mathematical Model-Based Distributed Framework for Electric Vehicle (EV) Management:
 We introduce a distributed framework for electric vehicle management based on a sparse mathematical model. By employing a method that decouples the originally tightly coupled issues into solutions for multiple sub-problems, the efficiency in handling system complexity is significantly improved. This approach enhances the interpretability of electric vehicle scheduling problems.
   \item Enhancing Convergence Speed with an Improved ADMM Algorithm:
-To address the slow convergence of sparse models, this paper introduces an enhanced Alternating Direction Method of Multipliers (ADMM) algorithm. We extend the classical ADMM method into multiple block Jacobi forms and incorporate a proximal term. This ensures not only parallel solvability but also higher convergence compared to the classical ADMM method. The convergence rate improves from $O(1/k)$ to $o(1/k)$.
+To address the slow convergence of sparse models, this paper introduces an enhanced Alternating Direction Method of Multipliers (ADMM) algorithm. We extend the classical ADMM method into multiple block Jacobi forms and incorporate a proximal term. This ensures not only parallel solvability but also higher convergence compared to the classical ADMM method. The convergence rate improves from $ O(1/k) $ to $ o(1/k) $.
 \end{enumerate}
 
 The rest of the paper is structured as follows. In Section \ref{section2}, we propose the mathematical models for the distribution network and EV orderly charging scheduling. In Section \ref{section3}, we propose an improved ADMM method to solve the underlying problem. subsequently, we verify the convergence and optimality of the proposed algorithm. Numerical examples are shown in Section \ref{section4} to demonstrate the results developed in the paper. Finally, conclusions and future research directions are given in Section \ref{section5}.
@@ -163,230 +163,230 @@ The rest of the paper is structured as follows. In Section \ref{section2}, we pr
 \section{EV MODEL CONSTRUCT}\label{section2}
 \subsection{EV distributed optimization framework }
 \noindent
-In this paper, we assume that EV users upload their charging demand information to the aggregator when they connect their EVs to charging piles. Charging plan of each EV will then be sent back to EV users.The charging demand information include arrival time $t_i^c$,predefined departure time $t_i^d$,the SOC when connecting to charging piles$SOC_i^c$
-and the expected SOC called $SOC_i^d$ of each EV. The coordinated charging scheduling process is shown in Fig. 1.
+In this paper, we assume that EV users upload their charging demand information to the aggregator when they connect their EVs to charging piles. Charging plan of each EV will then be sent back to EV users. The charging demand information include arrival time $ t_i^c $, predefined departure time $ t_i^d $, the SOC when connecting to charging piles $ SOC_i^c $
+and the expected SOC called $ SOC_i^d $ of each EV. \rd{The coordinated charging scheduling process is shown in Fig. 1.}
 
-In the scheduling process, the scheduling plan is usually executed by period of time for improving execution efficiency. The scheduling time is divided into several time periods. In the proposed EV charging scheduling model, a day is discretized into 96 time slots and the length of a time slot is 15 min. Then, the arrival
+In the scheduling process, the scheduling plan is usually executed by period of time for improving execution efficiency. The scheduling time is divided into several time periods. In the proposed EV charging scheduling model, a day is discretized into 96 time slots and the length of a time slot is $\Delta t$ = 15 minutes. Then, the arrival
 time and departure time of each EV can be are expressed as:
 
 \begin{align}\label{time1}
-I_i^c=[\frac{t_i^c}{\Delta T}],i=1,2,...,N.
+I_i^c=\lceil\frac{t_i^c}{\Delta t}\rceil, i=1,2,..., N.
 \end{align}
 \begin{align}\label{time2}
-I_i^{d}=[\frac{t_i^d}{\Delta T}],i=1,2,...,N.
+I_i^{d}=\lceil\frac{t_i^d}{\Delta t}\rceil, i=1,2,..., N.
 \end{align}
-Where $I_i^c$represents the time slot when the$i-th$electric vehicle is connected to the charging station,while $I_i^d$ represents the time slot when the $i-th$electric vehicle departs.$t_i^c$ and $t_i^d$represent the arrival time and scheduled departure time of the $EV i$,respective.$\lceil\frac{t_i^c}{\bigtriangleup t}\rceil$is the smallest positive integer greater than or equal to $\frac{t_i^c}{\bigtriangleup t}$,while$\lceil\frac{t_i^d}{\bigtriangleup t}\rceil$ is the smallest positive integer greater than or equal to$\frac{t_i^d}{\bigtriangleup t}$.
+Where $ I_i^c $ represents the time slot when the $ i-th $ electric vehicle is connected to the charging station, while $ I_i^d $ represents the time slot when the $ i-th $ electric vehicle departs. $ t_i^c $ and $ t_i^d $ represent the arrival time and scheduled departure time of the $ i$th EV, respective. $ \lceil\frac{t_i^c}{\bigtriangleup t}\rceil $ is the smallest positive integer greater than or equal to $ \frac{t_i^c}{\bigtriangleup t} $, while $ \lceil\frac{t_i^d}{\bigtriangleup t}\rceil $ is the smallest positive integer greater than or equal to $ \frac{t_i^d}{\bigtriangleup t} $.
 
 \begin{table}[htbp]
-	\centering
-	\caption{$LIST~OF~KEY~SYMBOLS$}
-	\label{tab:1}
-	\begin{tabular}{cccc ccc}%表格中的数据居中，c 的个数为表格的列数
-		\hline\hline\noalign{\smallskip}	
-		$\mathcal{N}$&EV population \\
-		%\noalign{\smallskip}\hline\noalign{\smallskip}
-		$\mathcal{T}$& EV~charging~intervals \\
-        $p_{n,t}$&Charginng~rate~of~EV~n~at~instant~t\\
-        $\Gamma_n$&Total~charging~power~required~to~be~fully~charged~of~EV~n\\
+    \centering
+    \caption{ $ \color{red} LIST~OF~KEY~SYMBOLS $ }
+    \label{tab:1}
+    \begin{tabular}{cccc ccc}%表格中的数据居中，c 的个数为表格的列数
+        \hline\hline\noalign{\smallskip}
+ $ \mathcal{N} $ &EV population \\
+        %\noalign{\smallskip}\hline\noalign{\smallskip}
+ $ \mathcal{T} $ & EV~charging~intervals \\
+ $ EV_{n} $ & n-th EV\\
+ $ p_{n, t} $ &Charginng~rate~of~EV~n~at~instant~t\\
+ $ \Gamma_n $ &Total~charging~power~required~to~be~fully~charged~of~EV~n\\
 
-		\noalign{\smallskip}\hline
-	\end{tabular}
+        \noalign{\smallskip}\hline
+    \end{tabular}
 \end{table}
 
 \subsection{Charging Scheduling Model Constraints}
 \noindent Based on the piecewise linear model, the battery dynamics can be described as follows
 \begin{equation}\label{0000}
-SOC_{n,t+1}=SOC_{n,t}+\frac{q_n^+p_{n,t}}{C_n}\Delta t-\frac{\omega_{n,t}}{q_n^-C_n}\Delta t
+SOC_{n, t+1}=SOC_{n, t}+\frac{q_n^+p_{n, t}}{C_n}\Delta t
 \end{equation}
 \begin{equation}\label{1111}
-  SOC_n^{min}\leq SOC_{n,t}\leq SOC_n^{max}
+  SOC_n^{min}\leq SOC_{n, t}\leq SOC_n^{max}
 \end{equation}
-where $q_n^+,q_n^-\in(0,1]$ represent the energy conversion efficiency for charging and discharging of electric vehicles, respectively.To extend battery life,it is recommended to set $soc_n^{min}$ and $soc_n^{max}$ at $15\%$ and $90\%$ respectively,$p_{n,t}$($kW$)represents the charging rate of$EV n$at time slot $t \in \mathcal{T}$,and $C_n$ denotes $EV n$ In each time slot, the charging rate for each electric vehicle remains constant.
+where $SOC$ denotes the state of charge, $ q_n^+\in(0,1] $ represents the energy conversion efficiency for charging. To extend battery life, it is recommended to set $ SOC_n^{min} $ and $ SOC_n^{max} $ at $ 15\% $ and $ 90\% $ respectively, $ p_{n, t} $ (kW) represents the charging rate of $ EV_n $ at time slot $ t \in \mathcal{T} $, and $ C_n $ denotes the charging rate of $ EV_n $ in each time slot, the charging rate for each electric vehicle remains constant.
 
-%用$\Gamma_n$表示$EV n$充满电所需的总充电功率。由于排队等待时间的限制，$EV n$ 在$\mathcal{I}_n$ 时间段可能无法充满电，因此$EV n$ 的充电策略$p_n\triangleq (p_{n,t};t\in \mathcal{T})$ 满足如下等式:
+%用 $ \Gamma_n $ 表示 $ EV_n $ 充满电所需的总充电功率。由于排队等待时间的限制， $ EV_n $ 在 $ \mathcal{I}_n $ 时间段可能无法充满电，因此 $ EV_n $ 的充电策略 $ p_n\triangleq (p_{n, t};t\in \mathcal{T}) $ 满足如下等式:
 
-Let $\bm{p}\triangleq(\bm{p}_n;n\in\mathcal{N})$ represent the charging strategy for the population of $EV$,The set of permissible charging strategies for $EV n$ is denoted as $\mathcal{P}_n$, and the set of permissible charging strategies for all electric vehicles is represented by $\mathcal{P}$.
+Let $ \bm{p}\triangleq({\color{red}\bm{p}_n ?};n\in\mathcal{N}) $ represent the charging strategy for the population of $ EV $, The set of permissible charging strategies for $ EV_n $ is denoted as $ \mathcal{P}_n $, and the set of permissible charging strategies for all electric vehicles is represented by $ \mathcal{P} $.
 \begin{align}
   \mathcal{P}\triangleq \mathcal{P}_1\times\cdots\times\mathcal{P}_N
 \end{align}
 The charging strategy is the most significant factor influencing grid investment. To ensure grid safety, the following inequality holds:
 \begin{align}\label{maxP}
-p_n^{min}\leq p_{n,t}\leq p_n^{max}
+p_n^{min}\leq p_{n, t}\leq p_n^{max}
 \end{align}
-where\,$p_n^{min}$and$p_n^{max}$ represent the minimum and maximum charging power of $EV n$,respectively.By determining whether to charge electric vehicles in each time slot, coordinated charging scheduling of electric vehicles is achieved. The charging status of$EV n$ is as follows
+where\, $ p_n^{min} $ and $ p_n^{max} $ represent the minimum and maximum charging power of $ EV_n $, respectively. By determining whether to charge electric vehicles in each time slot, coordinated charging scheduling of electric vehicles is achieved. The charging status of $ EV_n $ is as follows
 \begin{align}
-x_{n,t}=\left\{
+x_{n, t}=\left\{
 \begin{array}{cl}
-1 & \text{if the $EV$ is charging}\\
+1 & \text{if the $ EV $ is charging}\\
 0 & \text{otherwise}.\\
 \end{array}\right.
 \end{align}
 The constraints satisfy the following form:
 \begin{align}
-(1-x_{n,t})p_{n,t}=0
+(1-x_{n, t})p_{n, t}=0
 \end{align}
-Electric vehicles with urgent charging needs may not be able to obtain sufficient charge due to their short connection time. Therefore, the state of charge Therefore, the state of charge (SOC)at the end of their charging period, denoted as$SOC_n^{end}$, may differ from the desired SOC, represented as $SOC_n^d$
+Electric vehicles with urgent charging needs may not be able to obtain sufficient charge due to their short connection time. Therefore, the state of charge at the end of their charging period, denoted as $ SOC_n^{end} $, may differ from the desired $SOC$, represented as $ SOC_n^d $
 \begin{align}\label{SOCcondition}
-&SOC_n^{end}=min\{SOC_i^C+\frac{p_{n,t}\cdot\bigtriangleup t\times \eta_n}{C_n},SOC_i^d\}\\
-&SOC_n^{min}\leq SOC                                                                                    _{n,t}\leq SOC_N^{max}
+&SOC_n^{end}=min\{SOC_i^C+\frac{p_{n, t}\cdot\bigtriangleup t\times \eta_n}{C_n}, SOC_i^d\}\\
+&SOC_n^{min}\leq SOC_n^{end}\leq SOC_N^{max}
 \end{align}
-where $\eta$ represents the charging energy conversion efficiency of$EV n$.
+where $ \eta $ represents the charging energy conversion efficiency of $ EV_n $.
 
 
 
 \subsection{Objective Function Optimization}
-%\rd{决策变量是什么？$p_{n,1}$ 的具体意义是什么？}
+%\rd{决策变量是什么？ $ p_{n,1} $ 的具体意义是什么？}
 In this section, we delve into the intricacies of electric vehicle (EV) charging, placing a significant emphasis on addressing challenges related to minimizing costs, enhancing charging satisfaction, peak shaving, and formulating effective charging strategies. Our research focuses on the development of multi-objective optimization models for electric vehicles, aiming to strike a balance between minimizing charging costs and optimizing user satisfaction. Simultaneously, we implement strategies for peak shaving to establish an efficient charging scheduling policy for sustainable electric mobility.
 
-To reduce the cost of electric vehicle charging, we have designed corresponding electricity price models based on different time periods throughout the day fig.1, The approach aims to mitigate the impact of a large number of electric vehicles randomly connecting to the grid. We aim to enhance the stability of the power system when accommodating a significant number of electric vehicles, with the overarching objective of minimizing the overall cost of electric vehicle charging, as follows:
+To reduce the cost of electric vehicle charging, we have designed corresponding electricity price models based on different time periods throughout the day (see Fig \ref{price} for detial). The approach aims to mitigate the impact of a large number of electric vehicles randomly connecting to the grid. We aim to enhance the stability of the power system when accommodating a significant number of electric vehicles, with the overarching objective of minimizing the overall cost of electric vehicle charging, as follows:
 \begin{align}\label{G1}
-G_1=\sum_{n\in \mathcal{N}}\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t
+G_1=\sum_{n\in \mathcal{N}}\sum_{t\in \mathcal{T}}E_tp_{n, t}\Delta t
 \end{align}
-where $E_t$ represents the electricity price at time $t$, $p_{n,t}$ denotes the charging rate of $EV n$ at time $t$, and $\Delta t$ represents the length of a time slot.
+where $ E_t $ represents the electricity price at time $ t $, $ p_{n, t} $ denotes the charging rate of $ EV_n $ at time $ t $, and $ \Delta t $ represents the length of a time slot.
 
-EV users typically take into account the satisfaction function for the total energy delivered during the charging period. Given the opportunity, EV users would prefer to charge their vehicles with more electricity provided by the grid until they attain the required energy within the expected time $t\in\mathcal{T}$, They maintain this desire constant within the expected time frame until the required energy is achieved.The goal of electric vehicle owners is to maximize charging satisfaction,which is
+EV users typically take into account the satisfaction function for the total energy delivered during the charging period. Given the opportunity, EV users would prefer to charge their vehicles with more electricity provided by the grid until they attain the required energy within the expected time $ t\in\mathcal{T} $. They maintain this desire constant within the expected time frame until the required energy is achieved. The goal of electric vehicle owners is to maximize charging satisfaction, which is
 
 \begin{align}\label{G2}
-G_2=-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
+G_2=-\sum_{n\in \mathcal{N}}(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2.
 \end{align}
-To enable peak shaving and valley filling in the aggregated power of electric vehicle charging, we utilize the variance of the total power to reflect its stability. A smaller variance indicates a more stable grid. The total power encompasses the overall power from electric vehicle charging and residential electricity consumption (denoted as $B_t$), as illustrated below:
+To enable peak shaving and valley filling in the aggregated power of electric vehicle charging, we utilize the variance of the total power to reflect its stability. A smaller variance indicates a more stable grid. The total power encompasses the overall power from electric vehicle charging and residential electricity consumption (denoted as $ B_t $ ), as illustrated below:
 
 \begin{align}\label{G3}
 G_3=\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2,
 \end{align}
+where $\bar{B}=\frac{1}{T}\sum_{t\in\mathcal{T}}B_{t}, \bar{p}=\frac{1}{T}\sum_{t\in\mathcal{T}}\sum_{n\in\mathcal{N}}p_{nt}$.
 
 Charging behavior significantly impacts critical battery characteristics, such as health status, cycle life, and the growth of resistance impedance. Intermittent charging tends to shorten the battery's lifespan. Therefore, it is crucial to minimize the number of charging cycles to maintain battery health. On the other hand, prolonged waiting times for completing charging tasks and/or frequent interruptions during the charging process are deemed unacceptable. These factors can cause discomfort for EV owners. Recent research  emphasizes that the solution for charging time must be sufficiently sparse, as a sparse schedule implies a lower charging frequency.
 \begin{align}\label{G4}
 G_4=\|\bm{p}_n\|_0
 \end{align}
-Where $\|\bm{p}_n\|_0$ is the cardinality of the charging strategy, i.e. the number of non-zero elements in $|\bm{p}_n|$. For EV owners with an urgent need for their vehicles, prioritizing charging is crucial, even though it comes with higher charging costs. On the other hand, owners who are not in a hurry to use their electric vehicles can shift the electric vehicle load to other time periods.
+Where $ \|\bm{p}_n\|_0 $ is the cardinality of the charging strategy, i.e. the number of non-zero elements in $ |\bm{p}_n| $. For EV owners with an urgent need for their vehicles, prioritizing charging is crucial, even though it comes with higher charging costs. On the other hand, owners who are not in a hurry to use their electric vehicles can shift the electric vehicle load to other time periods.
 
-As the process of electrification in the automotive industry progresses, initially, attempts were made to model the charging strategy problem as a minimum $l_2$ norm problem for solving. However, the $l_2$ norm does not capture the sparsity required by the charging strategy of electric vehicles. In contrast, the $l_0$ norm counts the number of non-zero values in a vector. Therefore, the charging strategy is modeled as a minimum $l_0$ norm problem to achieve shorter charging time, improved battery lifespan, and increased user satisfaction. However, the minimum $l_0$ norm problem is NP-hard and cannot be solved using conventional methods. Under certain conditions, the minimum$l_1$ problem and the minimum $l_0$ norm problem are equivalent, meaning that solving the minimum $l_1$ problem can yield the solution to the minimum $l_0$ problem.
+As the process of electrification in the automotive industry progresses, initially, attempts were made to model the charging strategy problem as a minimum $ l_2 $ norm problem for solving. However, the $ l_2 $ norm does not capture the sparsity required by the charging strategy of electric vehicles. In contrast, the $ l_0 $ norm counts the number of non-zero values in a vector. Therefore, the charging strategy is modeled as a minimum $ l_0 $ norm problem to achieve shorter charging time, improved battery lifespan, and increased user satisfaction. However, the minimum $ l_0 $ norm problem is NP-hard and cannot be solved using conventional methods. Under certain conditions, the minimum $ l_1 $ problem and the minimum $ l_0 $ norm problem are equivalent, meaning that solving the minimum $ l_1 $ problem can yield the solution to the minimum $ l_0 $ problem.
 
-Therefore, we approximate the $l_0$ norm with the $l_1$ norm. We rephrase \eqref{G4} into the following sparse-promoting charging control model as follows:
+Therefore, we approximate the $ l_0 $ norm with the $ l_1 $ norm. We rephrase \eqref{G4} into the following sparse-promoting charging control model as follows:
 \begin{align}\label{GG4}
-\tilde{G}_4=\|p_n\|_1
+\tilde{G}_4=\|\bm{p}_n\|_1
 \end{align}
 The above issue involves a multi-objective optimization model that integrates multiple objectives with distributed optimization algorithms. The equation achieves optimal scheduling goals for minimizing EV charging costs, maximizing user satisfaction, minimizing grid load variance, and optimizing the electric vehicle charging strategy by linearly weighting the terms in equations \eqref{G1}, \eqref{G2},\eqref{G3}, and \eqref{GG4}. Thus, the objective function is formulated as follows:
 \begin{equation}\label{G}
 \begin{aligned}
-min~~\omega_1g_1+\omega_2g_2+\omega_3g_3+\omega_4\tilde {g}_4
+min~~\omega_1g_1+\omega_2g_2+\omega_3g_3+\omega_4\tilde {g}_4.
 \end{aligned}
 \end{equation}
 
-Due to the diverse dimensions of the four metrics EV charging cost, user satisfaction, grid load variance, and optimized electric vehicle charging strategy data normalization is required. In \eqref{G}, $g_1$, $g_2$, $g_3$, and $g_4$ represent the dimensionless values of the four objective functions after normalization. $\omega_1$, $\omega_2$, $\omega_3$, and $\omega_4$ respectively denote the weight values assigned to each objective.
+Due to the diverse dimensions of the four metrics EV charging cost, user satisfaction, grid load variance, and optimized electric vehicle charging strategy data normalization is required. In \eqref{G}, $ g_1 $, $ g_2 $, $ g_3 $, and $ g_4 $ represent the dimensionless values of the four objective functions after normalization. $ \omega_1 $, $ \omega_2 $, $ \omega_3 $, and $ \omega_4 $ respectively denote the weight values assigned to each objective.
 
-Since the objective function shown in \eqref{G} is minimized, for $G_1,i=1,3$, the smaller the better, that is:
+Since the objective function shown in \eqref{G} is minimized, for $ G_1, i=1,3 $, the smaller the better, that is:
 \begin{align}
 g_i=\frac{G_j-minG_j}{max G_j-min G_j}
 \end{align}
-for $\tilde{G}_2$, the smaller the better, that is:
+for $ \tilde{G}_2 $, the smaller the better, that is:
 \begin{align}
 g_4=\frac{\tilde{G}_4-min\tilde{G}_4}{max \tilde{G}_4-min \tilde{G}_4}
 \end{align}
-for $G_2$, the bigger the better, that is:
+{\color{red} for $ G_2 $, the bigger the better}, that is:
 \begin{align}
 g_2=\frac{max G_2-G_2}{max G_2-min G_2}
 \end{align}
-After dimensionless transformation of each objective function, \eqref{OG} can be further expressed as follows:
+After dimensionless transformation of each objective function, \eqref{G} can be further expressed as follows:
 \begin{equation}\label{OG}
 \begin{aligned}
 min~~&\tau_1G_1+\tau_2G_2+\tau_3G_3+\tau_4\tilde{G}_4\\
-& =\tau_1 \sum_{n\in \mathcal{N}}\{\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t-\tau_2(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2\\&+\tau_3\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2+\tau_4\|\bm{p}_n\|.
+& =\tau_1 \sum_{n\in \mathcal{N}}\{\sum_{t\in \mathcal{T}}E_tp_{n, t}\Delta t-\tau_2(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2\\&+\tau_3\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2+\tau_4\|\bm{p}_n\|.
 \end{aligned}
 \end{equation}
 Note:
 
 The following assumptions apply to the entire article:
 \begin{enumerate}
-\item $G_1$ is Lipschitz continuous,for all $x$,
-\item $G_3$ is non-decreasing, concave, and Lipschitz continuous,for all$n\in\mathcal{N}$ and all $x$.
-\item $G_2$ is non-decreasing,strictly convex and differentiable.
+\item $ G_1 $ is Lipschitz continuous, for all $ x $,
+\item $ G_3 $ is non-decreasing, concave, and Lipschitz continuous, for all $ n\in\mathcal{N} $ and all $ x $.
+\item $ G_2 $ is non-decreasing, strictly convex and differentiable.
 \end{enumerate}
 
 
 
 
 \section{EV Charging Framework based on improved ADMM}\label{section3}
-\rd{******}
+\rd{******summarise the chapter 高度概括}
 
 \subsection{Problem reformulation based on improved ADMM}
 
 \noindent
 
-{\color{blue}The ADMM method has emerged as a potent technique for addressing large-scale structured optimization problems. Notably, ADMM excels in untangling spatial coupling constraints and breaking down the primary problem into numerous manageable subproblems, each amenable to straightforward resolution. The global objective is subsequently optimized. Nevertheless, in the context of this paper, where more than two variables are at play, we employ a modified ADMM algorithm. This adaptation extends ADMM to tackle optimization challenges characterized by three or more separable operators.Specifically, the augmented Lagrangian (\ref{oobj}) is broken down into alternating and parallel steps. In each iteration, this method employs a new decomposition pattern to solve multiple smaller and easily solvable variables $x_j$. Sub-problem variables $x_j$ can be computed in parallel. This approach enhances efficiency by allowing simultaneous processing of multiple variables, thereby accelerating the overall computation process.}
+{\color{blue}The ADMM method has emerged as a potent technique for addressing large-scale structured optimization problems. Notably, ADMM excels in untangling spatial coupling constraints and breaking down the primary problem into numerous manageable subproblems, each amenable to straightforward resolution. The global objective is subsequently optimized. Nevertheless, in the context of this paper, where more than two variables are at play, we employ a modified ADMM algorithm. This adaptation extends ADMM to tackle optimization challenges characterized by three or more separable operators. Specifically, the augmented Lagrangian (\ref{oobj}) is broken down into alternating and parallel steps. In each iteration, this method employs a new decomposition pattern to solve multiple smaller and easily solvable variables $ x_j $. Sub-problem variables $ x_j $ can be computed in parallel. This approach enhances efficiency by allowing simultaneous processing of multiple variables, thereby accelerating the overall computation process.}
 
-For an optimisation problem with linear constraints,the objective function comprises the aggregate of $M$ independent functions devoid of interdependent variables. The corresponding mathematical model can be expressed as follows
+For an optimisation problem with linear constraints, the objective function comprises the aggregate of $ M $ independent functions devoid of interdependent variables. The corresponding mathematical model can be expressed as follows
 \begin{align}\label{oobj}
 & min~~~~\sum_{i=1}^M \theta_i(x_i)\\\nonumber
-& s.~t.~~\sum_{i=1}^MA_ix_i=c
+& s.~t.~~\sum_{i=1}^LA_ix_i=c,
 \end{align}
-where $\theta_i$ is a non-strictly convex function, $M\geq3$. $L$ is the number of equation constraints,~$b\in \bm{R}^L$.
-\begin{algorithm}
+where $ \theta_i $ is a non-strictly convex function, $ M\geq3 $. $ L $ is the number of equation constraints{\color{red} $ b\in \bm{R}^L $}.
+
+
+\subsection{Optimization strategy based on improved ADMM algorithm}
+
+\begin{algorithm*}
     \caption{Jacobi-Proximal ADMM}
     \label{alg:2}
     \begin{algorithmic}
-        \STATE {Initialize: $\bm{p}_i^0(i=1,2,\cdots,M)$and $\lambda^0$}
+        \STATE {Initialize: $ \bm{p}_i^0(i=1,2,\cdots, M) $ and $ \lambda^0 $ }
         \FOR{k=0,1,...}
-                \STATE Update~$\mathbf{p}_i$~for~$i=1,...,M$~in parallel by:
-                \STATE \qquad $\mathbf{p}_i^{k+1}=
+                \STATE Update~ $ \mathbf{p}_i $ ~for~ $ i=1,..., M $ ~in parallel by:
+                \STATE \qquad $ \mathbf{p}_i^{k+1}=
                 \textrm{ argmin }
                 \big\{ \theta_i(\mathbf{p}_i)
-              +\frac{\rho}{2}\|A_i\mathbf{p}_i+\sum\limits_{j\neq i}A_j\mathbf{p}_j^k -c   -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_i-\mathbf{p}_i^k\|_{\Psi}^2\big\}$
-
-        \STATE Update $\Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{i=1}^M A_n\mathbf{p}_n^{k+1}-c)$
+              +\frac{\rho}{2}\|A_i\mathbf{p}_i+\sum\limits_{j\neq i}A_j\mathbf{p}_j^k -c   -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_i-\mathbf{p}_i^k\|_{\Psi}^2\big\} $
+        \STATE Update $ \Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{i=1}^M A_n\mathbf{p}_n^{k+1}-c) $
         \ENDFOR
     \end{algorithmic}
-\end{algorithm}
-\subsection{Optimization strategy based on improved ADMM algorithm}
+\end{algorithm*}
 \begin{algorithm*}
     \caption{Implementation of Charging Coordination via the Parallel Method  }
     \renewcommand{\algorithmicrequire}{\textbf{Input:}}
     \renewcommand{\algorithmicensure}{\textbf{Output:}}
     \begin{algorithmic}[1]
-        \REQUIRE Set the initial strategy state $\bm{p}^0$,
-        \REQUIRE Set the feasibility tollerance $\varepsilon^{pri}$,$\varepsilon^{dual}$,
-        \REQUIRE Set $k=0$,$r>\varepsilon^{pri}$ and $s>\varepsilon^{dual}$
-        \ENSURE $\mathbf{p}_n^k(n=1,...,N+1)$    %%output
+        \REQUIRE Set the initial strategy state $ \bm{p}^0 $,
+        \REQUIRE Set the feasibility tollerance $ \varepsilon^{pri} $, $ \varepsilon^{dual} $,
+        \REQUIRE Set $ k=0 $, $ r>\varepsilon^{pri} $ and $ s>\varepsilon^{dual} $
+        \ENSURE $ \mathbf{p}_n^k(n=1,..., N+1) $    %%output
         \FOR{k=0,1,...}
-                \STATE Update~$\mathbf{p}_n$~for~$n=1,...,N+1$~in parallel by:
-                \STATE \qquad $\mathbf{p}_n^{k+1}=
+                \STATE Update~ $ \mathbf{p}_n $ ~for~ $ n=1,..., N+1 $ ~in parallel by:
+                \STATE \qquad $ \mathbf{p}_n^{k+1}=
                 \textrm{ argmin }
                 \big\{ \Theta_n(\mathbf{p}_n)
-              +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum\limits_{j\neq n}A_j\mathbf{p}_j^k -c   -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2\big\}$
-        \STATE Update the dual variable $\Lambda$by:
-                \STATE \qquad $\Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^{N+1} A_n\mathbf{p}_n^{k+1}-c)$
-        \IF {$\sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri}$}
+              +\frac{\rho}{2}\|A_n\mathbf{p}_n+\sum\limits_{j\neq n}A_j\mathbf{p}_j^k -c   -\frac{\Lambda^k}{\rho}\|_2^2+\frac{1}{2}\|\mathbf{p}_n-\mathbf{p}_n^k\|_{\Psi}^2\big\} $
+        \STATE Update the dual variable $ \Lambda $ by:
+                \STATE \qquad $ \Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^{N+1} A_n\mathbf{p}_n^{k+1}-c) $
+        \IF { $ \sum_{n=1}^{N+1}\|\mathbf{p}_n^{k+1}-\mathbf{p}_n^{k}\|_F \leq \varepsilon^{pri} $ }
             \STATE Break.
         \ENDIF
         \ENDFOR
     \end{algorithmic}
 \end{algorithm*}
-(\ref{OBJ_J1}) constitutes a multi-objective optimization model,Combining multi-objective models with distributed optimisation algorithms .
 
-Note that
+The objective function (\ref{OG}) contains coupled multi-objective functions. In the following, these will be decoupled into $N+1$ independent multi-objective functions and combined with the distributed optimization algorithm.
+
+Firstly, by equations \eqref{G1} and  \eqref{G2}, $G_1, G_2$ can be equivalently rewritten in the following form.
 \begin{align}
-&\sum_{n\in \mathcal{N}}\left\{f_n(p_{nt})\right\}= \sum_{n\in \mathcal{N}}\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t=\sum_{n\in \mathcal{N}}\Delta t\bm{E}\bm{p}_n\\
-&\sum_{n\in \mathcal{N}}\left\{g_n(\sum_{t\in\mathcal{N}}p_{nt})\right\}= -\sum_{n\in \mathcal{N}}(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2\nonumber\\
-&=-\sum_{n\in \mathcal{N}}(\|\bm{p}_n\|_1-\Gamma_n)^2\\
-&\sum_{n\in \mathcal{N}}\left\{\|\bm{p}_n\|_1\right\}=\sum_{n\in \mathcal{N}}\|\bm{p}_n\|_1
+G_1=&\sum_{n\in \mathcal{N}}\Delta t\bm{E}\bm{p}_n \label{newG1}\\
+G_2=&-\sum_{n\in \mathcal{N}}(\|\bm{p}_n\|_1-\Gamma_n)^2 \label{newG2}
 \end{align}
-where $\bm{E}=(E_1,E_2, \cdots, E_T)^T$.
+where $ \bm{E}=(E_1, E_2, \cdots, E_T)^T $.
 
-Moreover,by introducting the notation
-
-$$p_{N+1,t}=\sum_{n\in\mathcal{N}} p_{nt},\bm{p}_{N+1}=(p_{N+1,1},\cdots,p_{N+1,T})^T$$
-We have
-\begin{align}
-  h(\sum_{n\in\mathcal{N}}p_{nt})&=\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2
-\nonumber\\
-&=D(\bm{p}_{N+1}+B_{t})
+Then, by introducing the notation
+ $$ p_{N+1, t}=\sum_{n\in\mathcal{N}} p_{nt},\bm{p}_{N+1}=(p_{N+1,1},\cdots, p_{N+1, T})^T $$
+and applying \eqref{G3}, we arrive
+\begin{align}\label{newG3}
+  G_3=D(\bm{p}_{N+1}+B_{t}),
 \end{align}
-Here, $D(\cdot)$ represents the variance.
+where $ D(\cdot) $ represents the variance.
 
-Therefore, we obtain an equivalent form of equation(\ref{OBJ_J1}):
+Combining equations \eqref{newG1}-\eqref{newG3} and \eqref{G4}, we ultimately obtain an equivalent form of equation (\ref{OG}) as follows.
 \begin{align*}
-  \textrm{minmize}_{\bm{p}\in\mathcal{P}} \quad&\theta_1(\mathbf{p}_1)+\cdots+\theta_N(\mathbf{p}_N)+\theta_{N+1}(\mathbf{p}_{N+1}),\\
+  \textrm{minmize}{\bm{p}\in\mathcal{P}} \quad&\theta_1(\mathbf{p}_1)+\cdots+\theta_N(\mathbf{p}_N)+\theta_{N+1}(\mathbf{p}_{N+1}),\\
   \textrm{subject to } \quad&\mathbf{p}_1+\cdots+\mathbf{p}_N-\mathbf{p}_{N+1}=\mathbf{0},
 \end{align*}
 where
@@ -396,7 +396,7 @@ where
 &\theta_{N+1}(\bm{p}_{N+1})=D(\bm{p}_{N+1}+B_{t}).\\
 \end{align*}
 
-To tackle the core problem using the ADMM method, we initially introduce an indicator function of $\mathcal{C}$, denoted as:
+To tackle the core problem using the ADMM method, we initially introduce an indicator function of $ \mathcal{C} $, denoted as:
 \[
 \mathcal{I}_{\mathcal{C}}(\bm{p}_n) =
 \begin{cases}
@@ -410,7 +410,7 @@ and let
 &\Theta_{N+1}(\bm{p}_{N+1}):=\theta_{N+1}(\bm{p}_{N+1})
 \end{align}
 
-Thus,problem\eqref{OBJ_J1} can be equivalently written in the following form:
+Thus, problem\eqref{OG} can be equivalently written in the following form:
 \begin{align}\label{obj_1}
  \mathop{min} \quad \sum\limits_{n=1}^{N+1}\Theta_n(\bm{p}_n),\\
 \text{s.t}\quad \sum_{n=1}^{N+1} \bm{p}_{n}=0.\label{good}
@@ -434,7 +434,7 @@ The augmented lagrangian:
 \mathcal{L}_{\rho}(\bm{p}_1,\cdot\cdot\cdot,\bm{p}_{N+1},\bm{u})&=\sum_{n=1}^{N+1}\Theta_i(\bm{p}_i)\\ &+\frac{\rho}{2}\|\sum_{i=1}^N\bm{p}_i-\bm{p}_{N+1}+u\|_2^2
 \end{aligned}
 \end{equation}}
-where $\rho>0$ is the standard penalty parameter, $u$~is referred to as the scaling dual variable or scaling Lagrange multiplier.~The variables $p$~and~$u$~are updated simultaneously by adding additional approximation terms. The specific update procedures are as follows
+where $ \rho>0 $ is the standard penalty parameter, $ u $ ~is referred to as the scaling dual variable or scaling Lagrange multiplier.~The variables $ p $ ~and~ $ u $ ~are updated simultaneously by adding additional approximation terms. The specific update procedures are as follows
 \begin{equation}
 \begin{aligned}
 \bm{p}_n^{k+1}:&=\mathop{\arg\min}\limits_{\bm{p}\in\mathcal{P}}\Theta_n(\bm{p}_n)\\\nonumber
@@ -447,15 +447,15 @@ where $\rho>0$ is the standard penalty parameter, $u$~is referred to as the scal
 \end{aligned}
 \end{equation}
 
-where $\Phi$,$\Psi$,$\gamma>0$ satisfy
+where $ \Phi $, $ \Psi $, $ \gamma>0 $ satisfy
 \begin{align}\label{Con1}
   &\Phi\succ \rho(\frac{1}{\mu_1}-1)I,\Psi\succ \rho(\frac{1}{\mu_2}<2-\gamma)I\nonumber\\
   &\mu_1+\mu_2<2-\gamma
 \end{align}
 
-for $\mu_1>0$,$\mu_2>0$. (\ref{Con1}) is suffucuent for the convergence of the improved ADMM.
+for $ \mu_1>0 $, $ \mu_2>0 $. (\ref{Con1}) is suffucuent for the convergence of the improved ADMM.
 
-Several viable selections of $\Phi,\Psi$,and $\gamma$ exist that satisfy (\ref{Con1}). For this purpose, a straightforward choice applied here involves setting $\Phi=\phi I$,$\Psi=\psi I$,thereby fulfilling
+Several viable selections of $ \Phi,\Psi $, and $ \gamma $ exist that satisfy (\ref{Con1}). For this purpose, a straightforward choice applied here involves setting $ \Phi=\phi I $, $ \Psi=\psi I $, thereby fulfilling
 \begin{align}\label{con1}
   &\phi\succ \rho(\frac{1}{\mu_1}-1),\psi\succ \rho(\frac{1}{\mu_2}<2-\gamma)\nonumber\\
   &\mu_1+\mu_2<2-\gamma
@@ -464,43 +464,43 @@ Several viable selections of $\Phi,\Psi$,and $\gamma$ exist that satisfy (\ref{C
 Remark 1：It is important to note that the Jacobian ADMM mentioned in \cite{deng2017parallel} is parallel and can be directly applied to solve the model. However, it requires all electric vehicles to share information, while our preference here is for each intelligent agent to be connected only to a few neighbors.
 
 
-Remark2: We propose that $Amproved -ADMM$ offers several advantages over the conventional ADMM. Firstly, in the ADMM variant presented in [13], the variables $(P,X,u)$ must be updated sequentially, similar to the classical centralized ADMM. This means that in iteration k + 1, updating P first and using it to update X, and then updating $\bm{u}$ are predetermined steps, and variable updates cannot occur simultaneously. In contrast, our proposed $Amproved-ADMM$ algorithm significantly enhances the algorithm presented in [Classical] by allowing simultaneous updates of $P, X, u$ in any order. This is particularly crucial for accelerating computation time in parallel and distributed computing, especially when the number of agents is large. Secondly, the ability to update variables in parallel accelerates the convergence speed of our proposed DCJ-ADMM algorithm to $o(1/k)$, which is noticeably faster than the $O(1/k)$ convergence speed in the algorithm presented in ADMM
+Remark2: We propose that $ Amproved -ADMM $ offers several advantages over the conventional ADMM. Firstly, in the ADMM variant presented in [13], the variables $ (P, X, u) $ must be updated sequentially, similar to the classical centralized ADMM. This means that in iteration k + 1, updating P first and using it to update X, and then updating $ \bm{u} $ are predetermined steps, and variable updates cannot occur simultaneously. In contrast, our proposed $ Amproved-ADMM $ algorithm significantly enhances the algorithm presented in [Classical] by allowing simultaneous updates of $ P, X, u $ in any order. This is particularly crucial for accelerating computation time in parallel and distributed computing, especially when the number of agents is large. Secondly, the ability to update variables in parallel accelerates the convergence speed of our proposed DCJ-ADMM algorithm to $ o(1/k) $, which is noticeably faster than the $ O(1/k) $ convergence speed in the algorithm presented in ADMM
 
 
 \subsection{Algorthms}
 
-\noindent If the number of iterations reaches a given threshold $iter_{max}$ or satisfies the following conditions simultaneously~\cite{boyd2011distributed}, then ADMM meets the following criteria:
+\noindent If the number of iterations reaches a given threshold $ iter_{max} $ or satisfies the following conditions simultaneously~\cite{boyd2011distributed}, then ADMM meets the following criteria:
 \begin{align*}
 \bm{r}^{k+1}=\|\bm{P}^{k+1}-\bm{Y}^{k+1}\|_F
 \end{align*}
 \begin{align*}
 \bm{s}^{k+1}=\|\rho(\bm{Y}^{k+1}-\bm{Y}^{k})\|_F
 \end{align*}
-this shows that when the residual$\bm{r}^k$ and $\bm{s}^k$ are small as follow
+this shows that when the residual $ \bm{r}^k $ and $ \bm{s}^k $ are small as follow
 \begin{align*}
 \|\bm{r}^k\|_2\leq \varepsilon^{pri}\,\,\,\,\,\,\,\,\|\bm{s}^k\|_2\leq \varepsilon^{dual}
 \end{align*}
-where~$\varepsilon^{pri}>0$ and $\varepsilon^{dual}>0$~are feasibility~tolerances~for~the~primal~and~dual~feasibity~conditions~()~and~().These~tolerances~can~be~
-chosen~using~an~absolute~and~relative~criterion,such~as
+where~ $ \varepsilon^{pri}>0 $ and $ \varepsilon^{dual}>0 $ ~are feasibility~tolerances~for~the~primal~and~dual~feasibity~conditions~()~and~(). These~tolerances~can~be~
+chosen~using~an~absolute~and~relative~criterion, such~as
 \begin{align*}
 &\varepsilon^{pri}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}max\{\|p\|_2,\|-x\|_2\},\\
 &\varepsilon^{dual}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}\|\mu^k\|_2
 \end{align*}
-where~$\varepsilon^{abs}>0$~is~an~absolute~tolerance~and~$\varepsilon^{rel}>0$~is~a~relative~tolerance.A~reasonable~value~for~the~relative~stopping
-criterion~might~be~$10^{-3}$~or~$10^{-4}$.~A~pseudo-code~for~the~proposed Improved -ADMM~is~then~give~in~Algorithm~2.
+where~ $ \varepsilon^{abs}>0 $ ~is~an~absolute~tolerance~and~ $ \varepsilon^{rel}>0 $ ~is~a~relative~tolerance. A~reasonable~value~for~the~relative~stopping
+criterion~might~be~ $ 10^{-3} $ ~or~ $ 10^{-4} $.~A~pseudo-code~for~the~proposed Improved -ADMM~is~then~give~in~Algorithm~2.
 Here,
-$$A_n=1, \forall 1\leq n\leq N;\quad A_{N+1}=-1;\quad c=0. $$
+ $$ A_n=1, \forall 1\leq n\leq N;\quad A_{N+1}=-1;\quad c=0. $$
 
 \begin{theorem}\label{Th1}
-For $k\geq 1$,we have
+For $ k\geq 1 $, we have
 \begin{align*}
 \|u^k-u^*\|_G^2-\|u^{k+1}-u^*\|_G^2\geq \|u^k-u^{k+1}\|_Q^2
 \end{align*}
-where $\|u^k-u^{k+1}\|_Q^2:=\|x^k-x^{k+1}\|_{G_x}^2+\frac{2-\gamma}{\rho\gamma^2}\|\lambda^k-\lambda^{k+1}\|^2+\frac{2}{\gamma}(\lambda^k-\lambda^{k+1})^TA(x^k-x^{k+1})$
+where $ \|u^k-u^{k+1}\|_Q^2:=\|x^k-x^{k+1}\|_{G_x}^2+\frac{2-\gamma}{\rho\gamma^2}\|\lambda^k-\lambda^{k+1}\|^2+\frac{2}{\gamma}(\lambda^k-\lambda^{k+1})^TA(x^k-x^{k+1}) $
 \end{theorem}
 \begin{theorem}
 \label{Th1}
-If $Q\succ0$ and $M_x\succeq 0$, then $\|u^k-u^{k+1}\|_M^2=o(1/k)$, however $\|x^k-x^{k+1}\|_{M_x}^2=o(1/k)$ and $\|\lambda^k-\lambda^{k+1}\|^2=o(1/k).$
+If $ Q\succ0 $ and $ M_x\succeq 0 $, then $ \|u^k-u^{k+1}\|_M^2=o(1/k) $, however $ \|x^k-x^{k+1}\|_{M_x}^2=o(1/k) $ and $ \|\lambda^k-\lambda^{k+1}\|^2=o(1/k). $
 \end{theorem}
 
 
@@ -513,26 +513,31 @@ In this section, we will present and discuss the experimental results obtained, 
 
 \subsection{Assumptions and Parameter Settings}
 
+{\color{red} charging rate \\
+$ p_n^{min} $ and $ p_n^{max} $\\
+$\eta$}
+
+
 For simplicity, we assumed all EVs to be BYD Seagull 305 with the same battery capacity of 30 kWh.
 
 \subsubsection{EV depart and return}
  \begin{figure}[!ht]
-	\centering
-	\begin{minipage}{\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{img/arrive.eps}
-		\caption{arrive}
-		\label{arrive}% 文中引用该图片代号
-	\end{minipage}
-	\hfill
-	\begin{minipage}{ \linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{img/depart.eps}
-		\caption{depart}
-		\label{depart}% 文中引用该图片代号
-	\end{minipage}
+    \centering
+    \begin{minipage}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/arrive.eps}
+        \caption{arrive}
+        \label{arrive}% 文中引用该图片代号
+    \end{minipage}
+    \hfill
+    \begin{minipage}{ \linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/depart.eps}
+        \caption{depart}
+        \label{depart}% 文中引用该图片代号
+    \end{minipage}
 \end{figure}
- The times for electric vehicles to depart from and return to the grid within a day followed normal distributions of $N(18,3.3^2)$(see Fig. \ref{arrive}) and $N(8,3.24^2)$ (see Fig. \ref{depart}), respectively \cite{liu2022electric}.
+ The times for electric vehicles to depart from and return to the grid within a day followed normal distributions of $ N(18,3.3^2) $ (see Fig. \ref{arrive}) and $ N(8,3.24^2) $ (see Fig. \ref{depart}), respectively \cite{liu2022electric}.
 
 \subsubsection{fundamental load data}
 \begin{figure}[!ht]
@@ -552,84 +557,84 @@ In this paper, we consider the fundamental load data following the electricity u
 \end{figure}
 We have set the electricity prices within a day as shown in the Fig. \ref{price}. Two high-priced time periods can be observed, from 9:00 am to 1:00 pm and from 6:00 pm to 10:00 pm. During peak electricity consumption periods, prices are generally higher, which in turn may suppress the desire of electric vehicle users to charge their vehicles. The pricing setup in this paper is similar to that assumed in the literature \rd{\cite{?}}.
 \subsubsection{assume about SOC}
-We assume that the initial state of charge ($SOC_c$) of electric vehicles is uniformly and continuously distributed between 0.1 and 0.3, while the expected charging completion state ($SOC_d$) is uniformly and continuously distributed between 0.7 and 0.9.
+We assume that the initial state of charge ( $ SOC_c $ ) of electric vehicles is uniformly and continuously distributed between 0.1 and 0.3, while the expected charging completion state ( $ SOC_d $ ) is uniformly and continuously distributed between 0.7 and 0.9.
 
 
 
-\subsection{Effect of Varying $\rho$ on Convergence Speed}
+\subsection{Effect of Varying $ \rho $ on Convergence Speed}
 \begin{figure}[!ht]
    \centering
     \includegraphics[scale=0.5]{img/fig-RHO.eps}
-   \caption{The convergence of Algorithm 2 under k=1 with respect to different $\rho$}
+   \caption{The convergence of Algorithm 2 under k=1 with respect to different $ \rho $ }
    \label{rho}
 \end{figure}
-As depicted in Fig. \ref{rho}, the convergence behavior of the improved ADMM algorithm under different $\rho$ conditions is examined. It can be observed from the graph that the convergence is least favorable when $\rho=10$, while it attains optimal convergence when $\rho=0.1$. It is important to note that the convergence does not exhibit a linear improvement with increasing values of $\rho$, nor does it necessarily improve with decreasing values. Instead, an optimal convergence is achieved within a moderate range of $\rho$ values.
+As depicted in Fig. \ref{rho}, the convergence behavior of the improved ADMM algorithm under different $ \rho $ conditions is examined. It can be observed from the graph that the convergence is least favorable when $ \rho=10 $, while it attains optimal convergence when $ \rho=0.1 $. It is important to note that the convergence does not exhibit a linear improvement with increasing values of $ \rho $, nor does it necessarily improve with decreasing values. Instead, an optimal convergence is achieved within a moderate range of $ \rho $ values.
 
 
 \subsection{Effect of  Peaking shaving and valley filling}
  \begin{figure}[!ht]
-	\centering
-	\begin{minipage}{ \linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{img/fig-100EVnoxue.eps}
-		\caption{Rusult of no Peaking shaving and valley filling}
-		\label{fig:no_peak_valley_fill}% 文中引用该图片代号
-	\end{minipage}
-	\hfill
-	\begin{minipage}{ \linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{img/fig-100EVxue.eps}
-		\caption{Rusult of Peaking shaving and valley filling}
-		\label{fig:peak_valley_fill}% 文中引用该图片代号
-	\end{minipage}
+    \centering
+    \begin{minipage}{ \linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/fig-100EVnoxue.eps}
+        \caption{Rusult of no Peaking shaving and valley filling}
+        \label{fig:no_peak_valley_fill}% 文中引用该图片代号
+    \end{minipage}
+    \hfill
+    \begin{minipage}{ \linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/fig-100EVxue.eps}
+        \caption{Rusult of Peaking shaving and valley filling}
+        \label{fig:peak_valley_fill}% 文中引用该图片代号
+    \end{minipage}
 \end{figure}
 Total power is the sum of the power consumed by electric vehicles and residential electricity usage. Our objective is to minimize the difference between the maximum (peak power) and minimum (low power) values of the total power. Considering that residential electricity usage typically peaks during the day and decreases at night, which differs from the charging pattern of electric vehicles, peak shaving and valley filling of the grid's total power can be achieved through proper optimization control. In this case study, we selected 100 electric vehicles for investigation. The weight coefficients for each optimization objective were chosen as (1, 1, 0, 1) and (1, 1, 100, 1) to test the differences in the effectiveness of power control. Specifically, Fig. \ref{fig:no_peak_valley_fill} illustrates the power situation without power stabilization, while Fig. \ref{fig:peak_valley_fill} shows the power profile after peak shaving and valley filling optimization. It is evident that the power peaks at 5 AM and 11 PM have been eliminated, resulting in a significant reduction in the absolute power difference from 250kw to 100 kw.
 
 \subsection{Computational efficiency compared to traditional ADMM}
 \begin{figure}[!ht]
-	\centering
-	\begin{minipage}{\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{img/fig-ErrorReduction_ADMM2.eps}
-		\caption{Result of covergence by ADMM}
-		\label{Result of covergence by ADMM}% 文中引用该图片代号
-	\end{minipage}
-	\hfill
-	\begin{minipage}{\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{img/fig-ErrorReduction_Jac_Pro.eps}
-		\caption{Result of covergence by Amproved ADMM}
-		\label{Result of covergence by ADMM}% 文中引用该图片代号
-	\end{minipage}
+    \centering
+    \begin{minipage}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/fig-ErrorReduction_ADMM2.eps}
+        \caption{Result of covergence by ADMM}
+        \label{Result of covergence by ADMM}% 文中引用该图片代号
+    \end{minipage}
+    \hfill
+    \begin{minipage}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/fig-ErrorReduction_Jac_Pro.eps}
+        \caption{Result of covergence by Amproved ADMM}
+        \label{Result of covergence by ADMM}% 文中引用该图片代号
+    \end{minipage}
 \end{figure}
 
-We conducted separate calculations of the decay rates for the primal and dual errors throughout the iterative process. In order to facilitate the observation of error decay trends, we defined the total error as the sum of these two errors. The convergence results of the classical ADMM method are depicted in Fig. \ref{Result of covergence by ADMM}, while the improved Jacobi-proximal ADMM method's convergence results are presented in Fig. \ref{Result of covergence by ADMM}. A comparison between the two methods reveals that the improved ADMM method demonstrates accelerated convergence when addressing the optimization problems investigated in this study. Within a CPU time of 60 seconds, it achieves a reduction in error to $10^{-2}$. Consequently, the implementation of parallel algorithms significantly enhances computational efficiency.
+We conducted separate calculations of the decay rates for the primal and dual errors throughout the iterative process. In order to facilitate the observation of error decay trends, we defined the total error as the sum of these two errors. The convergence results of the classical ADMM method are depicted in Fig. \ref{Result of covergence by ADMM}, while the improved Jacobi-proximal ADMM method's convergence results are presented in Fig. \ref{Result of covergence by ADMM}. A comparison between the two methods reveals that the improved ADMM method demonstrates accelerated convergence when addressing the optimization problems investigated in this study. Within a CPU time of 60 seconds, it achieves a reduction in error to $ 10^{-2} $. Consequently, the implementation of parallel algorithms significantly enhances computational efficiency.
 
 \subsection{Numerical performance of large vehicles}
 \begin{figure}[!ht]
-	
-	\begin{minipage}{\linewidth}
-		\vspace{3pt}
-        %这个图片路径替换成你的图片路径即可使用
-		\includegraphics[width=\textwidth]{img/fig-error.eps}
-          \centerline{(a)100EV}
-	\end{minipage}
-    \hfill
-	\begin{minipage}{\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{img/fig-error200.eps}}
-		\centerline{(a)200EV}
-	\end{minipage}
-    \hfill
-	\begin{minipage}{\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{img/fig-error300.eps}}
-	
-		\centerline{(a)300EV}
 
-	\caption{Visual comparisons of original models.  }
-	\label{ccc}
-	\end{minipage}
+    \begin{minipage}{\linewidth}
+        \vspace{3pt}
+        %这个图片路径替换成你的图片路径即可使用
+        \includegraphics[width=\textwidth]{img/fig-error.eps}
+          \centerline{(a)100EV}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{\linewidth}
+        \vspace{3pt}
+        \centerline{\includegraphics[width=\textwidth]{img/fig-error200.eps}}
+        \centerline{(a)200EV}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{\linewidth}
+        \vspace{3pt}
+        \centerline{\includegraphics[width=\textwidth]{img/fig-error300.eps}}
+
+        \centerline{(a)300EV}
+
+    \caption{Visual comparisons of original models.  }
+    \label{ccc}
+    \end{minipage}
 \end{figure}
 To further investigate the performance of our proposed model in handling large-scale data, we conducted experiments for different numbers of electric vehicles (EVs), ranging from 100 to 300. The results were compared by analyzing the error decay trends of the algorithm, as depicted in Fig. \ref{ccc}. It is evident that increasing the number of EVs does not significantly impede the convergence of the error. This highlights the robustness and scalability of our proposed algorithm for addressing large-scale optimization problems. In addition, the algorithm's promising performance in handling big data implies its potential applications in real-world scenarios, where the amount of data is typically large and diverse. Therefore, our proposed model could be instrumental in providing efficient and effective solutions to various complex optimization tasks across a broad range of domains.
 
@@ -683,7 +688,7 @@ To further investigate the performance of our proposed model in handling large-s
 %\bibitem{ams}
 %{\it{Hu, Yang, et al.}} Optimization of orderly charging strategy of electric vehicle based on improved alternating direction method of multipliers. Journal of Energy Storage 55 (2022): 105483.
 %\bibitem{oxford}
-%T.W. Chaundy, P.R. Barrett and C. Batey, {\it{The Printing of Mathematics}}, Oxford University Press. London, 1954.
+%T. W. Chaundy, P. R. Barrett and C. Batey, {\it{The Printing of Mathematics}}, Oxford University Press. London, 1954.
 %
 %\bibitem{lacomp}{\it{The \LaTeX Companion}}, by F. Mittelbach and M. Goossens
 %
