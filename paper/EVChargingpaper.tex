@@ -147,7 +147,7 @@ We introduce a distributed framework for electric vehicle management based on a 
 To address the slow convergence of sparse models, this paper introduces an enhanced Alternating Direction Method of Multipliers (ADMM) algorithm. We extend the classical ADMM method into multiple block Jacobi forms and incorporate a proximal term. This ensures not only parallel solvability but also higher convergence compared to the classical ADMM method. The convergence rate improves from $O(1/k)$ to $o(1/k)$.
 \end{enumerate}
 
-The rest of the paper is structured as follows. In Section II,we propose the mathematical models for the distribution network and EV orderly charging scheduling.In Section III,we propose an improved ADMM method to solve the underlying problem, We then verify the convergence and optimality of the proposed algorithm.Numerical examples are shown in Section V to demonstrate the results developed in the paper. Finally, conclusions and future research directions are given in Section VI.
+The rest of the paper is structured as follows. In Section \ref{section2}, we propose the mathematical models for the distribution network and EV orderly charging scheduling. In Section \ref{section3}, we propose an improved ADMM method to solve the underlying problem. subsequently, we verify the convergence and optimality of the proposed algorithm. Numerical examples are shown in Section \ref{section4} to demonstrate the results developed in the paper. Finally, conclusions and future research directions are given in Section \ref{section5}.
 
 
 %The contributions of this article are as follows:
@@ -160,10 +160,10 @@ The rest of the paper is structured as follows. In Section II,we propose the mat
 %
 %在本文的其余结构如下.第二部分介绍了用于配电网络和电动汽车充电基础设施的数学模型.在第三节中,定义了一般的*****优化问题,并提出了所提出的改进ADMM框架.此外,还开发了******,第四节介绍了仿真结果,并通过定义各种性能指标验证了所提出的******模型的有效性.最后,第五节给出了结论.
 
-\section{EV MODEL CONSTRUCT}
+\section{EV MODEL CONSTRUCT}\label{section2}
 \subsection{EV distributed optimization framework }
 \noindent
-In this model, EV users upload their charging demand information to the aggregator when they connect their EVs to charging piles. Charging plan of each EV will then be sent back to EV users.The charging demand information include arrival time $t_i^c$,predefined departure time $t_i^d$,the SOC when connecting to charging piles$SOC_i^c$
+In this paper, we assume that EV users upload their charging demand information to the aggregator when they connect their EVs to charging piles. Charging plan of each EV will then be sent back to EV users.The charging demand information include arrival time $t_i^c$,predefined departure time $t_i^d$,the SOC when connecting to charging piles$SOC_i^c$
 and the expected SOC called $SOC_i^d$ of each EV. The coordinated charging scheduling process is shown in Fig. 1.
 
 In the scheduling process, the scheduling plan is usually executed by period of time for improving execution efficiency. The scheduling time is divided into several time periods. In the proposed EV charging scheduling model, a day is discretized into 96 time slots and the length of a time slot is 15 min. Then, the arrival
@@ -307,7 +307,7 @@ The following assumptions apply to the entire article:
 
 
 
-\section{EV Charging Framework based on improved ADMM}
+\section{EV Charging Framework based on improved ADMM}\label{section3}
 \rd{******}
 
 \subsection{Problem reformulation based on improved ADMM}
@@ -508,7 +508,7 @@ If $Q\succ0$ and $M_x\succeq 0$, then $\|u^k-u^{k+1}\|_M^2=o(1/k)$, however $\|x
 
 
 
-\section{Results and Discussion}
+\section{Results and Discussion}\label{section4}
 In this section, we will present and discuss the experimental results obtained, highlighting a comparative analysis of efficiency between the traditional ADMM algorithm and our proposed approach. The results will shed light on the advantages and potential improvements offered by our approach in terms of optimization results and computational efficiency.
 
 \subsection{Assumptions and Parameter Settings}
@@ -634,7 +634,7 @@ We conducted separate calculations of the decay rates for the primal and dual er
 To further investigate the performance of our proposed model in handling large-scale data, we conducted experiments for different numbers of electric vehicles (EVs), ranging from 100 to 300. The results were compared by analyzing the error decay trends of the algorithm, as depicted in Fig. \ref{ccc}. It is evident that increasing the number of EVs does not significantly impede the convergence of the error. This highlights the robustness and scalability of our proposed algorithm for addressing large-scale optimization problems. In addition, the algorithm's promising performance in handling big data implies its potential applications in real-world scenarios, where the amount of data is typically large and diverse. Therefore, our proposed model could be instrumental in providing efficient and effective solutions to various complex optimization tasks across a broad range of domains.
 
 
-
+\section{Conclusion}\label{section5}
 
 %\section{A Final Checklist}
 \bibliographystyle{IEEEtran}
