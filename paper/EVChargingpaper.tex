@@ -132,9 +132,11 @@ In short, our refined ADMM method not only improves computational efficiency but
 
 Additionally, the inclusion of  proximity term in this paper makes a significant contribution to convergence. In fact, many methods struggle to converge to the optimal solution.
 \bl{分布式的最优解也是一个挑战}
-\rd{ Despite the abundance of studies in this domain, as evidenced by references such as [10], [12]–[16], and others cited therein, achieving an optimal solution remains a complex task.
-In [12], a decentralized regularized primal-dual projection scheme was proposed to address multiuser problems with non-separable objectives and constraints. However, it is noteworthy that this method may introduce certain errors to the optimal solution. Similarly, works in [10], [13] –[15] explored the use of deviation penalty costs to replace feeder overload constraints. While this approach has its merits, the application of Lagrangian multipliers with slack parameters raises concerns about potential violations of feeder capacity, leading to suboptimal solutions.
-In [16], a gradient projection-based method was introduced to handle the charging control problem of EVs with hard constraints on feeder capacity. Despite its capability to address these constraints, there is a caveat: the implemented solution might not necessarily be the system's optimal solution. Hence, navigating the decentralized coordination of EV charging demands careful consideration of the trade-offs and limitations associated with existing methodologies. The aforementioned studies provide valuable insights, yet there remains a need for further exploration and refinement to achieve more robust and optimal decentralized coordination solutions in the realm of EV charging.}
+In the field of distributed optimization, despite extensive research as evidenced by the cited literature such as \cite{yuan2018optimal}, \cite{cheng2022distributed}-\cite{nedic2017achieving},\cite{jakovetic2020primal} achieving a global optimal solution remains a formidable task.
+The study presented in \cite{yuan2018optimal} explores non-Euclidean stochastic strongly convex optimization methods. While this strategy demonstrates effectiveness, it entails some nodes waiting for others to complete computations, resulting in shortcomings in the speed and efficiency of the algorithm. Similarly, in \cite{cheng2022distributed}-\cite{nedic2017achieving}, researchers propose a gradient tracking approach to solve optimization problems with linear objectives in strongly convex optimization. However, this method typically yields only local optimal solutions in general distributed optimization, hindering the attainment of a globally optimal solution. In \cite{jakovetic2020primal}, a primal-dual method is introduced to address large-scale distributed convex optimization and data analysis. Despite its long history and capability to handle constraints, it is important to note that this method is unable to solve nonsmooth problems and exhibits relatively slow convergence. Therefore, careful consideration of the trade-offs and limitations associated with the current methods is essential in the realm of distributed coordination.While existing research provides valuable insights, there is a noticeable gap that requires further exploration and refinement to establish more robust and optimal solutions in the field of distributed optimization.
+%在分布式优化领域，尽管有大量研究，如文献中所引用的\cite{yuan2018optimal},\cite{cheng2022distributed}-\cite{nedic2017achieving},等参考文献，但实现全局最优解仍然是一个艰巨的任务.
+%\cite{yuan2018optimal} 中的研究探讨了非欧几里德意义上的随机强凸优化方法。虽然这种策略显示出有效性，但在在计算上需要一些节点等待其他节点完成计算,所以在算法的速度和效率上有所欠缺.类似地, 在\cite{cheng2022distributed}-\cite{nedic2017achieving}中, 研究人员提出了一种采用梯度跟踪方法来解决具有强凸优化的线性目标的优化问题的方法。然而,这种方法在一般的分布式优化中只能求得局部最优解,阻碍实现真正最优解.在\cite{jakovetic2020primal}中，引入了一种基于原始-对偶方法来处理大规模分布式凸优化和数据分析.该方法有着悠久的历史,尽管它能够解决这些约束，但需要注意的是,该方法不能求解非光滑问题并且收敛速度相对比较慢. 因此, 在分布式协调的领域中, 需要仔细考虑与当前方法相关的权衡和限制. 虽然现有研究提供了宝贵的见解, 但存在一个明显的差距, 需要进一步探索和完善, 以在分布式优化领域建立更为健壮和最优的解决方案.
+
 
 %\bl{本文的主要贡献}
 The contributions of this article are outlined as follows:
@@ -290,7 +292,7 @@ After dimensionless transformation of each objective function, \eqref{OG} can be
 \begin{equation}\label{OG}
 \begin{aligned}
 min~~&\tau_1G_1+\tau_2G_2+\tau_3G_3+\tau_4\tilde{G}_4\\
-& =\tau_1 \sum_{n\in \mathcal{N}}\{\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t+\tau_2-(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2\\&+\tau_3\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2+\tau_4\|\bm{p}_n\|.
+& =\tau_1 \sum_{n\in \mathcal{N}}\{\sum_{t\in \mathcal{T}}E_tp_{n,t}\Delta t-\tau_2(\sum_{t\in \mathcal{T}}p_{nt}-\Gamma_n)^2\\&+\tau_3\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2+\tau_4\|\bm{p}_n\|.
 \end{aligned}
 \end{equation}
 Note:
@@ -459,9 +461,10 @@ Several viable selections of $\Phi,\Psi$,and $\gamma$ exist that satisfy (\ref{C
   &\mu_1+\mu_2<2-\gamma
 \end{align}
 
-{\color{red}Remark 1：需要注意的是,\cite{deng2017parallel} 中的Jacobian ADMM是并行的,可以直接应用于求解模型,但所有电动汽车需要共享信息,而我们在这里更倾向于每个智能体仅连接到几个邻居.
+Remark 1：It is important to note that the Jacobian ADMM mentioned in \cite{deng2017parallel} is parallel and can be directly applied to solve the model. However, it requires all electric vehicles to share information, while our preference here is for each intelligent agent to be connected only to a few neighbors.
 
-Remark2：我们提出$Amproved ADMM$ 相对于[Classical] 中的分布式ADMM 的优点如下.首先,[13] 中的ADMM 变量$(P,X,u)$ 必须按顺序更新,类似于经典的集中式ADMM. 这意味着，在迭代 k +1 时,需要首先更新 P 并用它来更新 X, 然后更新$\bm{u}$ 该更新顺序是不可更改的,因此变量不能同时更新.另一方面,我们提出的$Amproved-ADMM$ 算法通过同时以任意顺序更新 $P、X、u$, 显著改进了[Classical] 中的算法.这对于并行和分布式计算加快计算时间非常重要,特别是当代理数量非常大时.其次,并行更新变量的能力使我们提出的DCJ-ADMM 算法的收敛速度为$o(1/k)$, 这明显快于[Classical] 中算法的$O(1/k)$.}
+
+Remark2: We propose that $Amproved -ADMM$ offers several advantages over the conventional ADMM. Firstly, in the ADMM variant presented in [13], the variables $(P,X,u)$ must be updated sequentially, similar to the classical centralized ADMM. This means that in iteration k + 1, updating P first and using it to update X, and then updating $\bm{u}$ are predetermined steps, and variable updates cannot occur simultaneously. In contrast, our proposed $Amproved-ADMM$ algorithm significantly enhances the algorithm presented in [Classical] by allowing simultaneous updates of $P, X, u$ in any order. This is particularly crucial for accelerating computation time in parallel and distributed computing, especially when the number of agents is large. Secondly, the ability to update variables in parallel accelerates the convergence speed of our proposed DCJ-ADMM algorithm to $o(1/k)$, which is noticeably faster than the $O(1/k)$ convergence speed in the algorithm presented in ADMM
 
 
 \subsection{Algorthms}
