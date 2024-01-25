@@ -270,21 +270,21 @@ G_4=\|\bm{p}_n\|_0
 \end{align}
 Where $ \|\bm{p}_n\|_0 $ is the cardinality of the charging strategy, i.e. the number of non-zero elements in $ \|\bm{p}_n\| $. For EV owners with an urgent need for their vehicles, prioritizing charging is crucial, even though it comes with higher charging costs. On the other hand, owners who are not in a hurry to use their electric vehicles can shift the electric vehicle load to other time periods.
 
-As the process of electrification in the automotive industry progresses, initially, attempts were made to model the charging strategy problem as a minimum $ l_2 $ norm problem for solving. However, the $ l_2 $ norm does not capture the sparsity required by the charging strategy of electric vehicles. In contrast, the $ l_0 $ norm counts the number of non-zero values in a vector. Therefore, the charging strategy is modeled as a minimum $ l_0 $ norm problem to achieve shorter charging time, improved battery lifespan, and increased user satisfaction. However, the minimum $ l_0 $ norm problem is NP-hard and cannot be solved using conventional methods. Under certain conditions, the minimum $ l_1 $ problem and the minimum $ l_0 $ norm problem are equivalent, meaning that solving the minimum $ l_1 $ problem can yield the solution to the minimum $ l_0 $ problem. 
+As the process of electrification in the automotive industry progresses, initially, attempts were made to model the charging strategy problem as a minimum $ l_2 $ norm problem for solving. However, the $ l_2 $ norm does not capture the sparsity required by the charging strategy of electric vehicles. In contrast, the $ l_0 $ norm counts the number of non-zero values in a vector. Therefore, the charging strategy is modeled as a minimum $ l_0 $ norm problem to achieve shorter charging time, improved battery lifespan, and increased user satisfaction. However, the minimum $ l_0 $ norm problem is NP-hard and cannot be solved using conventional methods. Under certain conditions, the minimum $ l_1 $ problem and the minimum $ l_0 $ norm problem are equivalent, meaning that solving the minimum $ l_1 $ problem can yield the solution to the minimum $ l_0 $ problem.
 Therefore, we approximate the $ l_0 $ norm with the $ l_1 $ norm. We rephrase \eqref{G4} into the following sparse-promoting charging control model as follows:
 \begin{align}\label{GG4}
 \tilde{G}_4=\|\bm{p}_n\|_1.
 \end{align}
 
-The objective of this paper is to achieve several optimization objectives, i.e., minimizing the cost of electric vehicle charging, maximizing user satisfaction, minimizing grid load variance, and optimizing the electric vehicle charging strategy. Therefore we need to combine the equations \eqref{G1}, \eqref{G2}, \eqref{G3} and \eqref{GG4} organically instead of simply adding them. 
-In fact, due to the diverse dimensions of the four metrics EV charging cost, user satisfaction, grid load variance, and optimized electric vehicle charging strategy data normalization is required. 
+The objective of this paper is to achieve several optimization objectives, i.e., minimizing the cost of electric vehicle charging, maximizing user satisfaction, minimizing grid load variance, and optimizing the electric vehicle charging strategy. Therefore we need to combine the equations \eqref{G1}, \eqref{G2}, \eqref{G3} and \eqref{GG4} organically instead of simply adding them.
+In fact, due to the diverse dimensions of the four metrics EV charging cost, user satisfaction, grid load variance, and optimized electric vehicle charging strategy data normalization is required.
 Let $ g_1 $, $ g_2 $, $ g_3 $, and $ g_4 $ represent the dimensionless values of  objective functions $ G_1 $, $ G_2 $, $ G_3 $, and $ \tilde{G}_4 $ after normalization, respectively. We have
 \begin{equation}\label{G}
 \begin{aligned}
 \min~~g_1-g_2+g_3+g_4,
 \end{aligned}
 \end{equation}
-where 
+where
 \begin{align}
 g_i=\frac{G_j-minG_j}{max G_j-min G_j}, 1\leq i \leq 3
 \end{align}
@@ -432,7 +432,7 @@ where $ \rho>0 $ is the standard penalty parameter, $\Lambda$ ~is referred to as
 \Lambda^{k+1}&=\Lambda^k+\gamma\rho(\sum_{n=1}^{N+1} A_n\bm{p}_n^{k+1}),
 \end{aligned}
 \end{equation}
-where $ \Phi $, $ \Psi $, $ \gamma>0 $ satisfy
+where $ {\color{red}\Phi} $, $ \Psi $, $ \gamma>0 $ satisfy
 \begin{align}\label{Con1}
   &\Phi\succ \rho(\frac{1}{\mu_1}-1)I,\quad\Psi\succ \rho(\frac{1}{\mu_2}<2-\gamma)I,\nonumber\\
   &\mu_1+\mu_2<2-\gamma,
@@ -444,10 +444,15 @@ Here, (\ref{Con1}) is sufficient for the convergence of the improved ADMM. There
   &\mu_1+\mu_2<2-\gamma
 \end{align}
 
-Remark 1ㄩIt is important to note that the Jacobian ADMM mentioned in \cite{deng2017parallel} is parallel and can be directly applied to solve the model. However, it requires all electric vehicles to share information, while our preference here is for each intelligent agent to be connected only to a few neighbors.
+\begin{remark}
+  It is important to note that the Jacobian ADMM mentioned in \cite{deng2017parallel} is parallel and can be directly applied to solve the model. However, it requires all electric vehicles to share information, while our preference here is for each intelligent agent to be connected only to a few neighbors.
+\end{remark}
 
 
-Remark2: The Jacobian-ADMM proposed by us exhibits several advantages over the distributed ADMM in \cite{zhou2020admm}. Firstly, in the ADMM variant presented in \cite{zhou2020admm}, the variables (P, X, u) must be updated sequentially, similar to the classical centralized ADMM. This implies that in the k + 1 iteration, updating P first, using it to update X, and then updating u are predetermined steps, and variable updates cannot occur simultaneously. In contrast, our proposed P每ADMM algorithm significantly enhances the algorithm in \cite{zhou2020admm} by allowing simultaneous updates of $P_i,i=1,\cdot\cdot\cdot,N$  in any order. This is particularly crucial for parallel and distributed computing, accelerating computational time, especially when the number of agents is very large. Secondly, the ability to update variables in parallel gives our proposed P每ADMM algorithm a convergence speed of o(1/k) [24], which is noticeably faster than the O(1/k) convergence speed in the algorithm in \cite{zhou2020admm}.
+\begin{remark}
+ The Jacobian-ADMM proposed by us exhibits several advantages over the distributed ADMM in \cite{zhou2020admm}. Firstly, in the ADMM variant presented in \cite{zhou2020admm}, the variables $(P, X, u)$ must be updated sequentially, similar to the classical centralized ADMM. This implies that in the $k + 1 $iteration, updating P first, using it to update X, and then updating u are predetermined steps, and variable updates cannot occur simultaneously. In contrast, our proposed P每ADMM algorithm significantly enhances the algorithm in \cite{zhou2020admm} by allowing simultaneous updates of $P_i,i=1,\cdot\cdot\cdot,N$  in any order. This is particularly crucial for parallel and distributed computing, accelerating computational time, especially when the number of agents is very large. Secondly, the ability to update variables in parallel gives our proposed P每ADMM algorithm a convergence speed of $o(1/k)$ {\color{red}[24]}, which is noticeably faster than the $O(1/k)$ convergence speed in the algorithm in \cite{zhou2020admm}.
+\end{remark}
+
 
 
 \subsection{Algorthms}
