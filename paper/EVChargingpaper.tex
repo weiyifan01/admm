@@ -163,9 +163,9 @@ throughout the paper is provided in Table \ref{tab:1}.
  $ \Gamma_n $ &Total~charging~power~required~to~be~fully~charged~of~EV~n\\
 $ \color{red}B_t $ &  \text{residential
 electricity consumption} \\
-$ E_t $ & \\
-$ C_n $ & \\
-$ \eta_n $ & \\
+$ E_t $ & \text{the electricity price at time $t$}\\
+$ C_n $ & \text{the battery efficiency of $ EV_n $ in each time slot} \\
+$ \eta_n $ &\text{the charging energy conversion efficiency of $ EV_n $}\\
 
         \noalign{\smallskip}\hline
     \end{tabular}
@@ -301,14 +301,15 @@ Considering that the importance and priority of these factors are generally diff
 &+\omega_3\frac{1}{T}\sum_{t\in\mathcal{T}}[(\sum_{n\in\mathcal{N}}p_{nt}+B_{t})-\overline{p+B}]^2+\omega_4\|\bm{p}_n\|_1.
 \end{aligned}
 \end{equation}
+\rd{
 Note:
-
 The following assumptions apply to the entire article:
+
 \begin{enumerate}
 \item $ G_1 $ is Lipschitz continuous, for all $ x $,
-\item $ G_3 $ is non-decreasing, concave, and Lipschitz continuous, for all $ n\in\mathcal{N} $ and all $ x $.
+\item $ G_3 $ is increasing, strictly convex, and differentiable, for all $ n\in\mathcal{N} $ and all $ x $.
 \item $ -G_2 $ is non-decreasing, strictly convex and differentiable.
-\end{enumerate}
+\end{enumerate}}
 
 
 
@@ -317,9 +318,8 @@ The following assumptions apply to the entire article:
 Notice that the objective function in the model given in the previous section is highly coupled, and therefore cannot be solved in parallel. To address this difficulty, we will present a new decoupling method and use the Jacobi-Proximal ADMM for parallel solving. In this way, the solving speed will be greatly improved, laying the foundation for the economic dispatch of microgrids.
 
 
-\subsection{Problem reformulation based on improved ADMM}
+\subsection{Problem reformulation based on Parallel ADMM}
 
-\noindent
 The ADMM method has emerged as a powerful technique for addressing large-scale structured optimization problems. Notably, ADMM excels in disentangling spatial coupling constraints and decomposing the primary problem into numerous manageable subproblems, each amenable to straightforward resolution. The global objective is subsequently optimized. However, in the context of this paper, where more than two variables are involved, we employ a modified ADMM algorithm. This adaptation extends ADMM to address optimization challenges characterized by three or more separable operators. Specifically, the augmented Lagrangian (\ref{oobj}) is decomposed into alternating and parallel steps. In each iteration, this method employs a new decomposition pattern to solve multiple smaller and easily solvable variables $ x_j $. Sub-problem variables $ x_j $ can be computed in parallel. This approach enhances efficiency by enabling simultaneous processing of multiple variables, thereby accelerating the overall computation process.
 
 For an optimisation problem with linear constraints, the objective function comprises the aggregate of $ M $ independent functions devoid of interdependent variables. The corresponding mathematical model can be expressed as follows
@@ -419,11 +419,11 @@ Thus, problem \eqref{OG} can be equivalently rewritten in the following form:
 \end{align}
 
 The augmented lagrangian of \eqref{obj_2} is:
-\bl{
+
 \begin{align}
-&\mathcal{L}_{\rho}(\bm{p}_1,\cdot\cdot\cdot,\bm{p}_{N+1},\Lambda)\nonumber\\ =&\sum_{n=1}^{N+1}\Theta_i(\bm{p}_i)+\frac{\rho}{2}\|\sum_{i=1}^{N+1}A_i\bm{p}_i+\frac{\Lambda}{\rho}\|_2^2,
+&\mathcal{L}_{\rho}(\bm{p}_1,\cdot\cdot\cdot,\bm{p}_{N+1},\Lambda)\nonumber\\ =&\sum_{n=1}^{N+1}\Theta_i(\bm{p}_i)+\frac{\rho}{2}\|\sum_{i=1}^{N+1}A_i\bm{p}_i-\frac{\Lambda}{\rho}\|_2^2,
 \end{align}
-}
+
 where $ \rho>0 $ is the standard penalty parameter, $\Lambda$ ~is referred to as the scaling dual variable or scaling Lagrange multiplier.~The variables $ \bm{p}_i $ ~and~ $ \Lambda$ ~are updated simultaneously by adding additional approximation terms. The specific update procedures are as follows.
 \begin{equation}
 \begin{aligned}
@@ -432,16 +432,16 @@ where $ \rho>0 $ is the standard penalty parameter, $\Lambda$ ~is referred to as
 \Lambda^{k+1}&=\Lambda^k+\gamma\rho(\sum_{n=1}^{N+1} A_n\bm{p}_n^{k+1}),
 \end{aligned}
 \end{equation}
-where $ {\color{red}\Phi} $, $ \Psi $, $ \gamma>0 $ satisfy
+where  $ \Psi_i $, $ \gamma>0 $ satisfy
 \begin{align}\label{Con1}
-  &\Phi\succ \rho(\frac{1}{\mu_1}-1)I,\quad\Psi\succ \rho(\frac{1}{\mu_2}<2-\gamma)I,\nonumber\\
-  &\mu_1+\mu_2<2-\gamma,
+  &\Psi_i\succ \rho(\frac{1}{\mu_i}<2-\gamma)I,\nonumber\\
+  &\sum_i^{N+1}\mu_i<2-\gamma,
 \end{align}
-for $ \mu_1>0 $, $ \mu_2>0 $.
-Here, (\ref{Con1}) is sufficient for the convergence of the improved ADMM. There are several viable selections of $ \Phi,\Psi $, and $ \gamma $ that satisfy (\ref{Con1}). For this purpose, a straightforward choice applied here involves setting $ \Phi=\phi I $, and $ \Psi=\psi I $, thereby fulfilling
+for $ \mu_i>0,i=1,\cdot\cdot\cdot,N+1$
+Here, (\ref{Con1}) is sufficient for the convergence of the improved ADMM. There are several viable selections of $ \Phi,\Psi $, and $ \gamma $ that satisfy (\ref{Con1}). For this purpose, a straightforward choice applied here involves setting  and $ \Psi_i=\psi_i I $, thereby fulfilling
 \begin{align}\label{con1}
-  &\phi\succ \rho(\frac{1}{\mu_1}-1),\psi\succ \rho(\frac{1}{\mu_2}<2-\gamma)\nonumber\\
-  &\mu_1+\mu_2<2-\gamma
+  &\psi_i\succ \rho(\frac{1}{\mu_i}<2-\gamma)\nonumber\\
+  &\sum_i^{N+1}\mu_i<2-\gamma
 \end{align}
 
 \begin{remark}
@@ -450,7 +450,7 @@ Here, (\ref{Con1}) is sufficient for the convergence of the improved ADMM. There
 
 
 \begin{remark}
- The Jacobian-ADMM proposed by us exhibits several advantages over the distributed ADMM in \cite{zhou2020admm}. Firstly, in the ADMM variant presented in \cite{zhou2020admm}, the variables $(P, X, u)$ must be updated sequentially, similar to the classical centralized ADMM. This implies that in the $k + 1 $iteration, updating P first, using it to update X, and then updating u are predetermined steps, and variable updates cannot occur simultaneously. In contrast, our proposed P每ADMM algorithm significantly enhances the algorithm in \cite{zhou2020admm} by allowing simultaneous updates of $P_i,i=1,\cdot\cdot\cdot,N$  in any order. This is particularly crucial for parallel and distributed computing, accelerating computational time, especially when the number of agents is very large. Secondly, the ability to update variables in parallel gives our proposed P每ADMM algorithm a convergence speed of $o(1/k)$ {\color{red}[24]}, which is noticeably faster than the $O(1/k)$ convergence speed in the algorithm in \cite{zhou2020admm}.
+ The Jacobian-ADMM proposed by us exhibits several advantages over the distributed ADMM in \cite{zhou2020admm}. Firstly, in the ADMM variant presented in \cite{zhou2020admm}, the variables $(P, X, u)$ must be updated sequentially, similar to the classical centralized ADMM. This implies that in the $k + 1 $iteration, updating P first, using it to update X, and then updating u are predetermined steps, and variable updates cannot occur simultaneously. In contrast, our proposed P每ADMM algorithm significantly enhances the algorithm in \cite{zhou2020admm} by allowing simultaneous updates of $P_i,i=1,\cdot\cdot\cdot,N$  in any order. This is particularly crucial for parallel and distributed computing, accelerating computational time, especially when the number of agents is very large. Secondly, the ability to update variables in parallel gives our proposed P每ADMM algorithm a convergence speed of $o(1/k)$ \cite{deng2017parallel}, which is noticeably faster than the $O(1/k)$ convergence speed in the algorithm in \cite{zhou2020admm}.
 \end{remark}
 
 
