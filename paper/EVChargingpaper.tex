@@ -57,7 +57,7 @@
 \maketitle
 
 \begin{abstract}
-With the rapid proliferation of electric vehicles (EVs), the challenges of integrating their charging demands into the power grid have intensified. This paper addresses the imperative of orderly EV charging¡Xa multi-objective optimization problem that balances grid stability, cost-efficiency, and user convenience. We propose a dual-pronged solution that encompasses the development of a sparse mathematical model-based distributed framework for EV management and an improved Alternating Direction Method of Multipliers (ADMM) algorithm. The framework facilitates the decoupling of complex charging coordination problems into multiple sub-problems, enhancing system interpretability and computational efficiency. The refined ADMM algorithm, with its multiple block Jacobi forms and the inclusion of a proximal term, not only allows for parallel computation but also achieves superior convergence rates, improving from $ O(1/k) $ to $ o(1/k) $. Simulation results confirm the efficacy of our model in managing large-scale EV charging coordination, ensuring grid stability, and offering a scalable, privacy-preserving solution for EV users and operators. This study contributes to the advancement of smart grid technology by providing a robust mechanism for accommodating the burgeoning EV charging demand while maintaining grid integrity and optimizing user experience.
+With the rapid proliferation of electric vehicles (EVs), the challenges of integrating their charging demands into the power grid have intensified. This paper addresses the imperative of orderly EV charging¡ªa multi-objective optimization problem that balances grid stability, cost-efficiency, and user convenience. We propose a systematic solution programme that encompasses the development of a sparse mathematical model-based distributed model for EV management and an improved Alternating Direction Method of Multipliers (ADMM) algorithm. The model facilitates the decoupling of complex charging coordination problems into multiple sub-problems, enhancing system interpretability and computational efficiency. The refined ADMM algorithm, with its multiple block Jacobi forms and the inclusion of a proximal term, not only allows for parallel computation but also achieves superior convergence rates, improving from $ O(1/k) $ to $ o(1/k) $. Simulation results confirm the efficacy of our model in managing large-scale EV charging coordination, ensuring grid stability, and offering a scalable, privacy-preserving solution for EV users and operators.
 \end{abstract}
 \begin{IEEEkeywords}
 Electric Vehicle Charging, Orderly Charging, Power Grid Stability, Multi-Objective Optimization, ADMM, Distributed Framework, Convergence Rate, Smart Grid.
@@ -364,7 +364,7 @@ where $ \theta_i $ is a non-strictly convex function, $ M\geq3 $. $ L $ is the n
               +\frac{\rho}{2}\|A_n\bm{p}_n+\sum\limits_{j\neq n}A_j\bm{p}_j^k -c   -\frac{\Lambda^k} {\rho}\|_2^2+\frac{1}{2}\|\bm{p}_n-\bm{p}_n^k\|_{\Psi_i}^2\big\} $
         \STATE Update the dual variable $ \Lambda $ by:
                 \STATE \qquad $ \Lambda^{k+1}=\Lambda^k-\gamma\rho(\sum_{n=1}^{N+1} A_n\bm{p}_n^{k+1}-c) $
-        \IF { $ \sum_{n=1}^{N+1}\|\bm{p}_n^{k+1}-\bm{p}_n^{k}\|_F \leq \varepsilon^{pri} $ }
+        \IF {  $\|\Lambda^{k+1}-\Lambda^k\|_F\leq r\,\AND\, \sum_{n=1}^{N+1}\|\bm{p}_n^{k+1}-\bm{p}_n^{k}\|_F \leq s $ }
             \STATE Break.
         \ENDIF
         \ENDFOR
@@ -421,10 +421,10 @@ Thus, problem \eqref{OG} can be equivalently rewritten in the following form:
 The augmented lagrangian of \eqref{obj_2} is:
 
 \begin{align}
-&\mathcal{L}_{\rho}(\bm{p}_1,\cdot\cdot\cdot,\bm{p}_{N+1},\Lambda)\nonumber\\ =&\sum_{n=1}^{N+1}\Theta_i(\bm{p}_i)+\frac{\rho}{2}\|\sum_{i=1}^{N+1}A_i\bm{p}_i-\frac{\Lambda}{\rho}\|_2^2,
+&\mathcal{L}_{\rho}(\bm{p}_1,\cdot\cdot\cdot,\bm{p}_{N+1},\Lambda)\nonumber\\ =&\sum_{n=1}^{N+1}\Theta_i(\bm{p}_i)+\frac{\rho}{2}\|\sum_{i=1}^{N+1}A_i\bm{p}_i+c-\frac{\Lambda}{\rho}\|_2^2,
 \end{align}
-
-where $ \rho>0 $ is the standard penalty parameter, $\Lambda$ ~is referred to as the scaling dual variable or scaling Lagrange multiplier.~The variables $ \bm{p}_i $ ~and~ $ \Lambda$ ~are updated simultaneously by adding additional approximation terms. The specific update procedures are as follows.
+where $$ A_n=1, \forall 1\leq n\leq N;\quad A_{N+1}=-1;\quad c=0. $$
+Here $ \rho>0 $ is the standard penalty parameter, $\Lambda$ ~is referred to as the scaling dual variable or scaling Lagrange multiplier.~The variables $ \bm{p}_i $ ~and~ $ \Lambda$ ~are updated simultaneously by adding additional approximation terms. The specific update procedures are as follows.
 \begin{equation}
 \begin{aligned}
 \bm{p}_n^{k+1}:&=\mathop{\arg\min}\limits_{\bm{p}\in\mathcal{P}}\Theta_n(\bm{p}_n)\\\nonumber
@@ -435,13 +435,13 @@ where $ \rho>0 $ is the standard penalty parameter, $\Lambda$ ~is referred to as
 where  $ \Psi_i $, $ \gamma>0 $ satisfy
 \begin{align}\label{Con1}
   &\Psi_i\succ \rho(\frac{1}{\mu_i}<2-\gamma)I,\nonumber\\
-  &\sum_i^{N+1}\mu_i<2-\gamma,
+  &\sum_{i=1}^{N+1}\mu_i <2-\gamma,
 \end{align}
 for $ \mu_i>0,i=1,\cdot\cdot\cdot,N+1$
 Here, (\ref{Con1}) is sufficient for the convergence of the improved ADMM. There are several viable selections of $ \Phi,\Psi $, and $ \gamma $ that satisfy (\ref{Con1}). For this purpose, a straightforward choice applied here involves setting  and $ \Psi_i=\psi_i I $, thereby fulfilling
 \begin{align}\label{con1}
   &\psi_i\succ \rho(\frac{1}{\mu_i}<2-\gamma)\nonumber\\
-  &\sum_i^{N+1}\mu_i<2-\gamma
+  &\sum_{i=1}^{N+1}\mu_i<2-\gamma
 \end{align}
 
 \begin{remark}
@@ -458,20 +458,19 @@ Here, (\ref{Con1}) is sufficient for the convergence of the improved ADMM. There
 \subsection{Algorthms}
 
 
-\noindent If the number of iterations reaches a given threshold $ iter_{max} $ or satisfies the following conditions simultaneously~\cite{boyd2011distributed}, then ADMM meets the following criteria:
+\noindent If the number of iterations reaches a given threshold $ iter_{\max} $ or satisfies the following conditions simultaneously~\cite{boyd2011distributed}, then ADMM meets the following criteria:
 \begin{align*}
-\bm{r}^{k+1}=\|\bm{P}^{k+1}-\bm{Y}^{k+1}\|_F
+r^{k+1}=\|\Lambda^{k+1}-\Lambda^k\|_F,
 \end{align*}
-where
-$\bm{P}:=[\bm{p}_1,...,\bm{p}_N,\bm{p}_{N+1}]'\in\mathcal{R}^{(N+1)\times T}$.
+%where $\bm{P}:=[\bm{p}_1,...,\bm{p}_N,\bm{p}_{N+1}]'\in\mathcal{R}^{(N+1)\times T}$.
 \begin{align*}
-\bm{s}^{k+1}=\|\rho(\bm{Y}^{k+1}-\bm{Y}^{k})\|_F
+s^{k+1}=\sum_{n=1}^{N+1}\|\bm{p}_n^{k+1}-\bm{p}_n^{k}\|_F.
 \end{align*}
-this shows that when the residual $ \bm{r}^k $ and $ \bm{s}^k $ are small as follow
+It shows that when the residual $ r^k $ and $ s^k $ are small as follow
 \begin{align*}
-\|\bm{r}^k\|_2\leq \varepsilon^{pri}\,\,\,\,\,\,\,\,\|\bm{s}^k\|_2\leq \varepsilon^{dual}
+r^k\leq \varepsilon^{pri},\,s^k\leq \varepsilon^{dual}
 \end{align*}
-where~ $ \varepsilon^{pri}>0 $ and $ \varepsilon^{dual}>0 $ ~are feasibility~tolerances~for~the~primal~and~dual~feasibity~{\color{red}conditions~()}~and~(). These~tolerances~can~be~
+where~ $ \varepsilon^{pri}>0 $ and $ \varepsilon^{dual}>0 $ ~are feasibility~tolerances~for~the~primal~and~dual~feasibity. These~tolerances~can~be~
 chosen~using~an~absolute~and~relative~criterion, such~as
 \begin{align*}
 &\varepsilon^{pri}=\sqrt{N}\varepsilon^{abs}+\varepsilon^{rel}\max\{\|p\|_2,\|-x\|_2\},\\
@@ -480,7 +479,7 @@ chosen~using~an~absolute~and~relative~criterion, such~as
 where~ $ \varepsilon^{abs}>0 $ ~is~an~absolute~tolerance~and~ $ \varepsilon^{rel}>0 $ ~is~a~relative~tolerance. A~reasonable~value~for~the~relative~stopping
 criterion~might~be~ $ 10^{-3} $ ~or~ $ 10^{-4} $.~A~pseudo-code~for~the~proposed Improved -ADMM~is~then~give~in~Algorithm~2.
 Here,
- $$ A_n=1, \forall 1\leq n\leq N;\quad A_{N+1}=-1;\quad c=0. $$
+
  {\color{red}
 \begin{theorem}\cite{deng2017parallel}\label{Th1}
 For $ k\geq 1 $, we have
@@ -548,9 +547,8 @@ We assume that the initial state of charge ( $ SOC_c $ ) of electric vehicles is
 \subsubsection{Other Parameter Settings}
 For any n, we assume that
 \bl{
-$ C_n = 30 $
-$ p_n^{min}=0 $ and $ p_n^{max}=7 $
-$\eta_n=0.9$
+$$ C_n = 30, 
+  p_n^{min}=0 , p_n^{max}=7,  \eta_n=0.9.$$
 }
 
 
@@ -635,6 +633,7 @@ To further investigate the performance of our proposed model in handling large-s
 
 
 \section{Conclusion}\label{section5}
+The surge in the adoption of Electric Vehicles (EVs) has presented challenges in integrating these vehicles with the power grid. In this study, we have developed a multi-objective optimization model based on a sparse mathematical framework that considers grid stability, user costs, and convenience. To efficiently solve the model, we have proposed an improved ADMM method that not only enhances computational efficiency but also effectively addresses the complexities of large-scale EV coordination, ensuring privacy preservation and overcoming challenges related to constraint descriptions. In comparison to traditional ADMM models, the main feature of the model proposed in this paper is the structural decoupling of coupled objective functions to enable parallel problem-solving. Additionally, the introduction of a proximity term has resulted in superior convergence rates, improving from $ O(1/k) $ to $ o(1/k) $. Furthermore, numerical model validation has demonstrated the effectiveness of the proposed algorithm. Moving forward, we will focus on addressing strongly coupled issues such as feeder capacity and explore the development of decoupling models and construction of parallel algorithms.
 
 %\section{A Final Checklist}
 \bibliographystyle{IEEEtran}
